@@ -7,7 +7,7 @@ import { zod } from 'sveltekit-superforms/adapters';
 import { riskDeleteSchema, riskSchema } from '$lib/IC/Validation/Risk.schema';
 import { buildTree } from '$lib/components/Tree/TreeView.utilities';
 import { processDeleteSchema, processSchema } from '$lib/IC/Validation/Process.schema';
-import { matrixSchema } from '$lib/IC/Validation/Matrix.schema';
+import { deleteMatrixSchema, matrixSchema } from '$lib/IC/Validation/Matrix.schema';
 import { eq } from 'drizzle-orm';
 import { controlDeleteSchema, controlSchema } from '$lib/IC/Validation/control.schema';
 
