@@ -40,7 +40,7 @@ export const actions: Actions = {
 		if (!form.valid) {
 			return fail(400, { form });
 		}
-		let id = crypto.randomUUID();
+		const id = crypto.randomUUID();
 		await db.insert(riskTable).values({
 			id: id,
 			code: `R${id.split('-')[1]}`,
@@ -55,7 +55,7 @@ export const actions: Actions = {
 		if (!form.valid) {
 			return fail(400, { form });
 		}
-		let id = crypto.randomUUID();
+		const id = crypto.randomUUID();
 		await db.insert(controlTable).values({
 			id: id,
 			code: `R${id.split('-')[1]}`,
@@ -71,7 +71,7 @@ export const actions: Actions = {
 		if (!form.valid) {
 			return fail(400, { form });
 		}
-		let id = crypto.randomUUID();
+		const id = crypto.randomUUID();
 		await db.insert(processTable).values({
 			id: id,
 			code: `P${id.split('-')[1]}`,
@@ -117,7 +117,7 @@ export const actions: Actions = {
 		if (!form.valid) {
 			return fail(400, { form });
 		}
-		let risk = await db.select().from(riskTable).where(eq(riskTable.id, form.data.id));
+		const risk = await db.select().from(riskTable).where(eq(riskTable.id, form.data.id));
 		if (risk.length === 0 || !risk) {
 			return fail(400, { form });
 		}
@@ -135,7 +135,7 @@ export const actions: Actions = {
 		if (!form.valid) {
 			return fail(400, { form });
 		}
-		let control = await db.select().from(controlTable).where(eq(controlTable.id, form.data.id));
+		const control = await db.select().from(controlTable).where(eq(controlTable.id, form.data.id));
 		if (control.length === 0 || !control) {
 			return fail(400, { form });
 		}
