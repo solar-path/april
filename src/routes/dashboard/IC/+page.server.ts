@@ -6,10 +6,10 @@ import { zod } from 'sveltekit-superforms/adapters';
 import { eq } from 'drizzle-orm';
 import { buildTree } from '$lib/components/Tree/TreeView.utilities';
 import { entityTable } from '$lib/database/schema/entity';
-import { riskDeleteSchema, riskSchema } from '$lib/IC/Validation/risk.schema';
 import { controlDeleteSchema, controlSchema } from '$lib/IC/Validation/control.schema';
 import { processDeleteSchema, processSchema } from '$lib/IC/Validation/process.schema';
 import { deleteMatrixSchema, matrixSchema } from '$lib/IC/Validation/matrix.schema';
+import { riskDeleteSchema, riskSchema } from '$lib/IC/Validation/risk.schema';
 
 export const load: PageServerLoad = async () => {
 	const processList = await db.select().from(processTable);
