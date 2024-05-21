@@ -1,0 +1,77 @@
+[
+	{
+		"code": "C1",
+		"title": "Due diligence",
+		"description": "Ensure that the supplier is reputable and meets the necessary standards."
+	},
+	{
+		"code": "C2",
+		"title": "Inbound goods quality assurance",
+		"description": "Ensure that the procured goods or services meet the required standards."
+	},
+	{
+		"code": "C3",
+		"title": "Stock reseverse",
+		"description": "Company has 3 days stock reserve."
+	},
+	{
+		"code": "C4",
+		"title": "Price hedging",
+		"description": "Company has adopted a price hedging strategy for A-category goods."
+	},
+	{
+		"code": "C5",
+		"title": "Periodic measurement of emissions",
+		"description": "Company has a periodic measurement of emissions. "
+	},
+	{
+		"code": "C6",
+		"title": "Diversification of Supply Sources",
+		"description": "Implement strategies to diversify supply sources, including identifying and qualifying alternative suppliers, to mitigate the risk of dependency on a single source of supply."
+	},
+	{
+		"code": "C7",
+		"title": "Fraud or unethical practices in the supply chain",
+		"description": "Company has implemented counterparty due diligence and has a fraud detection system."
+	},
+	{
+		"code": "C8",
+		"title": "Intellectual Property Rights Management",
+		"description": "Implement comprehensive intellectual property rights management practices, including thorough review of procurement contracts, to safeguard against intellectual property risks."
+	},
+	{
+		"code": "C9",
+		"title": "SOC reports are required",
+		"description": "Company has implemented comprehensive data security measures, including encryption and secure data transmission protocols."
+	},
+	{
+		"code": "C10",
+		"title": "Demand is analyzed versus currentstock",
+		"description": "Company has implemented a procurement management system that includes a procurement plan, a procurement strategy, and a procurement team."
+	},
+	{
+		"code": "C11",
+		"title": "Apply CAHRA standards to supply chain",
+		"description": "Company has implemented a supply chain management system that includes a supply chain plan, a supply chain strategy, and a supply chain team."
+	},
+	{
+		"code": "C12",
+		"title": "Good's price fixed",
+		"description": "Company has fixed goods cost as of Jan 1st, 2023."
+	},
+	{
+		"code": "C13",
+		"title": "Code of conduct",
+		"description": "Suppliers are required to follow a code of conduct. Any supplier that does not follow the code of conduct will be disallowed from supplying goods or services to the company."
+	},
+	{
+		"code": "C14",
+		"title": "Review assets lifecycle",
+		"description": "Company has implemented assets lifecycle management."
+	},
+	{
+		"code": "C15",
+		"title": "Environmental sustainability risks in the supply chain",
+		"description": "Company applied OECD's principles of environmental sustainability."
+	}
+]

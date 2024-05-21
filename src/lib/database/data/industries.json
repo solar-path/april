@@ -1,0 +1,2186 @@
+[
+	{
+		"code": 10,
+		"name": "Energy",
+		"description": "",
+		"parentId": null,
+		"createdAt": 1692682166846,
+		"updatedAt": 1692682166846
+	},
+	{
+		"code": 15,
+		"name": "Materials",
+		"description": "",
+		"parentId": null,
+		"createdAt": 1692682166851,
+		"updatedAt": 1692682166851
+	},
+	{
+		"code": 20,
+		"name": "Industrials",
+		"description": "",
+		"parentId": null,
+		"createdAt": 1692682166862,
+		"updatedAt": 1692682166862
+	},
+	{
+		"code": 25,
+		"name": "Consumer Discretionary",
+		"description": "",
+		"parentId": null,
+		"createdAt": 1692682166883,
+		"updatedAt": 1692682166883
+	},
+	{
+		"code": 30,
+		"name": "Consumer Staples",
+		"description": "",
+		"parentId": null,
+		"createdAt": 1692682166902,
+		"updatedAt": 1692682166902
+	},
+	{
+		"code": 35,
+		"name": "Health Care",
+		"description": "",
+		"parentId": null,
+		"createdAt": 1692682166911,
+		"updatedAt": 1692682166911
+	},
+	{
+		"code": 40,
+		"name": "Financials",
+		"description": "",
+		"parentId": null,
+		"createdAt": 1692682166919,
+		"updatedAt": 1692682166919
+	},
+	{
+		"code": 45,
+		"name": "Information Technology",
+		"description": "",
+		"parentId": null,
+		"createdAt": 1692682166933,
+		"updatedAt": 1692682166933
+	},
+	{
+		"code": 50,
+		"name": "Communication Services",
+		"description": "",
+		"parentId": null,
+		"createdAt": 1692682166945,
+		"updatedAt": 1692682166945
+	},
+	{
+		"code": 55,
+		"name": "Utilities",
+		"description": "",
+		"parentId": null,
+		"createdAt": 1692682166953,
+		"updatedAt": 1692682166953
+	},
+	{
+		"code": 60,
+		"name": "Real Estate",
+		"description": "",
+		"parentId": null,
+		"createdAt": 1692682166959,
+		"updatedAt": 1692682166959
+	},
+	{
+		"code": 1010,
+		"name": "Energy",
+		"description": "",
+		"parentId": 10,
+		"createdAt": 1692682166847,
+		"updatedAt": 1692682166847
+	},
+	{
+		"code": 1510,
+		"name": "Materials",
+		"description": "",
+		"parentId": 15,
+		"createdAt": 1692682166852,
+		"updatedAt": 1692682166852
+	},
+	{
+		"code": 2010,
+		"name": "Capital Goods",
+		"description": "",
+		"parentId": 20,
+		"createdAt": 1692682166863,
+		"updatedAt": 1692682166863
+	},
+	{
+		"code": 2020,
+		"name": "Commercial & Professional Services",
+		"description": "",
+		"parentId": 20,
+		"createdAt": 1692682166872,
+		"updatedAt": 1692682166872
+	},
+	{
+		"code": 2030,
+		"name": "Transportation",
+		"description": "",
+		"parentId": 20,
+		"createdAt": 1692682166877,
+		"updatedAt": 1692682166877
+	},
+	{
+		"code": 2510,
+		"name": "Automobiles & Components",
+		"description": "",
+		"parentId": 25,
+		"createdAt": 1692682166883,
+		"updatedAt": 1692682166883
+	},
+	{
+		"code": 2520,
+		"name": "Consumer Durables & Apparel",
+		"description": "",
+		"parentId": 25,
+		"createdAt": 1692682166887,
+		"updatedAt": 1692682166887
+	},
+	{
+		"code": 2530,
+		"name": "Consumer Services",
+		"description": "",
+		"parentId": 25,
+		"createdAt": 1692682166892,
+		"updatedAt": 1692682166892
+	},
+	{
+		"code": 2550,
+		"name": "Consumer Discretionary Distribution & Retail",
+		"description": "",
+		"parentId": 25,
+		"createdAt": 1692682166896,
+		"updatedAt": 1692682166896
+	},
+	{
+		"code": 3010,
+		"name": "Consumer Staples Distribution & Retail",
+		"description": "",
+		"parentId": 30,
+		"createdAt": 1692682166902,
+		"updatedAt": 1692682166902
+	},
+	{
+		"code": 3020,
+		"name": "Food, Beverage & Tobacco",
+		"description": "",
+		"parentId": 30,
+		"createdAt": 1692682166905,
+		"updatedAt": 1692682166905
+	},
+	{
+		"code": 3030,
+		"name": "Personal Care Products",
+		"description": "",
+		"parentId": 30,
+		"createdAt": 1692682166909,
+		"updatedAt": 1692682166909
+	},
+	{
+		"code": 3510,
+		"name": "Health Care Equipment & Services",
+		"description": "",
+		"parentId": 35,
+		"createdAt": 1692682166911,
+		"updatedAt": 1692682166911
+	},
+	{
+		"code": 3520,
+		"name": "Pharmaceuticals, Biotechnology & Life Sciences",
+		"description": "",
+		"parentId": 35,
+		"createdAt": 1692682166916,
+		"updatedAt": 1692682166916
+	},
+	{
+		"code": 4010,
+		"name": "Banks",
+		"description": "",
+		"parentId": 40,
+		"createdAt": 1692682166919,
+		"updatedAt": 1692682166919
+	},
+	{
+		"code": 4020,
+		"name": "Financial Services",
+		"description": "",
+		"parentId": 40,
+		"createdAt": 1692682166921,
+		"updatedAt": 1692682166921
+	},
+	{
+		"code": 4030,
+		"name": "Insurance",
+		"description": "",
+		"parentId": 40,
+		"createdAt": 1692682166930,
+		"updatedAt": 1692682166930
+	},
+	{
+		"code": 4510,
+		"name": "Software & Services",
+		"description": "",
+		"parentId": 45,
+		"createdAt": 1692682166934,
+		"updatedAt": 1692682166934
+	},
+	{
+		"code": 4520,
+		"name": "Technology Hardware & Equipment",
+		"description": "",
+		"parentId": 45,
+		"createdAt": 1692682166937,
+		"updatedAt": 1692682166937
+	},
+	{
+		"code": 4530,
+		"name": "Semiconductors & Semiconductor Equipment",
+		"description": "",
+		"parentId": 45,
+		"createdAt": 1692682166943,
+		"updatedAt": 1692682166943
+	},
+	{
+		"code": 5010,
+		"name": "Telecommunication Services",
+		"description": "",
+		"parentId": 50,
+		"createdAt": 1692682166945,
+		"updatedAt": 1692682166945
+	},
+	{
+		"code": 5020,
+		"name": "Media & Entertainment",
+		"description": "",
+		"parentId": 50,
+		"createdAt": 1692682166948,
+		"updatedAt": 1692682166948
+	},
+	{
+		"code": 5510,
+		"name": "Utilities",
+		"description": "",
+		"parentId": 55,
+		"createdAt": 1692682166954,
+		"updatedAt": 1692682166954
+	},
+	{
+		"code": 6010,
+		"name": "Equity Real Estate Investment Trusts (REITs)",
+		"description": "",
+		"parentId": 60,
+		"createdAt": 1692682166960,
+		"updatedAt": 1692682166960
+	},
+	{
+		"code": 6020,
+		"name": "Real Estate Management & Development",
+		"description": "",
+		"parentId": 60,
+		"createdAt": 1692682166969,
+		"updatedAt": 1692682166969
+	},
+	{
+		"code": 101010,
+		"name": "Energy Equipment & Services",
+		"description": "",
+		"parentId": 1010,
+		"createdAt": 1692682166847,
+		"updatedAt": 1692682166847
+	},
+	{
+		"code": 101020,
+		"name": "Oil, Gas & Consumable Fuels",
+		"description": "",
+		"parentId": 1010,
+		"createdAt": 1692682166849,
+		"updatedAt": 1692682166849
+	},
+	{
+		"code": 151010,
+		"name": "Chemicals",
+		"description": "",
+		"parentId": 1510,
+		"createdAt": 1692682166852,
+		"updatedAt": 1692682166852
+	},
+	{
+		"code": 151020,
+		"name": "Construction Materials",
+		"description": "",
+		"parentId": 1510,
+		"createdAt": 1692682166855,
+		"updatedAt": 1692682166855
+	},
+	{
+		"code": 151030,
+		"name": "Containers & Packaging",
+		"description": "",
+		"parentId": 1510,
+		"createdAt": 1692682166856,
+		"updatedAt": 1692682166856
+	},
+	{
+		"code": 151040,
+		"name": "Metals & Mining",
+		"description": "",
+		"parentId": 1510,
+		"createdAt": 1692682166858,
+		"updatedAt": 1692682166858
+	},
+	{
+		"code": 151050,
+		"name": "Paper & Forest Products",
+		"description": "",
+		"parentId": 1510,
+		"createdAt": 1692682166861,
+		"updatedAt": 1692682166861
+	},
+	{
+		"code": 201010,
+		"name": "Aerospace & Defense",
+		"description": "",
+		"parentId": 2010,
+		"createdAt": 1692682166863,
+		"updatedAt": 1692682166863
+	},
+	{
+		"code": 201020,
+		"name": "Building Products",
+		"description": "",
+		"parentId": 2010,
+		"createdAt": 1692682166864,
+		"updatedAt": 1692682166864
+	},
+	{
+		"code": 201030,
+		"name": "Construction & Engineering",
+		"description": "",
+		"parentId": 2010,
+		"createdAt": 1692682166865,
+		"updatedAt": 1692682166865
+	},
+	{
+		"code": 201040,
+		"name": "Electrical Equipment",
+		"description": "",
+		"parentId": 2010,
+		"createdAt": 1692682166867,
+		"updatedAt": 1692682166867
+	},
+	{
+		"code": 201050,
+		"name": "Industrial Conglomerates",
+		"description": "",
+		"parentId": 2010,
+		"createdAt": 1692682166868,
+		"updatedAt": 1692682166868
+	},
+	{
+		"code": 201060,
+		"name": "Machinery",
+		"description": "",
+		"parentId": 2010,
+		"createdAt": 1692682166869,
+		"updatedAt": 1692682166869
+	},
+	{
+		"code": 201070,
+		"name": "Trading Companies & Distributors",
+		"description": "",
+		"parentId": 2010,
+		"createdAt": 1692682166871,
+		"updatedAt": 1692682166871
+	},
+	{
+		"code": 202010,
+		"name": "Commercial Services & Supplies",
+		"description": "",
+		"parentId": 2020,
+		"createdAt": 1692682166872,
+		"updatedAt": 1692682166872
+	},
+	{
+		"code": 202020,
+		"name": "Professional Services",
+		"description": "",
+		"parentId": 2020,
+		"createdAt": 1692682166875,
+		"updatedAt": 1692682166875
+	},
+	{
+		"code": 203010,
+		"name": "Air Freight & Logistics",
+		"description": "",
+		"parentId": 2030,
+		"createdAt": 1692682166877,
+		"updatedAt": 1692682166877
+	},
+	{
+		"code": 203020,
+		"name": "Passenger Airlines",
+		"description": "",
+		"parentId": 2030,
+		"createdAt": 1692682166878,
+		"updatedAt": 1692682166878
+	},
+	{
+		"code": 203030,
+		"name": "Marine Transportation",
+		"description": "",
+		"parentId": 2030,
+		"createdAt": 1692682166879,
+		"updatedAt": 1692682166879
+	},
+	{
+		"code": 203040,
+		"name": "Ground Transportation",
+		"description": "",
+		"parentId": 2030,
+		"createdAt": 1692682166879,
+		"updatedAt": 1692682166879
+	},
+	{
+		"code": 203050,
+		"name": "Transportation Infrastructure",
+		"description": "",
+		"parentId": 2030,
+		"createdAt": 1692682166881,
+		"updatedAt": 1692682166881
+	},
+	{
+		"code": 251010,
+		"name": "Automobile Components",
+		"description": "",
+		"parentId": 2510,
+		"createdAt": 1692682166884,
+		"updatedAt": 1692682166884
+	},
+	{
+		"code": 251020,
+		"name": "Automobiles",
+		"description": "",
+		"parentId": 2510,
+		"createdAt": 1692682166885,
+		"updatedAt": 1692682166885
+	},
+	{
+		"code": 252010,
+		"name": "Household Durables",
+		"description": "",
+		"parentId": 2520,
+		"createdAt": 1692682166887,
+		"updatedAt": 1692682166887
+	},
+	{
+		"code": 252020,
+		"name": "Leisure Products",
+		"description": "",
+		"parentId": 2520,
+		"createdAt": 1692682166890,
+		"updatedAt": 1692682166890
+	},
+	{
+		"code": 252030,
+		"name": "Textiles, Apparel & Luxury Goods",
+		"description": "",
+		"parentId": 2520,
+		"createdAt": 1692682166891,
+		"updatedAt": 1692682166891
+	},
+	{
+		"code": 253010,
+		"name": "Hotels, Restaurants & Leisure",
+		"description": "",
+		"parentId": 2530,
+		"createdAt": 1692682166893,
+		"updatedAt": 1692682166893
+	},
+	{
+		"code": 253020,
+		"name": "Diversified Consumer Services",
+		"description": "",
+		"parentId": 2530,
+		"createdAt": 1692682166895,
+		"updatedAt": 1692682166895
+	},
+	{
+		"code": 255010,
+		"name": "Distributors",
+		"description": "",
+		"parentId": 2550,
+		"createdAt": 1692682166897,
+		"updatedAt": 1692682166897
+	},
+	{
+		"code": 255030,
+		"name": "Broadline Retail",
+		"description": "",
+		"parentId": 2550,
+		"createdAt": 1692682166897,
+		"updatedAt": 1692682166897
+	},
+	{
+		"code": 255040,
+		"name": "Specialty Retail",
+		"description": "",
+		"parentId": 2550,
+		"createdAt": 1692682166898,
+		"updatedAt": 1692682166898
+	},
+	{
+		"code": 301010,
+		"name": "Consumer Staples Distribution & Retail",
+		"description": "",
+		"parentId": 3010,
+		"createdAt": 1692682166902,
+		"updatedAt": 1692682166902
+	},
+	{
+		"code": 302010,
+		"name": "Beverages",
+		"description": "",
+		"parentId": 3020,
+		"createdAt": 1692682166905,
+		"updatedAt": 1692682166905
+	},
+	{
+		"code": 302020,
+		"name": "Food Products",
+		"description": "",
+		"parentId": 3020,
+		"createdAt": 1692682166907,
+		"updatedAt": 1692682166907
+	},
+	{
+		"code": 302030,
+		"name": "Tobacco",
+		"description": "",
+		"parentId": 3020,
+		"createdAt": 1692682166908,
+		"updatedAt": 1692682166908
+	},
+	{
+		"code": 303010,
+		"name": "Household Products",
+		"description": "",
+		"parentId": 3030,
+		"createdAt": 1692682166909,
+		"updatedAt": 1692682166909
+	},
+	{
+		"code": 303020,
+		"name": "Personal Care Products",
+		"description": "",
+		"parentId": 3030,
+		"createdAt": 1692682166910,
+		"updatedAt": 1692682166910
+	},
+	{
+		"code": 351010,
+		"name": "Health Care Equipment & Supplies",
+		"description": "",
+		"parentId": 3510,
+		"createdAt": 1692682166912,
+		"updatedAt": 1692682166912
+	},
+	{
+		"code": 351020,
+		"name": "Health Care Providers & Services",
+		"description": "",
+		"parentId": 3510,
+		"createdAt": 1692682166913,
+		"updatedAt": 1692682166913
+	},
+	{
+		"code": 351030,
+		"name": "Health Care Technology",
+		"description": "",
+		"parentId": 3510,
+		"createdAt": 1692682166915,
+		"updatedAt": 1692682166915
+	},
+	{
+		"code": 352010,
+		"name": "Biotechnology",
+		"description": "",
+		"parentId": 3520,
+		"createdAt": 1692682166916,
+		"updatedAt": 1692682166916
+	},
+	{
+		"code": 352020,
+		"name": "Pharmaceuticals",
+		"description": "",
+		"parentId": 3520,
+		"createdAt": 1692682166917,
+		"updatedAt": 1692682166917
+	},
+	{
+		"code": 352030,
+		"name": "Life Sciences Tools & Services",
+		"description": "",
+		"parentId": 3520,
+		"createdAt": 1692682166918,
+		"updatedAt": 1692682166918
+	},
+	{
+		"code": 401010,
+		"name": "Banks",
+		"description": "",
+		"parentId": 4010,
+		"createdAt": 1692682166920,
+		"updatedAt": 1692682166920
+	},
+	{
+		"code": 402010,
+		"name": "Financial Services",
+		"description": "",
+		"parentId": 4020,
+		"createdAt": 1692682166921,
+		"updatedAt": 1692682166921
+	},
+	{
+		"code": 402020,
+		"name": "Consumer Finance",
+		"description": "",
+		"parentId": 4020,
+		"createdAt": 1692682166925,
+		"updatedAt": 1692682166925
+	},
+	{
+		"code": 402030,
+		"name": "Capital Markets",
+		"description": "",
+		"parentId": 4020,
+		"createdAt": 1692682166927,
+		"updatedAt": 1692682166927
+	},
+	{
+		"code": 402040,
+		"name": "Mortgage Real Estate Investment \nTrusts (REITs)",
+		"description": "",
+		"parentId": 4020,
+		"createdAt": 1692682166929,
+		"updatedAt": 1692682166929
+	},
+	{
+		"code": 403010,
+		"name": "Insurance",
+		"description": "",
+		"parentId": 4030,
+		"createdAt": 1692682166930,
+		"updatedAt": 1692682166930
+	},
+	{
+		"code": 451020,
+		"name": "IT Services",
+		"description": "",
+		"parentId": 4510,
+		"createdAt": 1692682166934,
+		"updatedAt": 1692682166934
+	},
+	{
+		"code": 451030,
+		"name": "Software",
+		"description": "",
+		"parentId": 4510,
+		"createdAt": 1692682166935,
+		"updatedAt": 1692682166935
+	},
+	{
+		"code": 452010,
+		"name": "Communications Equipment",
+		"description": "",
+		"parentId": 4520,
+		"createdAt": 1692682166937,
+		"updatedAt": 1692682166937
+	},
+	{
+		"code": 452020,
+		"name": "Technology Hardware, Storage & Peripherals",
+		"description": "",
+		"parentId": 4520,
+		"createdAt": 1692682166939,
+		"updatedAt": 1692682166939
+	},
+	{
+		"code": 452030,
+		"name": "Electronic Equipment, Instruments & Components",
+		"description": "",
+		"parentId": 4520,
+		"createdAt": 1692682166940,
+		"updatedAt": 1692682166940
+	},
+	{
+		"code": 453010,
+		"name": "Semiconductors & Semiconductor Equipment",
+		"description": "",
+		"parentId": 4530,
+		"createdAt": 1692682166943,
+		"updatedAt": 1692682166943
+	},
+	{
+		"code": 501010,
+		"name": "Diversified Telecommunication Services",
+		"description": "",
+		"parentId": 5010,
+		"createdAt": 1692682166946,
+		"updatedAt": 1692682166946
+	},
+	{
+		"code": 501020,
+		"name": "Wireless Telecommunication Services",
+		"description": "",
+		"parentId": 5010,
+		"createdAt": 1692682166947,
+		"updatedAt": 1692682166947
+	},
+	{
+		"code": 502010,
+		"name": "Media",
+		"description": "",
+		"parentId": 5020,
+		"createdAt": 1692682166948,
+		"updatedAt": 1692682166948
+	},
+	{
+		"code": 502020,
+		"name": "Entertainment",
+		"description": "",
+		"parentId": 5020,
+		"createdAt": 1692682166951,
+		"updatedAt": 1692682166951
+	},
+	{
+		"code": 502030,
+		"name": "Interactive Media & Services",
+		"description": "",
+		"parentId": 5020,
+		"createdAt": 1692682166953,
+		"updatedAt": 1692682166953
+	},
+	{
+		"code": 551010,
+		"name": "Electric Utilities",
+		"description": "",
+		"parentId": 5510,
+		"createdAt": 1692682166954,
+		"updatedAt": 1692682166954
+	},
+	{
+		"code": 551020,
+		"name": "Gas Utilities",
+		"description": "",
+		"parentId": 5510,
+		"createdAt": 1692682166955,
+		"updatedAt": 1692682166955
+	},
+	{
+		"code": 551030,
+		"name": "Multi-Utilities",
+		"description": "",
+		"parentId": 5510,
+		"createdAt": 1692682166956,
+		"updatedAt": 1692682166956
+	},
+	{
+		"code": 551040,
+		"name": "Water Utilities",
+		"description": "",
+		"parentId": 5510,
+		"createdAt": 1692682166957,
+		"updatedAt": 1692682166957
+	},
+	{
+		"code": 551050,
+		"name": "Independent Power and Renewable Electricity Producers",
+		"description": "",
+		"parentId": 5510,
+		"createdAt": 1692682166958,
+		"updatedAt": 1692682166958
+	},
+	{
+		"code": 601010,
+		"name": "Diversified REITs",
+		"description": "",
+		"parentId": 6010,
+		"createdAt": 1692682166960,
+		"updatedAt": 1692682166960
+	},
+	{
+		"code": 601025,
+		"name": "Industrial REITs",
+		"description": "",
+		"parentId": 6010,
+		"createdAt": 1692682166961,
+		"updatedAt": 1692682166961
+	},
+	{
+		"code": 601030,
+		"name": "Hotel & Resort REITs",
+		"description": "",
+		"parentId": 6010,
+		"createdAt": 1692682166962,
+		"updatedAt": 1692682166962
+	},
+	{
+		"code": 601040,
+		"name": "Office REITs",
+		"description": "",
+		"parentId": 6010,
+		"createdAt": 1692682166963,
+		"updatedAt": 1692682166963
+	},
+	{
+		"code": 601050,
+		"name": "Health Care REITs",
+		"description": "",
+		"parentId": 6010,
+		"createdAt": 1692682166964,
+		"updatedAt": 1692682166964
+	},
+	{
+		"code": 601060,
+		"name": "Residential REITs",
+		"description": "",
+		"parentId": 6010,
+		"createdAt": 1692682166964,
+		"updatedAt": 1692682166964
+	},
+	{
+		"code": 601070,
+		"name": "Retail REITs",
+		"description": "",
+		"parentId": 6010,
+		"createdAt": 1692682166966,
+		"updatedAt": 1692682166966
+	},
+	{
+		"code": 601080,
+		"name": "Specialized REITs",
+		"description": "",
+		"parentId": 6010,
+		"createdAt": 1692682166967,
+		"updatedAt": 1692682166967
+	},
+	{
+		"code": 602010,
+		"name": "Real Estate Management & Development",
+		"description": "",
+		"parentId": 6020,
+		"createdAt": 1692682166969,
+		"updatedAt": 1692682166969
+	},
+	{
+		"code": 10101010,
+		"name": "Oil & Gas Drilling",
+		"description": "Drilling contractors or owners of drilling rigs that contract their services for drilling wells",
+		"parentId": 101010,
+		"createdAt": 1692682166848,
+		"updatedAt": 1692682166848
+	},
+	{
+		"code": 10101020,
+		"name": "Oil & Gas Equipment & Services",
+		"description": "Manufacturers of equipment, including drilling rigs and equipment, and providers of supplies and services to companies involved in the drilling, evaluation and completion of oil and gas wells.",
+		"parentId": 101010,
+		"createdAt": 1692682166848,
+		"updatedAt": 1692682166848
+	},
+	{
+		"code": 10102010,
+		"name": "Integrated Oil & Gas",
+		"description": "Integrated oil companies engaged in the exploration & production of oil and gas, as well as at least one other significant activity in either refining, marketing and transportation, or chemicals.",
+		"parentId": 101020,
+		"createdAt": 1692682166849,
+		"updatedAt": 1692682166849
+	},
+	{
+		"code": 10102020,
+		"name": "Oil & Gas Exploration & Production",
+		"description": "Companies engaged in the exploration and production of oil and gas not classified elsewhere.",
+		"parentId": 101020,
+		"createdAt": 1692682166849,
+		"updatedAt": 1692682166849
+	},
+	{
+		"code": 10102030,
+		"name": "Oil & Gas Refining & Marketing",
+		"description": "Companies engaged in the refining and marketing of oil, gas and/or refined products not classified in the Integrated Oil & Gas or Independent Power Producers & Energy Traders Sub-Industries.",
+		"parentId": 101020,
+		"createdAt": 1692682166850,
+		"updatedAt": 1692682166850
+	},
+	{
+		"code": 10102040,
+		"name": "Oil & Gas Storage & Transportation",
+		"description": "Companies engaged in the storage and/or transportation of oil, gas and/or refined products. Includes diversified midstream natural gas companies, oil and refined product pipelines, coal slurry pipelines and oil & gas shipping companies.",
+		"parentId": 101020,
+		"createdAt": 1692682166850,
+		"updatedAt": 1692682166850
+	},
+	{
+		"code": 10102050,
+		"name": "Coal & Consumable Fuels",
+		"description": "Companies primarily involved in the production and mining of coal, related products and other consumable fuels related to the generation of energy.  Excludes companies primarily producing gases classified in the Industrial Gases sub-industry and companies primarily mining for metallurgical (coking) coal used for steel production.",
+		"parentId": 101020,
+		"createdAt": 1692682166851,
+		"updatedAt": 1692682166851
+	},
+	{
+		"code": 15101010,
+		"name": "Commodity Chemicals",
+		"description": "Companies that primarily produce industrial chemicals and basic chemicals. Including but not limited to plastics, synthetic fibers, films, commodity-based paints & pigments, explosives and petrochemicals. Excludes chemicalcompanies classified in the Diversified Chemicals, Fertilizers & Agricultural Chemicals, Industrial Gases, or Specialty Chemicals Sub-Industries.",
+		"parentId": 151010,
+		"createdAt": 1692682166853,
+		"updatedAt": 1692682166853
+	},
+	{
+		"code": 15101020,
+		"name": "Diversified Chemicals",
+		"description": "Manufacturers of a diversified range of chemical products not classified in the Industrial Gases, Commodity Chemicals, Specialty Chemicals or Fertilizers & Agricultural Chemicals Sub-Industries.",
+		"parentId": 151010,
+		"createdAt": 1692682166853,
+		"updatedAt": 1692682166853
+	},
+	{
+		"code": 15101030,
+		"name": "Fertilizers & Agricultural Chemicals",
+		"description": "Producers of fertilizers, pesticides, potash or other agriculture-related chemicals not classified elsewhere.",
+		"parentId": 151010,
+		"createdAt": 1692682166853,
+		"updatedAt": 1692682166853
+	},
+	{
+		"code": 15101040,
+		"name": "Industrial Gases",
+		"description": "Manufacturers of industrial gases.",
+		"parentId": 151010,
+		"createdAt": 1692682166854,
+		"updatedAt": 1692682166854
+	},
+	{
+		"code": 15101050,
+		"name": "Specialty Chemicals",
+		"description": "Companies that primarily produce high value-added chemicals used in the manufacture of a wide variety of products, including but not limited to fine chemicals, additives, advanced polymers, adhesives, sealants and specialty paints, pigments and coatings.",
+		"parentId": 151010,
+		"createdAt": 1692682166854,
+		"updatedAt": 1692682166854
+	},
+	{
+		"code": 15102010,
+		"name": "Construction Materials",
+		"description": "Manufacturers of construction materials including sand, clay, gypsum, lime, aggregates, cement, concrete and bricks. Other finished or semi-finished building materials are classified  in the Building Products Sub-Industry.",
+		"parentId": 151020,
+		"createdAt": 1692682166856,
+		"updatedAt": 1692682166856
+	},
+	{
+		"code": 15103010,
+		"name": "Metal, Glass & Plastic Containers ",
+		"description": "Manufacturers of metal, glass or plastic containers. Includes corks and caps.",
+		"parentId": 151030,
+		"createdAt": 1692682166857,
+		"updatedAt": 1692682166857
+	},
+	{
+		"code": 15103020,
+		"name": "Paper & Plastic Packaging Products & Materials",
+		"description": "Manufacturers of paper and cardboard containers and packaging.",
+		"parentId": 151030,
+		"createdAt": 1692682166857,
+		"updatedAt": 1692682166857
+	},
+	{
+		"code": 15104010,
+		"name": "Aluminum",
+		"description": "Producers of aluminum and related products, including companies that mine or process bauxite and companies that recycle aluminum to produce finished or semi-finished products. Excludes companies that primarily produce aluminum building materials classified in the Building Products Sub-Industry.",
+		"parentId": 151040,
+		"createdAt": 1692682166858,
+		"updatedAt": 1692682166858
+	},
+	{
+		"code": 15104020,
+		"name": "Diversified Metals & Mining",
+		"description": "Companies engaged in the diversified production or extraction of metals and minerals not classified elsewhere. Including, but not limited to, nonferrous metal mining (except bauxite), salt and borate mining, phosphate rock mining, and diversified mining operations. Excludes iron ore mining, classified in the Steel Sub-Industry, bauxite mining, classified in the Aluminum Sub-Industry, and coal mining, classified in either the Steel or Coal & Consumable Fuels Sub-Industries.",
+		"parentId": 151040,
+		"createdAt": 1692682166859,
+		"updatedAt": 1692682166859
+	},
+	{
+		"code": 15104025,
+		"name": "Copper",
+		"description": "Companies involved primarily in copper ore mining. ",
+		"parentId": 151040,
+		"createdAt": 1692682166859,
+		"updatedAt": 1692682166859
+	},
+	{
+		"code": 15104030,
+		"name": "Gold",
+		"description": "Producers of gold and related products, including companies that mine or process gold and the South African finance houses which primarily invest in, but do not operate, gold mines.",
+		"parentId": 151040,
+		"createdAt": 1692682166859,
+		"updatedAt": 1692682166859
+	},
+	{
+		"code": 15104040,
+		"name": "Precious Metals & Minerals",
+		"description": "Companies mining precious metals and minerals not classified in the Gold Sub-Industry. Includes companies primarily mining platinum.",
+		"parentId": 151040,
+		"createdAt": 1692682166860,
+		"updatedAt": 1692682166860
+	},
+	{
+		"code": 15104045,
+		"name": "Silver",
+		"description": "Companies primarily mining silver. Excludes companies classified in the Gold or Precious Metals & Minerals Sub-Industries.",
+		"parentId": 151040,
+		"createdAt": 1692682166860,
+		"updatedAt": 1692682166860
+	},
+	{
+		"code": 15104050,
+		"name": "Steel",
+		"description": "Producers of iron and steel and related products, including metallurgical (coking) coal mining used for steel production.",
+		"parentId": 151040,
+		"createdAt": 1692682166861,
+		"updatedAt": 1692682166861
+	},
+	{
+		"code": 15105010,
+		"name": "Forest Products",
+		"description": "Manufacturers of timber and related wood products. Includes lumber for the building industry.",
+		"parentId": 151050,
+		"createdAt": 1692682166861,
+		"updatedAt": 1692682166861
+	},
+	{
+		"code": 15105020,
+		"name": "Paper Products",
+		"description": "Manufacturersof all grades of paper. Excludes companies specializing in paper packaging classified in the Paper Packaging Sub-Industry.",
+		"parentId": 151050,
+		"createdAt": 1692682166862,
+		"updatedAt": 1692682166862
+	},
+	{
+		"code": 20101010,
+		"name": "Aerospace & Defense",
+		"description": "Manufacturers of civil or military aerospace and defense equipment, parts or products. Includes defense electronics and space equipment.",
+		"parentId": 201010,
+		"createdAt": 1692682166864,
+		"updatedAt": 1692682166864
+	},
+	{
+		"code": 20102010,
+		"name": "Building Products",
+		"description": "Manufacturers of building components and home improvement products and equipment. Excludes lumber and plywood classified under Forest Products and cement and other materials classified in the Construction Materials Sub-Industry.",
+		"parentId": 201020,
+		"createdAt": 1692682166864,
+		"updatedAt": 1692682166864
+	},
+	{
+		"code": 20103010,
+		"name": "Construction & Engineering",
+		"description": "Companies engaged in primarily non-residential construction. Includes civil engineering companies and large-scale contractors. Excludes companies classified in the Homebuilding Sub-Industry.",
+		"parentId": 201030,
+		"createdAt": 1692682166866,
+		"updatedAt": 1692682166866
+	},
+	{
+		"code": 20104010,
+		"name": "Electrical Components & Equipment",
+		"description": "Companies that produce electric cables and wires, electrical components or equipment not classified in the Heavy Electrical Equipment Sub-Industry.",
+		"parentId": 201040,
+		"createdAt": 1692682166867,
+		"updatedAt": 1692682166867
+	},
+	{
+		"code": 20104020,
+		"name": "Heavy Electrical Equipment",
+		"description": "Manufacturers of power-generating equipment and other heavy electrical equipment, including power turbines, heavy electrical machinery intended for fixed-use and large electrical systems. Excludes cables and wires, classified in the Electrical Components & Equipment Sub-Industry.",
+		"parentId": 201040,
+		"createdAt": 1692682166868,
+		"updatedAt": 1692682166868
+	},
+	{
+		"code": 20105010,
+		"name": "Industrial Conglomerates",
+		"description": "Diversified industrial companies with business activities in three or more sectors, none of which contributes a majority of revenues. Stakes held are predominantly of a controlling nature and stake holders maintain an operational interest in the running of the subsidiaries.",
+		"parentId": 201050,
+		"createdAt": 1692682166869,
+		"updatedAt": 1692682166869
+	},
+	{
+		"code": 20106010,
+		"name": "Construction Machinery & Heavy Transportation Equipment",
+		"description": "Manufacturers of heavy duty trucks, rolling machinery, earth-moving and construction equipment, and manufacturers of related parts. Includes non-military shipbuilding.",
+		"parentId": 201060,
+		"createdAt": 1692682166870,
+		"updatedAt": 1692682166870
+	},
+	{
+		"code": 20106015,
+		"name": "Agricultural & Farm Machinery",
+		"description": "Companies manufacturing agricultural machinery, farm machinery, and their related parts. Includes machinery used for the production of crops and agricultural livestock, agricultural tractors, planting and fertilizing machinery, fertilizer and chemical application equipment, and grain dryers and blowers.",
+		"parentId": 201060,
+		"createdAt": 1692682166870,
+		"updatedAt": 1692682166870
+	},
+	{
+		"code": 20106020,
+		"name": "Industrial Machinery & Supplies & Components",
+		"description": "Manufacturers of industrial machinery and industrial components. Includes companies that manufacture presses, machine tools, compressors, pollution control equipment, elevators, escalators, insulators, pumps, roller bearings and other metal fabrications.",
+		"parentId": 201060,
+		"createdAt": 1692682166871,
+		"updatedAt": 1692682166871
+	},
+	{
+		"code": 20107010,
+		"name": "Trading Companies & Distributors",
+		"description": "Trading companies and other distributors of industrial equipment and products.",
+		"parentId": 201070,
+		"createdAt": 1692682166872,
+		"updatedAt": 1692682166872
+	},
+	{
+		"code": 20201010,
+		"name": "Commercial Printing",
+		"description": "Companies providing commercial printing services. Includes printers primarily serving the media industry.",
+		"parentId": 202010,
+		"createdAt": 1692682166873,
+		"updatedAt": 1692682166873
+	},
+	{
+		"code": 20201050,
+		"name": "Environmental & Facilities Services",
+		"description": "Companies providing environmental and facilities maintenance services. Includes waste management, facilities management and pollution control services.  Excludes large-scale water treatment systems classified in the Water Utilities Sub-Industry.",
+		"parentId": 202010,
+		"createdAt": 1692682166873,
+		"updatedAt": 1692682166873
+	},
+	{
+		"code": 20201060,
+		"name": "Office Services & Supplies",
+		"description": "Providers of office services and manufacturers of office supplies and equipment not classified elsewhere.",
+		"parentId": 202010,
+		"createdAt": 1692682166874,
+		"updatedAt": 1692682166874
+	},
+	{
+		"code": 20201070,
+		"name": "Diversified Support Services",
+		"description": "Companies primarily providing labor oriented support services to businesses and governments.  Includes commercial cleaning services, dining & catering services, equipment repair services, industrial maintenance services, industrial auctioneers, storage & warehousing, transaction services, uniform rental services, and other business support services.",
+		"parentId": 202010,
+		"createdAt": 1692682166874,
+		"updatedAt": 1692682166874
+	},
+	{
+		"code": 20201080,
+		"name": "Security & Alarm Services",
+		"description": "Companies providing security and protection services to business and governments. Includes companies providing services such as correctional facilities, security & alarm services, armored transportation & guarding.  Excludes companies providing security software classified under the Systems Software Sub-Industry and home security services classified under the Specialized Consumer Services Sub-Industry. Also excludes companies manufacturing security system equipment classified under the Electronic Equipment & Instruments Sub-Industry. ",
+		"parentId": 202010,
+		"createdAt": 1692682166875,
+		"updatedAt": 1692682166875
+	},
+	{
+		"code": 20202010,
+		"name": "Human Resource & Employment Services",
+		"description": "Companies providing business support services relating to human capital management. This Sub-Industry includes employment agencies, employee training, payroll processing, benefit & retirement support services, corporate & job seeker recruitment services, and online job portals generating revenue from fees or commissions for offering recruitment services to companies or job seekers.",
+		"parentId": 202020,
+		"createdAt": 1692682166875,
+		"updatedAt": 1692682166875
+	},
+	{
+		"code": 20202020,
+		"name": "Research & Consulting Services",
+		"description": "Companies primarily providing research and consulting services to businesses and governments not classified elsewhere.  Includes companies involved in management consulting services, architectural design, business information or scientific research, marketing, and testing & certification services. Excludes companies providing information technology consulting services classified in the IT Consulting & Other Services Sub-Industry.",
+		"parentId": 202020,
+		"createdAt": 1692682166876,
+		"updatedAt": 1692682166876
+	},
+	{
+		"code": 20202030,
+		"name": "Data Processing & Outsourced Services ",
+		"description": "Providers of commercial data processing and/or business process outsourcing services. This Sub-Industry includes companies providing services for customer experience management, back-office automation, call center management, and investor communications.",
+		"parentId": 202020,
+		"createdAt": 1692682166876,
+		"updatedAt": 1692682166876
+	},
+	{
+		"code": 20301010,
+		"name": "Air Freight & Logistics",
+		"description": "Companies providing air freight transportation, courier and logistics services, including package and mail delivery and customs agents. Excludes those companies classified in the Airlines, Marine or Trucking Sub-Industries.",
+		"parentId": 203010,
+		"createdAt": 1692682166878,
+		"updatedAt": 1692682166878
+	},
+	{
+		"code": 20302010,
+		"name": "Passenger Airlines",
+		"description": "Companies providing primarily passenger air transportation.",
+		"parentId": 203020,
+		"createdAt": 1692682166878,
+		"updatedAt": 1692682166878
+	},
+	{
+		"code": 20303010,
+		"name": "Marine Transportation",
+		"description": "Companies providing goods or passenger maritime transportation. Excludes cruise-ships classified in the Hotels, Resorts & Cruise Lines Sub-Industry.",
+		"parentId": 203030,
+		"createdAt": 1692682166879,
+		"updatedAt": 1692682166879
+	},
+	{
+		"code": 20304010,
+		"name": "Rail Transportation",
+		"description": "Companies providing primarily goods and passenger rail  transportation.",
+		"parentId": 203040,
+		"createdAt": 1692682166880,
+		"updatedAt": 1692682166880
+	},
+	{
+		"code": 20304030,
+		"name": "Cargo Ground Transportation ",
+		"description": "Companies providing ground transportation services for goods and freight.",
+		"parentId": 203040,
+		"createdAt": 1692682166880,
+		"updatedAt": 1692682166880
+	},
+	{
+		"code": 20304040,
+		"name": "Passenger Ground Transportation",
+		"description": "Companies providing passenger ground transportation and related services, including bus, taxi, vehicle rental, ride sharing and on-demand ride sharing platforms, and other passenger logistics.",
+		"parentId": 203040,
+		"createdAt": 1692682166881,
+		"updatedAt": 1692682166881
+	},
+	{
+		"code": 20305010,
+		"name": "Airport Services",
+		"description": "Operators of airports and companies providing related services.",
+		"parentId": 203050,
+		"createdAt": 1692682166881,
+		"updatedAt": 1692682166881
+	},
+	{
+		"code": 20305020,
+		"name": "Highways & Railtracks",
+		"description": "Owners and operators of roads, tunnels and railtracks.",
+		"parentId": 203050,
+		"createdAt": 1692682166882,
+		"updatedAt": 1692682166882
+	},
+	{
+		"code": 20305030,
+		"name": "Marine Ports & Services",
+		"description": "Owners and operators of marine ports and related services.",
+		"parentId": 203050,
+		"createdAt": 1692682166882,
+		"updatedAt": 1692682166882
+	},
+	{
+		"code": 25101010,
+		"name": "Automotive Parts & Equipment ",
+		"description": "Manufacturers of parts and accessories for  automobiles and motorcycles. Excludes companies classified in the Tires & Rubber Sub-Industry.",
+		"parentId": 251010,
+		"createdAt": 1692682166884,
+		"updatedAt": 1692682166884
+	},
+	{
+		"code": 25101020,
+		"name": "Tires & Rubber",
+		"description": "Manufacturers of tires and rubber.",
+		"parentId": 251010,
+		"createdAt": 1692682166885,
+		"updatedAt": 1692682166885
+	},
+	{
+		"code": 25102010,
+		"name": "Automobile Manufacturers",
+		"description": "Companies that produce mainly passenger automobiles and light trucks. Excludes companies producing mainly motorcycles and three-wheelers classified in the Motorcycle Manufacturers Sub-Industry and heavy duty trucks classified in the Construction Machinery & Heavy Trucks Sub-Industry.",
+		"parentId": 251020,
+		"createdAt": 1692682166886,
+		"updatedAt": 1692682166886
+	},
+	{
+		"code": 25102020,
+		"name": "Motorcycle Manufacturers",
+		"description": "Companies that produce motorcycles, scooters or three-wheelers. Excludes bicycles classified in the Leisure Products Sub-Industry. ",
+		"parentId": 251020,
+		"createdAt": 1692682166886,
+		"updatedAt": 1692682166886
+	},
+	{
+		"code": 25201010,
+		"name": "Consumer Electronics",
+		"description": "Manufacturers of consumer electronics products including TVs, home audio equipment, game consoles, digital cameras, and related products. Excludes personal home computer manufacturers classified in the Technology Hardware, Storage & Peripherals Sub-Industry, and electric household appliances classified in the Household Appliances Sub-Industry.",
+		"parentId": 252010,
+		"createdAt": 1692682166888,
+		"updatedAt": 1692682166888
+	},
+	{
+		"code": 25201020,
+		"name": "Home Furnishings",
+		"description": "Manufacturers of soft home furnishings or furniture, including upholstery, carpets and wall-coverings.",
+		"parentId": 252010,
+		"createdAt": 1692682166888,
+		"updatedAt": 1692682166888
+	},
+	{
+		"code": 25201030,
+		"name": "Homebuilding",
+		"description": "Residential construction companies. Includes manufacturers of prefabricated houses and semi-fixed manufactured homes.",
+		"parentId": 252010,
+		"createdAt": 1692682166888,
+		"updatedAt": 1692682166888
+	},
+	{
+		"code": 25201040,
+		"name": "Household Appliances",
+		"description": "Manufacturers of electric household appliances and related products.  Includes manufacturers of power and hand tools, including garden improvement tools.  Excludes TVs and other audio and video products classified in the Consumer Electronics Sub-Industry and personal computers classified in the Technology Hardware, Storage & Peripherals Sub-Industry.",
+		"parentId": 252010,
+		"createdAt": 1692682166889,
+		"updatedAt": 1692682166889
+	},
+	{
+		"code": 25201050,
+		"name": "Housewares & Specialties",
+		"description": "Manufacturers of durable household products, including cutlery, cookware, glassware, crystal, silverware, utensils, kitchenware and consumer specialties not classified elsewhere.",
+		"parentId": 252010,
+		"createdAt": 1692682166889,
+		"updatedAt": 1692682166889
+	},
+	{
+		"code": 25202010,
+		"name": "Leisure Products",
+		"description": "Manufacturers of leisure products and equipment includingsports equipment, bicycles and toys.",
+		"parentId": 252020,
+		"createdAt": 1692682166890,
+		"updatedAt": 1692682166890
+	},
+	{
+		"code": 25203010,
+		"name": "Apparel, Accessories & Luxury Goods",
+		"description": "Manufacturers of apparel, accessories & luxury goods. Includes companies primarily producing designer handbags, wallets, luggage, jewelry and watches. Excludes shoes classified in the Footwear Sub-Industry.",
+		"parentId": 252030,
+		"createdAt": 1692682166891,
+		"updatedAt": 1692682166891
+	},
+	{
+		"code": 25203020,
+		"name": "Footwear",
+		"description": "Manufacturers of footwear. Includes sport and leather shoes.",
+		"parentId": 252030,
+		"createdAt": 1692682166891,
+		"updatedAt": 1692682166891
+	},
+	{
+		"code": 25203030,
+		"name": "Textiles",
+		"description": "Manufacturers of textile and related products not classified in the Apparel, Accessories & Luxury Goods, Footwear or Home Furnishings Sub-Industries.",
+		"parentId": 252030,
+		"createdAt": 1692682166892,
+		"updatedAt": 1692682166892
+	},
+	{
+		"code": 25301010,
+		"name": "Casinos & Gaming",
+		"description": "Owners and operators of casinos and gaming facilities. Includes companies providing lottery and betting services.",
+		"parentId": 253010,
+		"createdAt": 1692682166893,
+		"updatedAt": 1692682166893
+	},
+	{
+		"code": 25301020,
+		"name": "Hotels, Resorts & Cruise Lines",
+		"description": "Owners and operators of hotels, resorts and cruise-ships. Includes travel agencies, tour operators and related services not classified elsewhere . Excludes casino-hotels classified in the Casinos & Gaming Sub-Industry.",
+		"parentId": 253010,
+		"createdAt": 1692682166893,
+		"updatedAt": 1692682166893
+	},
+	{
+		"code": 25301030,
+		"name": "Leisure Facilities",
+		"description": "Owners and operators of leisure facilities, including sport and fitness centers, stadiums, golf courses and amusement parks not classified in the Movies & Entertainment Sub-Industry.",
+		"parentId": 253010,
+		"createdAt": 1692682166894,
+		"updatedAt": 1692682166894
+	},
+	{
+		"code": 25301040,
+		"name": "Restaurants",
+		"description": "Owners and operators of restaurants, bars, pubs, fast-food or take-out facilities. Includes companies that provide food catering services.",
+		"parentId": 253010,
+		"createdAt": 1692682166894,
+		"updatedAt": 1692682166894
+	},
+	{
+		"code": 25302010,
+		"name": "Education Services",
+		"description": "Companies providing educational services, either on-line or through conventional teaching methods. Includes, private universities, correspondence teaching, providers of educational seminars, educational materials and technical education. Excludes companies providing employee education programs classified in the Human Resources & Employment Services Sub-Industry",
+		"parentId": 253020,
+		"createdAt": 1692682166895,
+		"updatedAt": 1692682166895
+	},
+	{
+		"code": 25302020,
+		"name": "Specialized Consumer Services",
+		"description": "Companies providing consumer services not classified elsewhere.  Includes residential services, home security, legal services, personal services, renovation & interior design services, consumer auctions and wedding & funeral services.",
+		"parentId": 253020,
+		"createdAt": 1692682166896,
+		"updatedAt": 1692682166896
+	},
+	{
+		"code": 25501010,
+		"name": "Distributors",
+		"description": "Distributors and wholesalers of general merchandise not classified elsewhere. Includes vehicle distributors.",
+		"parentId": 255010,
+		"createdAt": 1692682166897,
+		"updatedAt": 1692682166897
+	},
+	{
+		"code": 25503030,
+		"name": "Broadline Retail",
+		"description": "Retailers offering a wide range of consumer discretionary merchandise. This Sub-Industry includes general and discount merchandise retailers, department stores and on-line retailers and marketplaces selling mostly consumer discretionary merchandise.",
+		"parentId": 255030,
+		"createdAt": 1692682166898,
+		"updatedAt": 1692682166898
+	},
+	{
+		"code": 25504010,
+		"name": "Apparel Retail",
+		"description": "Retailers specialized mainly in apparel and accessories.",
+		"parentId": 255040,
+		"createdAt": 1692682166899,
+		"updatedAt": 1692682166899
+	},
+	{
+		"code": 25504020,
+		"name": "Computer &Electronics Retail",
+		"description": "Owners and operators of consumer electronics, computers, video and related products retail stores.",
+		"parentId": 255040,
+		"createdAt": 1692682166899,
+		"updatedAt": 1692682166899
+	},
+	{
+		"code": 25504030,
+		"name": "Home Improvement Retail",
+		"description": "Owners and operators of home and garden improvement retail stores. Includes stores offering building materials and supplies.",
+		"parentId": 255040,
+		"createdAt": 1692682166900,
+		"updatedAt": 1692682166900
+	},
+	{
+		"code": 25504040,
+		"name": "Other Specialty Retail",
+		"description": "Owners and operators of specialty retail stores not classified elsewhere. Includes jewelry stores, toy stores, office supply stores, health & vision care stores, and book & entertainment stores.",
+		"parentId": 255040,
+		"createdAt": 1692682166900,
+		"updatedAt": 1692682166900
+	},
+	{
+		"code": 25504050,
+		"name": "Automotive Retail",
+		"description": "Ownersand operators of stores specializing in automotive retail.  Includes auto dealers, gas stations, and retailers of auto accessories, motorcycles & parts, automotive glass, and automotive equipment & parts.",
+		"parentId": 255040,
+		"createdAt": 1692682166901,
+		"updatedAt": 1692682166901
+	},
+	{
+		"code": 25504060,
+		"name": "Homefurnishing Retail",
+		"description": "Owners and operators of furniture and home furnishings retail stores.  Includes residential furniture, homefurnishings, housewares, and interior design.  Excludes home and garden improvement stores, classified in the Home Improvement Retail Sub-Industry.",
+		"parentId": 255040,
+		"createdAt": 1692682166901,
+		"updatedAt": 1692682166901
+	},
+	{
+		"code": 30101010,
+		"name": "Drug Retail",
+		"description": "Owners and operators of primarily drug retail stores and pharmacies.",
+		"parentId": 301010,
+		"createdAt": 1692682166903,
+		"updatedAt": 1692682166903
+	},
+	{
+		"code": 30101020,
+		"name": "Food Distributors",
+		"description": "Distributors of food products to other companies and not directly to the consumer.",
+		"parentId": 301010,
+		"createdAt": 1692682166903,
+		"updatedAt": 1692682166903
+	},
+	{
+		"code": 30101030,
+		"name": "Food Retail",
+		"description": "Owners and operators of primarily food retail stores.",
+		"parentId": 301010,
+		"createdAt": 1692682166904,
+		"updatedAt": 1692682166904
+	},
+	{
+		"code": 30101040,
+		"name": "Consumer Staples Merchandise Retail ",
+		"description": "Retailers offering a wide range of consumer staples merchandise such as food, household, and personal care products. This Sub-Industry includes hypermarkets, super centers and other consumer staples retailers such as discount retail spaces and on-line marketplaces selling mostly consumer staples goods.",
+		"parentId": 301010,
+		"createdAt": 1692682166904,
+		"updatedAt": 1692682166904
+	},
+	{
+		"code": 30201010,
+		"name": "Brewers",
+		"description": "Producers of beer and malt liquors. Includes breweries not classified in the Restaurants Sub-Industry.",
+		"parentId": 302010,
+		"createdAt": 1692682166906,
+		"updatedAt": 1692682166906
+	},
+	{
+		"code": 30201020,
+		"name": "Distillers & Vintners",
+		"description": "Distillers, vintners and producers of alcoholic beverages not classified in the Brewers Sub-Industry.",
+		"parentId": 302010,
+		"createdAt": 1692682166906,
+		"updatedAt": 1692682166906
+	},
+	{
+		"code": 30201030,
+		"name": "Soft Drinks & Non-alcoholic Beverages",
+		"description": "Producers of non-alcoholic beverages including mineral waters. Excludes producers of milk classified in the Packaged Foods Sub-Industry.",
+		"parentId": 302010,
+		"createdAt": 1692682166906,
+		"updatedAt": 1692682166906
+	},
+	{
+		"code": 30202010,
+		"name": "Agricultural Products & Services",
+		"description": "Producers of agricultural products. Includes crop growers, owners of plantations and companies that produce and process foods but do not package and market them. Excludescompanies classified in the Forest Products Sub-Industry and those that package and market the food products classified in the Packaged Foods Sub-Industry.",
+		"parentId": 302020,
+		"createdAt": 1692682166907,
+		"updatedAt": 1692682166907
+	},
+	{
+		"code": 30202030,
+		"name": "Packaged Foods & Meats",
+		"description": "Producers of packaged foods including dairy products, fruit juices, meats, poultry, fish and pet foods.",
+		"parentId": 302020,
+		"createdAt": 1692682166908,
+		"updatedAt": 1692682166908
+	},
+	{
+		"code": 30203010,
+		"name": "Tobacco",
+		"description": "Manufacturers of cigarettes and other tobacco products.",
+		"parentId": 302030,
+		"createdAt": 1692682166909,
+		"updatedAt": 1692682166909
+	},
+	{
+		"code": 30301010,
+		"name": "Household Products",
+		"description": "Producers of non-durable household products, including detergents, soaps, diapers and other tissue and household paper products not classified in the Paper Products Sub-Industry.",
+		"parentId": 303010,
+		"createdAt": 1692682166910,
+		"updatedAt": 1692682166910
+	},
+	{
+		"code": 30302010,
+		"name": "Personal Care Products ",
+		"description": "Manufacturers of personal and beauty care products, including cosmetics and perfumes.",
+		"parentId": 303020,
+		"createdAt": 1692682166910,
+		"updatedAt": 1692682166910
+	},
+	{
+		"code": 35101010,
+		"name": "Health Care Equipment",
+		"description": "Manufacturers of health care equipment and devices. Includes medical instruments, drug delivery systems, cardiovascular & orthopedic devices, and diagnostic equipment.",
+		"parentId": 351010,
+		"createdAt": 1692682166912,
+		"updatedAt": 1692682166912
+	},
+	{
+		"code": 35101020,
+		"name": "Health Care Supplies",
+		"description": "Manufacturers of health care supplies and medical products not classified elsewhere. Includes eye care products, hospital supplies, and safety needle & syringe devices.",
+		"parentId": 351010,
+		"createdAt": 1692682166912,
+		"updatedAt": 1692682166912
+	},
+	{
+		"code": 35102010,
+		"name": "Health Care Distributors",
+		"description": "Distributors and wholesalers of health care products not classified elsewhere. ",
+		"parentId": 351020,
+		"createdAt": 1692682166913,
+		"updatedAt": 1692682166913
+	},
+	{
+		"code": 35102015,
+		"name": "Health Care  Services",
+		"description": "Providers of patient health care services not classified elsewhere. Includes dialysis centers, lab testing services, and pharmacy management services. Also includes companies providing business support services to health care providers, such as clerical support services, collection agency services, staffing services and outsourced sales & marketing services",
+		"parentId": 351020,
+		"createdAt": 1692682166914,
+		"updatedAt": 1692682166914
+	},
+	{
+		"code": 35102020,
+		"name": "Health Care Facilities",
+		"description": "Owners and operatorsof health care facilities, including hospitals, nursing homes, rehabilitation centers and animal hospitals.",
+		"parentId": 351020,
+		"createdAt": 1692682166914,
+		"updatedAt": 1692682166914
+	},
+	{
+		"code": 35102030,
+		"name": "Managed Health Care",
+		"description": "Owners and operators of Health Maintenance Organizations (HMOs) and other managed plans.",
+		"parentId": 351020,
+		"createdAt": 1692682166914,
+		"updatedAt": 1692682166914
+	},
+	{
+		"code": 35103010,
+		"name": "Health Care Technology",
+		"description": "Companies providing information technology services primarily to health care providers.  Includes companies providing application, systems and/or data processing software, internet-based tools, and IT consulting services to doctors, hospitals or businesses operating primarily in the Health Care Sector",
+		"parentId": 351030,
+		"createdAt": 1692682166915,
+		"updatedAt": 1692682166915
+	},
+	{
+		"code": 35201010,
+		"name": "Biotechnology",
+		"description": "Companies primarily engaged in the research, development, manufacturing and/or marketing of products based on genetic analysis and genetic engineering.  Includes companies specializing in protein-based therapeutics to treat human diseases. Excludes companies manufacturing products using biotechnology but without a health care application.",
+		"parentId": 352010,
+		"createdAt": 1692682166917,
+		"updatedAt": 1692682166917
+	},
+	{
+		"code": 35202010,
+		"name": "Pharmaceuticals",
+		"description": "Companies engaged in the research, development or production of pharmaceuticals. Includes veterinary drugs.",
+		"parentId": 352020,
+		"createdAt": 1692682166917,
+		"updatedAt": 1692682166917
+	},
+	{
+		"code": 35203010,
+		"name": "Life Sciences Tools & Services",
+		"description": "Companies enabling the drug discovery, development and production continuum by providing analytical tools, instruments, consumables & supplies, clinical trial services and contract research services.  Includes firms primarily servicing the pharmaceutical and biotechnology industries.",
+		"parentId": 352030,
+		"createdAt": 1692682166918,
+		"updatedAt": 1692682166918
+	},
+	{
+		"code": 40101010,
+		"name": "Diversified Banks",
+		"description": "Large, geographically diverse banks with a national footprint whose revenues are derived primarily from conventional banking operations, have significant business activity in retail banking and small and medium corporate lending, and provide a diverse range of financial services.  Excludes banks classified in the Regional Banks and Thrifts & Mortgage Finance Sub-Industries. Also excludes investment banks classified in the Investment Banking & Brokerage Sub-Industry.",
+		"parentId": 401010,
+		"createdAt": 1692682166920,
+		"updatedAt": 1692682166920
+	},
+	{
+		"code": 40101015,
+		"name": "Regional Banks",
+		"description": "Commercial banks, savings banks and thrifts whose business are derived primarily from conventional banking operations such as retail banking, corporate lending and originating various residential and commercial mortgage loans funded mainly through deposits. Regional banks tend to operate in limited geographic regions. Excludes companies classified in the Diversified Banks and Commercial & Residential Mortgage Finance Sub-Industries. Also excludes investment banks classified in the Investment Banking & Brokerage Sub-Industry.",
+		"parentId": 401010,
+		"createdAt": 1692682166921,
+		"updatedAt": 1692682166921
+	},
+	{
+		"code": 40201020,
+		"name": "Diversified Financial Services",
+		"description": "Providers of a diverse range of financial services and/or with some interest in a wide range of financial services including banking, insurance and capital markets, but with no dominant business line. Excludes companies classified in the Regional Banks and Diversified Banks Sub-Industries.",
+		"parentId": 402010,
+		"createdAt": 1692682166922,
+		"updatedAt": 1692682166922
+	},
+	{
+		"code": 40201030,
+		"name": "Multi-Sector Holdings",
+		"description": "A company with significantly diversified holdings across three or more sectors, none of which contributes a majority of profit and/or sales. Stakes held are predominantly of a non-controlling nature.  Includes diversified financial companies where stakes held are of a controlling nature. Excludes other diversified companies classified in the Industrials Conglomerates Sub-Industry.",
+		"parentId": 402010,
+		"createdAt": 1692682166922,
+		"updatedAt": 1692682166922
+	},
+	{
+		"code": 40201040,
+		"name": "Specialized Finance",
+		"description": "Providers  of  specialized  financial  services  not  classified  elsewhere. Companies  in  this  sub-industry  derive  a  majority  of  revenue  from  one  specialized  line  of  business. \nIncludes,  but  not  limited  to,  commercial  financing  companies,  central  banks,  leasing  institutions, factoring services, and specialty boutiques. Excludes companies classified in the Financial Exchanges & Data sub-industry.",
+		"parentId": 402010,
+		"createdAt": 1692682166923,
+		"updatedAt": 1692682166923
+	},
+	{
+		"code": 40201050,
+		"name": "Commercial & Residential Mortgage Finance ",
+		"description": "Financial companies providing commercial and residential mortgage financing and related mortgage services. This Sub-Industry includes non-deposit funded mortgage lending institutions, building societies, companies providing real estate financing products, loan servicing, mortgage broker services, and mortgage insurance. ",
+		"parentId": 402010,
+		"createdAt": 1692682166924,
+		"updatedAt": 1692682166924
+	},
+	{
+		"code": 40201060,
+		"name": "Transaction & Payment Processing Services ",
+		"description": "Providers of transaction & payment processing services and related payment services including digital/mobile payment processors, payment service providers & gateways, and digital wallet providers.",
+		"parentId": 402010,
+		"createdAt": 1692682166925,
+		"updatedAt": 1692682166925
+	},
+	{
+		"code": 40202010,
+		"name": "Consumer Finance",
+		"description": "Providers of consumer finance services, including personal credit, credit cards, lease financing, travel-related money services and pawn shops.  Excludes mortgage lenders classified in the Thrifts & Mortgage Finance Sub-Industry.",
+		"parentId": 402020,
+		"createdAt": 1692682166926,
+		"updatedAt": 1692682166926
+	},
+	{
+		"code": 40203010,
+		"name": "Asset Management & Custody Banks",
+		"description": "Financial institutions primarily engaged in investment management and/or related custody and securities fee-based services. Includes companies operating mutual funds, closed-end funds and unit investment trusts.  Excludes banks and other financial institutions primarily involved in commercial lending, investment banking, brokerage and other specialized financial activities. ",
+		"parentId": 402030,
+		"createdAt": 1692682166927,
+		"updatedAt": 1692682166927
+	},
+	{
+		"code": 40203020,
+		"name": "Investment Banking & Brokerage",
+		"description": "Financial institutions primarily engaged in investment banking & brokerage services, including equity and debt underwriting, mergers and acquisitions, securities lending and advisory services. Excludes banks and other financial institutions primarily involved in commercial lending, asset management and specialized financial activities. ",
+		"parentId": 402030,
+		"createdAt": 1692682166928,
+		"updatedAt": 1692682166928
+	},
+	{
+		"code": 40203030,
+		"name": "Diversified Capital Markets",
+		"description": "Financial institutions primarily engaged in diversified capital markets activities, including a significant presence in at least two of the following area: large/major corporate lending, investment banking, brokerage and asset management. Excludes less diversified companies classified in the Asset Management& Custody Banks or Investment Banking & Brokerage sub-industries.  Also excludes companies classified in the Banks or Insurance industry groups or the Consumer Finance Sub-Industry. ",
+		"parentId": 402030,
+		"createdAt": 1692682166928,
+		"updatedAt": 1692682166928
+	},
+	{
+		"code": 40203040,
+		"name": "Financial Exchanges & Data",
+		"description": "Financial  exchanges  for  securities,  commodities,  derivatives and other financial instruments, and providers of financial decision support tools and products  including ratings agencies",
+		"parentId": 402030,
+		"createdAt": 1692682166929,
+		"updatedAt": 1692682166929
+	},
+	{
+		"code": 40204010,
+		"name": "Mortgage REITs",
+		"description": "Companies or Trusts that service, originate, purchase and/or securitize residential and/or commercial mortgage loans.  Includes trusts that invest in mortgage-backed securities and other mortgage related assets.",
+		"parentId": 402040,
+		"createdAt": 1692682166929,
+		"updatedAt": 1692682166929
+	},
+	{
+		"code": 40301010,
+		"name": "Insurance Brokers",
+		"description": "Insurance and reinsurance brokerage firms.",
+		"parentId": 403010,
+		"createdAt": 1692682166931,
+		"updatedAt": 1692682166931
+	},
+	{
+		"code": 40301020,
+		"name": "Life & Health Insurance",
+		"description": "Companies providing primarily life, disability, indemnity or supplemental health insurance. Excludes managed care companies classified in the Managed Health Care Sub-Industry.",
+		"parentId": 403010,
+		"createdAt": 1692682166931,
+		"updatedAt": 1692682166931
+	},
+	{
+		"code": 40301030,
+		"name": "Multi-line Insurance",
+		"description": "Insurance companies with diversified interests in life, health and property and casualty insurance.",
+		"parentId": 403010,
+		"createdAt": 1692682166932,
+		"updatedAt": 1692682166932
+	},
+	{
+		"code": 40301040,
+		"name": "Property & Casualty Insurance",
+		"description": "Companies providing primarily property and casualty insurance.",
+		"parentId": 403010,
+		"createdAt": 1692682166932,
+		"updatedAt": 1692682166932
+	},
+	{
+		"code": 40301050,
+		"name": "Reinsurance",
+		"description": "Companies providing primarily reinsurance.",
+		"parentId": 403010,
+		"createdAt": 1692682166933,
+		"updatedAt": 1692682166933
+	},
+	{
+		"code": 45102010,
+		"name": "IT Consulting & Other Services",
+		"description": "Providers of information technology and systems integration services not classified in the Data Processing & Outsourced Services Sub-Industry.  Includes information technology consulting and information management services.",
+		"parentId": 451020,
+		"createdAt": 1692682166935,
+		"updatedAt": 1692682166935
+	},
+	{
+		"code": 45102030,
+		"name": "Internet Services & Infrastructure",
+		"description": "Companies providing services and infrastructure for the internet industry including data centers and cloud networking and storage infrastructure. Also includes companies providing web hosting services. Excludes companies classified in the Software Industry.",
+		"parentId": 451020,
+		"createdAt": 1692682166935,
+		"updatedAt": 1692682166935
+	},
+	{
+		"code": 45103010,
+		"name": "Application Software",
+		"description": "Companies engaged in developing and producing software designed for specialized applications for the business or consumer market. Includes enterprise and technical software, as well as cloud-based software. Excludes companies classified in the Interactive Home Entertainment Sub-Industry. Also excludes companies producing systems or database management software classified in the Systems Software Sub-Industry.",
+		"parentId": 451030,
+		"createdAt": 1692682166936,
+		"updatedAt": 1692682166936
+	},
+	{
+		"code": 45103020,
+		"name": "Systems Software",
+		"description": "Companies engaged in developing and producing systems and database management software.",
+		"parentId": 451030,
+		"createdAt": 1692682166936,
+		"updatedAt": 1692682166936
+	},
+	{
+		"code": 45201020,
+		"name": "Communications Equipment",
+		"description": "Manufacturers of communication equipment and products, including LANs, WANs, routers, telephones, switchboards and exchanges. Excludes cellular phone manufacturers classified in the Technology Hardware,Storage & Peripherals Sub-Industry.",
+		"parentId": 452010,
+		"createdAt": 1692682166938,
+		"updatedAt": 1692682166938
+	},
+	{
+		"code": 45202030,
+		"name": "Technology Hardware, Storage & Peripherals",
+		"description": "Manufacturers of cellular phones, personal computers, servers, electronic computer components and peripherals. Includes data storage components, motherboards, audio and video cards, monitors, keyboards, printers, and other peripherals. Excludes semiconductors classified in the Semiconductors Sub-Industry.",
+		"parentId": 452020,
+		"createdAt": 1692682166939,
+		"updatedAt": 1692682166939
+	},
+	{
+		"code": 45203010,
+		"name": "Electronic Equipment & Instruments ",
+		"description": "Manufacturers of electronic equipment and instruments including analytical, electronic test and measurement instruments, scanner/barcode products, lasers, display screens, point-of-sales machines, and security system equipment.",
+		"parentId": 452030,
+		"createdAt": 1692682166940,
+		"updatedAt": 1692682166940
+	},
+	{
+		"code": 45203015,
+		"name": "Electronic Components",
+		"description": "Manufacturers of electronic components. Includes electronic components, connection devices, electron tubes, electronic capacitors and resistors, electronic coil, printed circuit board, transformer and other inductors, signal processing technology/components.",
+		"parentId": 452030,
+		"createdAt": 1692682166941,
+		"updatedAt": 1692682166941
+	},
+	{
+		"code": 45203020,
+		"name": "Electronic Manufacturing Services",
+		"description": "Producers of electronic equipment mainly for the OEM (Original Equipment Manufacturers) markets.",
+		"parentId": 452030,
+		"createdAt": 1692682166941,
+		"updatedAt": 1692682166941
+	},
+	{
+		"code": 45203030,
+		"name": "Technology Distributors",
+		"description": "Distributors of technology hardware and equipment. Includes distributors of communications equipment, computers & peripherals, semiconductors, and electronic equipment and components.",
+		"parentId": 452030,
+		"createdAt": 1692682166942,
+		"updatedAt": 1692682166942
+	},
+	{
+		"code": 45301010,
+		"name": "Semiconductor Materials & Equipment",
+		"description": "Manufacturers of semiconductor equipment, including manufacturers of the raw material and equipment used in the solar power industry.",
+		"parentId": 453010,
+		"createdAt": 1692682166944,
+		"updatedAt": 1692682166944
+	},
+	{
+		"code": 45301020,
+		"name": "Semiconductors",
+		"description": "Manufacturers of semiconductors and related products, including manufacturers of solar modules and cells.",
+		"parentId": 453010,
+		"createdAt": 1692682166944,
+		"updatedAt": 1692682166944
+	},
+	{
+		"code": 50101010,
+		"name": "Alternative Carriers",
+		"description": "Providers of communications and high-density data transmission services primarily through a high bandwidth/fiber-optic cable network.",
+		"parentId": 501010,
+		"createdAt": 1692682166946,
+		"updatedAt": 1692682166946
+	},
+	{
+		"code": 50101020,
+		"name": "Integrated Telecommunication Services",
+		"description": "Operators of primarily fixed-line telecommunications networks and companies providing both wireless and fixed-line telecommunicationsservices not classified elsewhere. Also includes internet service providers offering internet access to end users.",
+		"parentId": 501010,
+		"createdAt": 1692682166946,
+		"updatedAt": 1692682166946
+	},
+	{
+		"code": 50102010,
+		"name": "Wireless Telecommunication Services",
+		"description": "Providers of primarily cellular or wireless telecommunication services.",
+		"parentId": 501020,
+		"createdAt": 1692682166947,
+		"updatedAt": 1692682166947
+	},
+	{
+		"code": 50201010,
+		"name": "Advertising",
+		"description": "Companies providing advertising, marketing or public relations services.",
+		"parentId": 502010,
+		"createdAt": 1692682166949,
+		"updatedAt": 1692682166949
+	},
+	{
+		"code": 50201020,
+		"name": "Broadcasting",
+		"description": "Owners and operators of television or radio broadcasting systems, including programming. Includes radio and television broadcasting, radio networks, and radio stations.",
+		"parentId": 502010,
+		"createdAt": 1692682166950,
+		"updatedAt": 1692682166950
+	},
+	{
+		"code": 50201030,
+		"name": "Cable &Satellite",
+		"description": "Providers of cable or satellite television services. Includes cable networks and program distribution.",
+		"parentId": 502010,
+		"createdAt": 1692682166950,
+		"updatedAt": 1692682166950
+	},
+	{
+		"code": 50201040,
+		"name": "Publishing",
+		"description": "Publishers of newspapers, magazines and books in print or electronic formats.",
+		"parentId": 502010,
+		"createdAt": 1692682166951,
+		"updatedAt": 1692682166951
+	},
+	{
+		"code": 50202010,
+		"name": "Movies & Entertainment",
+		"description": "Companies that engage in producing and selling entertainment products and services, including companies engaged in the production, distribution and screening of movies and television shows, producers and distributors of music, entertainment theaters and sports teams. Also includes companies offering and/or producing entertainment content streamed online.",
+		"parentId": 502020,
+		"createdAt": 1692682166952,
+		"updatedAt": 1692682166952
+	},
+	{
+		"code": 50202020,
+		"name": "Interactive Home Entertainment",
+		"description": "Producers of interactive gaming products, including mobile gaming applications. Also includes educational software used primarily in the home. Excludes online gambling companies classified in the Casinos & Gaming Sub-Industry.",
+		"parentId": 502020,
+		"createdAt": 1692682166952,
+		"updatedAt": 1692682166952
+	},
+	{
+		"code": 50203010,
+		"name": "Interactive Media & Services",
+		"description": "Companies engaging in content and information creation or distribution through proprietary platforms, where revenues are derived primarily through pay-per-click advertisements. Includes search engines, social media and networking platforms, online classifieds, and online review companies. Excludes companies operating online marketplaces classified in Internet & Direct Marketing Retail. ",
+		"parentId": 502030,
+		"createdAt": 1692682166953,
+		"updatedAt": 1692682166953
+	},
+	{
+		"code": 55101010,
+		"name": "Electric Utilities",
+		"description": "Companies that produce or distribute electricity. Includes both nuclear and non-nuclear facilities.",
+		"parentId": 551010,
+		"createdAt": 1692682166955,
+		"updatedAt": 1692682166955
+	},
+	{
+		"code": 55102010,
+		"name": "Gas Utilities",
+		"description": "Companies whose main charter is to distribute and transmit natural and manufactured gas. Excludes companies primarily involved in gas exploration or production classified in the Oil & Gas Exploration & Production Sub-Industry. Also excludes companies engaged in thestorage and/or transportation of oil, gas, and/or refined products classified in the Oil & Gas Storage & Transportation Sub-Industry.",
+		"parentId": 551020,
+		"createdAt": 1692682166956,
+		"updatedAt": 1692682166956
+	},
+	{
+		"code": 55103010,
+		"name": "Multi-Utilities",
+		"description": "Utility companies with significantly diversified activities in addition to core Electric Utility, Gas Utility and/or Water Utility operations.",
+		"parentId": 551030,
+		"createdAt": 1692682166957,
+		"updatedAt": 1692682166957
+	},
+	{
+		"code": 55104010,
+		"name": "Water Utilities",
+		"description": "Companies that purchase and redistribute water to the end-consumer. Includes large-scale water treatment systems.",
+		"parentId": 551040,
+		"createdAt": 1692682166958,
+		"updatedAt": 1692682166958
+	},
+	{
+		"code": 55105010,
+		"name": "Independent Power Producers & Energy Traders",
+		"description": "Companies that operate as Independent Power Producers (IPPs), Gas & Power Marketing & Trading Specialists and/or Integrated Energy Merchants. Excludes producers of electricity using renewable sources, such as solar power, hydropower, and wind power. Also excludes electric transmission companies and utility distribution companies classified in the Electric Utilities Sub-Industry.",
+		"parentId": 551050,
+		"createdAt": 1692682166958,
+		"updatedAt": 1692682166958
+	},
+	{
+		"code": 55105020,
+		"name": "Renewable Electricity ",
+		"description": "Companies that engage in the generation and distribution of electricity using renewable sources, including, but not limited to, companies that produce electricity using biomass, geothermal energy, solar energy, hydropower, and wind power. Excludes companies manufacturing capital equipment used to generate electricity using renewable sources, such as manufacturers of solar power systems, installers of photovoltaic cells,  and companies involved in the provision of technology, components, and services mainly to this market. ",
+		"parentId": 551050,
+		"createdAt": 1692682166959,
+		"updatedAt": 1692682166959
+	},
+	{
+		"code": 60101010,
+		"name": "Diversified REITs",
+		"description": "A company or Trust with significantly diversified operations across two or more property types.",
+		"parentId": 601010,
+		"createdAt": 1692682166960,
+		"updatedAt": 1692682166960
+	},
+	{
+		"code": 60102510,
+		"name": "Industrial REITs",
+		"description": "Companies or Trusts engaged in the acquisition, development, ownership, leasing, management and operation of industrial properties. Includes companies operating industrial warehouses and distribution properties.",
+		"parentId": 601025,
+		"createdAt": 1692682166961,
+		"updatedAt": 1692682166961
+	},
+	{
+		"code": 60103010,
+		"name": "Hotel & Resort REITs",
+		"description": "Companies or Trusts engaged in the acquisition, development, ownership, leasing, management and operation of hotel and resort properties. ",
+		"parentId": 601030,
+		"createdAt": 1692682166962,
+		"updatedAt": 1692682166962
+	},
+	{
+		"code": 60104010,
+		"name": "Office REITs",
+		"description": "Companies or Trusts engaged in the acquisition, development, ownership, leasing, management and operation of office properties.",
+		"parentId": 601040,
+		"createdAt": 1692682166963,
+		"updatedAt": 1692682166963
+	},
+	{
+		"code": 60105010,
+		"name": "Health Care REITs",
+		"description": "Companies or Trusts engaged in the acquisition, development, ownership, leasing, management and operation of properties serving the health care industry, including hospitals, nursing homes, and assisted living properties.",
+		"parentId": 601050,
+		"createdAt": 1692682166964,
+		"updatedAt": 1692682166964
+	},
+	{
+		"code": 60106010,
+		"name": "Multi-Family Residential REITs",
+		"description": "Companies or Trusts engaged in the acquisition, development, ownership, leasing, management and operation of apartments and other multi-family housing including student housing.",
+		"parentId": 601060,
+		"createdAt": 1692682166965,
+		"updatedAt": 1692682166965
+	},
+	{
+		"code": 60106020,
+		"name": "Single-Family Residential REITs ",
+		"description": "Companies or Trusts engaged in the acquisition, development, ownership, leasing, management and operation of single-family residential housing including manufactured homes.",
+		"parentId": 601060,
+		"createdAt": 1692682166965,
+		"updatedAt": 1692682166965
+	},
+	{
+		"code": 60107010,
+		"name": "Retail REITs",
+		"description": "Companies or Trusts engaged in the acquisition, development, ownership, leasing, management and operation of shopping malls, outlet malls, neighborhood and community shopping centers.",
+		"parentId": 601070,
+		"createdAt": 1692682166966,
+		"updatedAt": 1692682166966
+	},
+	{
+		"code": 60108010,
+		"name": "Other Specialized REITs",
+		"description": "Companies or Trusts engaged in the acquisition, development, ownership, leasing, management and operation of properties not classified elsewhere. This Sub-Industry includes REITs that manage and own properties such as natural gas and crude oil pipelines, gas stations, fiber optic cables, prisons, automobile parking, and automobile dealerships.",
+		"parentId": 601080,
+		"createdAt": 1692682166967,
+		"updatedAt": 1692682166967
+	},
+	{
+		"code": 60108020,
+		"name": "Self-Storage REITs",
+		"description": "Companies or Trusts engaged in the acquisition, development, ownership, leasing, management and operation of self storage properties.",
+		"parentId": 601080,
+		"createdAt": 1692682166967,
+		"updatedAt": 1692682166967
+	},
+	{
+		"code": 60108030,
+		"name": "Telecom Tower REITs",
+		"description": "Companies or Trusts engaged in the acquisition, development, ownership, leasing, management and operation of telecom towers and related structures that support wireless telecommunications.",
+		"parentId": 601080,
+		"createdAt": 1692682166968,
+		"updatedAt": 1692682166968
+	},
+	{
+		"code": 60108040,
+		"name": "Timber REITs",
+		"description": "Companies or Trusts engaged in the acquisition, development, ownership, leasing, management and operation of timberland and timber-related properties.",
+		"parentId": 601080,
+		"createdAt": 1692682166968,
+		"updatedAt": 1692682166968
+	},
+	{
+		"code": 60108050,
+		"name": "Data Center REITs",
+		"description": "Companies or Trusts engaged in the acquisition, development, ownership, leasing, management and operation of data center properties.",
+		"parentId": 601080,
+		"createdAt": 1692682166969,
+		"updatedAt": 1692682166969
+	},
+	{
+		"code": 60201010,
+		"name": "Diversified Real Estate Activities",
+		"description": "Companies engaged in a diverse spectrum of real estate activities including real estate development & sales, real estate management, or real estate services, but with no dominant business line.",
+		"parentId": 602010,
+		"createdAt": 1692682166970,
+		"updatedAt": 1692682166970
+	},
+	{
+		"code": 60201020,
+		"name": "Real Estate Operating Companies",
+		"description": "Companies engaged in operating real estate properties for the purpose of leasing & management.",
+		"parentId": 602010,
+		"createdAt": 1692682166970,
+		"updatedAt": 1692682166970
+	},
+	{
+		"code": 60201030,
+		"name": "Real Estate Development",
+		"description": "Companies that develop real estate and sell the properties after development. Excludes companies classified in the Homebuilding Sub-Industry.",
+		"parentId": 602010,
+		"createdAt": 1692682166971,
+		"updatedAt": 1692682166971
+	},
+	{
+		"code": 60201040,
+		"name": "Real Estate Services",
+		"description": "Real estate service providers such as real estate agents, brokers & real estate appraisers.",
+		"parentId": 602010,
+		"createdAt": 1692682166971,
+		"updatedAt": 1692682166971
+	}
+]
