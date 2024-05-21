@@ -4,12 +4,12 @@ import { controlTable, matrixTable, processTable, riskTable } from '$lib/databas
 import { fail, superValidate } from 'sveltekit-superforms';
 import type { Actions, PageServerLoad } from './$types';
 import { zod } from 'sveltekit-superforms/adapters';
-import { riskDeleteSchema, riskSchema } from '$lib/IC/Validation/Risk.schema';
+import { riskDeleteSchema, riskSchema } from '$lib/IC/risk';
 import { buildTree } from '$lib/components/Tree/TreeView.utilities';
-import { processDeleteSchema, processSchema } from '$lib/IC/Validation/Process.schema';
-import { deleteMatrixSchema, matrixSchema } from '$lib/IC/Validation/Matrix.schema';
+import { processDeleteSchema, processSchema } from '$lib/IC/process';
+import { deleteMatrixSchema, matrixSchema } from '$lib/IC/matrix';
 import { eq } from 'drizzle-orm';
-import { controlDeleteSchema, controlSchema } from '$lib/IC/Validation/control.schema';
+import { controlDeleteSchema, controlSchema } from '$lib/IC/control';
 
 export const load: PageServerLoad = async () => {
 	const processList = await db.select().from(processTable);
