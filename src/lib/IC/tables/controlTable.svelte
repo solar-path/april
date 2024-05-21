@@ -2,8 +2,8 @@
 	import GenericTable from '$lib/components/Table/GenericTable.svelte';
 	import Control from '$lib/IC/forms/Control.svelte';
 
-	import { generatePdfControlReport } from '$lib/IC/Reports/pdf/ControlReport';
-	import { generateXlsControlReport } from '$lib/IC/Reports/xls/ControlReport';
+	import { generatePdfControlReport } from '$lib/IC/Reports/pdf/controlReport';
+	import { generateXlsControlReport } from '../Reports/xls/controlReport';
 
 	export let data: any;
 	let controlList = data.controlList || [];

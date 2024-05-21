@@ -1,8 +1,8 @@
 <script lang="ts">
 	import Risk from '$lib/IC/forms/Risk.svelte';
 	import { generatePdfRiskReport } from '$lib/IC/Reports/pdf/RiskReport';
-	import { generateXlsRiskReport } from '$lib/IC/Reports/xls/RiskReport';
 	import GenericTable from '$lib/components/Table/GenericTable.svelte';
+	import { generateXlsRiskReport } from '../Reports/xls/riskReport';
 
 	export let data: any;
 
