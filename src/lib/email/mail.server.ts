@@ -1,5 +1,10 @@
-import { APP_NAME, BASE_URL, EMAIL_PASSWORD, EMAIL_SERVICE, EMAIL_USER } from '$env/static/private';
 import nodemailer, { type Transporter } from 'nodemailer';
+
+const EMAIL_SERVICE = process.env.EMAIL_SERVICE;
+const EMAIL_USER = process.env.EMAIL_USER;
+const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD;
+const APP_NAME = process.env.APP_NAME;
+const BASE_URL = process.env.BASE_URL;
 
 export const sendEmail = async (email: string, subject: string, html: string) => {
 	const transporter = nodemailer.createTransport({
