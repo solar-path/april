@@ -25,7 +25,12 @@
 	import Contact from '$lib/forms/contact/Contact.svelte';
 	import { drawerContent, fillDrawer, hideDrawer } from '$lib/components/Drawer/drawer.utlities';
 
+	import { inject } from '@vercel/analytics';
+	import { dev } from '$app/environment';
+
 	export let data: LayoutData;
+
+	inject({ mode: dev ? 'development' : 'production' });
 </script>
 
 <div class="flex min-h-screen flex-col justify-between">
