@@ -1,8 +1,8 @@
 <script lang="ts">
 	import GenericTable from '$lib/components/Table/GenericTable.svelte';
 	import Control from '$lib/IC/forms/Control.svelte';
+	import { generatePdfControlReport } from '../Reports/pdf/ControlReport';
 
-	import { generatePdfControlReport } from '$lib/IC/Reports/pdf/controlReport';
 	import { generateXlsControlReport } from '../Reports/xls/controlReport';
 
 	export let data: any;
