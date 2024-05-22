@@ -24,7 +24,7 @@
 
 <GenericTable
 	tableLabel="Process controls"
-	tableDescription="	Browse a list of emplemented controls that prevents and/or detects risks."
+	tableDescription="Browse a list of emplemented controls that prevents and/or detects risks."
 	showToolBar={true}
 	createItemLabel="New control"
 	updateItemLabel="Edit control"
