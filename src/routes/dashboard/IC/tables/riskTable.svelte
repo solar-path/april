@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Risk from '$lib/IC/forms/Risk.svelte';
+	import Risk from '../forms/Risk.svelte';
 	import GenericTable from '$lib/components/Table/GenericTable.svelte';
 	import { generatePdfRiskReport } from '../Reports/pdf/RiskReport';
 	import { generateXlsRiskReport } from '../Reports/xls/riskReport';

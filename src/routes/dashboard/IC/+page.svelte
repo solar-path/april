@@ -7,10 +7,10 @@
 		ShuffleOutline
 	} from 'flowbite-svelte-icons';
 	import type { PageData } from './$types';
-	import MatrixTable from '$lib/IC/tables/matrixTable.svelte';
-	import ProcessTree from '$lib/IC/tables/processTree.svelte';
-	import RiskTable from '$lib/IC/tables/riskTable.svelte';
-	import ControlTable from '$lib/IC/tables/controlTable.svelte';
+	import MatrixTable from './tables/matrixTable.svelte';
+	import ProcessTree from './tables/processTree.svelte';
+	import RiskTable from './tables/riskTable.svelte';
+	import ControlTable from './tables/controlTable.svelte';
 
 	export let data: PageData;
 

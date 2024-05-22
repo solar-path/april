@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { generatePdfBlogReport } from '$lib/Blog/Reports/pdf/BlogReport.js';
-	import { generateXlsBlogReport } from '$lib/Blog/Reports/xls/BlogReport.js';
 	import GenericTable from '$lib/components/Table/GenericTable.svelte';
+	import { generatePdfBlogReport } from './BlogReport.pdf.js';
+	import { generateXlsBlogReport } from './BlogReport.xls.js';
 
 	export let data;
 	$: console.log('blog :: data => ', data);

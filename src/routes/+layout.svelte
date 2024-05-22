@@ -46,6 +46,7 @@
 			<NavLi href="/pricing">Pricing</NavLi>
 			<NavLi href="/learn">Learn & Support</NavLi>
 			{#if data.currentUser}
+				<NavLi href="/admin">Admin</NavLi>
 				<NavLi href="/dashboard">Dashboard</NavLi>
 				<Avatar id="avatar-menu" />
 				<Dropdown placement="bottom" triggeredBy="#avatar-menu">

@@ -10,7 +10,7 @@
 		PlusOutline,
 		SearchOutline
 	} from 'flowbite-svelte-icons';
-	import Process from '$lib/IC/forms/Process.svelte';
+	import Process from '../forms/Process.svelte';
 	import { selectedItem, treeState } from '$lib/components/Tree/TreeView.utilities';
 	import { generatePdfProcessReport } from '../Reports/pdf/ProcessReport';
 	import { generateXlsProcessReport } from '../Reports/xls/ProcessReport';

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import GenericTable from '$lib/components/Table/GenericTable.svelte';
-	import Control from '$lib/IC/forms/Control.svelte';
+	import Control from '../forms/Control.svelte';
 	import { generatePdfControlReport } from '../Reports/pdf/ControlReport';
 
 	import { generateXlsControlReport } from '../Reports/xls/controlReport';
