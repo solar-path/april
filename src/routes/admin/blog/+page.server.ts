@@ -4,10 +4,14 @@ import type { Actions, PageServerLoad } from './$types';
 import { fail, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { postDeleteSchema, postSchema } from './post.schema';
+import { buildTree } from '$lib/components/Tree/TreeView.utilities';
 
 export const load: PageServerLoad = async () => {
+	const postList = await db.select().from(blogTable);
+
 	return {
-		postList: await db.select().from(blogTable),
+		postList,
+		postTree: buildTree(postList),
 		postForm: await superValidate(zod(postSchema))
 	};
 };
