@@ -2,10 +2,12 @@ import { pgEnum, pgTable, text, timestamp, varchar } from 'drizzle-orm/pg-core';
 
 import { userTable } from './users';
 
-export const postStatusEnum = pgEnum('post_status', ['draft', 'published']);
-export const readerForEnum = pgEnum('reader_for', ['guest', 'user', 'admin']);
+export const postStatusTypes = ['draft', 'published'] as const;
+export const postStatusEnum = pgEnum('post_status', postStatusTypes);
+export const readerForTypes = ['guest', 'user', 'admin'] as const;
+export const readerForEnum = pgEnum('reader_for', readerForTypes);
 
-export const blogTable: any = pgTable('blogs', {
+export const blogTable = pgTable('blogs', {
 	id: varchar('id', {
 		length: 50
 	}).primaryKey(),

@@ -1,5 +1,10 @@
 import { db } from '$lib/database/db';
-import { blogTable } from '$lib/database/schema/blog';
+import {
+	blogTable,
+	postStatusEnum,
+	postStatusTypes,
+	readerForTypes
+} from '$lib/database/schema/blog';
 import { z } from 'zod';
 
 const posts = await db
@@ -27,8 +32,8 @@ export const postSchema = z.object({
 				message: 'Parent post not found'
 			}
 		),
-	status: z.string(),
-	readingFor: z.string()
+	status: z.enum(postStatusTypes),
+	readingFor: z.enum(readerForTypes)
 });
 
 export const postDeleteSchema = z.object({

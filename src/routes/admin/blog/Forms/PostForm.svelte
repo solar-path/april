@@ -68,6 +68,7 @@
 
 <form
 	use:enhance
+	enctype="multipart/form-data"
 	class="space-y-2"
 	novalidate
 	method="POST"
@@ -87,9 +88,9 @@
 		<Label for="execution">Reading for</Label>
 
 		<ButtonGroup class="w-full">
-			<Button class="w-1/3" on:click={() => ($form.status = 'guest')}>Guest</Button>
-			<Button class="w-1/3" on:click={() => ($form.status = 'user')}>User</Button>
-			<Button class="w-1/3" on:click={() => ($form.status = 'admin')}>Admin</Button>
+			<Button class="w-1/3" on:click={() => ($form.readingFor = 'guest')}>Guest</Button>
+			<Button class="w-1/3" on:click={() => ($form.readingFor = 'user')}>User</Button>
+			<Button class="w-1/3" on:click={() => ($form.readingFor = 'admin')}>Admin</Button>
 		</ButtonGroup>
 		<DisplayFormErrors errors={$errors.status} />
 	</div>
@@ -100,7 +101,7 @@
 			id="coverImange"
 			type="file"
 			name="coverImange"
-			accept="image/*"
+			accept="image/png, image/jpeg"
 			bind:value={$form.coverImange}
 			{...$constraints.coverImange}
 		/>
