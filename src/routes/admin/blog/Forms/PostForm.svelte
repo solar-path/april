@@ -117,6 +117,8 @@
 			label="Post Tree"
 			modalID="Posts"
 			modalState={false}
+			fieldName="parent"
+			fieldId="parentId"
 		/>
 	</div>
 
