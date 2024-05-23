@@ -100,12 +100,12 @@
 		<Input
 			id="coverImange"
 			type="file"
-			name="coverImange"
+			name="coverImage"
 			accept="image/png, image/jpeg"
-			bind:value={$form.coverImange}
-			{...$constraints.coverImange}
+			bind:value={$form.coverImage}
+			{...$constraints.coverImage}
 		/>
-		<DisplayFormErrors errors={$errors.coverImange} />
+		<DisplayFormErrors errors={$errors.coverImage} />
 	</div>
 
 	<div class="w-full">
