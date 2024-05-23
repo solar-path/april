@@ -2,9 +2,8 @@
 	import GenericTable from '$lib/components/Table/GenericTable.svelte';
 	import { generatePdfBlogReport } from './BlogReport.pdf.js';
 	import { generateXlsBlogReport } from './BlogReport.xls.js';
-
+	import PostForm from './Forms/PostForm.svelte';
 	export let data;
-	$: console.log('blog :: data => ', data);
 	let postList = data.postList || [];
 
 	const reports = [
@@ -28,7 +27,9 @@
 	createItemLabel="Create Blog"
 	updateItemLabel="Update Blog"
 	list={postList}
+	formName={PostForm}
 	{reports}
+	{data}
 	deleteURL="/blog?/deletePost"
 	columns={['id', 'title', 'status', 'readingFor']}
 />

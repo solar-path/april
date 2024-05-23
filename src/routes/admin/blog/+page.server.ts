@@ -5,8 +5,11 @@ import { fail, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { postDeleteSchema, postSchema } from './post.schema';
 
-export const load: PageServerLoad = async (event) => {
-	return { postList: await db.select().from(blogTable) };
+export const load: PageServerLoad = async () => {
+	return {
+		postList: await db.select().from(blogTable),
+		postForm: await superValidate(zod(postSchema))
+	};
 };
 
 export const actions: Actions = {
