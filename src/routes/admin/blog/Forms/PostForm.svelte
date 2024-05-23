@@ -3,6 +3,7 @@
 	import SuperDebug, { superForm, type FormResult } from 'sveltekit-superforms';
 	import DisplayFormErrors from '$lib/components/DisplayFormErrors.svelte';
 	import { Button, Input, Label, Textarea } from 'flowbite-svelte';
+	import { Editor } from '@tadashi/svelte-editor-quill';
 
 	interface PostData {
 		item?: {
@@ -45,10 +46,28 @@
 			}
 		}
 	);
+
+	const options = {
+		theme: 'snow'
+	};
+
+	let WysiwygData = 'Apenas <b>um</b> show';
+	let text = '';
+	let html = '';
+
+	const onTextChange = (event) => {
+		({ text, html } = event?.detail ?? {});
+		WysiwygData = html;
+	};
 </script>
+
+<svelte:head>
+	<link rel="stylesheet" href="https://unpkg.com/quill@2.0.2/dist/quill.snow.css" crossorigin />
+</svelte:head>
 
 <form
 	use:enhance
+	class="space-y-2"
 	novalidate
 	method="POST"
 	action={data.item && data.item != null ? '/admin/blog?/updatePost' : '/admin/blog?/createPost'}
@@ -63,7 +82,8 @@
 
 	<div class="w-full">
 		<Label for="content">Content</Label>
-		<Textarea name="content" bind:value={$form.content} {...$constraints.content} />
+		<Editor {options} {WysiwygData} on:text-change={onTextChange} />
+		<!-- <Textarea name="content" bind:value={$form.content} {...$constraints.content} /> -->
 		<DisplayFormErrors errors={$errors.content} />
 	</div>
 
