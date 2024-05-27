@@ -6,10 +6,10 @@ export const generateXlsControlReport = async (controlList: any) => {
 	const wsData = [
 		['Control report', `as per ${new Date().toLocaleDateString()}`],
 		[],
-		['Code', 'Title', 'Description']
+		['ID', 'Title', 'Description']
 	];
-	controlList.forEach((item: { code: string; title: string; description: string }) => {
-		wsData.push([item.code, item.title, item.description]);
+	controlList.forEach((item: { id: string; title: string; description: string }) => {
+		wsData.push([item.id, item.title, item.description]);
 	});
 	const ws = XLSX.utils.aoa_to_sheet(wsData);
 	XLSX.utils.book_append_sheet(wb, ws, wsName);

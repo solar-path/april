@@ -143,7 +143,7 @@
 							>
 								<EditOutline class="h-4 w-6" /></Button
 							>
-							<DeleteButton path={deleteURL} name={'code'} identifier={item.code} />
+							<DeleteButton path={deleteURL} name={'id'} identifier={item.id} />
 						</div>
 					</TableBodyCell>
 				</TableBodyRow>

@@ -6,10 +6,10 @@ export const generateXlsProcessReport = async (processList: any) => {
 	const wsData = [
 		['Process report', `as per ${new Date().toLocaleDateString()}`],
 		[],
-		['Code', 'Title', 'Description']
+		['ID', 'Title', 'Description']
 	];
-	processList.forEach((item: { code: string; title: string; description: string }) => {
-		wsData.push([item.code, item.title, item.description]);
+	processList.forEach((item: { id: string; title: string; description: string }) => {
+		wsData.push([item.id, item.title, item.description]);
 	});
 	const ws = XLSX.utils.aoa_to_sheet(wsData);
 	XLSX.utils.book_append_sheet(wb, ws, wsName);

@@ -6,10 +6,10 @@ export const generateXlsRiskReport = async (riskList: any) => {
 	const wsData = [
 		['Risk report', `as per ${new Date().toLocaleDateString()}`],
 		[],
-		['Code', 'Title']
+		['id', 'Title']
 	];
-	riskList.forEach((risk: { code: string; title: string }) => {
-		wsData.push([risk.code, risk.title]);
+	riskList.forEach((risk: { id: string; title: string }) => {
+		wsData.push([risk.id, risk.title]);
 	});
 	const ws = XLSX.utils.aoa_to_sheet(wsData);
 	XLSX.utils.book_append_sheet(wb, ws, wsName);

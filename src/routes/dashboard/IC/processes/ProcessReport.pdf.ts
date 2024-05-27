@@ -10,10 +10,10 @@ export const generatePdfProcessReport = async (processList: any) => {
 	doc.setFont('times', 'normal');
 
 	autoTable(doc, {
-		head: [['#', 'Code', 'Title', 'Description']],
+		head: [['#', 'ID', 'Title', 'Description']],
 		body: processList.map((process: any, index: number) => [
 			index + 1,
-			process.code,
+			process.id,
 			process.title,
 			process.description
 		]),

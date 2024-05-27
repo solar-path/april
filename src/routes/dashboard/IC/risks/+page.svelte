@@ -6,7 +6,7 @@
 
 	export let data: any;
 
-	let riskList = data.riskList || [];
+	$: riskList = data.riskList || [];
 
 	const reports = [
 		{ report: generatePdfRiskReport, title: 'Risk Report', type: 'PDF' },
@@ -23,7 +23,7 @@
 	updateItemLabel="Edit risk"
 	formName={Risk}
 	list={riskList}
-	deleteURL="/dashboard/IC?/deleteRisk"
+	deleteURL="/dashboard/IC/risks?/deleteRisk"
 	{data}
 	{reports}
 	columns={['id', 'title']}

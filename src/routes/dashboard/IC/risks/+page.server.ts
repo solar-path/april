@@ -4,8 +4,8 @@ import { fail, superValidate } from 'sveltekit-superforms';
 import type { Actions, PageServerLoad } from './$types';
 import { zod } from 'sveltekit-superforms/adapters';
 
-import { eq } from 'drizzle-orm';
 import { riskDeleteSchema, riskSchema } from './risk.schema';
+import { eq } from 'drizzle-orm';
 
 export const load: PageServerLoad = async () => {
 	return {
@@ -31,11 +31,11 @@ export const actions: Actions = {
 	},
 	updateRisk: async (event) => {
 		const form = await superValidate(await event.request.formData(), zod(riskSchema));
-		if (!form.valid) {
+		if (!form.valid || form.data.id === undefined) {
 			return fail(400, { form });
 		}
 		const risk = await db.select().from(riskTable).where(eq(riskTable.id, form.data.id));
-		if (risk.length === 0 || !risk) {
+		if (risk.length === 0) {
 			return fail(400, { form });
 		}
 		await db

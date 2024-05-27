@@ -35,8 +35,8 @@
 	novalidate
 	method="POST"
 	action={data.item && data.item !== null
-		? '/dashboard/IC?/updateRisk'
-		: '/dashboard/IC?/createRisk'}
+		? '/dashboard/IC/risks?/updateRisk'
+		: '/dashboard/IC/risks?/createRisk'}
 	class="flex flex-col space-y-2"
 >
 	<input type="hidden" name="id" bind:value={$form.id} />

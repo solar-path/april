@@ -11,7 +11,7 @@ export const generatePdfRiskReport = async (riskList: any) => {
 
 	autoTable(doc, {
 		head: [['#', 'Code', 'Title']],
-		body: riskList.map((risk: any, index: number) => [index + 1, risk.code, risk.title]),
+		body: riskList.map((risk: any, index: number) => [index + 1, risk.id, risk.title]),
 		startY: 25
 	});
 	doc.save(`${crypto.randomUUID()}.pdf`);

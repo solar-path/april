@@ -10,10 +10,10 @@ export const generatePdfControlReport = async (controlList: any) => {
 	doc.setFont('times', 'normal');
 
 	autoTable(doc, {
-		head: [['#', 'Code', 'Title', 'Description']],
+		head: [['#', 'id', 'Title', 'Description']],
 		body: controlList.map((control: any, index: number) => [
 			index + 1,
-			control.code,
+			control.id,
 			control.title,
 			control.description
 		]),
