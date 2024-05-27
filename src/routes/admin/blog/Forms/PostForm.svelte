@@ -11,7 +11,7 @@
 			id: string;
 			title: string;
 			content: string;
-			coverImange: string;
+			coverImage: string;
 			parentId: string;
 			parent: string;
 			status: string;
@@ -32,7 +32,8 @@
 					id: data.item.id,
 					title: data.item.title,
 					content: data.item.content, // Ensure this is correctly initialized
-					coverImange: data.item.coverImange,
+					// coverImage: data.item.coverImage,
+					coverImage: '',
 					parentId: data.item.parentId,
 					parent: data.item.parent,
 					status: data.item.status,
@@ -40,6 +41,9 @@
 				}
 			: data.postForm.data,
 		{
+			onSubmit: () => {
+				console.log('Submitting');
+			},
 			onResult(event) {
 				const result = event.result as FormResult<any>;
 				if (result.type === 'success') {
@@ -49,7 +53,7 @@
 		}
 	);
 
-	let postContent = '';
+	let postContent = data.item && data.item != null ? data.item.content : '';
 
 	const onTextChange = (event: any) => {
 		const { html = '' } = event?.detail ?? {};
@@ -85,14 +89,15 @@
 	</div>
 
 	<div class="w-full">
-		<Label for="execution">Reading for</Label>
+		<Label for="readingFor">Reading for</Label>
 
-		<ButtonGroup class="w-full">
-			<Button class="w-1/3" on:click={() => ($form.readingFor = 'guest')}>Guest</Button>
-			<Button class="w-1/3" on:click={() => ($form.readingFor = 'user')}>User</Button>
-			<Button class="w-1/3" on:click={() => ($form.readingFor = 'admin')}>Admin</Button>
-		</ButtonGroup>
-		<DisplayFormErrors errors={$errors.status} />
+		<Select name="readingFor" bind:value={$form.readingFor} {...$constraints.readingFor}>
+			<option value="guest">Guest</option>
+			<option value="user">User</option>
+			<option value="admin">Admin</option>
+		</Select>
+
+		<DisplayFormErrors errors={$errors.readingFor} />
 	</div>
 
 	<div class="w-full">
@@ -105,9 +110,12 @@
 	</div>
 
 	<div class="w-full">
-		<Label for="coverImange">Cover Image</Label>
+		<Label for="coverImage">Cover Image</Label>
+		{#if data.item && data.item != null && data.item.coverImage != null}
+			<img src={data.item.coverImage} alt="Cover of the post" />
+		{/if}
 		<Input
-			id="coverImange"
+			id="coverImage"
 			type="file"
 			name="coverImage"
 			accept="image/png, image/jpeg"
