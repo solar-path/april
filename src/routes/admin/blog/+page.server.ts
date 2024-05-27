@@ -22,7 +22,19 @@ export const actions: Actions = {
 		if (!form.valid) {
 			return fail(400, withFiles({ form }));
 		}
-		console.log('blog/+page.server.ts :: form => ', form);
+		// console.log('blog/+page.server.ts :: form => ', form);
+
+		await db.insert(blogTable).values({
+			id: crypto.randomUUID(),
+			title: form.data.title,
+			content: form.data.content,
+			status: form.data.status,
+			parentId: form.data.parentId,
+			readingFor: form.data.readingFor,
+			coverImage: form.data.coverImage,
+			authorId: event.locals.user?.id
+		});
+
 		return withFiles({ form });
 	},
 	updatePost: async (event) => {
