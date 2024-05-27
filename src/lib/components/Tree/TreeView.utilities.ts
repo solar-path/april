@@ -1,10 +1,10 @@
 import { writable } from 'svelte/store';
 
-interface Item {
+export interface Item {
 	id: string;
 	parentId?: string;
 	children: Item[];
-	[key: string]: any; // For any other properties that might exist
+	[key: string]: unknown; // For any other properties that might exist
 }
 
 /*
@@ -14,17 +14,17 @@ interface Item {
  * @param dataList - The list of items to build the tree from.
  * @returns The tree of items.
  */
-export const buildTree = (dataList: any) => {
+export const buildTree = (dataList: Item[]) => {
 	const dataMap: { [postId: string]: Item } = {};
 	const dataTree: Item[] = [];
 
 	// Create a map for faster lookup
-	dataList.forEach((item: any) => {
+	dataList.forEach((item: Item) => {
 		item.children = [];
 		dataMap[item.id] = item as Item;
 	});
 
-	dataList.forEach((item: any) => {
+	dataList.forEach((item: Item) => {
 		if (item.parentId && dataMap[item.parentId]) {
 			dataMap[item.parentId].children.push(item as Item);
 		} else {
@@ -39,7 +39,7 @@ export const buildTree = (dataList: any) => {
  * use at client
  * @returns selected in tree item (by click).
  */
-export const selectedItem = writable();
+export const selectedItem = writable<Item | null>(null);
 
 /*
  * use at client

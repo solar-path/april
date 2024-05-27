@@ -4,7 +4,7 @@ import { fail, superValidate } from 'sveltekit-superforms';
 import type { Actions, PageServerLoad } from './$types';
 import { zod } from 'sveltekit-superforms/adapters';
 import { buildTree } from '$lib/components/Tree/TreeView.utilities';
-
+import type { Item } from '$lib/components/Tree/TreeView.utilities';
 import { eq } from 'drizzle-orm';
 import { processDeleteSchema, processSchema } from './process.schema';
 
@@ -13,7 +13,7 @@ export const load: PageServerLoad = async () => {
 	return {
 		// PROCESS
 		processList,
-		processTree: buildTree(processList),
+		processTree: buildTree(processList as Item[]),
 		processForm: await superValidate(zod(processSchema))
 	};
 };

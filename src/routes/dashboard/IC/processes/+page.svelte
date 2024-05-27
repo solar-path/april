@@ -15,7 +15,14 @@
 	import { generateXlsProcessReport } from '../processes/ProcessReport.xls';
 	import DeleteButton from '$lib/components/DeleteButton.svelte';
 
+	interface ProcessData {
+		id: number;
+		title: string;
+		description: string;
+	}
+
 	export let data: any;
+	$: processList = data.processList as ProcessData[];
 </script>
 
 <div class="mb-2 flex flex-row justify-end space-x-2">
@@ -31,16 +38,10 @@
 		<DropdownItem>Delete all</DropdownItem>
 	</Dropdown>
 
-	<Button
-		color="alternative"
-		type="button"
-		on:click={() => generatePdfProcessReport(data.processList)}
+	<Button color="alternative" type="button" on:click={() => generatePdfProcessReport(processList)}
 		><FilePdfOutline /><Tooltip>Export as PDF</Tooltip></Button
 	>
-	<Button
-		color="alternative"
-		type="button"
-		on:click={() => generateXlsProcessReport(data.processList)}
+	<Button color="alternative" type="button" on:click={() => generateXlsProcessReport(processList)}
 		><FileChartBarOutline /><Tooltip>Export as XLS</Tooltip></Button
 	>
 </div>
