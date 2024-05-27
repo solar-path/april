@@ -9,7 +9,6 @@
 		item?: {
 			id: string;
 			title: string;
-			code: string;
 			description: string;
 			parentId: string;
 			parent: string;
@@ -28,7 +27,6 @@
 					...data.processForm.data,
 					id: data.item.id,
 					title: data.item.title,
-					code: data.item.code,
 					description: data.item.description,
 					parent: data.processList.find((p) => p.id === data?.item?.parentId)?.title,
 					parentId: data.item.parentId
@@ -50,12 +48,11 @@
 	novalidate
 	method="POST"
 	action={data.item && data.item !== null
-		? '/dashboard/IC?/updateProcess'
-		: '/dashboard/IC?/createProcess'}
+		? '/dashboard/IC/processes?/updateProcess'
+		: '/dashboard/IC/processes?/createProcess'}
 	class="flex flex-col space-y-2"
 >
 	<input type="hidden" name="id" bind:value={$form.id} />
-	<input type="hidden" name="code" bind:value={$form.code} />
 
 	<div class="w-full">
 		<Label for="title">Process</Label>

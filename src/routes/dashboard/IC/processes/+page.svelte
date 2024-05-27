@@ -1,14 +1,13 @@
 <script lang="ts">
 	import { fillDrawer } from '$lib/components/Drawer/drawer.utlities';
 	import TreeView from '$lib/components/Tree/TreeView.svelte';
-	import { Button, Dropdown, DropdownItem, Input, Tooltip } from 'flowbite-svelte';
+	import { Button, Dropdown, DropdownItem, Tooltip } from 'flowbite-svelte';
 	import {
 		ChevronDownOutline,
 		EditOutline,
 		FileChartBarOutline,
 		FilePdfOutline,
-		PlusOutline,
-		SearchOutline
+		PlusOutline
 	} from 'flowbite-svelte-icons';
 	import Process from '../processes/Process.form.svelte';
 	import { selectedItem, treeState } from '$lib/components/Tree/TreeView.utilities';
@@ -17,14 +16,9 @@
 	import DeleteButton from '$lib/components/DeleteButton.svelte';
 
 	export let data: any;
-	let searchTerm = '';
 </script>
 
-<div class="mb-2 flex flex-row space-x-2">
-	<Input placeholder="Search..." class="sm:w-84 rounded-lg md:w-2/3" bind:value={searchTerm}>
-		<SearchOutline slot="left" class="text-gray-500" />
-	</Input>
-
+<div class="mb-2 flex flex-row justify-end space-x-2">
 	<Button
 		on:click={() => {
 			fillDrawer('New process', Process, data);
@@ -96,7 +90,7 @@
 									<EditOutline class="h-4 w-6" /></Button
 								>
 								<DeleteButton
-									path="/dashboard/IC?/deleteProcess"
+									path="/dashboard/IC/processes?/deleteProcess"
 									name={'id'}
 									identifier={$selectedItem.id}
 								/>

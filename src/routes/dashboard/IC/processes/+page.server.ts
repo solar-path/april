@@ -43,8 +43,6 @@ export const actions: Actions = {
 			return fail(400, { form });
 		}
 		await db.delete(processTable).where(eq(processTable.id, form.data.id));
-		// console.log('/dashboard/+page.server.ts :: deleteProcess :: id => ', form.data.id);
-		// console.log('process was deleted');
 		return { form };
 	},
 
