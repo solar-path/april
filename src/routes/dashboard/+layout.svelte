@@ -1,5 +1,11 @@
 <script>
-	import { Sidebar, SidebarGroup, SidebarItem, SidebarWrapper } from 'flowbite-svelte';
+	import {
+		Sidebar,
+		SidebarDropdownItem,
+		SidebarGroup,
+		SidebarItem,
+		SidebarWrapper
+	} from 'flowbite-svelte';
 
 	const modules = [
 		{
@@ -16,7 +22,25 @@
 		},
 		{
 			label: 'Internal control',
-			href: '/dashboard/IC'
+			href: '/dashboard/IC',
+			children: [
+				{
+					label: 'Risks',
+					href: '/dashboard/IC/risks'
+				},
+				{
+					label: 'Controls',
+					href: '/dashboard/IC/controls'
+				},
+				{
+					label: 'Processes',
+					href: '/dashboard/IC/processes'
+				},
+				{
+					label: 'Matrices',
+					href: '/dashboard/IC/matrix'
+				}
+			]
 		}
 	];
 </script>
@@ -32,6 +56,11 @@
 							label={module.label}
 							href={module.href}
 						/>
+						{#if module.children}
+							{#each module.children as child}
+								<SidebarDropdownItem label={child.label} href={child.href} />
+							{/each}
+						{/if}
 					{/each}
 				</SidebarGroup>
 			</SidebarWrapper>

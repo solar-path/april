@@ -5,7 +5,7 @@ import type { Actions, PageServerLoad } from './$types';
 import { zod } from 'sveltekit-superforms/adapters';
 
 import { eq } from 'drizzle-orm';
-import { riskDeleteSchema, riskSchema } from './risk';
+import { riskDeleteSchema, riskSchema } from './risk.schema';
 
 export const load: PageServerLoad = async () => {
 	return {

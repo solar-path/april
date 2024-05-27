@@ -10,10 +10,10 @@
 		PlusOutline,
 		SearchOutline
 	} from 'flowbite-svelte-icons';
-	import Process from '../forms/Process.svelte';
+	import Process from '../processes/Process.form.svelte';
 	import { selectedItem, treeState } from '$lib/components/Tree/TreeView.utilities';
-	import { generatePdfProcessReport } from '../Reports/pdf/ProcessReport';
-	import { generateXlsProcessReport } from '../Reports/xls/ProcessReport';
+	import { generatePdfProcessReport } from '../processes/ProcessReport.pdf';
+	import { generateXlsProcessReport } from '../processes/ProcessReport.xls';
 	import DeleteButton from '$lib/components/DeleteButton.svelte';
 
 	export let data: any;
@@ -104,10 +104,6 @@
 						</div>
 					</li>
 
-					<div class="flex flex-col pb-3">
-						<p class="font-medium">Code</p>
-						<p class="text-sm font-normal text-gray-500">{$selectedItem?.code}</p>
-					</div>
 					<div class="flex flex-col pb-3">
 						<p class="font-medium">Description</p>
 						<p class="text-sm font-normal text-gray-500">

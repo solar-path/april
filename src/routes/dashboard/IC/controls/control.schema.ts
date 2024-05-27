@@ -7,5 +7,5 @@ export const controlSchema = z.object({
 });
 
 export const controlDeleteSchema = z.object({
-	code: z.string()
+	id: z.string()
 });

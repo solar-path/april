@@ -36,9 +36,9 @@
 		totalPages
 	} from '$lib/components/Table/table.utilities';
 	import DeleteButton from '$lib/components/DeleteButton.svelte';
-	import Matrix from '../forms/Matrix.svelte';
-	import { generatePdfMatrixReport } from '../Reports/pdf/MatrixReport';
-	import { generateXlsMatrixReport } from '../Reports/xls/matrixReport';
+	import Matrix from '../matrix/Matrix.form.svelte';
+	import { generatePdfMatrixReport } from '../matrix/MatrixReport.pdf';
+	import { generateXlsMatrixReport } from '../matrix/matrixReport.xls';
 	export let data: any;
 	let matrixList = data?.matrixList || [];
 	let searchTerm = '';
