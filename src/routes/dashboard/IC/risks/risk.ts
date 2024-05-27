@@ -6,5 +6,5 @@ export const riskSchema = z.object({
 });
 
 export const riskDeleteSchema = z.object({
-	code: z.string()
+	id: z.string()
 });

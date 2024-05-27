@@ -1,10 +1,9 @@
 import { db } from '$lib/database/db';
 import { entityTable } from '$lib/database/schema/entity';
-import { controlTable, matrixTable, processTable, riskTable } from '$lib/database/schema/rcm';
+import { controlTable, matrixTable, processTable } from '$lib/database/schema/rcm';
 import { fail, superValidate } from 'sveltekit-superforms';
 import type { Actions, PageServerLoad } from './$types';
 import { zod } from 'sveltekit-superforms/adapters';
-import { riskDeleteSchema, riskSchema } from './Validation/risk';
 import { buildTree } from '$lib/components/Tree/TreeView.utilities';
 import { processDeleteSchema, processSchema } from './Validation/process';
 import { deleteMatrixSchema, matrixSchema } from './Validation/matrix';
@@ -15,9 +14,6 @@ export const load: PageServerLoad = async () => {
 	const processList = await db.select().from(processTable);
 	const entityList = await db.select().from(entityTable);
 	return {
-		// RISK
-		riskList: await db.select().from(riskTable),
-		riskForm: await superValidate(zod(riskSchema)),
 		// CONTROL
 		controlList: await db.select().from(controlTable),
 		controlForm: await superValidate(zod(controlSchema)),
@@ -35,21 +31,6 @@ export const load: PageServerLoad = async () => {
 };
 
 export const actions: Actions = {
-	createRisk: async (event) => {
-		const form = await superValidate(await event.request.formData(), zod(riskSchema));
-		if (!form.valid) {
-			return fail(400, { form });
-		}
-		const id = crypto.randomUUID();
-		await db.insert(riskTable).values({
-			id: id,
-			code: `R${id.split('-')[1]}`,
-			title: form.data.title,
-			author: event.locals.user?.id
-		});
-
-		return { form };
-	},
 	createControl: async (event) => {
 		const form = await superValidate(await event.request.formData(), zod(controlSchema));
 		if (!form.valid) {
@@ -83,14 +64,6 @@ export const actions: Actions = {
 
 		return { form };
 	},
-	deleteRisk: async (event) => {
-		const form = await superValidate(await event.request.formData(), zod(riskDeleteSchema));
-		if (!form.valid) {
-			return fail(400, { form });
-		}
-		await db.delete(riskTable).where(eq(riskTable.code, form.data.code));
-		return { form };
-	},
 
 	deleteControl: async (event) => {
 		const form = await superValidate(await event.request.formData(), zod(controlDeleteSchema));
@@ -112,24 +85,7 @@ export const actions: Actions = {
 		// console.log('process was deleted');
 		return { form };
 	},
-	updateRisk: async (event) => {
-		const form = await superValidate(await event.request.formData(), zod(riskSchema));
-		if (!form.valid) {
-			return fail(400, { form });
-		}
-		const risk = await db.select().from(riskTable).where(eq(riskTable.id, form.data.id));
-		if (risk.length === 0 || !risk) {
-			return fail(400, { form });
-		}
-		await db
-			.update(riskTable)
-			.set({
-				title: form.data.title
-			})
-			.where(eq(riskTable.id, form.data.id));
 
-		return { form };
-	},
 	updateControl: async (event) => {
 		const form = await superValidate(await event.request.formData(), zod(controlSchema));
 		if (!form.valid) {

@@ -178,7 +178,7 @@ const seedRisk = async (user: User) => {
 	for (const risk of riskData) {
 		await db.insert(riskTable).values({
 			id: crypto.randomUUID(),
-			code: risk.code,
+
 			title: risk.title,
 			author: user.id
 		});
@@ -193,7 +193,6 @@ const seedControl = async (user: User) => {
 	for (const control of controlData) {
 		await db.insert(controlTable).values({
 			id: crypto.randomUUID(),
-			code: control.code,
 			title: control.title,
 			description: control.description,
 			author: user.id
@@ -205,7 +204,6 @@ const seedProcess = async (user: User, processList: any[], parentId: string | nu
 	for (const process of processList) {
 		await db.insert(processTable).values({
 			id: crypto.randomUUID(),
-			code: process.code,
 			title: process.title,
 			description: process.description,
 			userID: user.id,

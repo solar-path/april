@@ -9,6 +9,7 @@
 
 <div class="flex items-center justify-center">
 	<Card size="lg">
+		<h3 class="text-xl font-medium text-gray-900 dark:text-white">Forgot password?</h3>
 		<form
 			use:enhance
 			novalidate

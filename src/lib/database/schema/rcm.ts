@@ -2,13 +2,11 @@ import { pgTable, timestamp, varchar, text, pgEnum } from 'drizzle-orm/pg-core';
 import { entityTable } from './entity';
 import { userTable } from './users';
 
-export const riskTable: any = pgTable('rcm_risk', {
+export const riskTable = pgTable('rcm_risk', {
 	id: varchar('id', {
 		length: 50
 	}).primaryKey(),
-	code: varchar('code', {
-		length: 10
-	}),
+
 	title: varchar('title', {
 		length: 200
 	}),
@@ -17,13 +15,11 @@ export const riskTable: any = pgTable('rcm_risk', {
 	updatedAt: timestamp('updatedAt').notNull().defaultNow()
 });
 
-export const controlTable: any = pgTable('rcm_control', {
+export const controlTable = pgTable('rcm_control', {
 	id: varchar('id', {
 		length: 50
 	}).primaryKey(),
-	code: varchar('code', {
-		length: 10
-	}),
+
 	title: varchar('title', {
 		length: 200
 	}),
@@ -33,13 +29,11 @@ export const controlTable: any = pgTable('rcm_control', {
 	updatedAt: timestamp('updatedAt').notNull().defaultNow()
 });
 
-export const processTable: any = pgTable('rcm_process', {
+export const processTable = pgTable('rcm_process', {
 	id: varchar('id', {
 		length: 50
 	}).primaryKey(),
-	code: varchar('code', {
-		length: 10
-	}),
+
 	title: varchar('title', {
 		length: 200
 	}),
@@ -66,7 +60,7 @@ export const controlTypeEnum = pgEnum('control_type', controlType);
 export const executionType = ['Manual', 'IT-Dependend', 'Automated'] as const;
 export const executionTypeEnum = pgEnum('control_type', executionType);
 
-export const matrixTable: any = pgTable('rcm_Matrix', {
+export const matrixTable = pgTable('rcm_Matrix', {
 	id: varchar('id', {
 		length: 50
 	}).primaryKey(),
