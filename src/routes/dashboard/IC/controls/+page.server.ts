@@ -3,8 +3,8 @@ import { controlTable } from '$lib/database/schema/rcm';
 import { fail, superValidate } from 'sveltekit-superforms';
 import type { Actions, PageServerLoad } from './$types';
 import { zod } from 'sveltekit-superforms/adapters';
-import { eq } from 'drizzle-orm';
 import { controlDeleteSchema, controlSchema } from './control.schema';
+import { eq } from 'drizzle-orm';
 
 export const load: PageServerLoad = async () => {
 	return {
@@ -41,10 +41,11 @@ export const actions: Actions = {
 	},
 	updateControl: async (event) => {
 		const form = await superValidate(await event.request.formData(), zod(controlSchema));
-		if (!form.valid) {
+		if (!form.valid || form.data.id === undefined) {
 			return fail(400, { form });
 		}
 		const control = await db.select().from(controlTable).where(eq(controlTable.id, form.data.id));
+
 		if (control.length === 0 || !control) {
 			return fail(400, { form });
 		}

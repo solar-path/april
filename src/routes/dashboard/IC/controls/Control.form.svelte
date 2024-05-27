@@ -10,7 +10,7 @@
 			title: string;
 			description: string;
 		};
-		riskForm: {
+		controlForm: {
 			data: any; // Define more specifically if possible
 		};
 	}
@@ -19,12 +19,12 @@
 	const { form, errors, constraints, enhance } = superForm(
 		data.item && data.item !== null
 			? {
-					...data.riskForm.data,
+					...data.controlForm.data,
 					id: data.item.id,
 					title: data.item.title,
 					description: data.item.description
 				}
-			: data.riskForm.data,
+			: data.controlForm.data,
 		{
 			onResult(event) {
 				const result = event.result as FormResult<any>;
@@ -41,8 +41,8 @@
 	novalidate
 	method="POST"
 	action={data.item && data.item !== null
-		? '/dashboard/IC?/updateControl'
-		: '/dashboard/IC?/createControl'}
+		? '/dashboard/IC/controls?/updateControl'
+		: '/dashboard/IC/controls?/createControl'}
 	class="flex flex-col space-y-2"
 >
 	<input type="hidden" name="id" bind:value={$form.id} />
