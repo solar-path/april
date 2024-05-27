@@ -13,7 +13,7 @@
 		>
 			{post.title}
 		</h2>
-		{#if post.coverImage !== null}
+		{#if post.coverImage}
 			<img src={post.coverImage} alt="cover_image" />
 		{/if}
 		<p class="italic">
@@ -21,6 +21,6 @@
 				timeZone: 'UTC'
 			})}
 		</p>
-		<p class="mt-2 text-gray-500">{post?.content}</p>
+		<p class="mt-2 text-gray-500">{@html post?.content}</p>
 	{/if}
 </article>

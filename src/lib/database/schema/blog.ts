@@ -2,7 +2,7 @@ import { pgEnum, pgTable, text, timestamp, varchar } from 'drizzle-orm/pg-core';
 
 import { userTable } from './users';
 
-export const postStatusTypes = ['draft', 'published'] as const;
+export const postStatusTypes = ['draft', 'published', 'archived'] as const;
 export const postStatusEnum = pgEnum('post_status', postStatusTypes);
 export const readerForTypes = ['guest', 'user', 'admin'] as const;
 export const readerForEnum = pgEnum('reader_for', readerForTypes);

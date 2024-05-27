@@ -2,7 +2,7 @@
 	import { hideDrawer } from '$lib/components/Drawer/drawer.utlities';
 	import SuperDebug, { superForm, type FormResult } from 'sveltekit-superforms';
 	import DisplayFormErrors from '$lib/components/DisplayFormErrors.svelte';
-	import { Button, ButtonGroup, Input, Label } from 'flowbite-svelte';
+	import { Button, ButtonGroup, Input, Label, Select } from 'flowbite-svelte';
 	import { Editor } from '@tadashi/svelte-editor-quill';
 	import SelectWithSearchTree from '$lib/components/SelectWithSearch/SelectWithSearchTree.svelte';
 
@@ -93,6 +93,15 @@
 			<Button class="w-1/3" on:click={() => ($form.readingFor = 'admin')}>Admin</Button>
 		</ButtonGroup>
 		<DisplayFormErrors errors={$errors.status} />
+	</div>
+
+	<div class="w-full">
+		<Label for="status">Status</Label>
+		<Select name="status" bind:value={$form.status} {...$constraints.status}>
+			<option value="published">Published</option>
+			<option value="draft">Draft</option>
+			<option value="archived">Archived</option>
+		</Select>
 	</div>
 
 	<div class="w-full">
