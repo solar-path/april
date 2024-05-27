@@ -7,10 +7,10 @@ import { lucia } from '$lib/auth/auth';
 import { db } from '$lib/database/db';
 import { userTable } from '$lib/database/schema/users';
 import { eq } from 'drizzle-orm/mysql-core/expressions';
-import { loginSchema } from '$lib/auth/validation/login.schema';
-import { registerSchema } from '$lib/auth/validation/register.schema';
+import { loginSchema } from './login/login.schema';
+import { registerSchema } from './register/register.schema';
 import { sendPasswordResetEmail, sendVerificationEmail } from '$lib/email/mail.server';
-import { forgotPasswordSchema } from '$lib/auth/validation/forgot.schema';
+import { forgotPasswordSchema } from './forgot/forgot.schema';
 
 export const actions: Actions = {
 	login: async ({ cookies, request }) => {
@@ -55,7 +55,7 @@ export const actions: Actions = {
 			...sessionCookie.attributes
 		});
 
-		return { form };
+		redirect(302, '/dashboard');
 	},
 	register: async ({ cookies, request }) => {
 		// Check if form submitted is valid

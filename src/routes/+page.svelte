@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { Button } from 'flowbite-svelte';
+	import { A, Button } from 'flowbite-svelte';
 	import type { PageData } from './$types';
 	import { fillDrawer } from '$lib/components/Drawer/drawer.utlities';
 	export let data: PageData;
-	import Login from '$lib/auth/forms/Login.svelte';
+	import Login from './auth/login/+page.svelte';
 </script>
 
 <svelte:head>
@@ -33,7 +33,7 @@
 				{#if data.email}
 					<Button href="/dashboard">Get started</Button>
 				{:else}
-					<Button on:click={() => fillDrawer('Sign in', Login, data)}>Sign in</Button>
+					<Button href="/auth/login">Sign in</Button>
 				{/if}
 			</div>
 			<div class="hidden lg:col-span-5 lg:mt-0 lg:flex">

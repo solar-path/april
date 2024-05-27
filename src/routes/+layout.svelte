@@ -20,8 +20,8 @@
 		FooterLinkGroup,
 		FooterLink
 	} from 'flowbite-svelte';
-	import Login from '$lib/auth/forms/Login.svelte';
-	import Register from '$lib/auth/forms/Register.svelte';
+	import Login from './auth/login/+page.svelte';
+	import Register from './auth/register/+page.svelte';
 	import Contact from '$lib/forms/contact/Contact.svelte';
 	import { drawerContent, fillDrawer, hideDrawer } from '$lib/components/Drawer/drawer.utlities';
 
@@ -61,9 +61,9 @@
 					</form>
 				</Dropdown>
 			{:else}
-				<NavLi on:click={() => fillDrawer('Sign up', Register, data)}>Join us</NavLi>
+				<NavLi href="/auth/register">Join us</NavLi>
 
-				<NavLi on:click={() => fillDrawer('Sign in', Login, data)}>
+				<NavLi href="/auth/login">
 					<span class="rounded-lg bg-red-700 pb-2 pl-4 pr-4 pt-2 text-white hover:bg-red-900"
 						>Sign in</span
 					>
