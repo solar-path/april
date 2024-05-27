@@ -5,6 +5,7 @@ import { withFiles, fail, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { postDeleteSchema, postSchema } from './post.schema';
 import { buildTree } from '$lib/components/Tree/TreeView.utilities';
+import { fileProcessor } from '$lib/helpers/fileProcessor';
 
 export const load: PageServerLoad = async () => {
 	const postList = await db.select().from(blogTable);
@@ -31,7 +32,11 @@ export const actions: Actions = {
 			status: form.data.status,
 			parentId: form.data.parentId,
 			readingFor: form.data.readingFor,
-			coverImage: form.data.coverImage,
+			// coverImage: form.data.coverImage,
+			coverImage:
+				form.data.coverImage instanceof File
+					? await fileProcessor(form.data.coverImage, 'blog')
+					: '',
 			authorId: event.locals.user?.id
 		});
 
