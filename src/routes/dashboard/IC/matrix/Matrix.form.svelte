@@ -3,7 +3,7 @@
 	import { hideDrawer } from '$lib/components/Drawer/drawer.utlities';
 	import SelectWithSearchTree from '$lib/components/SelectWithSearch/SelectWithSearchTree.svelte';
 	import SelectWithSearchTable from '$lib/components/SelectWithSearch/SelectWithSearchTable.svelte';
-	import { Button, ButtonGroup, Label, Select, Textarea } from 'flowbite-svelte';
+	import { Button, Label, Select, Textarea } from 'flowbite-svelte';
 	import { superForm, type FormResult } from 'sveltekit-superforms';
 	import SuperDebug from 'sveltekit-superforms';
 	interface MatrixData {
@@ -34,8 +34,6 @@
 	}
 
 	export let data: MatrixData;
-
-	$: console.log('ic/forms/matrix :: data => ', data);
 
 	const { form, errors, constraints, enhance } = superForm(
 		data.item && data.item !== null
@@ -73,6 +71,18 @@
 		{ value: 'Monthly', name: 'Monthly' },
 		{ value: 'Quarterly', name: 'Quarterly' },
 		{ value: 'Annually', name: 'Annually' }
+	];
+
+	let typeTypes = [
+		{ value: 'Preventive', name: 'Preventive' },
+		{ value: 'Detective', name: 'Detective' },
+		{ value: 'SoD', name: 'SoD' }
+	];
+
+	let executionTypes = [
+		{ value: 'Manual', name: 'Manual' },
+		{ value: 'IT-Dependend', name: 'IT-Dependend' },
+		{ value: 'Automated', name: 'Automated' }
 	];
 </script>
 
@@ -163,22 +173,24 @@
 
 	<div>
 		<Label for="type">Type</Label>
-		<ButtonGroup class="w-full">
-			<Button class="w-1/3" on:click={() => ($form.type = 'Preventive')}>Preventive</Button>
-			<Button class="w-1/3" on:click={() => ($form.type = 'Detective')}>Detective</Button>
-			<Button class="w-1/3" on:click={() => ($form.type = 'SoD')}>SoD</Button>
-		</ButtonGroup>
+		<Select
+			id="type"
+			name="type"
+			items={typeTypes}
+			bind:value={$form.type}
+			{...$constraints.type}
+		/>
 		<DisplayFormErrors errors={$errors.type} />
 	</div>
 	<div>
 		<Label for="execution">Execution</Label>
-		<ButtonGroup class="w-full">
-			<Button class="w-1/3" on:click={() => ($form.execution = 'Manual')}>Manual</Button>
-			<Button class="w-1/3" on:click={() => ($form.execution = 'IT-Department')}
-				>IT-Department</Button
-			>
-			<Button class="w-1/3" on:click={() => ($form.execution = 'Automated')}>Automated</Button>
-		</ButtonGroup>
+		<Select
+			id="execution"
+			name="execution"
+			items={executionTypes}
+			bind:value={$form.execution}
+			{...$constraints.execution}
+		/>
 		<DisplayFormErrors errors={$errors.execution} />
 	</div>
 

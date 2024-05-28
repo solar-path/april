@@ -48,8 +48,6 @@
 	$: matrixList,
 		sortItems.set(filterAndSearch(matrixList, searchTerm)),
 		sortData($sortItems, $sortDirection);
-
-	let defaultModal = false;
 </script>
 
 <div class="mb-2 flex flex-row space-x-2">
