@@ -40,18 +40,18 @@
 			? {
 					...data.matrixForm.data,
 					id: data.item.id,
-					process: data.processList.find((item) => item.id === data?.item?.processId),
-					risk: data.riskList.find((item) => item.id === data?.item?.riskId),
-					control: data.controlList.find((item) => item.id === data?.item?.controlId),
 					processId: data.item.processId,
+					process: data.processList.find((item) => item.id === data?.item?.processId),
 					riskId: data.item.riskId,
+					risk: data.riskList.find((item) => item.id === data?.item?.riskId),
 					controlId: data.item.controlId,
+					control: data.controlList.find((item) => item.id === data?.item?.controlId),
 					description: data.item.description,
 					frequency: data.item.frequency,
 					type: data.item.type,
 					execution: data.item.execution,
 					entityId: data.item.entityId,
-					entity: data.item.entity
+					entity: data.entityList.find((item) => item.id === data?.item?.entityId)
 				}
 			: data.matrixForm.data,
 		{
@@ -91,8 +91,8 @@
 	novalidate
 	method="POST"
 	action={data.item && data.item !== null
-		? '/dashboard/IC?/updateMatrix'
-		: '/dashboard/IC?/createMatrix'}
+		? '/dashboard/IC/matrix?/updateMatrix'
+		: '/dashboard/IC/matrix?/createMatrix'}
 	class="flex flex-col space-y-2"
 >
 	<input type="hidden" name="id" bind:value={$form.id} />
@@ -103,12 +103,12 @@
 
 	<div class="w-full">
 		<SelectWithSearchTree
-			label="Process"
 			list={data.processList}
 			tree={data.processTree}
 			form={$form}
 			errors={$errors}
 			constraints={$constraints}
+			label="Process"
 			modalID="process"
 			modalState={false}
 			fieldName="process"

@@ -42,8 +42,8 @@
 	};
 
 	const selectItem = (item: any) => {
-		form.fieldName = item.title;
-		form.fieldId = item.id;
+		form[fieldName] = item.title;
+		form[fieldId] = item.id;
 		suggestions = [];
 		isDropdownOpen = false;
 		dispatch('itemSelected', item);
