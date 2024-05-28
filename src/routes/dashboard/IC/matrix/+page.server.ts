@@ -43,10 +43,14 @@ export const load: PageServerLoad = async () => {
 export const actions: Actions = {
 	createMatrix: async (event) => {
 		const form = await superValidate(await event.request.formData(), zod(matrixSchema));
+		console.log(
+			'/dashboard/+page.server.ts :: createMatrix :: before validation :: form => ',
+			form
+		);
 		if (!form.valid) {
 			return fail(400, { form });
 		}
-		console.log('/dashboard/+page.server.ts :: createMatrix :: form => ', form);
+		console.log('/dashboard/+page.server.ts :: createMatrix :: after validation :: form => ', form);
 	},
 	updateMatrix: async (event) => {
 		const form = await superValidate(await event.request.formData(), zod(matrixSchema));

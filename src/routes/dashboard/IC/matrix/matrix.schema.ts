@@ -4,9 +4,9 @@ import {
 	// controlTable,
 	controlType,
 	executionType,
-	frequencyTypes
+	frequencyTypes,
 	// processTable,
-	// riskTable
+	riskTable
 } from '$lib/database/schema/rcm';
 import { eq } from 'drizzle-orm';
 import { z } from 'zod';
@@ -25,12 +25,12 @@ import { z } from 'zod';
 // 	})
 // 	.from(controlTable);
 
-// const risks = await db
-// 	.select({
-// 		id: riskTable.id,
-// 		title: riskTable.title
-// 	})
-// 	.from(riskTable);
+const risks = await db
+	.select({
+		id: riskTable.id,
+		title: riskTable.title
+	})
+	.from(riskTable);
 
 const entities = await db
 	.select({
@@ -43,17 +43,16 @@ const entities = await db
 export const matrixSchema = z.object({
 	id: z.string().optional(),
 	riskId: z.string(),
-	risk: z.string().min(1, { message: 'Field is required' }),
-	// risk: z
-	// 	.string()
-	// 	.min(1, { message: 'Field is required' })
-	// 	.refine(
-	// 		(value) => {
-	// 			const validItems = risks.map((risk) => (risk.title ? risk.title.toLowerCase() : ''));
-	// 			return value ? validItems.includes(value.toLowerCase()) : true;
-	// 		},
-	// 		{ message: 'Invalid risk' }
-	// 	),
+	risk: z
+		.string()
+		.min(1, { message: 'Field is required' })
+		.refine(
+			(value) => {
+				const validItems = risks.map((risk) => (risk.title ? risk.title.toLowerCase() : ''));
+				return value ? validItems.includes(value.toLowerCase()) : true;
+			},
+			{ message: 'Invalid risk' }
+		),
 	controlId: z.string(),
 	control: z.string().min(1, { message: 'Field is required' }),
 	// .refine(

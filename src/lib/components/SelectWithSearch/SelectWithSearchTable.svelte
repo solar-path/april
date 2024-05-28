@@ -73,19 +73,19 @@
 	};
 </script>
 
-<input type="hidden" name={fieldId} bind:value={form.fieldId} />
+<input type="hidden" name={fieldId} bind:value={form[fieldId]} />
 
 <Label for={fieldName}>{label}</Label>
 <Input
 	autoComplete="off"
 	type="text"
 	name={fieldName}
-	bind:value={form.fieldName}
+	bind:value={form[fieldName]}
 	on:input={filterParents}
 	on:focus={() => (isDropdownOpen = true)}
 	on:blur={() => setTimeout(() => (isDropdownOpen = false), 200)}
 	on:keydown={handleKeyDown}
-	{...constraints.fieldName}
+	{...constraints[fieldName]}
 >
 	<button
 		slot="left"

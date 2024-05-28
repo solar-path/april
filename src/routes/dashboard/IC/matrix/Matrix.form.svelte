@@ -9,7 +9,7 @@
 
 	interface MatrixData {
 		item?: {
-			id: string;
+			id?: string;
 			processId: string;
 			process: string;
 			riskId: string;
