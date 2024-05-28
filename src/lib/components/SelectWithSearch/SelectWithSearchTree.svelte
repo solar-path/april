@@ -33,7 +33,6 @@
 	const selectParent = (item: any) => {
 		form[fieldName] = item.title;
 		form[fieldId] = item.id;
-		form.code = item.code; // Assuming 'code' is a fixed field
 		suggestions = [];
 		isDropdownOpen = false;
 		dispatch('itemSelected', item);
@@ -116,7 +115,12 @@
 				option="select"
 				showSelectButton={true}
 				{form}
-				on:itemSelected={() => (modalState = false)}
+				on:itemSelected={(event) => {
+					modalState = false;
+					// Explicitly create a new object for form to ensure reactivity
+					form = { ...form, [fieldName]: event.detail.title, [fieldId]: event.detail.id };
+					dispatch('itemSelected', event.detail);
+				}}
 			/>
 		</div>
 	</div>

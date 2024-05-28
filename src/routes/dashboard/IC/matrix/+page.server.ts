@@ -1,12 +1,22 @@
 import { db } from '$lib/database/db';
-import { matrixTable } from '$lib/database/schema/rcm';
+import { controlTable, matrixTable, processTable, riskTable } from '$lib/database/schema/rcm';
 import { fail, superValidate } from 'sveltekit-superforms';
 import type { Actions, PageServerLoad } from './$types';
 import { zod } from 'sveltekit-superforms/adapters';
 import { deleteMatrixSchema, matrixSchema } from './matrix.schema';
+import { buildTree } from '$lib/components/Tree/TreeView.utilities';
 
 export const load: PageServerLoad = async () => {
+	const processList = await db
+		.select({ id: processTable.id, title: processTable.title, parentId: processTable.parentId })
+		.from(processTable)
+		.then((rows) => rows.map((row) => ({ ...row, children: [] }))); // Add an empty children array to each object
+
 	return {
+		processList,
+		processTree: buildTree(processList),
+		controlList: await db.select().from(controlTable),
+		riskList: await db.select().from(riskTable),
 		matrixForm: await superValidate(zod(matrixSchema)),
 		matrixList: await db.select().from(matrixTable)
 	};

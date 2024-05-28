@@ -38,7 +38,6 @@ export const actions: Actions = {
 
 	deleteProcess: async (event) => {
 		const form = await superValidate(await event.request.formData(), zod(processDeleteSchema));
-		console.log('/dashboard/+page.server.ts :: deleteProcess :: form => ', form);
 		if (!form.valid) {
 			return fail(400, { form });
 		}
