@@ -5,6 +5,7 @@ import type { Actions, PageServerLoad } from './$types';
 import { zod } from 'sveltekit-superforms/adapters';
 import { deleteMatrixSchema, matrixSchema } from './matrix.schema';
 import { buildTree } from '$lib/components/Tree/TreeView.utilities';
+import { entityTable } from '$lib/database/schema/entity';
 
 export const load: PageServerLoad = async () => {
 	const processList = await db
@@ -12,7 +13,14 @@ export const load: PageServerLoad = async () => {
 		.from(processTable)
 		.then((rows) => rows.map((row) => ({ ...row, children: [] }))); // Add an empty children array to each object
 
+	const entityList = await db
+		.select({ id: entityTable.id, title: entityTable.title, parentId: entityTable.parentId })
+		.from(entityTable)
+		.then((rows) => rows.map((row) => ({ ...row, children: [] }))); // Add an empty children array to each object
+
 	return {
+		entityList,
+		entityTree: buildTree(entityList),
 		processList,
 		processTree: buildTree(processList),
 		controlList: await db.select().from(controlTable),
