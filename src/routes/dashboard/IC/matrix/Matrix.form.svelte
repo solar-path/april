@@ -56,7 +56,9 @@
 					type: data.item.type,
 					execution: data.item.execution,
 					entityId: data.item.entityId,
-					entity: data.entityList.find((item) => item.id === data?.item?.entityId)
+					entity: data.entityList.find((item) => item.id === data?.item?.entityId),
+					controlOwnerId: data.item.controlOwnerId,
+					controlOwner: data.positionList.find((item) => item.id === data?.item?.controlOwnerId)
 				}
 			: data.matrixForm.data,
 		{
@@ -133,8 +135,7 @@
 			constraints={$constraints}
 			modalID="risk"
 			tableLabel="Risk List"
-			tableDescription="Browse a list of risks that might adversly affect company's ability to achieve process
-		objectives."
+			tableDescription="Browse a list of risks that might adversely affect the company's ability to achieve process objectives."
 			modalState={false}
 		/>
 	</div>
@@ -150,7 +151,7 @@
 			constraints={$constraints}
 			modalID="control"
 			tableLabel="Control List"
-			tableDescription="Browse a list of emplemented controls that prevents and/or detects risks."
+			tableDescription="Browse a list of implemented controls that prevents and/or detects risks."
 			modalState={false}
 		/>
 	</div>
@@ -228,7 +229,7 @@
 			fieldName="controlOwner"
 			fieldId="controlOwnerId"
 		/>
-		<DisplayFormErrors errors={$errors.controlOwner} />
+		<DisplayFormErrors errors={$errors.controlOwnerId} />
 	</div>
 
 	<Button type="submit" class="w-full">Add</Button>

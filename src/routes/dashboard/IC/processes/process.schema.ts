@@ -12,7 +12,6 @@ const processes = await db
 export const processSchema = z.object({
 	id: z.string().optional(),
 	title: z.string().min(1, { message: 'Field cannot be blank' }),
-	code: z.string().optional(),
 	parentId: z.string().optional(),
 	parent: z
 		.string()

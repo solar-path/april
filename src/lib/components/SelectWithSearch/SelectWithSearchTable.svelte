@@ -35,7 +35,7 @@
 
 	const filterParents = () => {
 		suggestions = list.filter((item: any) =>
-			item.title.toLowerCase().includes(form.fieldName.toLowerCase())
+			item.title.toLowerCase().includes(form[fieldName].toLowerCase())
 		);
 		isDropdownOpen = true;
 		selectedIndex = -1; // Reset selection when filtering
