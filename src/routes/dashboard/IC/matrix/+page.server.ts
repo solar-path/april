@@ -13,14 +13,24 @@ export const load: PageServerLoad = async () => {
 		.from(processTable)
 		.then((rows) => rows.map((row) => ({ ...row, children: [] }))); // Add an empty children array to each object
 
-	const entityList = await db
-		.select({ id: entityTable.id, title: entityTable.title, parentId: entityTable.parentId })
+	const units = await db
+		.select({
+			id: entityTable.id,
+			title: entityTable.title,
+			parentId: entityTable.parentId,
+			type: entityTable.type
+		})
 		.from(entityTable)
 		.then((rows) => rows.map((row) => ({ ...row, children: [] }))); // Add an empty children array to each object
+
+	const entityList = units.filter((item) => item.type === 'company');
+	const positionList = units.filter((item) => item.type === 'position');
 
 	return {
 		entityList,
 		entityTree: buildTree(entityList),
+		positionList,
+		positionTree: buildTree(positionList),
 		processList,
 		processTree: buildTree(processList),
 		controlList: await db.select().from(controlTable),

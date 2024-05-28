@@ -6,6 +6,7 @@
 	import { Button, Label, Select, Textarea } from 'flowbite-svelte';
 	import { superForm, type FormResult } from 'sveltekit-superforms';
 	import SuperDebug from 'sveltekit-superforms';
+
 	interface MatrixData {
 		item?: {
 			id: string;
@@ -21,6 +22,8 @@
 			execution: string;
 			entityId: string;
 			entity: string;
+			controlOwnerId: string;
+			controlOwner: string;
 		};
 		matrixForm: {
 			data: any;
@@ -31,6 +34,8 @@
 		entityList: any[];
 		processTree: any[];
 		entityTree: any[];
+		positionList: any[];
+		positionTree: any[];
 	}
 
 	export let data: MatrixData;
@@ -100,6 +105,7 @@
 	<input type="hidden" name="riskId" bind:value={$form.riskId} />
 	<input type="hidden" name="controlId" bind:value={$form.controlId} />
 	<input type="hidden" name="entityId" bind:value={$form.entityId} />
+	<input type="hidden" name="controlOwnerId" bind:value={$form.controlOwnerId} />
 
 	<div class="w-full">
 		<SelectWithSearchTree
@@ -208,6 +214,21 @@
 			fieldId="entityId"
 		/>
 		<DisplayFormErrors errors={$errors.entity} />
+	</div>
+	<div class="w-full">
+		<SelectWithSearchTree
+			label="Control owner"
+			list={data.positionList}
+			tree={data.positionTree}
+			form={$form}
+			errors={$errors}
+			constraints={$constraints}
+			modalID="controlOwner"
+			modalState={false}
+			fieldName="controlOwner"
+			fieldId="controlOwnerId"
+		/>
+		<DisplayFormErrors errors={$errors.controlOwner} />
 	</div>
 
 	<Button type="submit" class="w-full">Add</Button>

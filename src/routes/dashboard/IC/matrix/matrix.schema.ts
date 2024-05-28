@@ -48,7 +48,7 @@ export const matrixSchema = z.object({
 		.min(1, { message: 'Field is required' })
 		.refine(
 			(value) => {
-				const validItems = risks.map((risk) => risk.title.toLowerCase());
+				const validItems = risks.map((risk) => (risk.title ? risk.title.toLowerCase() : ''));
 				return value ? validItems.includes(value.toLowerCase()) : true;
 			},
 			{ message: 'Invalid risk' }
@@ -59,7 +59,9 @@ export const matrixSchema = z.object({
 		.min(1, { message: 'Field is required' })
 		.refine(
 			(value) => {
-				const validItems = controls.map((control) => control.title.toLowerCase());
+				const validItems = controls.map((control) =>
+					control.title ? control.title.toLowerCase() : ''
+				);
 				return value ? validItems.includes(value.toLowerCase()) : true;
 			},
 			{ message: 'Invalid control' }
@@ -91,7 +93,7 @@ export const matrixSchema = z.object({
 	frequency: z.enum(frequencyTypes),
 	type: z.enum(controlType),
 	execution: z.enum(executionType),
-	controlOwner: z.string()
+	controlOwner: z.string().optional()
 });
 
 export const deleteMatrixSchema = z.object({
