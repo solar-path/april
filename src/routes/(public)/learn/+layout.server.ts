@@ -6,10 +6,16 @@ import { buildTree } from '$lib/components/Tree/TreeView.utilities';
 
 export const load = async () => {
 	try {
-		const postList = await db
-			.select()
+		const data = await db
+			.select({
+				id: blogTable.id,
+				title: blogTable.title,
+				parentId: blogTable.parentId
+			})
 			.from(blogTable)
 			.where(and(eq(blogTable.status, 'published'), eq(blogTable.readingFor, 'guest')));
+
+		const postList = data.map((post) => ({ ...post, children: [] }));
 
 		return { postTree: buildTree(postList) };
 	} catch (error) {

@@ -1,6 +1,5 @@
 <script lang="ts">
 	import TreeView from '$lib/components/Tree/TreeView.svelte';
-	import { Input } from 'flowbite-svelte';
 	import type { LayoutData } from './$types';
 
 	export let data: LayoutData;
@@ -15,9 +14,8 @@
 		>
 			Learn & Support
 		</h2>
-		<Input type="text" placeholder="Search..." class="w-full" />
 		<div class="m-4">
-			<TreeView {tree} option="route" showSelectButton={false} />
+			<TreeView {tree} option="route" showSelectButton={false} form={null} />
 		</div>
 	</div>
 	<div class="ml-2 w-3/4"><slot /></div>
