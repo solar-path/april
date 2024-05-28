@@ -6,7 +6,7 @@
 
 	interface RiskData {
 		item?: {
-			id: string;
+			id?: string;
 			title: string;
 		};
 		riskForm: {

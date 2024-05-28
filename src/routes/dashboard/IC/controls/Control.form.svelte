@@ -6,7 +6,7 @@
 
 	interface ControlData {
 		item?: {
-			id: string;
+			id?: string;
 			title: string;
 			description: string;
 		};
