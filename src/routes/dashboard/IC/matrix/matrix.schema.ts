@@ -59,7 +59,7 @@ export const matrixSchema = z.object({
 			},
 			{ message: 'Invalid control' }
 		),
-	processId: z.string(),
+	processId: z.string().optional(),
 	process: z
 		.string()
 		.min(1, { message: 'Field is required' })
@@ -70,7 +70,7 @@ export const matrixSchema = z.object({
 			},
 			{ message: 'Invalid process' }
 		),
-	entityId: z.string(),
+	entityId: z.string().optional(),
 	entity: z
 		.string()
 		.min(1, { message: 'Field is required' })

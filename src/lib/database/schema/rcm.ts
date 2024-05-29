@@ -61,7 +61,7 @@ export const matrixTable = pgTable('rcm_Matrix', {
 	id: varchar('id', {
 		length: 50
 	}).primaryKey(),
-	entityId: varchar('companyId', { length: 50 }).references(() => entityTable.id),
+	entityId: varchar('entityId', { length: 50 }).references(() => entityTable.id),
 	processId: varchar('processId', { length: 50 }).references(() => processTable.id),
 	riskId: varchar('riskId', { length: 50 }).references(() => riskTable.id),
 	controlId: varchar('controlId', { length: 50 }).references(() => controlTable.id),

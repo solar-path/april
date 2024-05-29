@@ -49,10 +49,10 @@ export const actions: Actions = {
 		}
 		await db.insert(matrixTable).values({
 			id: crypto.randomUUID(),
-			entityId: form.data.entity,
-			processId: form.data.process,
-			riskId: form.data.risk,
-			controlId: form.data.control,
+			entityId: form.data.entityId,
+			processId: form.data.processId,
+			riskId: form.data.riskId,
+			controlId: form.data.controlId,
 			description: form.data.description,
 			frequency: form.data.frequency,
 			type: form.data.type,
