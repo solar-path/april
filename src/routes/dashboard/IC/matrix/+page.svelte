@@ -48,6 +48,7 @@
 	$: matrixList,
 		sortItems.set(filterAndSearch(matrixList, searchTerm)),
 		sortData($sortItems, $sortDirection);
+	console.log('matrix/+page.svelte :: data => ', data);
 </script>
 
 <div class="mb-2 flex flex-row space-x-2">

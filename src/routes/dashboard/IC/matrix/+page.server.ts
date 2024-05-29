@@ -6,6 +6,7 @@ import { zod } from 'sveltekit-superforms/adapters';
 import { deleteMatrixSchema, matrixSchema } from './matrix.schema';
 import { buildTree } from '$lib/components/Tree/TreeView.utilities';
 import { entityTable } from '$lib/database/schema/entity';
+import { eq } from 'drizzle-orm';
 
 export const load: PageServerLoad = async () => {
 	const processList = await db
@@ -26,6 +27,34 @@ export const load: PageServerLoad = async () => {
 	const entityList = units.filter((item) => item.type === 'company');
 	const positionList = units.filter((item) => item.type === 'position');
 
+	const matrixList = await db
+		.select({
+			id: matrixTable.id,
+			entityId: matrixTable.entityId,
+			entityTitle: entityTable.title,
+			processId: matrixTable.processId,
+			processTitle: processTable.title,
+			riskId: matrixTable.riskId,
+			riskTitle: riskTable.title,
+			controlId: matrixTable.controlId,
+			controlTitle: controlTable.title,
+			description: matrixTable.description,
+			frequency: matrixTable.frequency,
+			type: matrixTable.type,
+			execution: matrixTable.execution,
+			controlOwner: matrixTable.controlOwner,
+			controlOwnerTitle: entityTable.title,
+			author: matrixTable.author,
+			createdAt: matrixTable.createdAt,
+			updatedAt: matrixTable.updatedAt
+		})
+		.from(matrixTable)
+		.leftJoin(entityTable.as('entity'), eq(matrixTable.entityId, entityTable.id))
+		.leftJoin(processTable, eq(matrixTable.processId, processTable.id))
+		.leftJoin(riskTable, eq(matrixTable.riskId, riskTable.id))
+		.leftJoin(controlTable, eq(matrixTable.controlId, controlTable.id))
+		.leftJoin(entityTable.as('controlOwner'), eq(matrixTable.controlOwner, entityTable.id));
+
 	return {
 		entityList,
 		entityTree: buildTree(entityList),
@@ -36,7 +65,7 @@ export const load: PageServerLoad = async () => {
 		controlList: await db.select().from(controlTable),
 		riskList: await db.select().from(riskTable),
 		matrixForm: await superValidate(zod(matrixSchema)),
-		matrixList: await db.select().from(matrixTable)
+		matrixList
 	};
 };
 
