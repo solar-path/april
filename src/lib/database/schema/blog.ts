@@ -7,7 +7,7 @@ export const postStatusEnum = pgEnum('post_status', postStatusTypes);
 export const readerForTypes = ['guest', 'user', 'admin'] as const;
 export const readerForEnum = pgEnum('reader_for', readerForTypes);
 
-export const blogTable = pgTable('blogs', {
+export const blogTable: any = pgTable('blogs', {
 	id: varchar('id', {
 		length: 50
 	}).primaryKey(),

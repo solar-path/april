@@ -1,22 +1,15 @@
 import { db } from '$lib/database/db';
 import { entityTable } from '$lib/database/schema/entity';
-import {
-	controlTable,
-	controlType,
-	executionType,
-	frequencyTypes,
-	// processTable,
-	riskTable
-} from '$lib/database/schema/rcm';
+import { controlTable, processTable, riskTable } from '$lib/database/schema/rcm';
 import { eq } from 'drizzle-orm';
 import { z } from 'zod';
 
-// const processes = await db
-// 	.select({
-// 		id: processTable.id,
-// 		title: processTable.title
-// 	})
-// 	.from(processTable);
+const processes = await db
+	.select({
+		id: processTable.id,
+		title: processTable.title
+	})
+	.from(processTable);
 
 const controls = await db
 	.select({
@@ -67,14 +60,16 @@ export const matrixSchema = z.object({
 			{ message: 'Invalid control' }
 		),
 	processId: z.string(),
-	process: z.string().min(1, { message: 'Field is required' }),
-	// .refine(
-	// 	(value) => {
-	// 		const validItems = processes.map((process) => process.title.toLowerCase());
-	// 		return value ? validItems.includes(value.toLowerCase()) : true;
-	// 	},
-	// 	{ message: 'Invalid process' }
-	// ),
+	process: z
+		.string()
+		.min(1, { message: 'Field is required' })
+		.refine(
+			(value) => {
+				const validItems = processes.map((process) => process.title.toLowerCase());
+				return value ? validItems.includes(value.toLowerCase()) : true;
+			},
+			{ message: 'Invalid process' }
+		),
 	entityId: z.string(),
 	entity: z
 		.string()
@@ -87,9 +82,9 @@ export const matrixSchema = z.object({
 			{ message: 'Invalid process' }
 		),
 	description: z.string().min(1, { message: 'Field is required' }),
-	frequency: z.enum(frequencyTypes),
-	type: z.enum(controlType),
-	execution: z.enum(executionType),
+	frequency: z.enum(['On-demand', 'Daily', 'Weekly', 'Monthly', 'Quarterly', 'Annually']),
+	type: z.enum(['Preventive', 'Detective', 'SoD']),
+	execution: z.enum(['Manual', 'IT-Dependend', 'Automated']),
 	controlOwner: z.string(),
 	controlOwnerId: z.string()
 });

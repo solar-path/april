@@ -29,7 +29,7 @@ export const controlTable = pgTable('rcm_control', {
 	updatedAt: timestamp('updatedAt').notNull().defaultNow()
 });
 
-export const processTable = pgTable('rcm_process', {
+export const processTable: any = pgTable('rcm_process', {
 	id: varchar('id', {
 		length: 50
 	}).primaryKey(),
@@ -44,21 +44,18 @@ export const processTable = pgTable('rcm_process', {
 	updatedAt: timestamp('updatedAt').notNull().defaultNow()
 });
 
-export const frequencyTypes = [
+export const frequencyEnum = pgEnum('frequency_type', [
 	'On-demand',
 	'Daily',
 	'Weekly',
 	'Monthly',
 	'Quarterly',
 	'Annually'
-] as const;
-export const frequencyEnum = pgEnum('frequency_type', frequencyTypes);
+]);
 
-export const controlType = ['Preventive', 'Detective', 'SoD'] as const;
-export const controlTypeEnum = pgEnum('control_type', controlType);
+export const controlTypeEnum = pgEnum('control_type', ['Preventive', 'Detective', 'SoD']);
 
-export const executionType = ['Manual', 'IT-Dependend', 'Automated'] as const;
-export const executionTypeEnum = pgEnum('control_type', executionType);
+export const executionTypeEnum = pgEnum('execution_type', ['Manual', 'IT-Dependend', 'Automated']);
 
 export const matrixTable = pgTable('rcm_Matrix', {
 	id: varchar('id', {
@@ -69,9 +66,9 @@ export const matrixTable = pgTable('rcm_Matrix', {
 	riskId: varchar('riskId', { length: 50 }).references(() => riskTable.id),
 	controlId: varchar('controlId', { length: 50 }).references(() => controlTable.id),
 	description: text('description').notNull(),
-	frequency: frequencyEnum('Monthly').notNull(),
-	type: controlTypeEnum('Preventive').notNull(),
-	execution: executionTypeEnum('Manual').notNull(),
+	frequency: frequencyEnum('frequency_type').notNull(),
+	type: controlTypeEnum('control_type').notNull(),
+	execution: executionTypeEnum('execution_type').notNull(),
 	controlOwner: varchar('controlOwner', { length: 50 }).references(() => entityTable.id),
 	author: varchar('author', { length: 50 }).references(() => userTable.id),
 	createdAt: timestamp('createdAt').notNull().defaultNow(),

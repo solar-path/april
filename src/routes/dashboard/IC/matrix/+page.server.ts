@@ -43,14 +43,25 @@ export const load: PageServerLoad = async () => {
 export const actions: Actions = {
 	createMatrix: async (event) => {
 		const form = await superValidate(await event.request.formData(), zod(matrixSchema));
-		console.log(
-			'/dashboard/+page.server.ts :: createMatrix :: before validation :: form => ',
-			form
-		);
+
 		if (!form.valid) {
 			return fail(400, { form });
 		}
-		console.log('/dashboard/+page.server.ts :: createMatrix :: after validation :: form => ', form);
+		await db.insert(matrixTable).values({
+			id: crypto.randomUUID(),
+			entityId: form.data.entity,
+			processId: form.data.process,
+			riskId: form.data.risk,
+			controlId: form.data.control,
+			description: form.data.description,
+			frequency: form.data.frequency,
+			type: form.data.type,
+			execution: form.data.execution,
+			controlOwner: form.data.controlOwnerId,
+			author: event.locals.user?.id
+		});
+
+		return { form };
 	},
 	updateMatrix: async (event) => {
 		const form = await superValidate(await event.request.formData(), zod(matrixSchema));

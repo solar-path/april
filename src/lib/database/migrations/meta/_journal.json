@@ -15,6 +15,20 @@
       "when": 1716808941786,
       "tag": "0001_aspiring_radioactive_man",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1716963698354,
+      "tag": "0002_cheerful_sunset_bain",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1716979297807,
+      "tag": "0003_odd_redwing",
+      "breakpoints": true
     }
   ]
 }
