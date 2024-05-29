@@ -1,5 +1,5 @@
 {
-  "id": "e10d58f0-cc4a-4a59-8c1e-38352f71eb6f",
+  "id": "ff2b0cd3-cd88-4e71-b404-5655d2747ea9",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
@@ -463,12 +463,6 @@
           "primaryKey": true,
           "notNull": true
         },
-        "code": {
-          "name": "code",
-          "type": "varchar(10)",
-          "primaryKey": false,
-          "notNull": false
-        },
         "title": {
           "name": "title",
           "type": "varchar(200)",
@@ -561,21 +555,21 @@
           "primaryKey": false,
           "notNull": true
         },
-        "Monthly": {
-          "name": "Monthly",
+        "frequency_type": {
+          "name": "frequency_type",
           "type": "frequency_type",
           "primaryKey": false,
           "notNull": true
         },
-        "Preventive": {
-          "name": "Preventive",
+        "control_type": {
+          "name": "control_type",
           "type": "control_type",
           "primaryKey": false,
           "notNull": true
         },
-        "Manual": {
-          "name": "Manual",
-          "type": "control_type",
+        "execution_type": {
+          "name": "execution_type",
+          "type": "execution_type",
           "primaryKey": false,
           "notNull": true
         },
@@ -700,12 +694,6 @@
           "primaryKey": true,
           "notNull": true
         },
-        "code": {
-          "name": "code",
-          "type": "varchar(10)",
-          "primaryKey": false,
-          "notNull": false
-        },
         "title": {
           "name": "title",
           "type": "varchar(200)",
@@ -786,12 +774,6 @@
           "type": "varchar(50)",
           "primaryKey": true,
           "notNull": true
-        },
-        "code": {
-          "name": "code",
-          "type": "varchar(10)",
-          "primaryKey": false,
-          "notNull": false
         },
         "title": {
           "name": "title",
@@ -950,7 +932,8 @@
       "name": "post_status",
       "values": {
         "draft": "draft",
-        "published": "published"
+        "published": "published",
+        "archieved": "archieved"
       }
     },
     "reader_for": {
@@ -977,6 +960,14 @@
     },
     "control_type": {
       "name": "control_type",
+      "values": {
+        "Preventive": "Preventive",
+        "Detective": "Detective",
+        "SoD": "SoD"
+      }
+    },
+    "execution_type": {
+      "name": "execution_type",
       "values": {
         "Manual": "Manual",
         "IT-Dependend": "IT-Dependend",

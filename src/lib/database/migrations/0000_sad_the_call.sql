@@ -1,5 +1,5 @@
 DO $$ BEGIN
- CREATE TYPE "post_status" AS ENUM('draft', 'published');
+ CREATE TYPE "post_status" AS ENUM('draft', 'published', 'archieved');
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -17,7 +17,13 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- CREATE TYPE "control_type" AS ENUM('Manual', 'IT-Dependend', 'Automated');
+ CREATE TYPE "control_type" AS ENUM('Preventive', 'Detective', 'SoD');
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ CREATE TYPE "execution_type" AS ENUM('Manual', 'IT-Dependend', 'Automated');
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -99,7 +105,6 @@ CREATE TABLE IF NOT EXISTS "inquiries" (
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "rcm_control" (
 	"id" varchar(50) PRIMARY KEY NOT NULL,
-	"code" varchar(10),
 	"title" varchar(200),
 	"description" text NOT NULL,
 	"author" varchar(50),
@@ -114,9 +119,9 @@ CREATE TABLE IF NOT EXISTS "rcm_Matrix" (
 	"riskId" varchar(50),
 	"controlId" varchar(50),
 	"description" text NOT NULL,
-	"Monthly" "frequency_type" NOT NULL,
-	"Preventive" "control_type" NOT NULL,
-	"Manual" "control_type" NOT NULL,
+	"frequency_type" "frequency_type" NOT NULL,
+	"control_type" "control_type" NOT NULL,
+	"execution_type" "execution_type" NOT NULL,
 	"controlOwner" varchar(50),
 	"author" varchar(50),
 	"createdAt" timestamp DEFAULT now() NOT NULL,
@@ -125,7 +130,6 @@ CREATE TABLE IF NOT EXISTS "rcm_Matrix" (
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "rcm_process" (
 	"id" varchar(50) PRIMARY KEY NOT NULL,
-	"code" varchar(10),
 	"title" varchar(200),
 	"description" text,
 	"author" varchar(50),
@@ -136,7 +140,6 @@ CREATE TABLE IF NOT EXISTS "rcm_process" (
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "rcm_risk" (
 	"id" varchar(50) PRIMARY KEY NOT NULL,
-	"code" varchar(10),
 	"title" varchar(200),
 	"author" varchar(50),
 	"createdAt" timestamp DEFAULT now() NOT NULL,
