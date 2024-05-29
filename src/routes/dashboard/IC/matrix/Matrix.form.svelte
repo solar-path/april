@@ -111,17 +111,18 @@
 
 	<div class="w-full">
 		<SelectWithSearchTree
+			label="Process"
 			list={data.processList}
 			tree={data.processTree}
 			form={$form}
 			errors={$errors}
 			constraints={$constraints}
-			label="Process"
 			modalID="process"
 			modalState={false}
 			fieldName="process"
 			fieldId="processId"
 		/>
+		<DisplayFormErrors errors={$errors.processId} />
 	</div>
 
 	<div class="w-full">

@@ -1,7 +1,7 @@
 import { db } from '$lib/database/db';
 import { entityTable } from '$lib/database/schema/entity';
 import {
-	// controlTable,
+	controlTable,
 	controlType,
 	executionType,
 	frequencyTypes,
@@ -18,12 +18,12 @@ import { z } from 'zod';
 // 	})
 // 	.from(processTable);
 
-// const controls = await db
-// 	.select({
-// 		id: controlTable.id,
-// 		title: controlTable.title
-// 	})
-// 	.from(controlTable);
+const controls = await db
+	.select({
+		id: controlTable.id,
+		title: controlTable.title
+	})
+	.from(controlTable);
 
 const risks = await db
 	.select({
@@ -54,16 +54,18 @@ export const matrixSchema = z.object({
 			{ message: 'Invalid risk' }
 		),
 	controlId: z.string(),
-	control: z.string().min(1, { message: 'Field is required' }),
-	// .refine(
-	// 	(value) => {
-	// 		const validItems = controls.map((control) =>
-	// 			control.title ? control.title.toLowerCase() : ''
-	// 		);
-	// 		return value ? validItems.includes(value.toLowerCase()) : true;
-	// 	},
-	// 	{ message: 'Invalid control' }
-	// ),
+	control: z
+		.string()
+		.min(1, { message: 'Field is required' })
+		.refine(
+			(value) => {
+				const validItems = controls.map((control) =>
+					control.title ? control.title.toLowerCase() : ''
+				);
+				return value ? validItems.includes(value.toLowerCase()) : true;
+			},
+			{ message: 'Invalid control' }
+		),
 	processId: z.string(),
 	process: z.string().min(1, { message: 'Field is required' }),
 	// .refine(
