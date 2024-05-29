@@ -3,7 +3,7 @@
 	import { hideDrawer } from '$lib/components/Drawer/drawer.utlities';
 	import SelectWithSearchTree from '$lib/components/SelectWithSearch/SelectWithSearchTree.svelte';
 	import { Button, Input, Label, Textarea } from 'flowbite-svelte';
-	import SuperDebug, { superForm, type FormResult } from 'sveltekit-superforms';
+	import { superForm, type FormResult } from 'sveltekit-superforms';
 
 	interface ProcessData {
 		item?: {
@@ -81,5 +81,3 @@
 
 	<Button type="submit" class="w-full">Add</Button>
 </form>
-
-<SuperDebug data={$form} />

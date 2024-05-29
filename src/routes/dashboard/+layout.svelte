@@ -37,7 +37,7 @@
 					href: '/dashboard/IC/processes'
 				},
 				{
-					label: 'Matrices',
+					label: 'RCM',
 					href: '/dashboard/IC/matrix'
 				}
 			]
