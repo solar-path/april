@@ -1,5 +1,5 @@
 {
-  "id": "785b76dd-5d20-4937-baff-48b3b641fa62",
+  "id": "860b1b02-9bb8-4ebd-b669-7364cf84f6f7",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
@@ -287,6 +287,439 @@
         }
       }
     },
+    "companies": {
+      "name": "companies",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(50)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "title": {
+          "name": "title",
+          "type": "varchar(250)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "company_type": {
+          "name": "company_type",
+          "type": "company_type",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "regionId": {
+          "name": "regionId",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "workspaceId": {
+          "name": "workspaceId",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "industryId": {
+          "name": "industryId",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "businessIdentificationNumber": {
+          "name": "businessIdentificationNumber",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "address": {
+          "name": "address",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "author": {
+          "name": "author",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "companies_regionId_regions_id_fk": {
+          "name": "companies_regionId_regions_id_fk",
+          "tableFrom": "companies",
+          "tableTo": "regions",
+          "columnsFrom": [
+            "regionId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "companies_workspaceId_workspaces_id_fk": {
+          "name": "companies_workspaceId_workspaces_id_fk",
+          "tableFrom": "companies",
+          "tableTo": "workspaces",
+          "columnsFrom": [
+            "workspaceId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "companies_industryId_industry_code_fk": {
+          "name": "companies_industryId_industry_code_fk",
+          "tableFrom": "companies",
+          "tableTo": "industry",
+          "columnsFrom": [
+            "industryId"
+          ],
+          "columnsTo": [
+            "code"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "companies_address_addresses_id_fk": {
+          "name": "companies_address_addresses_id_fk",
+          "tableFrom": "companies",
+          "tableTo": "addresses",
+          "columnsFrom": [
+            "address"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "companies_author_users_id_fk": {
+          "name": "companies_author_users_id_fk",
+          "tableFrom": "companies",
+          "tableTo": "users",
+          "columnsFrom": [
+            "author"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "companies_businessIdentificationNumber_unique": {
+          "name": "companies_businessIdentificationNumber_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "businessIdentificationNumber"
+          ]
+        }
+      }
+    },
+    "departments": {
+      "name": "departments",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(50)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "title": {
+          "name": "title",
+          "type": "varchar(250)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "companyId": {
+          "name": "companyId",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "author": {
+          "name": "author",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "departments_companyId_companies_id_fk": {
+          "name": "departments_companyId_companies_id_fk",
+          "tableFrom": "departments",
+          "tableTo": "companies",
+          "columnsFrom": [
+            "companyId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "departments_author_users_id_fk": {
+          "name": "departments_author_users_id_fk",
+          "tableFrom": "departments",
+          "tableTo": "users",
+          "columnsFrom": [
+            "author"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "positions": {
+      "name": "positions",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(50)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "title": {
+          "name": "title",
+          "type": "varchar(250)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "departmentId": {
+          "name": "departmentId",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "author": {
+          "name": "author",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "positions_departmentId_departments_id_fk": {
+          "name": "positions_departmentId_departments_id_fk",
+          "tableFrom": "positions",
+          "tableTo": "departments",
+          "columnsFrom": [
+            "departmentId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "positions_author_users_id_fk": {
+          "name": "positions_author_users_id_fk",
+          "tableFrom": "positions",
+          "tableTo": "users",
+          "columnsFrom": [
+            "author"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "regions": {
+      "name": "regions",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(50)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "title": {
+          "name": "title",
+          "type": "varchar(250)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "workspaceId": {
+          "name": "workspaceId",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "author": {
+          "name": "author",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "regions_workspaceId_workspaces_id_fk": {
+          "name": "regions_workspaceId_workspaces_id_fk",
+          "tableFrom": "regions",
+          "tableTo": "workspaces",
+          "columnsFrom": [
+            "workspaceId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "regions_author_users_id_fk": {
+          "name": "regions_author_users_id_fk",
+          "tableFrom": "regions",
+          "tableTo": "users",
+          "columnsFrom": [
+            "author"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "workspaces": {
+      "name": "workspaces",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(50)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "title": {
+          "name": "title",
+          "type": "varchar(250)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "author": {
+          "name": "author",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "workspaces_author_users_id_fk": {
+          "name": "workspaces_author_users_id_fk",
+          "tableFrom": "workspaces",
+          "tableTo": "users",
+          "columnsFrom": [
+            "author"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
     "industry": {
       "name": "industry",
       "schema": "",
@@ -402,6 +835,374 @@
       },
       "indexes": {},
       "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "rcm_control": {
+      "name": "rcm_control",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(50)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "title": {
+          "name": "title",
+          "type": "varchar(200)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "author": {
+          "name": "author",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "rcm_control_author_users_id_fk": {
+          "name": "rcm_control_author_users_id_fk",
+          "tableFrom": "rcm_control",
+          "tableTo": "users",
+          "columnsFrom": [
+            "author"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "rcm_Matrix": {
+      "name": "rcm_Matrix",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(50)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "entityId": {
+          "name": "entityId",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "processId": {
+          "name": "processId",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "riskId": {
+          "name": "riskId",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "controlId": {
+          "name": "controlId",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "frequency_type": {
+          "name": "frequency_type",
+          "type": "frequency_type",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "control_type": {
+          "name": "control_type",
+          "type": "control_type",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "execution_type": {
+          "name": "execution_type",
+          "type": "execution_type",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "controlOwner": {
+          "name": "controlOwner",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "author": {
+          "name": "author",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "rcm_Matrix_entityId_companies_id_fk": {
+          "name": "rcm_Matrix_entityId_companies_id_fk",
+          "tableFrom": "rcm_Matrix",
+          "tableTo": "companies",
+          "columnsFrom": [
+            "entityId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "rcm_Matrix_processId_rcm_process_id_fk": {
+          "name": "rcm_Matrix_processId_rcm_process_id_fk",
+          "tableFrom": "rcm_Matrix",
+          "tableTo": "rcm_process",
+          "columnsFrom": [
+            "processId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "rcm_Matrix_riskId_rcm_risk_id_fk": {
+          "name": "rcm_Matrix_riskId_rcm_risk_id_fk",
+          "tableFrom": "rcm_Matrix",
+          "tableTo": "rcm_risk",
+          "columnsFrom": [
+            "riskId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "rcm_Matrix_controlId_rcm_control_id_fk": {
+          "name": "rcm_Matrix_controlId_rcm_control_id_fk",
+          "tableFrom": "rcm_Matrix",
+          "tableTo": "rcm_control",
+          "columnsFrom": [
+            "controlId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "rcm_Matrix_controlOwner_positions_id_fk": {
+          "name": "rcm_Matrix_controlOwner_positions_id_fk",
+          "tableFrom": "rcm_Matrix",
+          "tableTo": "positions",
+          "columnsFrom": [
+            "controlOwner"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "rcm_Matrix_author_users_id_fk": {
+          "name": "rcm_Matrix_author_users_id_fk",
+          "tableFrom": "rcm_Matrix",
+          "tableTo": "users",
+          "columnsFrom": [
+            "author"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "rcm_process": {
+      "name": "rcm_process",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(50)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "title": {
+          "name": "title",
+          "type": "varchar(200)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "author": {
+          "name": "author",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "parentId": {
+          "name": "parentId",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "rcm_process_author_users_id_fk": {
+          "name": "rcm_process_author_users_id_fk",
+          "tableFrom": "rcm_process",
+          "tableTo": "users",
+          "columnsFrom": [
+            "author"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "rcm_process_parentId_rcm_process_id_fk": {
+          "name": "rcm_process_parentId_rcm_process_id_fk",
+          "tableFrom": "rcm_process",
+          "tableTo": "rcm_process",
+          "columnsFrom": [
+            "parentId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "rcm_risk": {
+      "name": "rcm_risk",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(50)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "title": {
+          "name": "title",
+          "type": "varchar(200)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "author": {
+          "name": "author",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "rcm_risk_author_users_id_fk": {
+          "name": "rcm_risk_author_users_id_fk",
+          "tableFrom": "rcm_risk",
+          "tableTo": "users",
+          "columnsFrom": [
+            "author"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
@@ -526,6 +1327,40 @@
         "guest": "guest",
         "user": "user",
         "admin": "admin"
+      }
+    },
+    "company_type": {
+      "name": "company_type",
+      "values": {
+        "company": "company",
+        "counterparty": "counterparty"
+      }
+    },
+    "control_type": {
+      "name": "control_type",
+      "values": {
+        "Preventive": "Preventive",
+        "Detective": "Detective",
+        "SoD": "SoD"
+      }
+    },
+    "execution_type": {
+      "name": "execution_type",
+      "values": {
+        "Manual": "Manual",
+        "IT-Dependend": "IT-Dependend",
+        "Automated": "Automated"
+      }
+    },
+    "frequency_type": {
+      "name": "frequency_type",
+      "values": {
+        "On-demand": "On-demand",
+        "Daily": "Daily",
+        "Weekly": "Weekly",
+        "Monthly": "Monthly",
+        "Quarterly": "Quarterly",
+        "Annually": "Annually"
       }
     }
   },

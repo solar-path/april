@@ -5,36 +5,8 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1717065583049,
-      "tag": "0000_safe_falcon",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1717065642398,
-      "tag": "0001_right_doctor_faustus",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "5",
-      "when": 1717065657415,
-      "tag": "0002_common_dark_phoenix",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "5",
-      "when": 1717065666404,
-      "tag": "0003_opposite_ares",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "5",
-      "when": 1717065932312,
-      "tag": "0004_burly_screwball",
+      "when": 1717066398303,
+      "tag": "0000_even_azazel",
       "breakpoints": true
     }
   ]

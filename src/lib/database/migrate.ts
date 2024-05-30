@@ -26,7 +26,11 @@ import { client, db } from './db';
 
 export const migrateDB = async () => {
 	console.log('start migration');
-	await migrate(db, { migrationsFolder: './src/lib/database/migrations' });
+	try {
+		await migrate(db, { migrationsFolder: './src/lib/database/migrations' });
+	} catch (error) {
+		console.log('migration failed', error);
+	}
 	await client.end();
 	console.log('migration complete');
 };
