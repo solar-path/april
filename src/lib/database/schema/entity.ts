@@ -1,5 +1,8 @@
 import { pgEnum, pgTable, timestamp, varchar } from 'drizzle-orm/pg-core';
 import { userTable } from './users';
+import { industryTable } from './industry';
+import { countryTable } from './country';
+import { addressTable } from './address';
 
 export const entityTypes = [
 	'workspace',
@@ -19,7 +22,7 @@ export const workspaceTable = pgTable('workspaces', {
 	id: varchar('id', {
 		length: 50
 	}).primaryKey(),
-	title: varchar('title', { length: 250 }).notNull().unique(),
+	title: varchar('title', { length: 250 }).notNull(),
 	authorId: varchar('authorId', { length: 50 }).references(() => userTable.id),
 	createdAt: timestamp('createdAt').notNull().defaultNow(),
 	updatedAt: timestamp('updatedAt').notNull().defaultNow()
@@ -46,6 +49,10 @@ export const companyTable = pgTable('companies', {
 	type: companyTypeEnum('company_type').notNull(),
 	regionId: varchar('regionId', { length: 50 }).references(() => regionTable.id),
 	workspaceId: varchar('workspaceId', { length: 50 }).references(() => workspaceTable.id),
+	industryId: varchar('industryId', { length: 50 }).references(() => industryTable.id),
+	residence: varchar('countryId', { length: 50 }).references(() => countryTable.id),
+	BIN: varchar('businessIdentificationNumber', { length: 50 }),
+	address: varchar('address', { length: 50 }).references(() => addressTable.id),
 	authorId: varchar('authorId', { length: 50 }).references(() => userTable.id),
 	createdAt: timestamp('createdAt').notNull().defaultNow(),
 	updatedAt: timestamp('updatedAt').notNull().defaultNow()
@@ -73,14 +80,14 @@ export const positionTable = pgTable('positions', {
 	updatedAt: timestamp('updatedAt').notNull().defaultNow()
 });
 
-export const entityTable: any = pgTable('entities', {
-	id: varchar('id', {
-		length: 50
-	}).primaryKey(),
-	title: varchar('title', { length: 250 }).notNull(),
-	type: entityTypeEnum('department').notNull(),
-	parentId: varchar('parentId', { length: 50 }).references(() => entityTable.id),
-	authorId: varchar('authorId', { length: 50 }).references(() => userTable.id),
-	createdAt: timestamp('createdAt').notNull().defaultNow(),
-	updatedAt: timestamp('updatedAt').notNull().defaultNow()
-});
+// export const entityTable: any = pgTable('entities', {
+// 	id: varchar('id', {
+// 		length: 50
+// 	}).primaryKey(),
+// 	title: varchar('title', { length: 250 }).notNull(),
+// 	type: entityTypeEnum('department').notNull(),
+// 	parentId: varchar('parentId', { length: 50 }).references(() => entityTable.id),
+// 	authorId: varchar('authorId', { length: 50 }).references(() => userTable.id),
+// 	createdAt: timestamp('createdAt').notNull().defaultNow(),
+// 	updatedAt: timestamp('updatedAt').notNull().defaultNow()
+// });
