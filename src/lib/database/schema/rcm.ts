@@ -1,6 +1,6 @@
 import { pgTable, timestamp, varchar, text, pgEnum } from 'drizzle-orm/pg-core';
-import { entityTable } from './entity';
 import { userTable } from './users';
+import { companyTable, positionTable } from './entity';
 
 export const riskTable = pgTable('rcm_risk', {
 	id: varchar('id', {
@@ -10,7 +10,9 @@ export const riskTable = pgTable('rcm_risk', {
 	title: varchar('title', {
 		length: 200
 	}),
-	author: varchar('author', { length: 50 }).references(() => userTable.id),
+	author: varchar('author', { length: 50 })
+		.notNull()
+		.references(() => userTable.id),
 	createdAt: timestamp('createdAt').notNull().defaultNow(),
 	updatedAt: timestamp('updatedAt').notNull().defaultNow()
 });
@@ -24,7 +26,9 @@ export const controlTable = pgTable('rcm_control', {
 		length: 200
 	}),
 	description: text('description').notNull(),
-	author: varchar('author', { length: 50 }).references(() => userTable.id),
+	author: varchar('author', { length: 50 })
+		.notNull()
+		.references(() => userTable.id),
 	createdAt: timestamp('createdAt').notNull().defaultNow(),
 	updatedAt: timestamp('updatedAt').notNull().defaultNow()
 });
@@ -38,7 +42,9 @@ export const processTable: any = pgTable('rcm_process', {
 		length: 200
 	}),
 	description: text('description'),
-	author: varchar('author', { length: 50 }).references(() => userTable.id),
+	author: varchar('author', { length: 50 })
+		.notNull()
+		.references(() => userTable.id),
 	parentId: varchar('parentId', { length: 50 }).references(() => processTable.id),
 	createdAt: timestamp('createdAt').notNull().defaultNow(),
 	updatedAt: timestamp('updatedAt').notNull().defaultNow()
@@ -61,7 +67,7 @@ export const matrixTable = pgTable('rcm_Matrix', {
 	id: varchar('id', {
 		length: 50
 	}).primaryKey(),
-	entityId: varchar('entityId', { length: 50 }).references(() => entityTable.id),
+	entityId: varchar('entityId', { length: 50 }).references(() => companyTable.id),
 	processId: varchar('processId', { length: 50 }).references(() => processTable.id),
 	riskId: varchar('riskId', { length: 50 }).references(() => riskTable.id),
 	controlId: varchar('controlId', { length: 50 }).references(() => controlTable.id),
@@ -69,8 +75,10 @@ export const matrixTable = pgTable('rcm_Matrix', {
 	frequency: frequencyEnum('frequency_type').notNull(),
 	type: controlTypeEnum('control_type').notNull(),
 	execution: executionTypeEnum('execution_type').notNull(),
-	controlOwner: varchar('controlOwner', { length: 50 }).references(() => entityTable.id),
-	author: varchar('author', { length: 50 }).references(() => userTable.id),
+	controlOwner: varchar('controlOwner', { length: 50 }).references(() => positionTable.id),
+	author: varchar('author', { length: 50 })
+		.notNull()
+		.references(() => userTable.id),
 	createdAt: timestamp('createdAt').notNull().defaultNow(),
 	updatedAt: timestamp('updatedAt').notNull().defaultNow()
 });

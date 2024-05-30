@@ -1,20 +1,25 @@
 import { userTable } from '../database/schema/users';
-import { blogTable } from '../database/schema/blog';
-import { countryTable } from '../database/schema/country';
-import { industryTable } from '../database/schema/industry';
-import { controlTable, riskTable, processTable } from '../database/schema/rcm';
+import { blogTable } from './schema/blog';
+import { countryTable } from './schema/country';
+import { industryTable } from './schema/industry';
+import { controlTable, riskTable, processTable } from './schema/rcm';
+// group structure
+import workspaceData from './data/workspace.json';
+import regionData from './data/region.json';
+import addressData from './data/address.json';
+//
 import usersData from './data/users.json';
 import blogData from './data/blog.json';
 import countryData from './data/countries.json';
 import industryData from './data/industries.json';
-import orgChartData from './data/structure.json';
 import controlData from './data/controls.json';
 import riskData from './data/risks.json';
 import processData from './data/process.json';
 import { eq } from 'drizzle-orm/mysql-core/expressions';
 import { Argon2id } from 'oslo/password';
-import { entityTable } from './schema/entity';
 import { client, db } from './db';
+import { regionTable, workspaceTable } from './schema/entity';
+import { addressTable } from './schema/address';
 
 interface User {
 	id: string;
@@ -22,7 +27,8 @@ interface User {
 }
 
 const userList: User[] = [];
-
+const workspaceList: any[] = [];
+const addressList: any[] = [];
 /* Entry point
  *  returns <void>
  */
@@ -30,11 +36,14 @@ const main = async () => {
 	console.log('start seeding data');
 	try {
 		await seedUsers();
-		await getUsersFromDB();
 		await seedBlog(userList[0], blogData); // Assuming blogData is the parsed JSON from blog.json
 		await seedCountry();
 		await seedIndustry();
-		await seedEntity(userList[0], orgChartData);
+		// group structure
+		await seedWorkspace(userList[0], workspaceData);
+		await seedRegion(userList[0], regionData);
+		await seedAddress(userList[0], addressData);
+		// RCM
 		await seedRisk(userList[0]);
 		await seedControl(userList[0]);
 		await seedProcess(userList[0], processData);
@@ -51,23 +60,18 @@ const main = async () => {
  */
 const seedUsers = async () => {
 	for (const user of usersData) {
-		await db.insert(userTable).values({
-			email: user.email.toLowerCase(),
-			password: await new Argon2id().hash(user.password),
-			id: crypto.randomUUID(),
-			token: crypto.randomUUID(),
-			activated: user.activated
-		});
+		const newUser = await db
+			.insert(userTable)
+			.values({
+				email: user.email.toLowerCase(),
+				password: await new Argon2id().hash(user.password),
+				id: crypto.randomUUID(),
+				token: crypto.randomUUID(),
+				activated: user.activated
+			})
+			.returning();
+		userList.push(newUser[0]);
 	}
-};
-
-/*
- *   Fetches users from the database
- *   returns <void>
- */
-const getUsersFromDB = async () => {
-	const users = await db.select({ id: userTable.id, email: userTable.email }).from(userTable);
-	userList.push(...users);
 };
 
 /*
@@ -143,32 +147,78 @@ const seedIndustry = async () => {
 };
 
 /*
+ *   Seeds workspace into the database
+ *   returns <void>
+ */
+const seedWorkspace = async (user: User, workspaceData: any[]) => {
+	for (const workspace of workspaceData) {
+		const newWorkspace = await db
+			.insert(workspaceTable)
+			.values({
+				id: crypto.randomUUID(),
+				title: workspace.title,
+				authorId: user.id
+			})
+			.returning();
+		workspaceList.push(newWorkspace[0]);
+	}
+};
+
+const seedRegion = async (user: User, regionData: any[]) => {
+	for (const region of regionData) {
+		await db.insert(regionTable).values({
+			id: crypto.randomUUID(),
+			title: region.title,
+			// workspaceId: await
+			authorId: user.id
+		});
+	}
+};
+
+// const seedAddress = async (user: User, addressData: any[]) => {
+// 	for (const address of addressData) {
+// 		const newAddress = await db
+// 			.insert(addressTable)
+// 			.values({
+// 				id: crypto.randomUUID(),
+// 				city: address.city,
+// 				state: address.state,
+// 				zipcode: address.zipcode,
+// 				country: address.country,
+// 				addressLine: address.addressLine,
+// 				authorId: user.id
+// 			})
+// 			.returning();
+// 		addressList.push(newAddress[0]);
+// 	}
+// };
+/*
  *   Seeds org chart into the database
  *   returns <void>
  */
-const seedEntity = async (user: User, structures: any[], parentId: string | null = null) => {
-	for (const item of structures) {
-		// Use the parameter structures instead of orgChartData
-		await db.insert(entityTable).values({
-			id: crypto.randomUUID(),
-			title: item.title,
-			type: item.type,
-			authorId: user.id,
-			parentId: parentId // Use the parameter reportTo to set parent ID
-		});
+// const seedEntity = async (user: User, structures: any[], parentId: string | null = null) => {
+// 	for (const item of structures) {
+// 		// Use the parameter structures instead of orgChartData
+// 		await db.insert(entityTable).values({
+// 			id: crypto.randomUUID(),
+// 			title: item.title,
+// 			type: item.type,
+// 			authorId: user.id,
+// 			parentId: parentId // Use the parameter reportTo to set parent ID
+// 		});
 
-		const insertedItem = await db
-			.select({ id: entityTable.id })
-			.from(entityTable)
-			.where(eq(entityTable.title, item.title))
-			.limit(1);
+// 		const insertedItem = await db
+// 			.select({ id: entityTable.id })
+// 			.from(entityTable)
+// 			.where(eq(entityTable.title, item.title))
+// 			.limit(1);
 
-		// If this item has children, recursively seed them with the current item's ID as their parentId
-		if (item.children && item.children.length > 0) {
-			await seedEntity(user, item.children, insertedItem[0].id);
-		}
-	}
-};
+// 		// If this item has children, recursively seed them with the current item's ID as their parentId
+// 		if (item.children && item.children.length > 0) {
+// 			await seedEntity(user, item.children, insertedItem[0].id);
+// 		}
+// 	}
+// };
 
 /*
  *   Seeds risks into the database
