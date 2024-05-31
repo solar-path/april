@@ -28,6 +28,8 @@ interface User {
 const userList: User[] = [];
 const workspaceList: any[] = [];
 const addressList: any[] = [];
+const countryList: any[] = [];
+const industryList: any[] = [];
 /* Entry point
  *  returns <void>
  */
@@ -35,10 +37,9 @@ const main = async () => {
 	console.log('start seeding data');
 	try {
 		await seedUsers();
-		console.log('seed :: userList =>', userList);
 		await seedBlog(userList[0], blogData); // Assuming blogData is the parsed JSON from blog.json
-		// await seedCountry();
-		// await seedIndustry();
+		await seedCountry();
+		await seedIndustry();
 		// // group structure
 		// await seedWorkspace(userList[0], workspaceData);
 		// await seedRegion(userList[0], regionData);
@@ -70,7 +71,6 @@ const seedUsers = async () => {
 				activated: user.activated
 			})
 			.returning({ id: userTable.id, email: userTable.email });
-		console.log('seed :: newUser =>', newUser);
 		userList.push(newUser[0]);
 	}
 };
@@ -100,49 +100,57 @@ const seedBlog = async (user: User, blogPosts: any[], parentId: string | null = 
 	}
 };
 
-// /*
-//  *   Seeds countries into the database
-//  *   returns <void>
-//  */
-// const seedCountry = async () => {
-// 	for (const country of countryData) {
-// 		await db.insert(countryTable).values({
-// 			id: crypto.randomUUID(),
-// 			name: country.name,
-// 			iso3: country.iso3,
-// 			phone_code: country.phone_code,
-// 			currency: country.currency,
-// 			currency_name: country.currency_name,
-// 			currency_symbol: country.currency_symbol,
-// 			tld: country.tld,
-// 			region: country.region,
-// 			subregion: country.subregion,
-// 			emoji: country.emoji
-// 		});
-// 	}
-// };
+/*
+ *   Seeds countries into the database
+ *   returns <void>
+ */
+const seedCountry = async () => {
+	for (const country of countryData) {
+		const newCountry = await db
+			.insert(countryTable)
+			.values({
+				id: crypto.randomUUID(),
+				name: country.name,
+				iso3: country.iso3,
+				phone_code: country.phone_code,
+				currency: country.currency,
+				currency_name: country.currency_name,
+				currency_symbol: country.currency_symbol,
+				tld: country.tld,
+				region: country.region,
+				subregion: country.subregion,
+				emoji: country.emoji
+			})
+			.returning();
+		countryList.push(newCountry[0]);
+	}
+};
 
-// interface Industry {
-// 	code: number;
-// 	name: string;
-// 	description?: string;
-// 	children?: Industry[];
-// }
+interface Industry {
+	code: number;
+	name: string;
+	description?: string;
+	children?: Industry[];
+}
 
-// /*
-//  *   Seeds industries into the database
-//  *   returns <void>
-//  */
-// const seedIndustry = async () => {
-// 	for (const industry of industryData) {
-// 		await db.insert(industryTable).values({
-// 			code: industry.code,
-// 			name: industry.name,
-// 			description: industry.description,
-// 			parentId: industry.parentId
-// 		});
-// 	}
-// };
+/*
+ *   Seeds industries into the database
+ *   returns <void>
+ */
+const seedIndustry = async () => {
+	for (const industry of industryData) {
+		const newIndustry = await db
+			.insert(industryTable)
+			.values({
+				id: industry.code,
+				name: industry.name,
+				description: industry.description,
+				parentId: industry.parentId
+			})
+			.returning();
+		industryList.push(newIndustry[0]);
+	}
+};
 
 // /*
 //  *   Seeds workspace into the database
