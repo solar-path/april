@@ -75,9 +75,10 @@ CREATE TABLE IF NOT EXISTS "country" (
 	CONSTRAINT "country_iso3_unique" UNIQUE("iso3")
 );
 --> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "companies" (
+CREATE TABLE IF NOT EXISTS "structure_companies" (
 	"id" varchar(50) PRIMARY KEY NOT NULL,
 	"title" varchar(250) NOT NULL,
+	"logo" varchar(250),
 	"company_type" "company_type" NOT NULL,
 	"regionId" varchar(50) NOT NULL,
 	"workspaceId" varchar(50) NOT NULL,
@@ -87,28 +88,29 @@ CREATE TABLE IF NOT EXISTS "companies" (
 	"author" varchar(50) NOT NULL,
 	"createdAt" timestamp DEFAULT now() NOT NULL,
 	"updatedAt" timestamp DEFAULT now() NOT NULL,
-	CONSTRAINT "companies_businessIdentificationNumber_unique" UNIQUE("businessIdentificationNumber")
+	CONSTRAINT "structure_companies_businessIdentificationNumber_unique" UNIQUE("businessIdentificationNumber")
 );
 --> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "departments" (
+CREATE TABLE IF NOT EXISTS "structure_departments" (
 	"id" varchar(50) PRIMARY KEY NOT NULL,
 	"title" varchar(250) NOT NULL,
-	"companyId" varchar(50),
+	"companyId" varchar(50) NOT NULL,
 	"author" varchar(50) NOT NULL,
 	"createdAt" timestamp DEFAULT now() NOT NULL,
 	"updatedAt" timestamp DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "positions" (
+CREATE TABLE IF NOT EXISTS "structure_positions" (
 	"id" varchar(50) PRIMARY KEY NOT NULL,
 	"title" varchar(250) NOT NULL,
 	"departmentId" varchar(50),
+	"companyId" varchar(50) NOT NULL,
 	"author" varchar(50) NOT NULL,
 	"createdAt" timestamp DEFAULT now() NOT NULL,
 	"updatedAt" timestamp DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "regions" (
+CREATE TABLE IF NOT EXISTS "structure_regions" (
 	"id" varchar(50) PRIMARY KEY NOT NULL,
 	"title" varchar(250) NOT NULL,
 	"workspaceId" varchar(50),
@@ -117,7 +119,7 @@ CREATE TABLE IF NOT EXISTS "regions" (
 	"updatedAt" timestamp DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "workspaces" (
+CREATE TABLE IF NOT EXISTS "structure_workspaces" (
 	"id" varchar(50) PRIMARY KEY NOT NULL,
 	"title" varchar(250) NOT NULL,
 	"author" varchar(50) NOT NULL,
@@ -229,73 +231,79 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "companies" ADD CONSTRAINT "companies_regionId_regions_id_fk" FOREIGN KEY ("regionId") REFERENCES "regions"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "structure_companies" ADD CONSTRAINT "structure_companies_regionId_structure_regions_id_fk" FOREIGN KEY ("regionId") REFERENCES "structure_regions"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "companies" ADD CONSTRAINT "companies_workspaceId_workspaces_id_fk" FOREIGN KEY ("workspaceId") REFERENCES "workspaces"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "structure_companies" ADD CONSTRAINT "structure_companies_workspaceId_structure_workspaces_id_fk" FOREIGN KEY ("workspaceId") REFERENCES "structure_workspaces"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "companies" ADD CONSTRAINT "companies_industryId_industry_code_fk" FOREIGN KEY ("industryId") REFERENCES "industry"("code") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "structure_companies" ADD CONSTRAINT "structure_companies_industryId_industry_code_fk" FOREIGN KEY ("industryId") REFERENCES "industry"("code") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "companies" ADD CONSTRAINT "companies_address_addresses_id_fk" FOREIGN KEY ("address") REFERENCES "addresses"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "structure_companies" ADD CONSTRAINT "structure_companies_address_addresses_id_fk" FOREIGN KEY ("address") REFERENCES "addresses"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "companies" ADD CONSTRAINT "companies_author_users_id_fk" FOREIGN KEY ("author") REFERENCES "users"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "structure_companies" ADD CONSTRAINT "structure_companies_author_users_id_fk" FOREIGN KEY ("author") REFERENCES "users"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "departments" ADD CONSTRAINT "departments_companyId_companies_id_fk" FOREIGN KEY ("companyId") REFERENCES "companies"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "structure_departments" ADD CONSTRAINT "structure_departments_companyId_structure_companies_id_fk" FOREIGN KEY ("companyId") REFERENCES "structure_companies"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "departments" ADD CONSTRAINT "departments_author_users_id_fk" FOREIGN KEY ("author") REFERENCES "users"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "structure_departments" ADD CONSTRAINT "structure_departments_author_users_id_fk" FOREIGN KEY ("author") REFERENCES "users"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "positions" ADD CONSTRAINT "positions_departmentId_departments_id_fk" FOREIGN KEY ("departmentId") REFERENCES "departments"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "structure_positions" ADD CONSTRAINT "structure_positions_departmentId_structure_departments_id_fk" FOREIGN KEY ("departmentId") REFERENCES "structure_departments"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "positions" ADD CONSTRAINT "positions_author_users_id_fk" FOREIGN KEY ("author") REFERENCES "users"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "structure_positions" ADD CONSTRAINT "structure_positions_companyId_structure_companies_id_fk" FOREIGN KEY ("companyId") REFERENCES "structure_companies"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "regions" ADD CONSTRAINT "regions_workspaceId_workspaces_id_fk" FOREIGN KEY ("workspaceId") REFERENCES "workspaces"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "structure_positions" ADD CONSTRAINT "structure_positions_author_users_id_fk" FOREIGN KEY ("author") REFERENCES "users"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "regions" ADD CONSTRAINT "regions_author_users_id_fk" FOREIGN KEY ("author") REFERENCES "users"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "structure_regions" ADD CONSTRAINT "structure_regions_workspaceId_structure_workspaces_id_fk" FOREIGN KEY ("workspaceId") REFERENCES "structure_workspaces"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "workspaces" ADD CONSTRAINT "workspaces_author_users_id_fk" FOREIGN KEY ("author") REFERENCES "users"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "structure_regions" ADD CONSTRAINT "structure_regions_author_users_id_fk" FOREIGN KEY ("author") REFERENCES "users"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "structure_workspaces" ADD CONSTRAINT "structure_workspaces_author_users_id_fk" FOREIGN KEY ("author") REFERENCES "users"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -313,7 +321,7 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "rcm_Matrix" ADD CONSTRAINT "rcm_Matrix_entityId_companies_id_fk" FOREIGN KEY ("entityId") REFERENCES "companies"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "rcm_Matrix" ADD CONSTRAINT "rcm_Matrix_entityId_structure_companies_id_fk" FOREIGN KEY ("entityId") REFERENCES "structure_companies"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -337,7 +345,7 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "rcm_Matrix" ADD CONSTRAINT "rcm_Matrix_controlOwner_positions_id_fk" FOREIGN KEY ("controlOwner") REFERENCES "positions"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "rcm_Matrix" ADD CONSTRAINT "rcm_Matrix_controlOwner_structure_positions_id_fk" FOREIGN KEY ("controlOwner") REFERENCES "structure_positions"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;

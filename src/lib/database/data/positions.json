@@ -1,15 +1,27 @@
 [
-	{ "title": "Chief Executive Officer" },
-	{ "title": "Chief Financial Officer" },
-	{ "title": "Chief Accountant" },
-	{ "title": "Accounting Manager" },
-	{ "title": "Chief Legal Officer" },
-	{ "title": "Legal Assistant" },
-	{ "title": "Chief Human Resource Officer" },
-	{ "title": "Human Resource Manager" },
-	{ "title": "Chief Information Technology Officer" },
-	{ "title": "Senior Developer" },
-	{ "title": "Junior Developer" },
-	{ "title": "Tester" },
-	{ "title": "Information Security Manager" }
+	{ "title": "Chief Executive Officer", "department": "Management", "company": "Aneko" },
+	{ "title": "Chief Financial Officer", "department": "Management", "company": "Aneko" },
+	{ "title": "Chief Accountant", "department": "Accounting", "company": "Aneko" },
+	{ "title": "Accounting Manager", "department": "Accounting", "company": "Aneko" },
+	{ "title": "Chief Legal Officer", "department": "Legal", "company": "Aneko" },
+	{ "title": "Legal Assistant", "department": "Legal", "company": "Aneko" },
+	{
+		"title": "Chief Human Resource Officer",
+		"department": "Human resource management",
+		"company": "Aneko"
+	},
+	{
+		"title": "Human Resource Manager",
+		"department": "Human resource management",
+		"company": "Aneko"
+	},
+	{
+		"title": "Chief Information Technology Officer",
+		"department": "Development",
+		"company": "Aneko"
+	},
+	{ "title": "Senior Developer", "department": "Development", "company": "Aneko" },
+	{ "title": "Junior Developer", "department": "Development", "company": "Aneko" },
+	{ "title": "Tester", "department": "Development", "company": "Aneko" },
+	{ "title": "Information Security Manager", "department": "Development", "company": "Aneko" }
 ]

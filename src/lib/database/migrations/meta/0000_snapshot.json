@@ -1,5 +1,5 @@
 {
-  "id": "3953cadc-cad9-4618-991d-a88e13c69c61",
+  "id": "dc680844-1e78-420f-b8a9-4ab1265f3fce",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
@@ -287,8 +287,8 @@
         }
       }
     },
-    "companies": {
-      "name": "companies",
+    "structure_companies": {
+      "name": "structure_companies",
       "schema": "",
       "columns": {
         "id": {
@@ -302,6 +302,12 @@
           "type": "varchar(250)",
           "primaryKey": false,
           "notNull": true
+        },
+        "logo": {
+          "name": "logo",
+          "type": "varchar(250)",
+          "primaryKey": false,
+          "notNull": false
         },
         "company_type": {
           "name": "company_type",
@@ -362,10 +368,10 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "companies_regionId_regions_id_fk": {
-          "name": "companies_regionId_regions_id_fk",
-          "tableFrom": "companies",
-          "tableTo": "regions",
+        "structure_companies_regionId_structure_regions_id_fk": {
+          "name": "structure_companies_regionId_structure_regions_id_fk",
+          "tableFrom": "structure_companies",
+          "tableTo": "structure_regions",
           "columnsFrom": [
             "regionId"
           ],
@@ -375,10 +381,10 @@
           "onDelete": "no action",
           "onUpdate": "no action"
         },
-        "companies_workspaceId_workspaces_id_fk": {
-          "name": "companies_workspaceId_workspaces_id_fk",
-          "tableFrom": "companies",
-          "tableTo": "workspaces",
+        "structure_companies_workspaceId_structure_workspaces_id_fk": {
+          "name": "structure_companies_workspaceId_structure_workspaces_id_fk",
+          "tableFrom": "structure_companies",
+          "tableTo": "structure_workspaces",
           "columnsFrom": [
             "workspaceId"
           ],
@@ -388,9 +394,9 @@
           "onDelete": "no action",
           "onUpdate": "no action"
         },
-        "companies_industryId_industry_code_fk": {
-          "name": "companies_industryId_industry_code_fk",
-          "tableFrom": "companies",
+        "structure_companies_industryId_industry_code_fk": {
+          "name": "structure_companies_industryId_industry_code_fk",
+          "tableFrom": "structure_companies",
           "tableTo": "industry",
           "columnsFrom": [
             "industryId"
@@ -401,9 +407,9 @@
           "onDelete": "no action",
           "onUpdate": "no action"
         },
-        "companies_address_addresses_id_fk": {
-          "name": "companies_address_addresses_id_fk",
-          "tableFrom": "companies",
+        "structure_companies_address_addresses_id_fk": {
+          "name": "structure_companies_address_addresses_id_fk",
+          "tableFrom": "structure_companies",
           "tableTo": "addresses",
           "columnsFrom": [
             "address"
@@ -414,9 +420,9 @@
           "onDelete": "no action",
           "onUpdate": "no action"
         },
-        "companies_author_users_id_fk": {
-          "name": "companies_author_users_id_fk",
-          "tableFrom": "companies",
+        "structure_companies_author_users_id_fk": {
+          "name": "structure_companies_author_users_id_fk",
+          "tableFrom": "structure_companies",
           "tableTo": "users",
           "columnsFrom": [
             "author"
@@ -430,8 +436,8 @@
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
-        "companies_businessIdentificationNumber_unique": {
-          "name": "companies_businessIdentificationNumber_unique",
+        "structure_companies_businessIdentificationNumber_unique": {
+          "name": "structure_companies_businessIdentificationNumber_unique",
           "nullsNotDistinct": false,
           "columns": [
             "businessIdentificationNumber"
@@ -439,8 +445,8 @@
         }
       }
     },
-    "departments": {
-      "name": "departments",
+    "structure_departments": {
+      "name": "structure_departments",
       "schema": "",
       "columns": {
         "id": {
@@ -459,7 +465,7 @@
           "name": "companyId",
           "type": "varchar(50)",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "author": {
           "name": "author",
@@ -484,10 +490,10 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "departments_companyId_companies_id_fk": {
-          "name": "departments_companyId_companies_id_fk",
-          "tableFrom": "departments",
-          "tableTo": "companies",
+        "structure_departments_companyId_structure_companies_id_fk": {
+          "name": "structure_departments_companyId_structure_companies_id_fk",
+          "tableFrom": "structure_departments",
+          "tableTo": "structure_companies",
           "columnsFrom": [
             "companyId"
           ],
@@ -497,9 +503,9 @@
           "onDelete": "no action",
           "onUpdate": "no action"
         },
-        "departments_author_users_id_fk": {
-          "name": "departments_author_users_id_fk",
-          "tableFrom": "departments",
+        "structure_departments_author_users_id_fk": {
+          "name": "structure_departments_author_users_id_fk",
+          "tableFrom": "structure_departments",
           "tableTo": "users",
           "columnsFrom": [
             "author"
@@ -514,8 +520,8 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "positions": {
-      "name": "positions",
+    "structure_positions": {
+      "name": "structure_positions",
       "schema": "",
       "columns": {
         "id": {
@@ -536,6 +542,12 @@
           "primaryKey": false,
           "notNull": false
         },
+        "companyId": {
+          "name": "companyId",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
         "author": {
           "name": "author",
           "type": "varchar(50)",
@@ -559,10 +571,10 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "positions_departmentId_departments_id_fk": {
-          "name": "positions_departmentId_departments_id_fk",
-          "tableFrom": "positions",
-          "tableTo": "departments",
+        "structure_positions_departmentId_structure_departments_id_fk": {
+          "name": "structure_positions_departmentId_structure_departments_id_fk",
+          "tableFrom": "structure_positions",
+          "tableTo": "structure_departments",
           "columnsFrom": [
             "departmentId"
           ],
@@ -572,9 +584,22 @@
           "onDelete": "no action",
           "onUpdate": "no action"
         },
-        "positions_author_users_id_fk": {
-          "name": "positions_author_users_id_fk",
-          "tableFrom": "positions",
+        "structure_positions_companyId_structure_companies_id_fk": {
+          "name": "structure_positions_companyId_structure_companies_id_fk",
+          "tableFrom": "structure_positions",
+          "tableTo": "structure_companies",
+          "columnsFrom": [
+            "companyId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "structure_positions_author_users_id_fk": {
+          "name": "structure_positions_author_users_id_fk",
+          "tableFrom": "structure_positions",
           "tableTo": "users",
           "columnsFrom": [
             "author"
@@ -589,8 +614,8 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "regions": {
-      "name": "regions",
+    "structure_regions": {
+      "name": "structure_regions",
       "schema": "",
       "columns": {
         "id": {
@@ -634,10 +659,10 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "regions_workspaceId_workspaces_id_fk": {
-          "name": "regions_workspaceId_workspaces_id_fk",
-          "tableFrom": "regions",
-          "tableTo": "workspaces",
+        "structure_regions_workspaceId_structure_workspaces_id_fk": {
+          "name": "structure_regions_workspaceId_structure_workspaces_id_fk",
+          "tableFrom": "structure_regions",
+          "tableTo": "structure_workspaces",
           "columnsFrom": [
             "workspaceId"
           ],
@@ -647,9 +672,9 @@
           "onDelete": "no action",
           "onUpdate": "no action"
         },
-        "regions_author_users_id_fk": {
-          "name": "regions_author_users_id_fk",
-          "tableFrom": "regions",
+        "structure_regions_author_users_id_fk": {
+          "name": "structure_regions_author_users_id_fk",
+          "tableFrom": "structure_regions",
           "tableTo": "users",
           "columnsFrom": [
             "author"
@@ -664,8 +689,8 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "workspaces": {
-      "name": "workspaces",
+    "structure_workspaces": {
+      "name": "structure_workspaces",
       "schema": "",
       "columns": {
         "id": {
@@ -703,9 +728,9 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "workspaces_author_users_id_fk": {
-          "name": "workspaces_author_users_id_fk",
-          "tableFrom": "workspaces",
+        "structure_workspaces_author_users_id_fk": {
+          "name": "structure_workspaces_author_users_id_fk",
+          "tableFrom": "structure_workspaces",
           "tableTo": "users",
           "columnsFrom": [
             "author"
@@ -987,10 +1012,10 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "rcm_Matrix_entityId_companies_id_fk": {
-          "name": "rcm_Matrix_entityId_companies_id_fk",
+        "rcm_Matrix_entityId_structure_companies_id_fk": {
+          "name": "rcm_Matrix_entityId_structure_companies_id_fk",
           "tableFrom": "rcm_Matrix",
-          "tableTo": "companies",
+          "tableTo": "structure_companies",
           "columnsFrom": [
             "entityId"
           ],
@@ -1039,10 +1064,10 @@
           "onDelete": "no action",
           "onUpdate": "no action"
         },
-        "rcm_Matrix_controlOwner_positions_id_fk": {
-          "name": "rcm_Matrix_controlOwner_positions_id_fk",
+        "rcm_Matrix_controlOwner_structure_positions_id_fk": {
+          "name": "rcm_Matrix_controlOwner_structure_positions_id_fk",
           "tableFrom": "rcm_Matrix",
-          "tableTo": "positions",
+          "tableTo": "structure_positions",
           "columnsFrom": [
             "controlOwner"
           ],

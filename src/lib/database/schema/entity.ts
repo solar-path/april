@@ -3,7 +3,7 @@ import { userTable } from './users';
 import { industryTable } from './industry';
 import { addressTable } from './address';
 
-export const workspaceTable = pgTable('workspaces', {
+export const workspaceTable = pgTable('structure_workspaces', {
 	id: varchar('id', {
 		length: 50
 	}).primaryKey(),
@@ -15,7 +15,7 @@ export const workspaceTable = pgTable('workspaces', {
 	updatedAt: timestamp('updatedAt').notNull().defaultNow()
 });
 
-export const regionTable = pgTable('regions', {
+export const regionTable = pgTable('structure_regions', {
 	id: varchar('id', {
 		length: 50
 	}).primaryKey(),
@@ -30,7 +30,7 @@ export const regionTable = pgTable('regions', {
 
 export const companyTypeEnum = pgEnum('company_type', ['company', 'counterparty']);
 
-export const companyTable = pgTable('companies', {
+export const companyTable = pgTable('structure_companies', {
 	id: varchar('id', {
 		length: 50
 	}).primaryKey(),
@@ -56,12 +56,14 @@ export const companyTable = pgTable('companies', {
 	updatedAt: timestamp('updatedAt').notNull().defaultNow()
 });
 
-export const departmentTable = pgTable('departments', {
+export const departmentTable = pgTable('structure_departments', {
 	id: varchar('id', {
 		length: 50
 	}).primaryKey(),
 	title: varchar('title', { length: 250 }).notNull(),
-	companyId: varchar('companyId', { length: 50 }).references(() => companyTable.id),
+	companyId: varchar('companyId', { length: 50 })
+		.notNull()
+		.references(() => companyTable.id),
 	author: varchar('author', { length: 50 })
 		.notNull()
 		.references(() => userTable.id),
@@ -69,12 +71,15 @@ export const departmentTable = pgTable('departments', {
 	updatedAt: timestamp('updatedAt').notNull().defaultNow()
 });
 
-export const positionTable = pgTable('positions', {
+export const positionTable = pgTable('structure_positions', {
 	id: varchar('id', {
 		length: 50
 	}).primaryKey(),
 	title: varchar('title', { length: 250 }).notNull(),
 	departmentId: varchar('departmentId', { length: 50 }).references(() => departmentTable.id),
+	companyId: varchar('companyId', { length: 50 })
+		.notNull()
+		.references(() => companyTable.id),
 	author: varchar('author', { length: 50 })
 		.notNull()
 		.references(() => userTable.id),

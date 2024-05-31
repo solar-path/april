@@ -4,11 +4,19 @@ import { countryTable } from './schema/country';
 import { industryTable } from './schema/industry';
 import { controlTable, riskTable, processTable } from './schema/rcm';
 // group structure
+import {
+	companyTable,
+	departmentTable,
+	positionTable,
+	regionTable,
+	workspaceTable
+} from './schema/entity';
 import workspaceData from './data/workspace.json';
 import regionData from './data/region.json';
 import addressData from './data/address.json';
 import companyData from './data/companies.json';
 import departmentData from './data/departments.json';
+import positionData from './data/positions.json';
 //
 import usersData from './data/users.json';
 import blogData from './data/blog.json';
@@ -20,7 +28,6 @@ import processData from './data/process.json';
 import { eq } from 'drizzle-orm/mysql-core/expressions';
 import { Argon2id } from 'oslo/password';
 import { client, db } from './db';
-import { companyTable, departmentTable, regionTable, workspaceTable } from './schema/entity';
 import { addressTable } from './schema/address';
 
 interface User {
@@ -36,6 +43,7 @@ const industryList: any[] = [];
 const regionList: any[] = [];
 const companyList: any[] = [];
 const departmentList: any[] = [];
+const positionList: any[] = [];
 /* Entry point
  *  returns <void>
  */
@@ -52,6 +60,7 @@ const main = async () => {
 		await seedAddress(userList[0], addressData);
 		await seedCompany(userList[0], companyData);
 		await seedDepartment(userList[0], departmentData);
+		await seedPosition(userList[0], positionData);
 		// // RCM
 		// await seedRisk(userList[0]);
 		// await seedControl(userList[0]);
@@ -70,6 +79,7 @@ const main = async () => {
 const seedUsers = async () => {
 	const user = await db.select().from(userTable);
 	if (user.length === 0) {
+		console.log('start seed users');
 		for (const user of usersData) {
 			const newUser = await db
 				.insert(userTable)
@@ -83,6 +93,7 @@ const seedUsers = async () => {
 				.returning({ id: userTable.id, email: userTable.email });
 			userList.push(newUser[0]);
 		}
+		console.log('users seed completed');
 	} else {
 		userList.push(...user);
 		console.log('users already seeded');
@@ -96,6 +107,7 @@ const seedUsers = async () => {
 const seedBlog = async (user: User, blogPosts: any[], parentId: string | null = null) => {
 	const posts = await db.select().from(blogTable);
 	if (posts.length === 0) {
+		console.log('start seed blog');
 		for (const post of blogPosts) {
 			const newPost = await db
 				.insert(blogTable)
@@ -114,6 +126,7 @@ const seedBlog = async (user: User, blogPosts: any[], parentId: string | null = 
 				await seedBlog(user, post.children, newPost[0].id);
 			}
 		}
+		console.log('blog seed completed');
 	} else {
 		console.log('blog posts already seeded');
 	}
@@ -126,6 +139,7 @@ const seedBlog = async (user: User, blogPosts: any[], parentId: string | null = 
 const seedCountry = async () => {
 	const countries = await db.select().from(countryTable);
 	if (countries.length === 0) {
+		console.log('start seed countries');
 		for (const country of countryData) {
 			const newCountry = await db
 				.insert(countryTable)
@@ -145,6 +159,7 @@ const seedCountry = async () => {
 				.returning();
 			countryList.push(newCountry[0]);
 		}
+		console.log('countries seed completed');
 	} else {
 		countryList.push(...countries);
 		console.log('countries already seeded');
@@ -158,6 +173,7 @@ const seedCountry = async () => {
 const seedIndustry = async () => {
 	const industries = await db.select().from(industryTable);
 	if (industries.length === 0) {
+		console.log('start seed industries');
 		for (const industry of industryData) {
 			const newIndustry = await db
 				.insert(industryTable)
@@ -170,6 +186,7 @@ const seedIndustry = async () => {
 				.returning();
 			industryList.push(newIndustry[0]);
 		}
+		console.log('industries seed completed');
 	} else {
 		industryList.push(...industries);
 		console.log('industries already seeded');
@@ -183,6 +200,7 @@ const seedIndustry = async () => {
 const seedWorkspace = async (user: User, workspaceData: any[]) => {
 	const workspaces = await db.select().from(workspaceTable);
 	if (workspaces.length === 0) {
+		console.log('start seed workspaces');
 		for (const workspace of workspaceData) {
 			const newWorkspace = await db
 				.insert(workspaceTable)
@@ -194,6 +212,7 @@ const seedWorkspace = async (user: User, workspaceData: any[]) => {
 				.returning();
 			workspaceList.push(newWorkspace[0]);
 		}
+		console.log('workspaces seed completed');
 	} else {
 		workspaceList.push(...workspaces);
 		console.log('workspaces already seeded');
@@ -203,6 +222,7 @@ const seedWorkspace = async (user: User, workspaceData: any[]) => {
 const seedRegion = async (user: User, workspace: any, regionData: any[]) => {
 	const regions = await db.select().from(regionTable);
 	if (regions.length === 0) {
+		console.log('start seed regions');
 		for (const region of regionData) {
 			const newRegion = await db
 				.insert(regionTable)
@@ -215,6 +235,7 @@ const seedRegion = async (user: User, workspace: any, regionData: any[]) => {
 				.returning();
 			regionList.push(newRegion[0]);
 		}
+		console.log('regions seed completed');
 	} else {
 		regionList.push(...regions);
 		console.log('regions already seeded');
@@ -224,6 +245,7 @@ const seedRegion = async (user: User, workspace: any, regionData: any[]) => {
 const seedAddress = async (user: User, addressData: any[]) => {
 	const addresses = await db.select().from(addressTable);
 	if (addresses.length === 0) {
+		console.log('start seed addresses');
 		for (const address of addressData) {
 			const newAddress = await db
 				.insert(addressTable)
@@ -239,6 +261,7 @@ const seedAddress = async (user: User, addressData: any[]) => {
 				.returning();
 			addressList.push(newAddress[0]);
 		}
+		console.log('addresses seed completed');
 	} else {
 		addressList.push(...addresses);
 		console.log('addresses already seeded');
@@ -252,6 +275,7 @@ const seedAddress = async (user: User, addressData: any[]) => {
 const seedCompany = async (user: User, companyData: any[]) => {
 	const companies = await db.select().from(companyTable);
 	if (companies.length === 0) {
+		console.log('start seed companies');
 		for (const company of companyData) {
 			const newCompany = await db
 				.insert(companyTable)
@@ -270,6 +294,7 @@ const seedCompany = async (user: User, companyData: any[]) => {
 				.returning();
 			companyList.push(newCompany[0]);
 		}
+		console.log('companies seed completed');
 	} else {
 		companyList.push(...companies);
 		console.log('companies already seeded');
@@ -279,6 +304,7 @@ const seedCompany = async (user: User, companyData: any[]) => {
 const seedDepartment = async (user: User, departmentData: any[]) => {
 	const departments = await db.select().from(departmentTable);
 	if (departments.length === 0) {
+		console.log('start seed departments');
 		for (const department of departmentData) {
 			const newDepartment = await db
 				.insert(departmentTable)
@@ -291,9 +317,34 @@ const seedDepartment = async (user: User, departmentData: any[]) => {
 				.returning();
 			departmentList.push(newDepartment[0]);
 		}
+		console.log('departments seed completed');
 	} else {
 		departmentList.push(...departments);
 		console.log('departments already seeded');
+	}
+};
+
+const seedPosition = async (user: User, positionData: any[]) => {
+	const positions = await db.select().from(positionTable);
+	if (positions.length === 0) {
+		console.log('start seed positions');
+		for (const position of positionData) {
+			const newPosition = await db
+				.insert(positionTable)
+				.values({
+					id: crypto.randomUUID(),
+					title: position.title,
+					departmentId: departmentList.find((d) => d.title === position.department)?.id,
+					companyId: companyList.find((c) => c.title === position.company)?.id,
+					author: user.id
+				})
+				.returning();
+			positionList.push(newPosition[0]);
+		}
+		console.log('positions seed completed');
+	} else {
+		positionList.push(...positions);
+		console.log('positions already seeded');
 	}
 };
 
