@@ -12,13 +12,14 @@ import usersData from './data/users.json';
 import blogData from './data/blog.json';
 import countryData from './data/countries.json';
 import industryData from './data/industries.json';
+import companyData from './data/companies.json';
 import controlData from './data/controls.json';
 import riskData from './data/risks.json';
 import processData from './data/process.json';
 import { eq } from 'drizzle-orm/mysql-core/expressions';
 import { Argon2id } from 'oslo/password';
 import { client, db } from './db';
-import { regionTable, workspaceTable } from './schema/entity';
+import { companyTable, regionTable, workspaceTable } from './schema/entity';
 import { addressTable } from './schema/address';
 
 interface User {
@@ -32,6 +33,7 @@ const addressList: any[] = [];
 const countryList: any[] = [];
 const industryList: any[] = [];
 const regionList: any[] = [];
+const companyList: any[] = [];
 /* Entry point
  *  returns <void>
  */
@@ -46,6 +48,7 @@ const main = async () => {
 		await seedWorkspace(userList[0], workspaceData);
 		await seedRegion(userList[0], workspaceList[0], regionData);
 		await seedAddress(userList[0], addressData);
+		await seedCompany(userList[0], companyData);
 		// // RCM
 		// await seedRisk(userList[0]);
 		// await seedControl(userList[0]);
@@ -78,6 +81,7 @@ const seedUsers = async () => {
 			userList.push(newUser[0]);
 		}
 	} else {
+		userList.push(...user);
 		console.log('users already seeded');
 	}
 };
@@ -139,6 +143,7 @@ const seedCountry = async () => {
 			countryList.push(newCountry[0]);
 		}
 	} else {
+		countryList.push(...countries);
 		console.log('countries already seeded');
 	}
 };
@@ -163,6 +168,7 @@ const seedIndustry = async () => {
 			industryList.push(newIndustry[0]);
 		}
 	} else {
+		industryList.push(...industries);
 		console.log('industries already seeded');
 	}
 };
@@ -186,6 +192,7 @@ const seedWorkspace = async (user: User, workspaceData: any[]) => {
 			workspaceList.push(newWorkspace[0]);
 		}
 	} else {
+		workspaceList.push(...workspaces);
 		console.log('workspaces already seeded');
 	}
 };
@@ -206,6 +213,7 @@ const seedRegion = async (user: User, workspace: any, regionData: any[]) => {
 			regionList.push(newRegion[0]);
 		}
 	} else {
+		regionList.push(...regions);
 		console.log('regions already seeded');
 	}
 };
@@ -229,13 +237,41 @@ const seedAddress = async (user: User, addressData: any[]) => {
 			addressList.push(newAddress[0]);
 		}
 	} else {
+		addressList.push(...addresses);
 		console.log('addresses already seeded');
 	}
 };
+
 // /*
 //  *   Seeds org chart into the database
 //  *   returns <void>
 //  */
+const seedCompany = async (user: User, companyData: any[]) => {
+	const companies = await db.select().from(companyTable);
+	if (companies.length === 0) {
+		for (const company of companyData) {
+			const newCompany = await db
+				.insert(companyTable)
+				.values({
+					id: crypto.randomUUID(),
+					title: company.title,
+					logo: '',
+					type: 'company',
+					workspaceId: workspaceList[0].id,
+					regionId: regionList[0].id,
+					industryId: industryList.find((i) => i.name === company.industry)?.id,
+					BIN: company.BIN,
+					address: addressList[0].id,
+					author: user.id
+				})
+				.returning();
+			companyList.push(newCompany[0]);
+		}
+	} else {
+		companyList.push(...companies);
+		console.log('companies already seeded');
+	}
+};
 // // const seedEntity = async (user: User, structures: any[], parentId: string | null = null) => {
 // // 	for (const item of structures) {
 // // 		// Use the parameter structures instead of orgChartData

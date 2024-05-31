@@ -35,6 +35,7 @@ export const companyTable = pgTable('companies', {
 		length: 50
 	}).primaryKey(),
 	title: varchar('title', { length: 250 }).notNull(),
+	logo: varchar('logo', { length: 250 }),
 	type: companyTypeEnum('company_type').notNull(),
 	regionId: varchar('regionId', { length: 50 })
 		.notNull()
