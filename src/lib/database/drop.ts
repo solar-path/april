@@ -15,6 +15,7 @@ async function main() {
             end $$
         `;
 		await db.execute(dropTablesQuery);
+
 		await client.end();
 	} catch (error) {
 		console.log('Dropping tables failed => ', error);

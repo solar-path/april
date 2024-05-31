@@ -19,6 +19,7 @@ import { eq } from 'drizzle-orm/mysql-core/expressions';
 import { Argon2id } from 'oslo/password';
 import { client, db } from './db';
 import { regionTable, workspaceTable } from './schema/entity';
+import { addressTable } from './schema/address';
 
 interface User {
 	id: string;
@@ -30,6 +31,7 @@ const workspaceList: any[] = [];
 const addressList: any[] = [];
 const countryList: any[] = [];
 const industryList: any[] = [];
+const regionList: any[] = [];
 /* Entry point
  *  returns <void>
  */
@@ -41,9 +43,9 @@ const main = async () => {
 		await seedCountry();
 		await seedIndustry();
 		// // group structure
-		// await seedWorkspace(userList[0], workspaceData);
-		// await seedRegion(userList[0], regionData);
-		// await seedAddress(userList[0], addressData);
+		await seedWorkspace(userList[0], workspaceData);
+		await seedRegion(userList[0], workspaceList[0], regionData);
+		await seedAddress(userList[0], addressData);
 		// // RCM
 		// await seedRisk(userList[0]);
 		// await seedControl(userList[0]);
@@ -60,18 +62,23 @@ const main = async () => {
  *   returns <void>
  */
 const seedUsers = async () => {
-	for (const user of usersData) {
-		const newUser = await db
-			.insert(userTable)
-			.values({
-				email: user.email.toLowerCase(),
-				password: await new Argon2id().hash(user.password),
-				id: crypto.randomUUID(),
-				token: crypto.randomUUID(),
-				activated: user.activated
-			})
-			.returning({ id: userTable.id, email: userTable.email });
-		userList.push(newUser[0]);
+	const user = await db.select().from(userTable);
+	if (user.length === 0) {
+		for (const user of usersData) {
+			const newUser = await db
+				.insert(userTable)
+				.values({
+					email: user.email.toLowerCase(),
+					password: await new Argon2id().hash(user.password),
+					id: crypto.randomUUID(),
+					token: crypto.randomUUID(),
+					activated: user.activated
+				})
+				.returning({ id: userTable.id, email: userTable.email });
+			userList.push(newUser[0]);
+		}
+	} else {
+		console.log('users already seeded');
 	}
 };
 
@@ -80,23 +87,28 @@ const seedUsers = async () => {
  *   returns <void>
  */
 const seedBlog = async (user: User, blogPosts: any[], parentId: string | null = null) => {
-	for (const post of blogPosts) {
-		const newPost = await db
-			.insert(blogTable)
-			.values({
-				id: crypto.randomUUID(),
-				title: post.title,
-				content: post.content,
-				author: user.id,
-				status: 'published',
-				parentId: parentId // This will be null for top-level posts
-			})
-			.returning();
+	const posts = await db.select().from(blogTable);
+	if (posts.length === 0) {
+		for (const post of blogPosts) {
+			const newPost = await db
+				.insert(blogTable)
+				.values({
+					id: crypto.randomUUID(),
+					title: post.title,
+					content: post.content,
+					author: user.id,
+					status: 'published',
+					parentId: parentId // This will be null for top-level posts
+				})
+				.returning();
 
-		// If this post has children, recursively seed them with the current post's ID as their parentId
-		if (post.children && post.children.length > 0) {
-			await seedBlog(user, post.children, newPost[0].id);
+			// If this post has children, recursively seed them with the current post's ID as their parentId
+			if (post.children && post.children.length > 0) {
+				await seedBlog(user, post.children, newPost[0].id);
+			}
 		}
+	} else {
+		console.log('blog posts already seeded');
 	}
 };
 
@@ -105,99 +117,121 @@ const seedBlog = async (user: User, blogPosts: any[], parentId: string | null = 
  *   returns <void>
  */
 const seedCountry = async () => {
-	for (const country of countryData) {
-		const newCountry = await db
-			.insert(countryTable)
-			.values({
-				id: crypto.randomUUID(),
-				name: country.name,
-				iso3: country.iso3,
-				phone_code: country.phone_code,
-				currency: country.currency,
-				currency_name: country.currency_name,
-				currency_symbol: country.currency_symbol,
-				tld: country.tld,
-				region: country.region,
-				subregion: country.subregion,
-				emoji: country.emoji
-			})
-			.returning();
-		countryList.push(newCountry[0]);
+	const countries = await db.select().from(countryTable);
+	if (countries.length === 0) {
+		for (const country of countryData) {
+			const newCountry = await db
+				.insert(countryTable)
+				.values({
+					id: crypto.randomUUID(),
+					name: country.name,
+					iso3: country.iso3,
+					phone_code: country.phone_code,
+					currency: country.currency,
+					currency_name: country.currency_name,
+					currency_symbol: country.currency_symbol,
+					tld: country.tld,
+					region: country.region,
+					subregion: country.subregion,
+					emoji: country.emoji
+				})
+				.returning();
+			countryList.push(newCountry[0]);
+		}
+	} else {
+		console.log('countries already seeded');
 	}
 };
-
-interface Industry {
-	code: number;
-	name: string;
-	description?: string;
-	children?: Industry[];
-}
 
 /*
  *   Seeds industries into the database
  *   returns <void>
  */
 const seedIndustry = async () => {
-	for (const industry of industryData) {
-		const newIndustry = await db
-			.insert(industryTable)
-			.values({
-				id: industry.code,
-				name: industry.name,
-				description: industry.description,
-				parentId: industry.parentId
-			})
-			.returning();
-		industryList.push(newIndustry[0]);
+	const industries = await db.select().from(industryTable);
+	if (industries.length === 0) {
+		for (const industry of industryData) {
+			const newIndustry = await db
+				.insert(industryTable)
+				.values({
+					id: industry.code,
+					name: industry.name,
+					description: industry.description,
+					parentId: industry.parentId
+				})
+				.returning();
+			industryList.push(newIndustry[0]);
+		}
+	} else {
+		console.log('industries already seeded');
 	}
 };
 
-// /*
-//  *   Seeds workspace into the database
-//  *   returns <void>
-//  */
-// const seedWorkspace = async (user: User, workspaceData: any[]) => {
-// 	for (const workspace of workspaceData) {
-// 		const newWorkspace = await db
-// 			.insert(workspaceTable)
-// 			.values({
-// 				id: crypto.randomUUID(),
-// 				title: workspace.title,
-// 				authorId: user.id
-// 			})
-// 			.returning();
-// 		workspaceList.push(newWorkspace[0]);
-// 	}
-// };
+/*
+ *   Seeds workspace into the database
+ *   returns <void>
+ */
+const seedWorkspace = async (user: User, workspaceData: any[]) => {
+	const workspaces = await db.select().from(workspaceTable);
+	if (workspaces.length === 0) {
+		for (const workspace of workspaceData) {
+			const newWorkspace = await db
+				.insert(workspaceTable)
+				.values({
+					id: crypto.randomUUID(),
+					title: workspace.title,
+					author: user.id
+				})
+				.returning();
+			workspaceList.push(newWorkspace[0]);
+		}
+	} else {
+		console.log('workspaces already seeded');
+	}
+};
 
-// const seedRegion = async (user: User, regionData: any[]) => {
-// 	for (const region of regionData) {
-// 		await db.insert(regionTable).values({
-// 			id: crypto.randomUUID(),
-// 			title: region.title,
-// 			// workspaceId: await
-// 			authorId: user.id
-// 		});
-// 	}
-// };
+const seedRegion = async (user: User, workspace: any, regionData: any[]) => {
+	const regions = await db.select().from(regionTable);
+	if (regions.length === 0) {
+		for (const region of regionData) {
+			const newRegion = await db
+				.insert(regionTable)
+				.values({
+					id: crypto.randomUUID(),
+					title: region.title,
+					workspaceId: workspace.id,
+					author: user.id
+				})
+				.returning();
+			regionList.push(newRegion[0]);
+		}
+	} else {
+		console.log('regions already seeded');
+	}
+};
 
-// // const seedAddress = async (user: User, addressData: any[]) => {
-// // 	for (const address of addressData) {
-// // 		const newAddress = await db
-// // 			.insert(addressTable)
-// // 			.values({
-// // 				id: crypto.randomUUID(),
-// // 				city: address.city,
-// // 				state: address.state,
-// // 				zipcode: address.zipcode,
-// // 				country: address.country,
-// // 				addressLine: address.addressLine,
-// // 				authorId: user.id
-// // 			})
-// // 			.returning();
-// // 		addressList.push(newAddress[0]);
-// // 	}
-// // };
+const seedAddress = async (user: User, addressData: any[]) => {
+	const addresses = await db.select().from(addressTable);
+	if (addresses.length === 0) {
+		for (const address of addressData) {
+			const newAddress = await db
+				.insert(addressTable)
+				.values({
+					id: crypto.randomUUID(),
+					city: address.city,
+					state: address.state,
+					zipcode: address.zipcode,
+					countryId: countryList.find((c) => c.name === address.country)?.id,
+					addressLine: address.addressLine,
+					author: user.id
+				})
+				.returning();
+			addressList.push(newAddress[0]);
+		}
+	} else {
+		console.log('addresses already seeded');
+	}
+};
 // /*
 //  *   Seeds org chart into the database
 //  *   returns <void>
