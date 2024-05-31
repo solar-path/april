@@ -44,6 +44,10 @@ const regionList: any[] = [];
 const companyList: any[] = [];
 const departmentList: any[] = [];
 const positionList: any[] = [];
+const riskList: any[] = [];
+const controlList: any[] = [];
+const processList: any[] = [];
+
 /* Entry point
  *  returns <void>
  */
@@ -61,10 +65,10 @@ const main = async () => {
 		await seedCompany(userList[0], companyData);
 		await seedDepartment(userList[0], departmentData);
 		await seedPosition(userList[0], positionData);
-		// // RCM
-		// await seedRisk(userList[0]);
-		// await seedControl(userList[0]);
-		// await seedProcess(userList[0], processData);
+		// RCM
+		await seedRisk(userList[0]);
+		await seedControl(userList[0]);
+		await seedProcess(userList[0], processData);
 		console.log('data seeding complete');
 		await client.end();
 	} catch (error) {
@@ -348,58 +352,81 @@ const seedPosition = async (user: User, positionData: any[]) => {
 	}
 };
 
-// /*
-//  *   Seeds risks into the database
-//  *   returns <void>
-//  */
-// const seedRisk = async (user: User) => {
-// 	for (const risk of riskData) {
-// 		await db.insert(riskTable).values({
-// 			id: crypto.randomUUID(),
+/*
+ *   Seeds risks into the database
+ *   returns <void>
+ */
+const seedRisk = async (user: User) => {
+	const risks = await db.select().from(riskTable);
+	if (risks.length === 0) {
+		console.log('start seed risks');
+		for (const risk of riskData) {
+			const newRisk = await db
+				.insert(riskTable)
+				.values({
+					id: crypto.randomUUID(),
+					title: risk.title,
+					author: user.id
+				})
+				.returning();
+			riskList.push(newRisk[0]);
+		}
+		console.log('risks seed completed');
+	} else {
+		riskList.push(...risks);
+		console.log('risks already seeded');
+	}
+};
 
-// 			title: risk.title,
-// 			author: user.id
-// 		});
-// 	}
-// };
+/*
+ *   Seeds controls into the database
+ *   returns <void>
+ */
+const seedControl = async (user: User) => {
+	const controls = await db.select().from(controlTable);
+	if (controls.length === 0) {
+		console.log('start seed controls');
+		for (const control of controlData) {
+			const newControl = await db
+				.insert(controlTable)
+				.values({
+					id: crypto.randomUUID(),
+					title: control.title,
+					description: control.description,
+					author: user.id
+				})
+				.returning();
+			controlList.push(newControl[0]);
+		}
+		console.log('controls seed completed');
+	} else {
+		controlList.push(...controls);
+		console.log('controls already seeded');
+	}
+};
 
-// /*
-//  *   Seeds controls into the database
-//  *   returns <void>
-//  */
-// const seedControl = async (user: User) => {
-// 	for (const control of controlData) {
-// 		await db.insert(controlTable).values({
-// 			id: crypto.randomUUID(),
-// 			title: control.title,
-// 			description: control.description,
-// 			author: user.id
-// 		});
-// 	}
-// };
+const seedProcess = async (user: User, processList: any[], parentId: string | null = null) => {
+	for (const process of processData) {
+		await db.insert(processTable).values({
+			id: crypto.randomUUID(),
+			title: process.title,
+			description: process.description,
+			userID: user.id,
+			parentId: parentId // This will be null for top-level posts
+		});
 
-// const seedProcess = async (user: User, processList: any[], parentId: string | null = null) => {
-// 	for (const process of processList) {
-// 		await db.insert(processTable).values({
-// 			id: crypto.randomUUID(),
-// 			title: process.title,
-// 			description: process.description,
-// 			userID: user.id,
-// 			parentId: parentId // This will be null for top-level posts
-// 		});
+		const insertedProcess = await db
+			.select({ id: processTable.id })
+			.from(processTable)
+			.where(eq(processTable.title, process.title))
+			.limit(1);
 
-// 		const insertedProcess = await db
-// 			.select({ id: processTable.id })
-// 			.from(processTable)
-// 			.where(eq(processTable.title, process.title))
-// 			.limit(1);
-
-// 		// If this post has children, recursively seed them with the current post's ID as their parentId
-// 		if (process.children && process.children.length > 0) {
-// 			await seedProcess(user, process.children, insertedProcess[0].id);
-// 		}
-// 	}
-// };
+		// If this post has children, recursively seed them with the current post's ID as their parentId
+		if (process.children && process.children.length > 0) {
+			await seedProcess(user, process.children, insertedProcess[0].id);
+		}
+	}
+};
 
 /*
  *   Execute entry point

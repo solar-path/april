@@ -46,7 +46,6 @@ export const companyTable = pgTable('structure_companies', {
 	industryId: varchar('industryId', { length: 50 })
 		.notNull()
 		.references(() => industryTable.id),
-
 	BIN: varchar('businessIdentificationNumber', { length: 50 }).unique(),
 	address: varchar('address', { length: 50 }).references(() => addressTable.id),
 	author: varchar('author', { length: 50 })
