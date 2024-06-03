@@ -22,7 +22,7 @@ export const load: PageServerLoad = async ({ params }) => {
 			})
 			.from(blogTable)
 			.where(eq(blogTable.id, params.id))
-			.leftJoin(userTable, eq(blogTable.authorId, userTable.id)); // Hypothetical join operation
+			.leftJoin(userTable, eq(blogTable.author, userTable.id)); // Hypothetical join operation
 
 		// console.log("/learn/[id]/+page.server.ts :: post => ", post)
 
