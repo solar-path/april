@@ -34,6 +34,7 @@ interface User {
 	email: string;
 }
 
+const blogList: any[] = [];
 const userList: User[] = [];
 const workspaceList: any[] = [];
 const addressList: any[] = [];
@@ -107,10 +108,24 @@ const seedUsers = async () => {
  *   Seeds blog posts into the database
  *   returns <void>
  */
-const seedBlog = async (user: User, blogPosts: any[], parentId: string | null = null) => {
+
+interface BlogPost {
+	id: string;
+	title: string;
+	content: string;
+	coverImage: string | null;
+	author: string;
+	status: string;
+	parentId: string | null;
+	readingFor: string;
+	children: BlogPost[];
+}
+
+const seedBlog = async (user: User, blogPosts: BlogPost[]) => {
 	const posts = await db.select().from(blogTable);
 	if (posts.length === 0) {
 		console.log('start seed blog');
+
 		for (const post of blogPosts) {
 			const newPost = await db
 				.insert(blogTable)
@@ -118,19 +133,18 @@ const seedBlog = async (user: User, blogPosts: any[], parentId: string | null = 
 					id: crypto.randomUUID(),
 					title: post.title,
 					content: post.content,
-					coverImage: null,
+					coverImage: post.coverImage || null, // Use coverImage from the post or null if not provided
 					author: user.id,
 					status: 'published',
-					parentId: parentId, // This will be null for top-level posts
+					parentId: post.parent === null ? null : blogList.find((p) => p.title === post.parent)?.id, // This will be null for top-level posts
 					readingFor: 'guest'
 				})
 				.returning();
-			if (post.children.length >= 1) {
-				await seedBlog(user, post.children, newPost[0].id);
-			}
+			blogList.push(newPost[0]);
 		}
 		console.log('blog seed completed');
 	} else {
+		blogList.push(...posts);
 		console.log('blog posts already seeded');
 	}
 };
