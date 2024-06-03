@@ -21,11 +21,14 @@ export const actions: Actions = {
 		if (!form.valid) {
 			return fail(400, { form });
 		}
-		await db.insert(riskTable).values({
-			id: crypto.randomUUID(),
-			title: form.data.title,
-			author: event.locals.user?.id
-		});
+		await db
+			.insert(riskTable)
+			.values({
+				id: crypto.randomUUID(),
+				title: form.data.title,
+				author: event.locals.user?.id || 'unknown'
+			})
+			.returning();
 
 		return { form };
 	},
