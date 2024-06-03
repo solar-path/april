@@ -55,7 +55,8 @@ export const actions: Actions = {
 			.set({
 				title: form.data.title,
 				description: form.data.description,
-				parentId: form.data.parentId
+				parentId: form.data.parentId,
+				author: event.locals.user?.id || 'unknown'
 			})
 			.where(eq(processTable.id, form.data.id));
 

@@ -25,7 +25,7 @@ export const actions: Actions = {
 			id: crypto.randomUUID(),
 			title: form.data.title,
 			description: form.data.description,
-			author: event.locals.user?.id
+			author: event.locals.user?.id || 'unknown'
 		});
 
 		return { form };
@@ -54,7 +54,7 @@ export const actions: Actions = {
 			.set({
 				title: form.data.title,
 				description: form.data.description,
-				author: event.locals.user?.id
+				author: event.locals.user?.id || 'unknown'
 			})
 			.where(eq(controlTable.id, form.data.id));
 
