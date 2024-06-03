@@ -41,7 +41,8 @@ export const actions: Actions = {
 		await db
 			.update(riskTable)
 			.set({
-				title: form.data.title
+				title: form.data.title,
+				author: event.locals.user?.id
 			})
 			.where(eq(riskTable.id, form.data.id));
 

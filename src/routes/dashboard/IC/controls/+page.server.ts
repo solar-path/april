@@ -53,7 +53,8 @@ export const actions: Actions = {
 			.update(controlTable)
 			.set({
 				title: form.data.title,
-				description: form.data.description
+				description: form.data.description,
+				author: event.locals.user?.id
 			})
 			.where(eq(controlTable.id, form.data.id));
 

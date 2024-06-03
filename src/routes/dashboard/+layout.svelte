@@ -16,10 +16,10 @@
 			label: 'Dashboard',
 			href: '/dashboard'
 		},
-		{
-			label: 'Business structure',
-			href: '/dashboard/entity'
-		},
+		// {
+		// 	label: 'Business structure',
+		// 	href: '/dashboard/entity'
+		// },
 		{
 			label: 'Internal control',
 			href: '/dashboard/IC',
