@@ -12,9 +12,9 @@
 	} from 'flowbite-svelte-icons';
 	import { selectedItem, treeState } from '$lib/components/Tree/TreeView.utilities';
 	import DeleteButton from '$lib/components/DeleteButton.svelte';
-	import { generatePdfStructureReport } from '$lib/Entity/Reports/pdf/structureReports';
-	import { generateXlsStructureReport } from '$lib/Entity/Reports/xls/structureReports';
-	import Entity from '$lib/Entity/Forms/Entity.svelte';
+	import { generatePdfStructureReport } from '../Reports/pdf/structureReports';
+	import { generateXlsStructureReport } from '../Reports/xls/structureReports';
+	import Entity from '../Forms/Entity.svelte';
 
 	export let data: any;
 	$: console.log('structureTree :: data => ', data);

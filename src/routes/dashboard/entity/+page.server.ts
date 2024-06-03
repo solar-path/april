@@ -1,24 +1,27 @@
 import { redirect } from '@sveltejs/kit';
 import { fail, superValidate } from 'sveltekit-superforms';
-import { entityDeleteSchema, entitySchema } from '$lib/Entity/Validation/entity.schema';
 import { zod } from 'sveltekit-superforms/adapters';
 import { db } from '$lib/database/db';
-import { entityTable } from '$lib/database/schema/entity';
 import { buildTree } from '$lib/components/Tree/TreeView.utilities';
 import type { Actions, PageServerLoad } from './$types';
 import { eq } from 'drizzle-orm';
+import { regionTable, workspaceTable } from '$lib/database/schema/entity';
 
 export const load: PageServerLoad = async (event) => {
 	if (!event.locals.user) {
 		redirect(302, '/login');
 	}
 
-	const entityList = await db.select().from(entityTable);
+	const entityList = await db
+		.select()
+		.from(workspaceTable)
+		.leftJoin(regionTable, eq(workspaceTable.id, regionTable.workspaceId));
 
+	console.log('/dashboard/entity/+page.server.ts :: entityList => ', entityList);
 	return {
-		entityList,
-		entityTree: buildTree(entityList),
-		entityForm: await superValidate(zod(entitySchema))
+		entityList
+		// entityTree: buildTree(entityList),
+		// entityForm: await superValidate(zod(entitySchema))
 	};
 };
 
@@ -30,12 +33,12 @@ export const actions: Actions = {
 			return fail(400, { form });
 		}
 
-		await db.insert(entityTable).values({
-			id: crypto.randomUUID(),
-			title: form.data.title,
-			parentId: form.data.parentId,
-			author: event.locals.user?.id
-		});
+		// await db.insert(entityTable).values({
+		// 	id: crypto.randomUUID(),
+		// 	title: form.data.title,
+		// 	parentId: form.data.parentId,
+		// 	author: event.locals.user?.id
+		// });
 
 		return { form };
 	},
@@ -47,14 +50,14 @@ export const actions: Actions = {
 		if (!form.valid) {
 			return fail(400, { form });
 		}
-		await db
-			.update(entityTable)
-			.set({
-				title: form.data.title,
-				parentId: form.data.parentId,
-				type: form.data.type
-			})
-			.where(eq(entityTable.id, form.data.id));
+		// await db
+		// 	.update(entityTable)
+		// 	.set({
+		// 		title: form.data.title,
+		// 		parentId: form.data.parentId,
+		// 		type: form.data.type
+		// 	})
+		// 	.where(eq(entityTable.id, form.data.id));
 
 		return { form };
 	},
@@ -66,7 +69,7 @@ export const actions: Actions = {
 		if (!form.valid) {
 			return fail(400, { form });
 		}
-		await db.delete(entityTable).where(eq(entityTable.id, form.data.id));
+		// await db.delete(entityTable).where(eq(entityTable.id, form.data.id));
 		return { form };
 	}
 };
