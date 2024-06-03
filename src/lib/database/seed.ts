@@ -25,7 +25,6 @@ import industryData from './data/industries.json';
 import controlData from './data/controls.json';
 import riskData from './data/risks.json';
 import processData from './data/process.json';
-import { eq } from 'drizzle-orm/mysql-core/expressions';
 import { Argon2id } from 'oslo/password';
 import { client, db } from './db';
 import { addressTable } from './schema/address';
@@ -119,14 +118,14 @@ const seedBlog = async (user: User, blogPosts: any[], parentId: string | null = 
 					id: crypto.randomUUID(),
 					title: post.title,
 					content: post.content,
+					coverImage: null,
 					author: user.id,
 					status: 'published',
-					parentId: parentId // This will be null for top-level posts
+					parentId: parentId, // This will be null for top-level posts
+					readingFor: 'guest'
 				})
 				.returning();
-
-			// If this post has children, recursively seed them with the current post's ID as their parentId
-			if (post.children && post.children.length > 0) {
+			if (post.children.length >= 1) {
 				await seedBlog(user, post.children, newPost[0].id);
 			}
 		}
@@ -405,26 +404,34 @@ const seedControl = async (user: User) => {
 	}
 };
 
-const seedProcess = async (user: User, processList: any[], parentId: string | null = null) => {
-	for (const process of processData) {
-		await db.insert(processTable).values({
-			id: crypto.randomUUID(),
-			title: process.title,
-			description: process.description,
-			userID: user.id,
-			parentId: parentId // This will be null for top-level posts
-		});
+const seedProcess = async (user: User, processItem: any[], parentId: string | null = null) => {
+	const processes = await db.select().from(processTable);
 
-		const insertedProcess = await db
-			.select({ id: processTable.id })
-			.from(processTable)
-			.where(eq(processTable.title, process.title))
-			.limit(1);
+	if (processes.length === 0) {
+		console.log('start seed processes');
+		for (const process of processData) {
+			const newProcess = await db
+				.insert(processTable)
+				.values({
+					id: crypto.randomUUID(),
+					title: process.title,
+					description: process.description,
+					author: user.id,
+					parentId: parentId // This will be null for top-level posts
+				})
+				.returning();
 
-		// If this post has children, recursively seed them with the current post's ID as their parentId
-		if (process.children && process.children.length > 0) {
-			await seedProcess(user, process.children, insertedProcess[0].id);
+			processList.push(newProcess[0]);
+
+			// If this post has children, recursively seed them with the current post's ID as their parentId
+			if (process.children && process.children.length > 0) {
+				await seedProcess(user, process.children, newProcess[0].id);
+			}
 		}
+		console.log('processes seed completed');
+	} else {
+		processList.push(...processes);
+		console.log('processes already seeded');
 	}
 };
 
