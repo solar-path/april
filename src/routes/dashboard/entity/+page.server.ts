@@ -12,32 +12,35 @@ import {
 	regionTable,
 	workspaceTable
 } from '$lib/database/schema/entity';
-import { addressTable } from '$lib/database/schema/address';
-import { industryTable } from '$lib/database/schema/industry';
+import { workspaceSchema } from './Validation/workspace.schema';
+import { regionSchema } from './Validation/region.schema';
+import { companySchema } from './Validation/company.schema';
+import { departmentSchema } from './Validation/department.schema';
+import { positionSchema } from './Validation/position.schema';
 
 export const load: PageServerLoad = async (event) => {
 	if (!event.locals.user) {
 		redirect(302, '/login');
 	}
 
-	const workspaces = await db.select().from(workspaceTable);
-	const regions = await db.select().from(regionTable);
-	const companies = await db.select().from(companyTable);
-	const departments = await db.select().from(departmentTable);
-	const positions = await db.select().from(positionTable);
+	const workspaceList = await db.select().from(workspaceTable);
+	const regionList = await db.select().from(regionTable);
+	const companyList = await db.select().from(companyTable);
+	const departmentList = await db.select().from(departmentTable);
+	const positionList = await db.select().from(positionTable);
 
-	const tree = workspaces
+	const tree = workspaceList
 		.map((workspace) => {
-			const workspaceRegions = regions
+			const workspaceRegions = regionList
 				.filter((region) => region.workspaceId === workspace.id)
 				.map((region) => {
-					const regionCompanies = companies
+					const regionCompanies = companyList
 						.filter((company) => company.regionId === region.id)
 						.map((company) => {
-							const companyDepartments = departments
+							const companyDepartments = departmentList
 								.filter((department) => department.companyId === company.id)
 								.map((department) => {
-									const departmentPositions = positions.filter(
+									const departmentPositions = positionList.filter(
 										(position) => position.departmentId === department.id
 									);
 									return departmentPositions.length > 0
@@ -58,7 +61,12 @@ export const load: PageServerLoad = async (event) => {
 		.filter(Boolean);
 
 	return {
-		tree
+		tree,
+		workspaceForm: await superValidate(zod(workspaceSchema)),
+		regionForm: await superValidate(zod(regionSchema)),
+		companyForm: await superValidate(zod(companySchema)),
+		departmentForm: await superValidate(zod(departmentSchema)),
+		positionForm: await superValidate(zod(positionSchema))
 	};
 };
 
