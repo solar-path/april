@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { writable } from 'svelte/store';
 	import { Button, Dropdown, DropdownItem } from 'flowbite-svelte';
 	import type { PageData } from '../$types';
 	import { fillDrawer } from '$lib/components/Drawer/drawer.utlities';
@@ -18,9 +19,7 @@
 	export let data: PageData;
 
 	let selectedStructureItem: any = null;
-	$: console.log('selectedStructureItem => ', selectedStructureItem);
 	$: groupStructureTree = data.groupStructureTree;
-	console.log(data);
 
 	const reports = [
 		// Group
@@ -31,6 +30,15 @@
 		{ item: 'Company orgchart as table', title: 'Orgchart table', type: 'PDF' },
 		{ item: 'Company orgchart as table', title: 'Orgchart table', type: 'XLS' }
 	];
+
+	let dropdownStates = writable(new Map());
+
+	const toggleDropdown = (id: any) => {
+		dropdownStates.update((states) => {
+			states.set(id, !states.get(id));
+			return states;
+		});
+	};
 </script>
 
 <div class="mb-2 flex flex-row justify-end space-x-2">
@@ -54,7 +62,6 @@
 			{#each reports as report}
 				{#if report.type === fileType}
 					<DropdownItem>{report.title}</DropdownItem>
-					<!-- on:click={() => report.report(groupStructureTree)} place it in DropDownItem -->
 				{/if}
 			{/each}
 		</Dropdown>
@@ -73,42 +80,81 @@
 			<ul>
 				{#each groupStructureTree as workspace}
 					<li>
-						<button on:click={() => (selectedStructureItem = workspace)}>{workspace.title}</button>
-					</li>
-					<ul class="ml-4">
-						{#each workspace.regions as region}
-							<li>
-								<button on:click={() => (selectedStructureItem = region)}>{region.title}</button>
-							</li>
-							<ul class="ml-4">
-								{#each region.companies as company}
-									<li>
-										<button on:click={() => (selectedStructureItem = company)}
-											>{company.title}</button
-										>
-									</li>
+						<button
+							on:click={() => (selectedStructureItem = workspace)}
+							on:contextmenu|preventDefault={() => toggleDropdown(workspace.id)}
+							>{workspace.title}</button
+						>
+						{#if $dropdownStates.get(workspace.id)}
+							<Dropdown>
+								<DropdownItem>Add region</DropdownItem>
+							</Dropdown>
+						{/if}
+						<ul class="ml-4">
+							{#each workspace.regions as region}
+								<li>
+									<button
+										on:click={() => (selectedStructureItem = region)}
+										on:contextmenu|preventDefault={() => toggleDropdown(region.id)}
+										>{region.title}</button
+									>
+									{#if $dropdownStates.get(region.id)}
+										<Dropdown>
+											<DropdownItem>Add company</DropdownItem>
+										</Dropdown>
+									{/if}
 									<ul class="ml-4">
-										{#each company.departments as department}
+										{#each region.companies as company}
 											<li>
-												<button on:click={() => (selectedStructureItem = department)}
-													>{department.title}</button
-												>
+												<button
+													on:click={() => (selectedStructureItem = company)}
+													on:contextmenu|preventDefault={() => toggleDropdown(company.id)}
+													>{company.title}
+												</button>
+												{#if $dropdownStates.get(company.id)}
+													<Dropdown>
+														<DropdownItem>Add department</DropdownItem>
+													</Dropdown>
+												{/if}
+												<ul class="ml-4">
+													{#each company.departments as department}
+														<li>
+															<button
+																on:click={() => (selectedStructureItem = department)}
+																on:contextmenu|preventDefault={() => toggleDropdown(department.id)}
+																>{department.title}</button
+															>
+															{#if $dropdownStates.get(department.id)}
+																<Dropdown>
+																	<DropdownItem>Add position</DropdownItem>
+																</Dropdown>
+															{/if}
+															<ul class="ml-4">
+																{#each department.positions as position}
+																	<li>
+																		<button
+																			on:click={() => (selectedStructureItem = position)}
+																			on:contextmenu|preventDefault={() =>
+																				toggleDropdown(position.id)}>{position.title}</button
+																		>
+																		{#if $dropdownStates.get(position.id)}
+																			<Dropdown>
+																				<DropdownItem>Add position</DropdownItem>
+																			</Dropdown>
+																		{/if}
+																	</li>
+																{/each}
+															</ul>
+														</li>
+													{/each}
+												</ul>
 											</li>
-											<ul class="ml-4">
-												{#each department.positions as position}
-													<li>
-														<button on:click={() => (selectedStructureItem = position)}
-															>{position.title}</button
-														>
-													</li>
-												{/each}
-											</ul>
 										{/each}
 									</ul>
-								{/each}
-							</ul>
-						{/each}
-					</ul>
+								</li>
+							{/each}
+						</ul>
+					</li>
 				{/each}
 			</ul>
 		</div>
