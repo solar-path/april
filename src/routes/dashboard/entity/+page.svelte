@@ -2,6 +2,12 @@
 	import { Button, Dropdown, DropdownItem } from 'flowbite-svelte';
 	import type { PageData } from '../$types';
 	import { fillDrawer } from '$lib/components/Drawer/drawer.utlities';
+	import WorkspaceCard from './Cards/Workspace.card.svelte';
+	import RegionCard from './Cards/Region.card.svelte';
+	import CompanyCard from './Cards/Company.card.svelte';
+	import DepartmentCard from './Cards/Department.card.svelte';
+	import PositionCard from './Cards/Position.card.svelte';
+
 	import {
 		ChevronDownOutline,
 		FileChartBarOutline,
@@ -16,10 +22,15 @@
 	$: groupStructureTree = data.groupStructureTree;
 	console.log(data);
 
-	// const reports = [
-	// 	{ report: generatePdfStructureReport, title: 'Group Structure', type: 'PDF' },
-	// 	{ report: generatePdfStructureReport, title: 'Group Structure', type: 'XLS' }
-	// ];
+	const reports = [
+		// Group
+		{ item: 'Group Structure xls', title: 'Group Structure', type: 'PDF' },
+		{ item: 'Group Structure pdf', title: 'Group Structure', type: 'XLS' },
+
+		// Company
+		{ item: 'Company orgchart as table', title: 'Orgchart table', type: 'PDF' },
+		{ item: 'Company orgchart as table', title: 'Orgchart table', type: 'XLS' }
+	];
 </script>
 
 <div class="mb-2 flex flex-row justify-end space-x-2">
@@ -40,13 +51,12 @@
 			<ChevronDownOutline />
 		</Button>
 		<Dropdown class="w-44 divide-y divide-gray-100">
-			<!-- {#each reports as report}
+			{#each reports as report}
 				{#if report.type === fileType}
-					<DropdownItem on:click={() => report.report(groupStructureTree)}
-						>{report.title}</DropdownItem
-					>
+					<DropdownItem>{report.title}</DropdownItem>
+					<!-- on:click={() => report.report(groupStructureTree)} place it in DropDownItem -->
 				{/if}
-			{/each} -->
+			{/each}
 		</Dropdown>
 	{/each}
 </div>
@@ -105,36 +115,23 @@
 		<div class="w-2/3">
 			<p>Details:</p>
 			{#if selectedStructureItem && selectedStructureItem.type === 'workspace'}
-				<p>Title: {selectedStructureItem.title}</p>
+				<WorkspaceCard {selectedStructureItem} />
 			{/if}
 
 			{#if selectedStructureItem && selectedStructureItem.type === 'region'}
-				<p>Title: {selectedStructureItem.title}</p>
+				<RegionCard {selectedStructureItem} />
 			{/if}
 
 			{#if selectedStructureItem && selectedStructureItem.type === 'company'}
-				<p>Title: {selectedStructureItem.title}</p>
-				<p>
-					Logo:
-					<img src={selectedStructureItem.logo} alt={selectedStructureItem.title} />
-				</p>
-				<p>
-					BIN:
-					{selectedStructureItem.BIN}
-				</p>
-				<p>address: {selectedStructureItem.address}</p>
-				<p>
-					Contact:
-					{selectedStructureItem.contact}
-				</p>
+				<CompanyCard {selectedStructureItem} />
 			{/if}
 
 			{#if selectedStructureItem && selectedStructureItem.type === 'department'}
-				<p>Title: {selectedStructureItem.title}</p>
+				<DepartmentCard {selectedStructureItem} />
 			{/if}
 
 			{#if selectedStructureItem && selectedStructureItem.type === 'position'}
-				<p>Title: {selectedStructureItem.title}</p>
+				<PositionCard {selectedStructureItem} />
 			{/if}
 		</div>
 	</div>

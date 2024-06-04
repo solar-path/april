@@ -28,7 +28,8 @@ export const load: PageServerLoad = async (event) => {
 	const workspaceList = await db
 		.select({
 			id: workspaceTable.id,
-			title: workspaceTable.title
+			title: workspaceTable.title,
+			description: workspaceTable.description
 		})
 		.from(workspaceTable);
 
@@ -36,7 +37,8 @@ export const load: PageServerLoad = async (event) => {
 		.select({
 			id: regionTable.id,
 			title: regionTable.title,
-			workspaceId: regionTable.workspaceId
+			workspaceId: regionTable.workspaceId,
+			description: regionTable.description
 		})
 		.from(regionTable)
 		.leftJoin(workspaceTable, eq(workspaceTable.id, regionTable.workspaceId));
@@ -45,6 +47,7 @@ export const load: PageServerLoad = async (event) => {
 		.select({
 			id: companyTable.id,
 			title: companyTable.title,
+			description: companyTable.description,
 			workspaceId: companyTable.workspaceId,
 			logo: companyTable.logo,
 			industryId: companyTable.industryId,
@@ -61,6 +64,7 @@ export const load: PageServerLoad = async (event) => {
 	const departmentList = await db
 		.select({
 			id: departmentTable.id,
+			description: departmentTable.description,
 			title: departmentTable.title,
 			companyId: departmentTable.companyId
 		})
@@ -70,6 +74,7 @@ export const load: PageServerLoad = async (event) => {
 	const positionList = await db
 		.select({
 			id: positionTable.id,
+			description: positionTable.description,
 			title: positionTable.title,
 			departmentId: positionTable.departmentId,
 			companyId: positionTable.companyId

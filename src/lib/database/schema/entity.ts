@@ -1,4 +1,4 @@
-import { pgEnum, pgTable, timestamp, varchar } from 'drizzle-orm/pg-core';
+import { pgEnum, pgTable, text, timestamp, varchar } from 'drizzle-orm/pg-core';
 import { userTable } from './users';
 import { industryTable } from './industry';
 import { addressTable } from './address';
@@ -9,6 +9,7 @@ export const workspaceTable = pgTable('structure_workspaces', {
 		length: 50
 	}).primaryKey(),
 	title: varchar('title', { length: 250 }).notNull(),
+	description: text('description'),
 	author: varchar('author', { length: 50 })
 		.notNull()
 		.references(() => userTable.id),
@@ -21,6 +22,7 @@ export const regionTable = pgTable('structure_regions', {
 		length: 50
 	}).primaryKey(),
 	title: varchar('title', { length: 250 }).notNull(),
+	description: text('description'),
 	workspaceId: varchar('workspaceId', { length: 50 }).references(() => workspaceTable.id),
 	author: varchar('author', { length: 50 })
 		.notNull()
@@ -36,6 +38,8 @@ export const companyTable = pgTable('structure_companies', {
 		length: 50
 	}).primaryKey(),
 	title: varchar('title', { length: 250 }).notNull(),
+	description: text('description'),
+
 	logo: varchar('logo', { length: 250 }),
 	type: companyTypeEnum('company_type').notNull(),
 	regionId: varchar('regionId', { length: 50 })
@@ -62,6 +66,8 @@ export const departmentTable = pgTable('structure_departments', {
 		length: 50
 	}).primaryKey(),
 	title: varchar('title', { length: 250 }).notNull(),
+	description: text('description'),
+
 	companyId: varchar('companyId', { length: 50 })
 		.notNull()
 		.references(() => companyTable.id),
@@ -77,6 +83,7 @@ export const positionTable = pgTable('structure_positions', {
 		length: 50
 	}).primaryKey(),
 	title: varchar('title', { length: 250 }).notNull(),
+	description: text('description'),
 	departmentId: varchar('departmentId', { length: 50 }).references(() => departmentTable.id),
 	companyId: varchar('companyId', { length: 50 })
 		.notNull()
