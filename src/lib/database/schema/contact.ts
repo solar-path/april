@@ -1,6 +1,5 @@
 import { pgTable, timestamp, varchar } from 'drizzle-orm/pg-core';
 import { userTable } from './users';
-import { companyTable } from './entity';
 
 export const contactTable = pgTable('contact', {
 	id: varchar('id', {
@@ -15,9 +14,7 @@ export const contactTable = pgTable('contact', {
 	website: varchar('website', {
 		length: 256
 	}),
-	companyId: varchar('companyId', { length: 50 })
-		.notNull()
-		.references(() => companyTable.id),
+
 	author: varchar('author', { length: 50 })
 		.notNull()
 		.references(() => userTable.id),

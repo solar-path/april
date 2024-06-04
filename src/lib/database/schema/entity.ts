@@ -2,6 +2,7 @@ import { pgEnum, pgTable, timestamp, varchar } from 'drizzle-orm/pg-core';
 import { userTable } from './users';
 import { industryTable } from './industry';
 import { addressTable } from './address';
+import { contactTable } from './contact';
 
 export const workspaceTable = pgTable('structure_workspaces', {
 	id: varchar('id', {
@@ -48,6 +49,7 @@ export const companyTable = pgTable('structure_companies', {
 		.references(() => industryTable.id),
 	BIN: varchar('businessIdentificationNumber', { length: 50 }).unique(),
 	address: varchar('address', { length: 50 }).references(() => addressTable.id),
+	contact: varchar('contact', { length: 50 }).references(() => contactTable.id),
 	author: varchar('author', { length: 50 })
 		.notNull()
 		.references(() => userTable.id),

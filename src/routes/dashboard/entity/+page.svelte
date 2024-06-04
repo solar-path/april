@@ -1,13 +1,14 @@
 <script lang="ts">
-	import StructureTree from './Tables/StructureTree.svelte';
 	import type { PageData } from '../$types';
 
 	export let data: PageData;
-	// $: console.table('/dashboard/structure :: data => ', data.entityList);
+
+	$: groupStructureTree = data.groupStructureTree;
+	console.log(data);
 </script>
 
 <ul>
-	{#each data.tree as workspace}
+	{#each data.groupStructureTree as workspace}
 		<li>{workspace.title}</li>
 		<ul class="ml-4">
 			{#each workspace.regions as region}
@@ -31,4 +32,3 @@
 		</ul>
 	{/each}
 </ul>
-<!-- <StructureTree {data} /> -->
