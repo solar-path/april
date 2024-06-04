@@ -2,9 +2,7 @@ import { redirect } from '@sveltejs/kit';
 import { fail, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { db } from '$lib/database/db';
-// import { buildTree } from '$lib/components/Tree/TreeView.utilities';
 import type { Actions, PageServerLoad } from './$types';
-import { eq } from 'drizzle-orm';
 import {
 	companyTable,
 	departmentTable,
@@ -23,11 +21,11 @@ export const load: PageServerLoad = async (event) => {
 		redirect(302, '/login');
 	}
 
-	const workspaceList = await db.select().from(workspaceTable);
-	const regionList = await db.select().from(regionTable);
-	const companyList = await db.select().from(companyTable);
-	const departmentList = await db.select().from(departmentTable);
-	const positionList = await db.select().from(positionTable);
+	const workspaceList: any[] = await db.select().from(workspaceTable);
+	const regionList: any[] = await db.select().from(regionTable);
+	const companyList: any[] = await db.select().from(companyTable);
+	const departmentList: any[] = await db.select().from(departmentTable);
+	const positionList: any[] = await db.select().from(positionTable);
 
 	const tree = workspaceList
 		.map((workspace) => {
@@ -62,59 +60,164 @@ export const load: PageServerLoad = async (event) => {
 
 	return {
 		tree,
+		workspaceList,
 		workspaceForm: await superValidate(zod(workspaceSchema)),
+		regionList,
 		regionForm: await superValidate(zod(regionSchema)),
+		companyList,
 		companyForm: await superValidate(zod(companySchema)),
+		departmentList,
 		departmentForm: await superValidate(zod(departmentSchema)),
+		positionList,
 		positionForm: await superValidate(zod(positionSchema))
 	};
 };
 
-// export const actions: Actions = {
-// 	createUnit: async (event) => {
-// 		const form = await superValidate(await event.request.formData(), zod(entitySchema));
-// 		// Convenient validation check:
-// 		if (!form.valid) {
-// 			return fail(400, { form });
-// 		}
-
-// 		// await db.insert(entityTable).values({
-// 		// 	id: crypto.randomUUID(),
-// 		// 	title: form.data.title,
-// 		// 	parentId: form.data.parentId,
-// 		// 	author: event.locals.user?.id
-// 		// });
-
-// 		return { form };
-// 	},
-// 	updateUnit: async (event) => {
-// 		const form = await superValidate(await event.request.formData(), zod(entitySchema));
-// 		// const form = await superValidate(await request.formData(), zod(entitySchema));
-
-// 		// Convenient validation check:
-// 		if (!form.valid) {
-// 			return fail(400, { form });
-// 		}
-// 		// await db
-// 		// 	.update(entityTable)
-// 		// 	.set({
-// 		// 		title: form.data.title,
-// 		// 		parentId: form.data.parentId,
-// 		// 		type: form.data.type
-// 		// 	})
-// 		// 	.where(eq(entityTable.id, form.data.id));
-
-// 		return { form };
-// 	},
-// 	deleteUnit: async (event) => {
-// 		console.log('/dashboard/structure/+page.server.ts :: deleteUnit method reached');
-// 		const form = await superValidate(await event.request.formData(), zod(entityDeleteSchema));
-// 		console.log('/dashboard/structure/+page.server.ts :: form => ', form);
-
-// 		if (!form.valid) {
-// 			return fail(400, { form });
-// 		}
-// 		// await db.delete(entityTable).where(eq(entityTable.id, form.data.id));
-// 		return { form };
-// 	}
-// };
+export const actions: Actions = {
+	createWorkspace: async (event) => {
+		const form = await superValidate(await event.request.formData(), zod(workspaceSchema));
+		if (!form.valid) {
+			return fail(400, { form });
+		}
+		return { form };
+	},
+	updateWorkspace: async (event) => {
+		const form = await superValidate(await event.request.formData(), zod(workspaceSchema));
+		if (!form.valid) {
+			return fail(400, { form });
+		}
+		return { form };
+	},
+	deleteWorkspace: async (event) => {
+		const form = await superValidate(await event.request.formData(), zod(workspaceSchema));
+		if (!form.valid) {
+			return fail(400, { form });
+		}
+		return { form };
+	},
+	createRegion: async (event) => {
+		const form = await superValidate(await event.request.formData(), zod(regionSchema));
+		if (!form.valid) {
+			return fail(400, { form });
+		}
+		return { form };
+	},
+	updateRegion: async (event) => {
+		const form = await superValidate(await event.request.formData(), zod(regionSchema));
+		if (!form.valid) {
+			return fail(400, { form });
+		}
+		return { form };
+	},
+	deleteRegion: async (event) => {
+		const form = await superValidate(await event.request.formData(), zod(regionSchema));
+		if (!form.valid) {
+			return fail(400, { form });
+		}
+		return { form };
+	},
+	createCompany: async (event) => {
+		const form = await superValidate(await event.request.formData(), zod(companySchema));
+		if (!form.valid) {
+			return fail(400, { form });
+		}
+		return { form };
+	},
+	updateCompany: async (event) => {
+		const form = await superValidate(await event.request.formData(), zod(companySchema));
+		if (!form.valid) {
+			return fail(400, { form });
+		}
+		return { form };
+	},
+	deleteCompany: async (event) => {
+		const form = await superValidate(await event.request.formData(), zod(companySchema));
+		if (!form.valid) {
+			return fail(400, { form });
+		}
+		return { form };
+	},
+	createDepartment: async (event) => {
+		const form = await superValidate(await event.request.formData(), zod(departmentSchema));
+		if (!form.valid) {
+			return fail(400, { form });
+		}
+		return { form };
+	},
+	updateDepartment: async (event) => {
+		const form = await superValidate(await event.request.formData(), zod(departmentSchema));
+		if (!form.valid) {
+			return fail(400, { form });
+		}
+		return { form };
+	},
+	deleteDepartment: async (event) => {
+		const form = await superValidate(await event.request.formData(), zod(departmentSchema));
+		if (!form.valid) {
+			return fail(400, { form });
+		}
+		return { form };
+	},
+	createPosition: async (event) => {
+		const form = await superValidate(await event.request.formData(), zod(positionSchema));
+		if (!form.valid) {
+			return fail(400, { form });
+		}
+		return { form };
+	},
+	updatePosition: async (event) => {
+		const form = await superValidate(await event.request.formData(), zod(positionSchema));
+		if (!form.valid) {
+			return fail(400, { form });
+		}
+		return { form };
+	},
+	deletePosition: async (event) => {
+		const form = await superValidate(await event.request.formData(), zod(positionSchema));
+		if (!form.valid) {
+			return fail(400, { form });
+		}
+		return { form };
+	}
+	// 	createUnit: async (event) => {
+	// 		const form = await superValidate(await event.request.formData(), zod(entitySchema));
+	// 		// Convenient validation check:
+	// 		if (!form.valid) {
+	// 			return fail(400, { form });
+	// 		}
+	// 		// await db.insert(entityTable).values({
+	// 		// 	id: crypto.randomUUID(),
+	// 		// 	title: form.data.title,
+	// 		// 	parentId: form.data.parentId,
+	// 		// 	author: event.locals.user?.id
+	// 		// });
+	// 		return { form };
+	// 	},
+	// 	updateUnit: async (event) => {
+	// 		const form = await superValidate(await event.request.formData(), zod(entitySchema));
+	// 		// const form = await superValidate(await request.formData(), zod(entitySchema));
+	// 		// Convenient validation check:
+	// 		if (!form.valid) {
+	// 			return fail(400, { form });
+	// 		}
+	// 		// await db
+	// 		// 	.update(entityTable)
+	// 		// 	.set({
+	// 		// 		title: form.data.title,
+	// 		// 		parentId: form.data.parentId,
+	// 		// 		type: form.data.type
+	// 		// 	})
+	// 		// 	.where(eq(entityTable.id, form.data.id));
+	// 		return { form };
+	// 	},
+	// 	deleteUnit: async (event) => {
+	// 		console.log('/dashboard/structure/+page.server.ts :: deleteUnit method reached');
+	// 		const form = await superValidate(await event.request.formData(), zod(entityDeleteSchema));
+	// 		console.log('/dashboard/structure/+page.server.ts :: form => ', form);
+	// 		if (!form.valid) {
+	// 			return fail(400, { form });
+	// 		}
+	// 		// await db.delete(entityTable).where(eq(entityTable.id, form.data.id));
+	// 		return { form };
+	// 	}
+};

@@ -4,26 +4,28 @@
 	import { Button, Input, Label } from 'flowbite-svelte';
 	import SuperDebug, { superForm, type FormResult } from 'sveltekit-superforms';
 
-	interface RegionData {
+	interface CompanyData {
 		item?: {
 			id: string;
 			title: string;
+			companyId: string;
+			company: string;
 		};
-		regionForm: {
+		departmentForm: {
 			data: any;
 		};
 	}
 
-	export let data: RegionData;
+	export let data: CompanyData;
 
 	const { form, errors, constraints, enhance } = superForm(
 		data.item && data.item !== null
 			? {
-					...data.regionForm.data,
+					...data.departmentForm.data,
 					id: data.item.id,
 					title: data.item.title
 				}
-			: data.regionForm.data,
+			: data.departmentForm.data,
 		{
 			onResult(event) {
 				const result = event.result as FormResult<any>;
@@ -40,17 +42,18 @@
 	novalidate
 	method="POST"
 	action={data.item ?? data.item !== null
-		? '/dashboard/entity/updateRegion'
-		: '/dashboard/entity/createRegion'}
+		? '/dashboard/entity/updateDepartment'
+		: '/dashboard/entity/createDepartment'}
 	class="flex flex-col space-y-2"
 >
 	<input type="hidden" name="id" bind:value={$form.id} />
 
 	<div class="w-full">
-		<Label for="title">Region</Label>
+		<Label for="title">Company name</Label>
 		<Input id="title" type="text" name="title" bind:value={$form.title} {...$constraints.title} />
 		<DisplayFormErrors errors={$errors.title} />
 	</div>
+
 	<Button type="submit" class="w-full">Add</Button>
 </form>
 <SuperDebug data={$form} />
