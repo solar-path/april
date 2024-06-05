@@ -15,11 +15,14 @@
 		FilePdfOutline,
 		PlusOutline
 	} from 'flowbite-svelte-icons';
+	import TreeView from '$lib/components/Tree/TreeView.svelte';
+	import { selectedItem } from '$lib/components/Tree/TreeView.utilities';
 
 	export let data: PageData;
 
-	let selectedStructureItem: any = null;
 	$: groupStructureTree = data.groupStructureTree;
+
+	console.log('groupStructureTree => ', data.groupStructureTree);
 
 	const reports = [
 		// Group
@@ -30,15 +33,6 @@
 		{ item: 'Company orgchart as table', title: 'Orgchart table', type: 'PDF' },
 		{ item: 'Company orgchart as table', title: 'Orgchart table', type: 'XLS' }
 	];
-
-	let dropdownStates = writable(new Map());
-
-	const toggleDropdown = (id: any) => {
-		dropdownStates.update((states) => {
-			states.set(id, !states.get(id));
-			return states;
-		});
-	};
 </script>
 
 <div class="mb-2 flex flex-row justify-end space-x-2">
@@ -77,107 +71,30 @@
 	</div>
 	<div class="flex flex-row">
 		<div class="w-1/3">
-			<ul>
-				{#each groupStructureTree as workspace}
-					<li>
-						<button
-							on:click={() => (selectedStructureItem = workspace)}
-							on:contextmenu|preventDefault={() => toggleDropdown(workspace.id)}
-							>{workspace.title}</button
-						>
-						{#if $dropdownStates.get(workspace.id)}
-							<Dropdown>
-								<DropdownItem>Add region</DropdownItem>
-							</Dropdown>
-						{/if}
-						<ul class="ml-4">
-							{#each workspace.regions as region}
-								<li>
-									<button
-										on:click={() => (selectedStructureItem = region)}
-										on:contextmenu|preventDefault={() => toggleDropdown(region.id)}
-										>{region.title}</button
-									>
-									{#if $dropdownStates.get(region.id)}
-										<Dropdown>
-											<DropdownItem>Add company</DropdownItem>
-										</Dropdown>
-									{/if}
-									<ul class="ml-4">
-										{#each region.companies as company}
-											<li>
-												<button
-													on:click={() => (selectedStructureItem = company)}
-													on:contextmenu|preventDefault={() => toggleDropdown(company.id)}
-													>{company.title}
-												</button>
-												{#if $dropdownStates.get(company.id)}
-													<Dropdown>
-														<DropdownItem>Add department</DropdownItem>
-													</Dropdown>
-												{/if}
-												<ul class="ml-4">
-													{#each company.departments as department}
-														<li>
-															<button
-																on:click={() => (selectedStructureItem = department)}
-																on:contextmenu|preventDefault={() => toggleDropdown(department.id)}
-																>{department.title}</button
-															>
-															{#if $dropdownStates.get(department.id)}
-																<Dropdown>
-																	<DropdownItem>Add position</DropdownItem>
-																</Dropdown>
-															{/if}
-															<ul class="ml-4">
-																{#each department.positions as position}
-																	<li>
-																		<button
-																			on:click={() => (selectedStructureItem = position)}
-																			on:contextmenu|preventDefault={() =>
-																				toggleDropdown(position.id)}>{position.title}</button
-																		>
-																		{#if $dropdownStates.get(position.id)}
-																			<Dropdown>
-																				<DropdownItem>Add position</DropdownItem>
-																			</Dropdown>
-																		{/if}
-																	</li>
-																{/each}
-															</ul>
-														</li>
-													{/each}
-												</ul>
-											</li>
-										{/each}
-									</ul>
-								</li>
-							{/each}
-						</ul>
-					</li>
-				{/each}
-			</ul>
+			<TreeView form={null} showSelectButton={false} tree={groupStructureTree} option="select" />
 		</div>
 		<div class="w-2/3">
-			<p>Details:</p>
-			{#if selectedStructureItem && selectedStructureItem.type === 'workspace'}
-				<WorkspaceCard {selectedStructureItem} />
-			{/if}
+			{#if $selectedItem}
+				<p>Details:</p>
+				{#if $selectedItem.type === 'workspace'}
+					<WorkspaceCard selectedStructureItem={$selectedItem} />
+				{/if}
 
-			{#if selectedStructureItem && selectedStructureItem.type === 'region'}
-				<RegionCard {selectedStructureItem} />
-			{/if}
+				{#if $selectedItem.type === 'region'}
+					<RegionCard selectedStructureItem={$selectedItem} />
+				{/if}
 
-			{#if selectedStructureItem && selectedStructureItem.type === 'company'}
-				<CompanyCard {selectedStructureItem} />
-			{/if}
+				{#if $selectedItem.type === 'company'}
+					<CompanyCard selectedStructureItem={$selectedItem} />
+				{/if}
 
-			{#if selectedStructureItem && selectedStructureItem.type === 'department'}
-				<DepartmentCard {selectedStructureItem} />
-			{/if}
+				{#if $selectedItem.type === 'department'}
+					<DepartmentCard selectedStructureItem={$selectedItem} />
+				{/if}
 
-			{#if selectedStructureItem && selectedStructureItem.type === 'position'}
-				<PositionCard {selectedStructureItem} />
+				{#if $selectedItem.type === 'position'}
+					<PositionCard selectedStructureItem={$selectedItem} />
+				{/if}
 			{/if}
 		</div>
 	</div>

@@ -98,22 +98,22 @@ export const load: PageServerLoad = async (event) => {
 										.filter((position) => position.departmentId === department.id)
 										.map((position) => ({ ...position, type: 'position' }));
 									return departmentPositions.length > 0
-										? { ...department, positions: departmentPositions, type: 'department' }
+										? { ...department, children: departmentPositions, type: 'department' }
 										: null;
 								})
 								.filter(Boolean);
 							return companyDepartments.length > 0
-								? { ...company, departments: companyDepartments, type: 'company' }
+								? { ...company, children: companyDepartments, type: 'company' }
 								: null;
 						})
 						.filter(Boolean);
 					return regionCompanies.length > 0
-						? { ...region, companies: regionCompanies, type: 'region' }
+						? { ...region, children: regionCompanies, type: 'region' }
 						: null;
 				})
 				.filter(Boolean);
 			return workspaceRegions.length > 0
-				? { ...workspace, regions: workspaceRegions, type: 'workspace' }
+				? { ...workspace, children: workspaceRegions, type: 'workspace' }
 				: null;
 		})
 		.filter(Boolean);
