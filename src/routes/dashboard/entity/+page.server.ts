@@ -12,7 +12,7 @@ import {
 } from '$lib/database/schema/entity';
 
 import { deleteWorkspaceSchema, workspaceSchema } from './Validation/workspace.schema';
-import { regionSchema } from './Validation/region.schema';
+import { deleteRegionSchema, regionSchema } from './Validation/region.schema';
 import { companySchema } from './Validation/company.schema';
 import { departmentSchema } from './Validation/department.schema';
 import { positionSchema } from './Validation/position.schema';
@@ -123,9 +123,7 @@ export const load: PageServerLoad = async (event) => {
 export const actions: Actions = {
 	// WORKSPACE CRUD
 	createWorkspace: async (event) => {
-		console.log('create workspace endpoint achived');
 		const form = await superValidate(await event.request.formData(), zod(workspaceSchema));
-		console.log('/entity/+page.server.ts :: create workspace form => ', form);
 
 		if (!form.valid) {
 			console.log('/entity/+page.server.ts :: create workspace form is not valid => ', form);
@@ -136,18 +134,15 @@ export const actions: Actions = {
 			id: crypto.randomUUID(),
 			title: form.data.title,
 			description: form.data.description,
-			author: event.locals.user?.id || 'unknown'
+			author: event.locals.user?.id as string
 		});
 
 		return { form };
 	},
 	updateWorkspace: async (event) => {
-		console.log('update endpoint achived');
 		const form = await superValidate(await event.request.formData(), zod(workspaceSchema));
-		console.log('/entity/+page.server.ts :: update workspace form => ', form);
 
 		if (!form.valid) {
-			console.log('/entity/+page.server.ts :: update workspace form is not valid => ', form);
 			return fail(400, { form });
 		} else {
 			const record = await db
@@ -169,11 +164,8 @@ export const actions: Actions = {
 		}
 	},
 	deleteWorkspace: async (event) => {
-		console.log('delete workspace endpoint achived');
 		const form = await superValidate(await event.request.formData(), zod(deleteWorkspaceSchema));
-		console.log('/entity/+page.server.ts :: delete workspace form => ', form);
 		if (!form.valid) {
-			console.log('/entity/+page.server.ts :: delete workspace form is not valid => ', form);
 			return fail(400, { form });
 		}
 		if (form.data.id === undefined) {
@@ -184,17 +176,24 @@ export const actions: Actions = {
 	},
 	// REGION CRUD
 	createRegion: async (event) => {
-		console.log('create region endpoint achived');
 		const form = await superValidate(await event.request.formData(), zod(regionSchema));
-		console.log('/entity/+page.server.ts :: create region form => ', form);
 
 		if (!form.valid) {
-			console.log('/entity/+page.server.ts :: create region form is not valid => ', form);
 			return fail(400, { form });
 		}
+
+		await db.insert(regionTable).values({
+			id: crypto.randomUUID(),
+			title: form.data.title,
+			description: form.data.description,
+			workspaceId: form.data.workspaceId,
+			author: event.locals.user?.id as string
+		});
+
 		return { form };
 	},
 	updateRegion: async (event) => {
+		console.log('update region endpoint achived');
 		const form = await superValidate(await event.request.formData(), zod(regionSchema));
 		if (!form.valid) {
 			return fail(400, { form });
@@ -202,10 +201,11 @@ export const actions: Actions = {
 		return { form };
 	},
 	deleteRegion: async (event) => {
-		const form = await superValidate(await event.request.formData(), zod(regionSchema));
+		const form = await superValidate(await event.request.formData(), zod(deleteRegionSchema));
 		if (!form.valid) {
 			return fail(400, { form });
 		}
+		await db.delete(regionTable).where(eq(regionTable.id, form.data.id as string));
 		return { form };
 	},
 	// COMPANY CRUD

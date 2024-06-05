@@ -30,7 +30,7 @@
 					title: data.item.title,
 					description: data.item.description,
 					workspaceId: data.item.workspaceId,
-					workspace: data.item.workspace
+					workspace: data.workspaceList.find((item) => item.id === data?.item?.workspaceId)
 				}
 			: data.regionForm.data,
 		{
@@ -48,7 +48,7 @@
 	use:enhance
 	novalidate
 	method="POST"
-	action={data.item ?? data.item !== null
+	action={data.item && data.item !== null
 		? '/dashboard/entity?/updateRegion'
 		: '/dashboard/entity?/createRegion'}
 	class="flex flex-col space-y-2"
