@@ -11,7 +11,7 @@ import {
 	workspaceTable
 } from '$lib/database/schema/entity';
 
-import { workspaceSchema } from './Validation/workspace.schema';
+import { deleteWorkspaceSchema, workspaceSchema } from './Validation/workspace.schema';
 import { regionSchema } from './Validation/region.schema';
 import { companySchema } from './Validation/company.schema';
 import { departmentSchema } from './Validation/department.schema';
@@ -121,8 +121,9 @@ export const load: PageServerLoad = async (event) => {
 };
 
 export const actions: Actions = {
+	// WORKSPACE CRUD
 	createWorkspace: async (event) => {
-		console.log('create endpoint achived');
+		console.log('create workspace endpoint achived');
 		const form = await superValidate(await event.request.formData(), zod(workspaceSchema));
 		console.log('/entity/+page.server.ts :: create workspace form => ', form);
 
@@ -148,19 +149,47 @@ export const actions: Actions = {
 		if (!form.valid) {
 			console.log('/entity/+page.server.ts :: update workspace form is not valid => ', form);
 			return fail(400, { form });
+		} else {
+			const record = await db
+				.select()
+				.from(workspaceTable)
+				.where(eq(workspaceTable.id, form.data.id as string));
+
+			await db
+				.update(workspaceTable)
+				.set({
+					title: form.data.title !== record[0].title ? form.data.title : record[0].title,
+					description:
+						form.data.description !== record[0].description
+							? form.data.description
+							: record[0].description
+				})
+				.where(eq(workspaceTable.id, form.data.id as string));
+			return { form };
 		}
-		return { form };
 	},
 	deleteWorkspace: async (event) => {
-		const form = await superValidate(await event.request.formData(), zod(workspaceSchema));
+		console.log('delete workspace endpoint achived');
+		const form = await superValidate(await event.request.formData(), zod(deleteWorkspaceSchema));
+		console.log('/entity/+page.server.ts :: delete workspace form => ', form);
 		if (!form.valid) {
+			console.log('/entity/+page.server.ts :: delete workspace form is not valid => ', form);
 			return fail(400, { form });
 		}
+		if (form.data.id === undefined) {
+			return fail(400, { error: 'Workspace ID is undefined' });
+		}
+		await db.delete(workspaceTable).where(eq(workspaceTable.id, form.data.id));
 		return { form };
 	},
+	// REGION CRUD
 	createRegion: async (event) => {
+		console.log('create region endpoint achived');
 		const form = await superValidate(await event.request.formData(), zod(regionSchema));
+		console.log('/entity/+page.server.ts :: create region form => ', form);
+
 		if (!form.valid) {
+			console.log('/entity/+page.server.ts :: create region form is not valid => ', form);
 			return fail(400, { form });
 		}
 		return { form };
@@ -179,6 +208,7 @@ export const actions: Actions = {
 		}
 		return { form };
 	},
+	// COMPANY CRUD
 	createCompany: async (event) => {
 		const form = await superValidate(await event.request.formData(), zod(companySchema));
 		if (!form.valid) {
@@ -200,6 +230,7 @@ export const actions: Actions = {
 		}
 		return { form };
 	},
+	// DEPARTMENT CRUD
 	createDepartment: async (event) => {
 		const form = await superValidate(await event.request.formData(), zod(departmentSchema));
 		if (!form.valid) {
@@ -219,8 +250,10 @@ export const actions: Actions = {
 		if (!form.valid) {
 			return fail(400, { form });
 		}
+
 		return { form };
 	},
+	// POSITION CRUD
 	createPosition: async (event) => {
 		const form = await superValidate(await event.request.formData(), zod(positionSchema));
 		if (!form.valid) {

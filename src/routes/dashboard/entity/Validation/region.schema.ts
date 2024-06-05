@@ -7,7 +7,9 @@ const workspaces = await db.select().from(workspaceTable);
 export const regionSchema = z.object({
 	id: z.string(),
 	title: z.string().min(1, { message: 'Required field' }),
-	workspaceId: z
+	description: z.string().optional(),
+	workspaceId: z.string(),
+	workspace: z
 		.string()
 		.min(1, { message: 'Required field' })
 		.refine(

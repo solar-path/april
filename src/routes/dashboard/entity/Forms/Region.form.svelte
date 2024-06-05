@@ -54,6 +54,7 @@
 	class="flex flex-col space-y-2"
 >
 	<input type="hidden" name="id" bind:value={$form.id} />
+	<input type="hidden" name="workspaceId" bind:value={$form.workspaceId} />
 
 	<div class="w-full">
 		<Label for="title">Region</Label>
@@ -63,15 +64,18 @@
 
 	<div class="w-full">
 		<SelectWithSearchTree
+			label="Workspace"
 			list={data.workspaceList}
-			tree={data.groupStructureTree}
+			tree={data.workspaceList}
 			form={$form}
 			errors={$errors}
 			constraints={$constraints}
-			label="Workspace"
 			modalID="workspace"
 			modalState={false}
+			fieldId="workspaceId"
+			fieldName="workspace"
 		/>
+		<DisplayFormErrors errors={$errors.workspaceId} />
 	</div>
 
 	<div class="w-full">
