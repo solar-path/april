@@ -5,6 +5,7 @@
 	import { EditOutline } from 'flowbite-svelte-icons';
 	import Position from '../Forms/Position.form.svelte';
 	export let selectedStructureItem;
+	export let data;
 </script>
 
 <div class="flex">
@@ -16,7 +17,8 @@
 			outline={true}
 			class="h-9 w-10 !p-2"
 			size="xs"
-			on:click={() => fillDrawer('Edit position', Position, { item: selectedStructureItem })}
+			on:click={() =>
+				fillDrawer('Edit position', Position, { ...data, item: selectedStructureItem })}
 		>
 			<EditOutline class="h-4 w-6" /></Button
 		>

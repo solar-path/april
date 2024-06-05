@@ -1,7 +1,5 @@
 <script lang="ts">
-	import { writable } from 'svelte/store';
 	import { Button, Dropdown, DropdownItem } from 'flowbite-svelte';
-	import type { PageData } from '../$types';
 	import { fillDrawer } from '$lib/components/Drawer/drawer.utlities';
 	import WorkspaceCard from './Cards/Workspace.card.svelte';
 	import RegionCard from './Cards/Region.card.svelte';
@@ -108,23 +106,23 @@
 		<div class="w-2/3">
 			{#if $selectedItem}
 				{#if $selectedItem.type === 'workspace'}
-					<WorkspaceCard selectedStructureItem={$selectedItem} />
+					<WorkspaceCard selectedStructureItem={$selectedItem} {data} />
 				{/if}
 
 				{#if $selectedItem.type === 'region'}
-					<RegionCard selectedStructureItem={$selectedItem} />
+					<RegionCard selectedStructureItem={$selectedItem} {data} />
 				{/if}
 
 				{#if $selectedItem.type === 'company'}
-					<CompanyCard selectedStructureItem={$selectedItem} />
+					<CompanyCard selectedStructureItem={$selectedItem} {data} />
 				{/if}
 
 				{#if $selectedItem.type === 'department'}
-					<DepartmentCard selectedStructureItem={$selectedItem} />
+					<DepartmentCard selectedStructureItem={$selectedItem} {data} />
 				{/if}
 
 				{#if $selectedItem.type === 'position'}
-					<PositionCard selectedStructureItem={$selectedItem} />
+					<PositionCard selectedStructureItem={$selectedItem} {data} />
 				{/if}
 			{/if}
 		</div>

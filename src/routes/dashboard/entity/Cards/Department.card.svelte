@@ -5,6 +5,7 @@
 	import { Button, Heading, Hr, P } from 'flowbite-svelte';
 	import { EditOutline } from 'flowbite-svelte-icons';
 	import Department from '../Forms/Department.form.svelte';
+	export let data;
 </script>
 
 <div class="flex">
@@ -16,7 +17,8 @@
 			outline={true}
 			class="h-9 w-10 !p-2"
 			size="xs"
-			on:click={() => fillDrawer('Edit department', Department, { item: selectedStructureItem })}
+			on:click={() =>
+				fillDrawer('Edit department', Department, { ...data, item: selectedStructureItem })}
 		>
 			<EditOutline class="h-4 w-6" /></Button
 		>
