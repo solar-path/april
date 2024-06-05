@@ -9,20 +9,19 @@
 	import DepartmentCard from './Cards/Department.card.svelte';
 	import PositionCard from './Cards/Position.card.svelte';
 
-	import {
-		ChevronDownOutline,
-		FileChartBarOutline,
-		FilePdfOutline,
-		PlusOutline
-	} from 'flowbite-svelte-icons';
+	import Workspace from './Forms/Workspace.form.svelte';
+	import Region from './Forms/Region.form.svelte';
+	import Company from './Forms/Company.form.svelte';
+	import Department from './Forms/Department.form.svelte';
+	import Position from './Forms/Position.form.svelte';
+
+	import { ChevronDownOutline, FileChartBarOutline, FilePdfOutline } from 'flowbite-svelte-icons';
 	import TreeView from '$lib/components/Tree/TreeView.svelte';
 	import { selectedItem } from '$lib/components/Tree/TreeView.utilities';
 
 	export let data: PageData;
 
 	$: groupStructureTree = data.groupStructureTree;
-
-	console.log('groupStructureTree => ', data.groupStructureTree);
 
 	const reports = [
 		// Group
@@ -33,9 +32,32 @@
 		{ item: 'Company orgchart as table', title: 'Orgchart table', type: 'PDF' },
 		{ item: 'Company orgchart as table', title: 'Orgchart table', type: 'XLS' }
 	];
+
+	const formList = [
+		{ title: 'Workspace', form: Workspace },
+		{ title: 'Region', form: Region },
+		{ title: 'Company', form: Company },
+		{ title: 'Department', form: Department },
+		{ title: 'Position', form: Position }
+	];
 </script>
 
 <div class="mb-2 flex flex-row justify-end space-x-2">
+	<Button>Add new<ChevronDownOutline /></Button>
+
+	<Dropdown class="w-44 divide-y divide-gray-100">
+		{#each formList as item}
+			<DropdownItem
+				on:click={() => {
+					fillDrawer(`New ${item.title}`, item.form, data);
+				}}
+				class="flex"
+			>
+				{item.title}
+			</DropdownItem>
+		{/each}
+	</Dropdown>
+
 	<Button color="alternative">Actions<ChevronDownOutline /></Button>
 
 	<Dropdown class="w-44 divide-y divide-gray-100">
@@ -71,7 +93,11 @@
 	</div>
 	<div class="flex flex-row">
 		<div class="w-1/3">
-			<TreeView form={null} showSelectButton={false} tree={groupStructureTree} option="select" />
+			{#if groupStructureTree}
+				<TreeView form={null} showSelectButton={false} tree={groupStructureTree} option="select" />
+			{:else}
+				<p>No items was created</p>
+			{/if}
 		</div>
 		<div class="w-2/3">
 			{#if $selectedItem}

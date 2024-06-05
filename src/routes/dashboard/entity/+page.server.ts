@@ -135,15 +135,31 @@ export const load: PageServerLoad = async (event) => {
 
 export const actions: Actions = {
 	createWorkspace: async (event) => {
+		console.log('create endpoint achived');
 		const form = await superValidate(await event.request.formData(), zod(workspaceSchema));
+		console.log('/entity/+page.server.ts :: create workspace form => ', form);
+
 		if (!form.valid) {
+			console.log('/entity/+page.server.ts :: create workspace form is not valid => ', form);
 			return fail(400, { form });
 		}
+
+		await db.insert(workspaceTable).values({
+			id: crypto.randomUUID(),
+			title: form.data.title,
+			description: form.data.description,
+			author: event.locals.user?.id || 'unknown'
+		});
+
 		return { form };
 	},
 	updateWorkspace: async (event) => {
+		console.log('update endpoint achived');
 		const form = await superValidate(await event.request.formData(), zod(workspaceSchema));
+		console.log('/entity/+page.server.ts :: update workspace form => ', form);
+
 		if (!form.valid) {
+			console.log('/entity/+page.server.ts :: update workspace form is not valid => ', form);
 			return fail(400, { form });
 		}
 		return { form };

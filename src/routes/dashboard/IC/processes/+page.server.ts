@@ -24,9 +24,8 @@ export const actions: Actions = {
 		if (!form.valid) {
 			return fail(400, { form });
 		}
-		const id = crypto.randomUUID();
 		await db.insert(processTable).values({
-			id: id,
+			id: crypto.randomUUID(),
 			title: form.data.title,
 			parentId: form.data.parentId,
 			description: form.data.description,

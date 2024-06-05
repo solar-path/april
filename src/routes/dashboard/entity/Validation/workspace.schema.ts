@@ -1,8 +1,9 @@
 import { z } from 'zod';
 
 export const workspaceSchema = z.object({
-	id: z.string(),
-	title: z.string().min(1, { message: 'Required field' })
+	id: z.string().optional(),
+	title: z.string().min(1, { message: 'Required field' }),
+	description: z.string().optional()
 });
 
 export const deleteWorkspaceSchema = z.object({
