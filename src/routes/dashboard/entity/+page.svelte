@@ -19,9 +19,15 @@
 	import TreeView from '$lib/components/Tree/TreeView.svelte';
 	import { selectedItem } from '$lib/components/Tree/TreeView.utilities';
 
-	export let data: PageData;
+	interface GroupStructureData {
+		id: string;
+		type: string;
+		title: string;
+		description: string;
+	}
+	export let data: any;
 
-	$: groupStructureTree = data.groupStructureTree;
+	$: groupStructureTree = data.groupStructureTree as GroupStructureData[];
 
 	const reports = [
 		// Group
@@ -101,7 +107,6 @@
 		</div>
 		<div class="w-2/3">
 			{#if $selectedItem}
-				<p>Details:</p>
 				{#if $selectedItem.type === 'workspace'}
 					<WorkspaceCard selectedStructureItem={$selectedItem} />
 				{/if}
