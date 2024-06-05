@@ -54,10 +54,10 @@ export const load: PageServerLoad = async (event) => {
 			BIN: companyTable.BIN,
 			address: companyTable.address,
 			contact: companyTable.contact,
-			regionId: companyTable.regionId // Corrected to companyTable.regionId
+			regionId: companyTable.regionId
 		})
 		.from(companyTable)
-		.leftJoin(regionTable, eq(regionTable.id, companyTable.regionId)) // Corrected to companyTable.regionId
+		.leftJoin(regionTable, eq(regionTable.id, companyTable.regionId))
 		.leftJoin(addressTable, eq(addressTable.id, companyTable.address))
 		.leftJoin(contactTable, eq(contactTable.id, companyTable.contact));
 
@@ -83,40 +83,27 @@ export const load: PageServerLoad = async (event) => {
 		.leftJoin(departmentTable, eq(departmentTable.id, positionTable.departmentId))
 		.leftJoin(companyTable, eq(companyTable.id, positionTable.companyId));
 
-	const tree = workspaceList
-		.map((workspace) => {
-			const workspaceRegions = regionList
-				.filter((region) => region.workspaceId === workspace.id)
-				.map((region) => {
-					const regionCompanies = companyList
-						.filter((company) => company.regionId === region.id)
-						.map((company) => {
-							const companyDepartments = departmentList
-								.filter((department) => department.companyId === company.id)
-								.map((department) => {
-									const departmentPositions = positionList
-										.filter((position) => position.departmentId === department.id)
-										.map((position) => ({ ...position, type: 'position' }));
-									return departmentPositions.length > 0
-										? { ...department, children: departmentPositions, type: 'department' }
-										: null;
-								})
-								.filter(Boolean);
-							return companyDepartments.length > 0
-								? { ...company, children: companyDepartments, type: 'company' }
-								: null;
-						})
-						.filter(Boolean);
-					return regionCompanies.length > 0
-						? { ...region, children: regionCompanies, type: 'region' }
-						: null;
-				})
-				.filter(Boolean);
-			return workspaceRegions.length > 0
-				? { ...workspace, children: workspaceRegions, type: 'workspace' }
-				: null;
-		})
-		.filter(Boolean);
+	const tree = workspaceList.map((workspace) => {
+		const workspaceRegions = regionList
+			.filter((region) => region.workspaceId === workspace.id)
+			.map((region) => {
+				const regionCompanies = companyList
+					.filter((company) => company.regionId === region.id)
+					.map((company) => {
+						const companyDepartments = departmentList
+							.filter((department) => department.companyId === company.id)
+							.map((department) => {
+								const departmentPositions = positionList
+									.filter((position) => position.departmentId === department.id)
+									.map((position) => ({ ...position, type: 'position' }));
+								return { ...department, children: departmentPositions, type: 'department' };
+							});
+						return { ...company, children: companyDepartments, type: 'company' };
+					});
+				return { ...region, children: regionCompanies, type: 'region' };
+			});
+		return { ...workspace, children: workspaceRegions, type: 'workspace' };
+	});
 
 	return {
 		groupStructureTree: tree,

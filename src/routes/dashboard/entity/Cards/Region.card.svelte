@@ -1,10 +1,32 @@
 <script lang="ts">
-	import { Heading, Hr, P } from 'flowbite-svelte';
-
+	import { fillDrawer } from '$lib/components/Drawer/drawer.utlities';
+	import { Button, Heading, Hr, P } from 'flowbite-svelte';
+	import { EditOutline } from 'flowbite-svelte-icons';
+	import Region from '../Forms/Region.form.svelte';
+	import DeleteButton from '$lib/components/DeleteButton.svelte';
 	export let selectedStructureItem;
 </script>
 
-<Heading tag="h4">Unit details:</Heading>
+<div class="flex">
+	<div>
+		<Heading tag="h4">Unit details:</Heading>
+	</div>
+	<div class="ml-auto flex flex-row justify-end space-x-2">
+		<Button
+			outline={true}
+			class="h-9 w-10 !p-2"
+			size="xs"
+			on:click={() => fillDrawer('Edit region', Region, { item: selectedStructureItem })}
+		>
+			<EditOutline class="h-4 w-6" /></Button
+		>
+		<DeleteButton
+			path="/dashboard/entity?/deleteRegion"
+			name={'id'}
+			identifier={selectedStructureItem.id}
+		/>
+	</div>
+</div>
 <Hr classHr="my-2" />
 
 <strong class="font-semibold text-gray-900 dark:text-white">Title: </strong>
