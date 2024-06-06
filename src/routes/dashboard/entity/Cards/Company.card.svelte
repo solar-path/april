@@ -1,7 +1,7 @@
 <script lang="ts">
 	import DeleteButton from '$lib/components/DeleteButton.svelte';
 	import { fillDrawer } from '$lib/components/Drawer/drawer.utlities';
-	import { Button, Heading, Hr, P } from 'flowbite-svelte';
+	import { A, Button, Heading, Hr, P } from 'flowbite-svelte';
 	import { EditOutline } from 'flowbite-svelte-icons';
 	import Company from '../Forms/Company.form.svelte';
 
@@ -52,12 +52,34 @@
 	{selectedStructureItem.BIN}
 </P>
 
-<strong class="font-semibold text-gray-900 dark:text-white">address: </strong>
+<strong class="font-semibold text-gray-900 dark:text-white">Address: </strong>
 <P class="mb-3" weight="light" color="text-gray-500 dark:text-gray-400">
-	{selectedStructureItem.address}
+	{#if selectedStructureItem.address}
+		<ul class="ml-4">
+			<li>City: {selectedStructureItem.address.city}</li>
+			<li>State: {selectedStructureItem.address.state}</li>
+			<li>Postcode: {selectedStructureItem.address.zipcode}</li>
+			<li>Address line: {selectedStructureItem.address.addressLine}</li>
+			<li>Country: {selectedStructureItem.address.countryName}</li>
+		</ul>
+	{:else}
+		No address
+	{/if}
 </P>
 
 <strong class="font-semibold text-gray-900 dark:text-white">Contact: </strong>
 <P class="mb-3" weight="light" color="text-gray-500 dark:text-gray-400">
-	{selectedStructureItem.contact}
+	{#if selectedStructureItem.contact}
+		<ul class="ml-4">
+			<li>
+				Email: <A href={selectedStructureItem.contact.email}
+					>{selectedStructureItem.contact.email}</A
+				>
+			</li>
+			<li>Phone: {selectedStructureItem.contact.phone}</li>
+			<li>Website: {selectedStructureItem.contact.website}</li>
+		</ul>
+	{:else}
+		No contact
+	{/if}
 </P>

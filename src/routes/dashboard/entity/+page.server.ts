@@ -19,6 +19,7 @@ import { positionSchema } from './Validation/position.schema';
 import { addressTable } from '$lib/database/schema/address';
 import { eq } from 'drizzle-orm';
 import { contactTable } from '$lib/database/schema/contact';
+import { countryTable } from '$lib/database/schema/country';
 
 export const load: PageServerLoad = async (event) => {
 	if (!event.locals.user) {
@@ -52,14 +53,28 @@ export const load: PageServerLoad = async (event) => {
 			logo: companyTable.logo,
 			industryId: companyTable.industryId,
 			BIN: companyTable.BIN,
-			address: companyTable.address,
-			contact: companyTable.contact,
+			// address: companyTable.address,
+			address: {
+				id: addressTable.id,
+				city: addressTable.city,
+				state: addressTable.state,
+				zipcode: addressTable.zipcode,
+				addressLine: addressTable.addressLine,
+				countryName: countryTable.name // Change the key to avoid conflict
+			},
+			contact: {
+				id: contactTable.id,
+				email: contactTable.email,
+				phone: contactTable.phone,
+				website: contactTable.website
+			},
 			regionId: companyTable.regionId
 		})
 		.from(companyTable)
 		.leftJoin(regionTable, eq(regionTable.id, companyTable.regionId))
 		.leftJoin(addressTable, eq(addressTable.id, companyTable.address))
-		.leftJoin(contactTable, eq(contactTable.id, companyTable.contact));
+		.leftJoin(contactTable, eq(contactTable.id, companyTable.contact))
+		.leftJoin(countryTable, eq(countryTable.id, addressTable.countryId));
 
 	const departmentList = await db
 		.select({
