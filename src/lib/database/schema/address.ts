@@ -10,7 +10,7 @@ export const addressTable = pgTable('addresses', {
 		.notNull()
 		.references(() => countryTable.id),
 	city: varchar('city', { length: 100 }).notNull(),
-	state: varchar('state', { length: 100 }).notNull(),
+	state: varchar('state', { length: 100 }),
 	zipcode: varchar('zipcode', { length: 20 }).notNull(),
 	addressLine: varchar('addressLine1', { length: 250 }).notNull(),
 	author: varchar('author', { length: 50 })

@@ -29,6 +29,13 @@
       "when": 1717496802912,
       "tag": "0003_organic_guardsmen",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1717678120024,
+      "tag": "0004_orange_banshee",
+      "breakpoints": true
     }
   ]
 }

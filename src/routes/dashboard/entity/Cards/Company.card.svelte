@@ -72,12 +72,20 @@
 	{#if selectedStructureItem.contact}
 		<ul class="ml-4">
 			<li>
-				Email: <A href={selectedStructureItem.contact.email}
+				Email: <A href={`mailto:${selectedStructureItem.contact.email}`}
 					>{selectedStructureItem.contact.email}</A
 				>
 			</li>
-			<li>Phone: {selectedStructureItem.contact.phone}</li>
-			<li>Website: {selectedStructureItem.contact.website}</li>
+			<li>
+				Phone: <A href={`tel:${selectedStructureItem.contact.phone}`}
+					>{selectedStructureItem.contact.phone}</A
+				>
+			</li>
+			<li>
+				Website: <A href={selectedStructureItem.contact.website} target="_blank"
+					>{selectedStructureItem.contact.website}</A
+				>
+			</li>
 		</ul>
 	{:else}
 		No contact
