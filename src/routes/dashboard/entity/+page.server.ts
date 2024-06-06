@@ -53,6 +53,7 @@ export const load: PageServerLoad = async (event) => {
 			logo: companyTable.logo,
 			industryId: companyTable.industryId,
 			BIN: companyTable.BIN,
+			type: companyTable.type,
 			// address: companyTable.address,
 			address: {
 				id: addressTable.id,
@@ -71,6 +72,7 @@ export const load: PageServerLoad = async (event) => {
 			regionId: companyTable.regionId
 		})
 		.from(companyTable)
+		.where(eq(companyTable.type, 'company'))
 		.leftJoin(regionTable, eq(regionTable.id, companyTable.regionId))
 		.leftJoin(addressTable, eq(addressTable.id, companyTable.address))
 		.leftJoin(contactTable, eq(contactTable.id, companyTable.contact))
