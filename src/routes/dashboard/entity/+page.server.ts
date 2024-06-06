@@ -197,6 +197,26 @@ export const actions: Actions = {
 		const form = await superValidate(await event.request.formData(), zod(regionSchema));
 		if (!form.valid) {
 			return fail(400, { form });
+		} else {
+			const record = await db
+				.select()
+				.from(regionTable)
+				.where(eq(regionTable.id, form.data.id as string));
+
+			await db
+				.update(regionTable)
+				.set({
+					title: form.data.title !== record[0].title ? form.data.title : record[0].title,
+					description:
+						form.data.description !== record[0].description
+							? form.data.description
+							: record[0].description,
+					workspaceId:
+						form.data.workspaceId !== record[0].workspaceId
+							? form.data.workspaceId
+							: record[0].workspaceId
+				})
+				.where(eq(regionTable.id, form.data.id as string));
 		}
 		return { form };
 	},

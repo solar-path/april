@@ -18,7 +18,7 @@
 			class="h-9 w-10 !p-2"
 			size="xs"
 			on:click={() =>
-				fillDrawer('Edit department', Workspace, { ...data, item: selectedStructureItem })}
+				fillDrawer('Edit workspace', Workspace, { ...data, item: selectedStructureItem })}
 		>
 			<EditOutline class="h-4 w-6" /></Button
 		>

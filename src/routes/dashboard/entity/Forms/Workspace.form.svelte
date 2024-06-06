@@ -2,7 +2,7 @@
 	import DisplayFormErrors from '$lib/components/DisplayFormErrors.svelte';
 	import { hideDrawer } from '$lib/components/Drawer/drawer.utlities';
 	import { Button, Input, Label, Textarea } from 'flowbite-svelte';
-	import SuperDebug, { superForm, type FormResult } from 'sveltekit-superforms';
+	import { superForm, type FormResult } from 'sveltekit-superforms';
 
 	interface WorkspaceData {
 		item?: {
@@ -16,6 +16,7 @@
 	}
 
 	export let data: WorkspaceData;
+	console.log(' region.form.svelte :: data.item => ', data.item);
 
 	const { form, errors, constraints, enhance } = superForm(
 		data.item && data.item !== null
@@ -67,4 +68,3 @@
 	</div>
 	<Button type="submit" class="w-full">Add</Button>
 </form>
-<SuperDebug data={$form} />

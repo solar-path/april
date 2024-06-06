@@ -22,6 +22,8 @@
 
 	export let data: RegionData;
 
+	console.log(' region.form.svelte :: data.item => ', data.item);
+
 	const { form, errors, constraints, enhance } = superForm(
 		data.item && data.item !== null
 			? {
@@ -30,10 +32,11 @@
 					title: data.item.title,
 					description: data.item.description,
 					workspaceId: data.item.workspaceId,
-					workspace: data.workspaceList.find((item) => item.id === data?.item?.workspaceId)
+					workspace: data.workspaceList.find((item) => item.id === data?.item?.workspaceId)?.title
 				}
 			: data.regionForm.data,
 		{
+			dataType: 'json', // Add this line to handle nested data structures
 			onResult(event) {
 				const result = event.result as FormResult<any>;
 				if (result.type === 'success') {
@@ -55,6 +58,7 @@
 >
 	<input type="hidden" name="id" bind:value={$form.id} />
 	<input type="hidden" name="workspaceId" bind:value={$form.workspaceId} />
+	<input type="hidden" name="workspace" bind:value={$form.workspace} />
 
 	<div class="w-full">
 		<Label for="title">Region</Label>
