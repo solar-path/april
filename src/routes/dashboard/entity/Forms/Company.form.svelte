@@ -2,6 +2,7 @@
 	import DisplayFormErrors from '$lib/components/DisplayFormErrors.svelte';
 	import { hideDrawer } from '$lib/components/Drawer/drawer.utlities';
 	import SelectWithSearchTree from '$lib/components/SelectWithSearch/SelectWithSearchTree.svelte';
+	import SelectWithSearchTreeOne from '$lib/components/SelectWithSearch/SelectWithSearchTreeOne.svelte';
 	import { Button, Input, Label, Textarea } from 'flowbite-svelte';
 	import SuperDebug, { superForm, type FormResult } from 'sveltekit-superforms';
 
@@ -118,7 +119,7 @@
 	</div>
 
 	<div class="w-full">
-		<SelectWithSearchTree
+		<SelectWithSearchTreeOne
 			label="Workspace"
 			list={data.workspaceList}
 			tree={data.workspaceList}
