@@ -1,10 +1,11 @@
 <script lang="ts">
 	import DisplayFormErrors from '$lib/components/DisplayFormErrors.svelte';
 	import { hideDrawer } from '$lib/components/Drawer/drawer.utlities';
-	import SelectWithSearchTree from '$lib/components/SelectWithSearch/SelectWithSearchTree.svelte';
 	import SelectWithSearchTreeOne from '$lib/components/SelectWithSearch/SelectWithSearchTreeOne.svelte';
 	import { Button, Input, Label, Textarea } from 'flowbite-svelte';
 	import SuperDebug, { superForm, type FormResult } from 'sveltekit-superforms';
+	import { formStore } from '$lib/components/form/formStore'; // Import the store
+	import { onDestroy } from 'svelte';
 
 	interface CompanyData {
 		item?: {
@@ -80,6 +81,23 @@
 	$: filteredRegionList = data.regionList.filter(
 		(region) => region.workspaceId === $form.workspaceId
 	);
+
+	// Subscribe to the store and update the form reactively
+	const unsubscribe = formStore.subscribe((value) => {
+		if (value.workspaceId) {
+			$form.workspaceId = value.workspaceId.fieldId;
+			$form.workspace = value.workspaceId.fieldName;
+		}
+		if (value.regionId) {
+			$form.regionId = value.regionId.fieldId;
+			$form.region = value.regionId.fieldName;
+		}
+		// Add more fields as needed
+	});
+
+	onDestroy(() => {
+		unsubscribe();
+	});
 </script>
 
 <form
