@@ -39,17 +39,21 @@
 		workspaceList: any[];
 		groupStructureTree: any[];
 		regionList: any[];
+		regionTree: any[];
 		industryList: any[];
 	}
 
 	export let data: CompanyData;
+	let filteredRegionList: any[] = [];
 
+	console.log('data => ', data);
 	const { form, errors, constraints, enhance } = superForm(
 		data.item && data.item !== null
 			? {
 					...data.companyForm.data,
 					id: data.item.id,
 					title: data.item.title,
+					description: data.item.description,
 					type: data.item.type,
 					regionId: data.item.regionId,
 					region: data.regionList.find((item) => item.id === data?.item?.regionId)?.title,
@@ -62,6 +66,7 @@
 			: data.companyForm.data,
 		{
 			dataType: 'json',
+
 			onResult(event) {
 				const result = event.result as FormResult<any>;
 				if (result.type === 'success') {
@@ -69,6 +74,10 @@
 				}
 			}
 		}
+	);
+
+	$: filteredRegionList = data.regionList.filter(
+		(region) => region.workspaceId === $form.workspaceId
 	);
 </script>
 
@@ -86,6 +95,7 @@
 	<input type="hidden" name="workspace" bind:value={$form.workspace} />
 	<input type="hidden" name="regionId" bind:value={$form.regionId} />
 	<input type="hidden" name="region" bind:value={$form.region} />
+	<input type="hidden" name="type" value="company" />
 	<input type="hidden" name="industryId" bind:value={$form.industryId} />
 	<input type="hidden" name="industry" bind:value={$form.industry} />
 
@@ -93,6 +103,18 @@
 		<Label for="title">Company name</Label>
 		<Input id="title" type="text" name="title" bind:value={$form.title} {...$constraints.title} />
 		<DisplayFormErrors errors={$errors.title} />
+	</div>
+
+	<div class="w-full">
+		<Label for="description">Description</Label>
+		<Textarea
+			id="description"
+			type="text"
+			name="description"
+			bind:value={$form.description}
+			{...$constraints.description}
+		/>
+		<DisplayFormErrors errors={$errors.description} />
 	</div>
 
 	<div class="w-full">
@@ -112,15 +134,25 @@
 	</div>
 
 	<div class="w-full">
-		<Label for="description">Description</Label>
-		<Textarea
-			id="description"
-			type="text"
-			name="description"
-			bind:value={$form.description}
-			{...$constraints.description}
+		<SelectWithSearchTree
+			label="Region"
+			list={filteredRegionList}
+			tree={filteredRegionList}
+			form={$form}
+			errors={$errors}
+			constraints={$constraints}
+			modalID="Region"
+			modalState={false}
+			fieldId="regionId"
+			fieldName="region"
 		/>
-		<DisplayFormErrors errors={$errors.description} />
+		<DisplayFormErrors errors={$errors.regionId} />
+	</div>
+
+	<div class="w-full">
+		<Label for="BIN">Business identication number</Label>
+		<Input id="BIN" type="text" name="BIN" bind:value={$form.BIN} {...$constraints.BIN} />
+		<DisplayFormErrors errors={$errors.BIN} />
 	</div>
 
 	<Button type="submit" class="w-full">Add</Button>

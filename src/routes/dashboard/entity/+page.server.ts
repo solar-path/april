@@ -20,6 +20,8 @@ import { addressTable } from '$lib/database/schema/address';
 import { eq } from 'drizzle-orm';
 import { contactTable } from '$lib/database/schema/contact';
 import { countryTable } from '$lib/database/schema/country';
+import { industryTable } from '$lib/database/schema/industry';
+import { buildTree } from '$lib/components/Tree/TreeView.utilities';
 
 export const load: PageServerLoad = async (event) => {
 	if (!event.locals.user) {
@@ -122,6 +124,20 @@ export const load: PageServerLoad = async (event) => {
 		return { ...workspace, children: workspaceRegions, type: 'workspace' };
 	});
 
+	const industryList = await db
+		.select({
+			id: industryTable.id,
+			title: industryTable.name,
+			description: industryTable.description,
+			parentId: industryTable.parentId
+		})
+		.from(industryTable);
+
+	const industryListWithChildren = industryList.map((industry) => ({
+		...industry,
+		children: []
+	}));
+
 	return {
 		groupStructureTree: tree,
 		workspaceList,
@@ -133,7 +149,9 @@ export const load: PageServerLoad = async (event) => {
 		departmentList,
 		departmentForm: await superValidate(zod(departmentSchema)),
 		positionList,
-		positionForm: await superValidate(zod(positionSchema))
+		positionForm: await superValidate(zod(positionSchema)),
+		industryList: industryListWithChildren,
+		industryTree: buildTree(industryListWithChildren)
 	};
 };
 
