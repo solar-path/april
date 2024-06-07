@@ -86,19 +86,16 @@
 	use:enhance
 	novalidate
 	method="POST"
-	action={data.item ?? data.item !== null
-		? '/dashboard/entity/updateCompany'
-		: '/dashboard/entity/createCompany'}
+	action={data.item && data.item !== null
+		? '/dashboard/entity?/updateCompany'
+		: '/dashboard/entity?/createCompany'}
 	class="flex flex-col space-y-2"
 >
 	<input type="hidden" name="id" bind:value={$form.id} />
 	<input type="hidden" name="workspaceId" bind:value={$form.workspaceId} />
-	<input type="hidden" name="workspace" bind:value={$form.workspace} />
 	<input type="hidden" name="regionId" bind:value={$form.regionId} />
-	<input type="hidden" name="region" bind:value={$form.region} />
 	<input type="hidden" name="type" value="company" />
 	<input type="hidden" name="industryId" bind:value={$form.industryId} />
-	<input type="hidden" name="industry" bind:value={$form.industry} />
 
 	<div class="w-full">
 		<Label for="title">Company name</Label>
@@ -135,7 +132,7 @@
 	</div>
 
 	<div class="w-full">
-		<SelectWithSearchTree
+		<SelectWithSearchTreeOne
 			label="Region"
 			list={filteredRegionList}
 			tree={filteredRegionList}

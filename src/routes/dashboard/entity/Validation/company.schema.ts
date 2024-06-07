@@ -10,7 +10,8 @@ export const companySchema = z.object({
 	title: z.string().min(1, { message: 'Required field' }),
 	logo: z.string().optional(),
 	type: z.enum(['company', 'counterparty']),
-	workspaceId: z
+	workspaceId: z.string(),
+	workspace: z
 		.string()
 		.min(1, { message: 'Required field' })
 		.refine(
@@ -20,7 +21,8 @@ export const companySchema = z.object({
 			},
 			{ message: 'Invalid workspace' }
 		),
-	regionId: z
+	regionId: z.string(),
+	region: z
 		.string()
 		.min(1, { message: 'Required field' })
 		.refine(

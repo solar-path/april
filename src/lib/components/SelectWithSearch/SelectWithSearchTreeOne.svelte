@@ -18,8 +18,8 @@
 	export let label: string;
 	export let modalID: string;
 	export let modalState: boolean = false;
-	export let fieldId: string = 'parentId';
-	export let fieldName: string = 'parent';
+	export let fieldId: string;
+	export let fieldName: string;
 
 	let expandedItems: Record<string, boolean> = {};
 
@@ -28,7 +28,7 @@
 	let selectedIndex = -1;
 	const dispatch = createEventDispatcher();
 
-	const filterParents = () => {
+	$: filterParents = () => {
 		suggestions = list.filter((item: any) =>
 			item.title.toLowerCase().includes(form[fieldName].toLowerCase())
 		);

@@ -265,7 +265,10 @@ export const actions: Actions = {
 	},
 	// COMPANY CRUD
 	createCompany: async (event) => {
+		console.log('create company endpoint reached');
 		const form = await superValidate(await event.request.formData(), zod(companySchema));
+		console.log('form => ', form);
+
 		if (!form.valid) {
 			return fail(400, { form });
 		}
