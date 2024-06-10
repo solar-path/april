@@ -1,8 +1,11 @@
 <script lang="ts">
 	import DisplayFormErrors from '$lib/components/DisplayFormErrors.svelte';
 	import { hideDrawer } from '$lib/components/Drawer/drawer.utlities';
+
 	import SelectWithSearchTree from '$lib/components/SelectWithSearch/SelectWithSearchTree.svelte';
+	import { formStore } from '$lib/components/form/formStore';
 	import { Button, Input, Label, Textarea } from 'flowbite-svelte';
+	import { onDestroy } from 'svelte';
 	import { superForm, type FormResult } from 'sveltekit-superforms';
 
 	interface RegionData {
@@ -45,6 +48,17 @@
 			}
 		}
 	);
+
+	const unsubscribe = formStore.subscribe((value) => {
+		if (value.workspaceId) {
+			$form.workspaceId = value.workspaceId.fieldId;
+			$form.workspace = value.workspaceId.fieldName;
+		}
+	});
+
+	onDestroy(() => {
+		unsubscribe();
+	});
 </script>
 
 <form

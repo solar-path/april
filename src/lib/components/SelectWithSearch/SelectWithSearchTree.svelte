@@ -8,8 +8,9 @@
 		FilterOutline,
 		MinusOutline
 	} from 'flowbite-svelte-icons';
-	import { selectedItem, treeState } from '$lib/components/Tree/TreeView.utilities';
+	import { treeState } from '$lib/components/Tree/TreeView.utilities';
 	import { formStore } from '$lib/components/form/formStore';
+	import { selectedWithSearchItem } from './SelectWithSearch.utilities';
 
 	export let list: any[] = [];
 	export let tree: any[] = [];
@@ -144,7 +145,7 @@
 							type="button"
 							on:click={() => {
 								toggleExpand(item.id);
-								selectedItem.set(item);
+								selectedWithSearchItem.set(item);
 							}}
 							class="ml-2 cursor-pointer"
 						>
