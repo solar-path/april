@@ -9,7 +9,7 @@
 		MinusOutline
 	} from 'flowbite-svelte-icons';
 	import { selectedItem, treeState } from '$lib/components/Tree/TreeView.utilities';
-	import { formStore } from '$lib/components/form/formStore'; // Import the store
+	import { formStore } from '$lib/components/form/formStore';
 
 	export let list: any[] = [];
 	export let tree: any[] = [];
@@ -23,7 +23,6 @@
 	export let fieldName: string;
 
 	let expandedItems: Record<string, boolean> = {};
-
 	let isDropdownOpen = false;
 	let suggestions: any[] = [];
 	let selectedIndex = -1;
@@ -43,7 +42,7 @@
 		formStore.update((store) => {
 			store[fieldId] = { fieldId: item.id, fieldName: item.title };
 			return store;
-		}); // Update the store
+		});
 		suggestions = [];
 		isDropdownOpen = false;
 		dispatch('itemSelected', item);
@@ -64,7 +63,7 @@
 	};
 
 	const toggleExpand = (id: any) => {
-		expandedItems[id] = !expandedItems[id];
+		expandedItems = { ...expandedItems, [id]: !expandedItems[id] };
 	};
 </script>
 
