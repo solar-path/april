@@ -1,11 +1,11 @@
 <script lang="ts">
 	import DisplayFormErrors from '$lib/components/DisplayFormErrors.svelte';
 	import { hideDrawer } from '$lib/components/Drawer/drawer.utlities';
-	import SelectWithSearchTreeOne from '$lib/components/SelectWithSearch/SelectWithSearchTreeOne.svelte';
 	import { Button, Hr, Input, Label, Textarea } from 'flowbite-svelte';
 	import SuperDebug, { superForm, type FormResult } from 'sveltekit-superforms';
 	import { formStore } from '$lib/components/form/formStore'; // Import the store
 	import { onDestroy } from 'svelte';
+	import SelectWithSearchTree from '$lib/components/SelectWithSearch/SelectWithSearchTree.svelte';
 
 	interface CompanyData {
 		item?: {
@@ -158,7 +158,7 @@
 	</div>
 
 	<div class="w-full">
-		<SelectWithSearchTreeOne
+		<SelectWithSearchTree
 			label="Workspace"
 			list={data.workspaceList}
 			tree={data.workspaceList}
@@ -174,7 +174,7 @@
 	</div>
 
 	<div class="w-full">
-		<SelectWithSearchTreeOne
+		<SelectWithSearchTree
 			label="Region"
 			list={filteredRegionList}
 			tree={filteredRegionList}
@@ -190,7 +190,7 @@
 	</div>
 
 	<div class="w-full">
-		<SelectWithSearchTreeOne
+		<SelectWithSearchTree
 			label="Industry"
 			list={data.industryList}
 			tree={data.industryTree}

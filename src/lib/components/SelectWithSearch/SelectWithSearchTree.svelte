@@ -1,10 +1,15 @@
 <script lang="ts">
-	import { Input, Label, Modal } from 'flowbite-svelte';
+	import { Button, Input, Label, Li, List, Modal } from 'flowbite-svelte';
 	import DisplayFormErrors from '$lib/components/DisplayFormErrors.svelte';
 	import { createEventDispatcher } from 'svelte';
-	import { FilterOutline } from 'flowbite-svelte-icons';
-	import { treeState } from '$lib/components/Tree/TreeView.utilities';
-	import TreeView from '$lib/components/Tree/TreeView.svelte';
+	import {
+		ChevronDownOutline,
+		ChevronRightOutline,
+		FilterOutline,
+		MinusOutline
+	} from 'flowbite-svelte-icons';
+	import { selectedItem, treeState } from '$lib/components/Tree/TreeView.utilities';
+	import { formStore } from '$lib/components/form/formStore';
 
 	export let list: any[] = [];
 	export let tree: any[] = [];
@@ -14,15 +19,16 @@
 	export let label: string;
 	export let modalID: string;
 	export let modalState: boolean = false;
-	export let fieldId: string = 'parentId';
-	export let fieldName: string = 'parent';
+	export let fieldId: string;
+	export let fieldName: string;
 
+	let expandedItems: Record<string, boolean> = {};
 	let isDropdownOpen = false;
 	let suggestions: any[] = [];
 	let selectedIndex = -1;
 	const dispatch = createEventDispatcher();
 
-	const filterParents = () => {
+	$: filterParents = () => {
 		suggestions = list.filter((item: any) =>
 			item.title.toLowerCase().includes(form[fieldName].toLowerCase())
 		);
@@ -33,6 +39,10 @@
 	const selectParent = (item: any) => {
 		form[fieldName] = item.title;
 		form[fieldId] = item.id;
+		formStore.update((store) => {
+			store[fieldId] = { fieldId: item.id, fieldName: item.title };
+			return store;
+		});
 		suggestions = [];
 		isDropdownOpen = false;
 		dispatch('itemSelected', item);
@@ -50,6 +60,10 @@
 			event.preventDefault();
 			event.stopPropagation();
 		}
+	};
+
+	const toggleExpand = (id: any) => {
+		expandedItems = { ...expandedItems, [id]: !expandedItems[id] };
 	};
 </script>
 
@@ -110,18 +124,50 @@
 			</button>
 		</div>
 		<div class="w-full">
-			<TreeView
-				{tree}
-				option="select"
-				showSelectButton={true}
-				{form}
-				on:itemSelected={(event) => {
-					modalState = false;
-					// Explicitly create a new object for form to ensure reactivity
-					form = { ...form, [fieldName]: event.detail.title, [fieldId]: event.detail.id };
-					dispatch('itemSelected', event.detail);
-				}}
-			/>
+			<List tag="ul" class="space-y-1 text-gray-500" list="none">
+				{#each tree as item}
+					<Li class="group flex flex-row items-center">
+						{#if item.children && item.children.length > 0}
+							{#if expandedItems[item.id]}
+								<ChevronDownOutline on:click={() => toggleExpand(item.id)} class="cursor-pointer" />
+							{:else}
+								<ChevronRightOutline
+									on:click={() => toggleExpand(item.id)}
+									class="cursor-pointer"
+								/>
+							{/if}
+						{:else}
+							<MinusOutline class="cursor-pointer" />
+						{/if}
+
+						<button
+							type="button"
+							on:click={() => {
+								toggleExpand(item.id);
+								selectedItem.set(item);
+							}}
+							class="ml-2 cursor-pointer"
+						>
+							{item.title}
+						</button>
+
+						<div class="ml-auto opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+							<Button
+								type="button"
+								color="alternative"
+								size="xs"
+								on:click={() => selectParent(item)}>Select</Button
+							>
+						</div>
+					</Li>
+
+					{#if item.children && expandedItems[item.id]}
+						<List tag="ul" class="ml-4 space-y-1 text-gray-500" list="none">
+							<Li><svelte:self tree={item.children} {form} /></Li>
+						</List>
+					{/if}
+				{/each}
+			</List>
 		</div>
 	</div>
 </Modal>
