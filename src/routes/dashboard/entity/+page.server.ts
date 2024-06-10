@@ -54,9 +54,11 @@ export const load: PageServerLoad = async (event) => {
 			description: companyTable.description,
 			workspaceId: companyTable.workspaceId,
 			logo: companyTable.logo,
-			industryId: companyTable.industryId,
-			industryTitle: industryTable.name,
-			industryDescription: industryTable.description,
+			industry: {
+				id: companyTable.industryId,
+				title: industryTable.name,
+				description: industryTable.description
+			},
 			BIN: companyTable.BIN,
 			type: companyTable.type,
 			// address: companyTable.address,

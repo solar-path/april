@@ -56,10 +56,10 @@
 
 <strong class="font-semibold text-gray-900 dark:text-white">Industry: </strong>
 <P class="mb-3" weight="light" color="text-gray-500 dark:text-gray-400">
-	{selectedStructureItem.industryTitle}
+	{selectedStructureItem.industry.title}
 </P>
 <P class="mb-3" weight="light" color="text-gray-500 dark:text-gray-400">
-	{selectedStructureItem.industryDescription}
+	{selectedStructureItem.industry.description}
 </P>
 
 <strong class="font-semibold text-gray-900 dark:text-white">Address: </strong>
