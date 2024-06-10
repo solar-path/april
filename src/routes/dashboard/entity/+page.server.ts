@@ -55,6 +55,8 @@ export const load: PageServerLoad = async (event) => {
 			workspaceId: companyTable.workspaceId,
 			logo: companyTable.logo,
 			industryId: companyTable.industryId,
+			industryTitle: industryTable.name,
+			industryDescription: industryTable.description,
 			BIN: companyTable.BIN,
 			type: companyTable.type,
 			// address: companyTable.address,
@@ -79,7 +81,8 @@ export const load: PageServerLoad = async (event) => {
 		.leftJoin(regionTable, eq(regionTable.id, companyTable.regionId))
 		.leftJoin(addressTable, eq(addressTable.id, companyTable.address))
 		.leftJoin(contactTable, eq(contactTable.id, companyTable.contact))
-		.leftJoin(countryTable, eq(countryTable.id, addressTable.countryId));
+		.leftJoin(countryTable, eq(countryTable.id, addressTable.countryId))
+		.leftJoin(industryTable, eq(industryTable.id, companyTable.industryId));
 
 	const departmentList = await db
 		.select({
@@ -281,30 +284,39 @@ export const actions: Actions = {
 			return fail(400, { form });
 		}
 
+		const checkCompany = await db
+			.select()
+			.from(companyTable)
+			.where(eq(companyTable.title, form.data.title.trim() as string));
+
+		if (checkCompany.length > 0) {
+			return fail(400, { form, error: 'Company already exists' });
+		}
+
 		await db.insert(companyTable).values({
 			id: crypto.randomUUID(),
-			title: form.data.title,
-			description: form.data.description,
+			title: form.data.title.trim(),
+			description: form.data.description?.trim(),
 			logo: form.data.logo instanceof File ? await fileProcessor(form.data.logo, 'logo') : '',
-			type: form.data.type,
+			type: form.data.type as string,
 			regionId: form.data.regionId,
 			workspaceId: form.data.workspaceId,
 			industryId: form.data.industryId,
-			BIN: form.data.BIN,
+			BIN: form.data.BIN.trim().toUpperCase(),
 			author: event.locals.user?.id as string,
 			address: {
 				id: crypto.randomUUID(),
-				city: form.data.address.city.toLocaleUpperCase(),
-				state: form.data.address.state.toLocaleUpperCase(),
-				zipcode: form.data.address.zipcode.toLocaleUpperCase(),
-				addressLine: form.data.address.addressLine.toLocaleUpperCase(),
-				countryId: form.data.address.countryId
+				city: form.data.city.trim().toLocaleUpperCase(),
+				state: form.data.state.trim().toLocaleUpperCase(),
+				zipcode: form.data.zipcode.trim().toLocaleUpperCase(),
+				addressLine: form.data.addressLine.toLocaleUpperCase(),
+				countryId: form.data.countryId
 			},
 			contact: {
 				id: crypto.randomUUID(),
-				email: form.data.contact.email.toLocaleLowerCase(),
-				phone: form.data.contact.phone.toLocaleUpperCase(),
-				website: form.data.contact.website?.toLocaleUpperCase()
+				email: form.data.email.toLocaleLowerCase(),
+				phone: form.data.phone.toLocaleUpperCase(),
+				website: form.data.website?.toLocaleUpperCase()
 			}
 		});
 		return withFiles({ form });

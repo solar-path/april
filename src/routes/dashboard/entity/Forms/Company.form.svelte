@@ -9,7 +9,7 @@
 
 	interface CompanyData {
 		item?: {
-			id: string;
+			id?: string;
 			title: string;
 			description: string;
 			logo: string;
@@ -21,19 +21,16 @@
 			industry: string;
 			industryId: string;
 			BIN: string;
-			address: {
-				city: string;
-				state: string;
-				country: string;
-				countryId: string;
-				zipcode: string;
-				addressLine: string;
-			};
-			contact: {
-				phone: string;
-				email: string;
-				website: string;
-			};
+			city: string;
+			state: string;
+			country: string;
+			countryId: string;
+			zipcode: string;
+			addressLine: string;
+
+			phone: string;
+			email: string;
+			website: string;
 		};
 		companyForm: {
 			data: any;
@@ -58,7 +55,8 @@
 					id: data.item.id,
 					title: data.item.title,
 					description: data.item.description,
-					logo: data.item.logo,
+					// logo: data.item.logo,
+					logo: '',
 					type: data.item.type,
 					regionId: data.item.regionId,
 					region: data.regionList.find((item) => item.id === data?.item?.regionId)?.title,
@@ -67,19 +65,17 @@
 					industryId: data.item.industryId,
 					industry: data.industryList.find((item) => item.id === data?.item?.industryId)?.title,
 					BIN: data.item.BIN,
-					address: {
-						city: data.item.address.city,
-						state: data.item.address.state,
-						country: data.item.address.country,
-						countryId: data.item.address.countryId,
-						zipcode: data.item.address.zipcode,
-						addressLine: data.item.address.addressLine
-					},
-					contact: {
-						phone: data.item.contact.phone,
-						email: data.item.contact.email,
-						website: data.item.contact.website
-					}
+
+					city: data.item.city,
+					state: data.item.state,
+					country: data.item.country,
+					countryId: data.item.countryId,
+					zipcode: data.item.zipcode,
+					addressLine: data.item.addressLine,
+
+					phone: data.item.phone,
+					email: data.item.email,
+					website: data.item.website
 				}
 			: data.companyForm.data,
 		{
@@ -118,8 +114,8 @@
 		}
 
 		if (value.countryId) {
-			$form.address.countryId = value.countryId.fieldId;
-			$form.address.country = value.countryId.fieldName;
+			$form.countryId = value.countryId.fieldId;
+			$form.country = value.countryId.fieldName;
 		}
 		// Add more fields as needed
 	});
@@ -243,25 +239,13 @@
 	<div class="flex w-full flex-row">
 		<div class="mr-1 w-1/2">
 			<Label for="city">City</Label>
-			<Input
-				id="city"
-				type="text"
-				name="city"
-				bind:value={$form.address.city}
-				{...$constraints.address?.city}
-			/>
-			<DisplayFormErrors errors={$errors.address?.city} />
+			<Input id="city" type="text" name="city" bind:value={$form.city} {...$constraints.city} />
+			<DisplayFormErrors errors={$errors.city} />
 		</div>
 		<div class="ml-1 w-1/2">
 			<Label for="state">State</Label>
-			<Input
-				id="state"
-				type="text"
-				name="state"
-				bind:value={$form.address.state}
-				{...$constraints.address?.state}
-			/>
-			<DisplayFormErrors errors={$errors.address?.state} />
+			<Input id="state" type="text" name="state" bind:value={$form.state} {...$constraints.state} />
+			<DisplayFormErrors errors={$errors.state} />
 		</div>
 	</div>
 
@@ -272,10 +256,10 @@
 				id="addressLine"
 				type="text"
 				name="addressLine"
-				bind:value={$form.address.addressLine}
-				{...$constraints.address?.addressLine}
+				bind:value={$form.addressLine}
+				{...$constraints.addressLine}
 			/>
-			<DisplayFormErrors errors={$errors.address?.addressLine} />
+			<DisplayFormErrors errors={$errors.addressLine} />
 		</div>
 
 		<div class="ml-1 w-1/2">
@@ -284,10 +268,10 @@
 				id="zipcode"
 				type="text"
 				name="zipcode"
-				bind:value={$form.address.zipcode}
-				{...$constraints.address?.zipcode}
+				bind:value={$form.zipcode}
+				{...$constraints.zipcode}
 			/>
-			<DisplayFormErrors errors={$errors.address?.zipcode} />
+			<DisplayFormErrors errors={$errors.zipcode} />
 		</div>
 	</div>
 
@@ -316,12 +300,12 @@
 			id="phone"
 			type="tel"
 			name="phone"
-			bind:value={$form.contact.phone}
-			{...$constraints.contact?.phone}
+			bind:value={$form.phone}
+			{...$constraints.phone}
 			placeholder="+1 XXX-XXX-XXXX"
 			pattern="^\+1 \d{3}-\d{3}-\d{4}$"
 		/>
-		<DisplayFormErrors errors={$errors.contact?.phone} />
+		<DisplayFormErrors errors={$errors.phone} />
 	</div>
 
 	<div class="w-full">
@@ -330,24 +314,18 @@
 			id="website"
 			type="url"
 			name="website"
-			bind:value={$form.contact.website}
-			{...$constraints.contact?.website}
+			bind:value={$form.website}
+			{...$constraints.website}
 			placeholder="https://example.com"
 			pattern="https://.*"
 		/>
-		<DisplayFormErrors errors={$errors.contact?.website} />
+		<DisplayFormErrors errors={$errors.website} />
 	</div>
 
 	<div class="w-full">
 		<Label for="email">Email</Label>
-		<Input
-			id="email"
-			type="email"
-			name="email"
-			bind:value={$form.contact.email}
-			{...$constraints.contact?.email}
-		/>
-		<DisplayFormErrors errors={$errors.contact?.email} />
+		<Input id="email" type="email" name="email" bind:value={$form.email} {...$constraints.email} />
+		<DisplayFormErrors errors={$errors.email} />
 	</div>
 
 	<Button type="submit" class="w-full">Add</Button>
