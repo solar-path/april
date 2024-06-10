@@ -3,6 +3,8 @@ import { workspaceTable } from '$lib/database/schema/entity';
 import { z } from 'zod';
 
 const workspaces = await db.select().from(workspaceTable);
+const validItems = workspaces.map((unit) => unit.title.toLowerCase());
+console.log('Valid workspace titles:', validItems);
 
 export const regionSchema = z.object({
 	id: z.string(),
@@ -14,7 +16,6 @@ export const regionSchema = z.object({
 		.min(1, { message: 'Required field' })
 		.refine(
 			(value) => {
-				const validItems = workspaces.map((unit) => unit.title.toLowerCase());
 				return value ? validItems.includes(value.toLowerCase()) : true;
 			},
 			{ message: 'Invalid workspace' }

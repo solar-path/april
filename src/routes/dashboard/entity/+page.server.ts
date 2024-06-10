@@ -221,6 +221,7 @@ export const actions: Actions = {
 		const form = await superValidate(await event.request.formData(), zod(regionSchema));
 
 		if (!form.valid) {
+			console.log('form is not valid => ', form);
 			return fail(400, { form });
 		}
 
