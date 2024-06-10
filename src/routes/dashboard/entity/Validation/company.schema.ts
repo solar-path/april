@@ -8,6 +8,7 @@ const regions = await db.select().from(regionTable);
 export const companySchema = z.object({
 	id: z.string(),
 	title: z.string().min(1, { message: 'Required field' }),
+	description: z.string().optional(),
 	logo: z.string().optional(),
 	type: z.enum(['company', 'counterparty']),
 	workspaceId: z.string(),

@@ -1,5 +1,5 @@
 import { redirect } from '@sveltejs/kit';
-import { fail, superValidate } from 'sveltekit-superforms';
+import { fail, superValidate, withFiles } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { db } from '$lib/database/db';
 import type { Actions, PageServerLoad } from './$types';
@@ -22,6 +22,7 @@ import { contactTable } from '$lib/database/schema/contact';
 import { countryTable } from '$lib/database/schema/country';
 import { industryTable } from '$lib/database/schema/industry';
 import { buildTree } from '$lib/components/Tree/TreeView.utilities';
+import { fileProcessor } from '$lib/helpers/fileProcessor';
 
 export const load: PageServerLoad = async (event) => {
 	if (!event.locals.user) {
@@ -151,7 +152,13 @@ export const load: PageServerLoad = async (event) => {
 		positionList,
 		positionForm: await superValidate(zod(positionSchema)),
 		industryList: industryListWithChildren,
-		industryTree: buildTree(industryListWithChildren)
+		industryTree: buildTree(industryListWithChildren),
+		countryList: await db
+			.select({
+				id: countryTable.id,
+				title: countryTable.name
+			})
+			.from(countryTable)
 	};
 };
 
@@ -265,13 +272,22 @@ export const actions: Actions = {
 	},
 	// COMPANY CRUD
 	createCompany: async (event) => {
-		console.log('create company endpoint reached');
 		const form = await superValidate(await event.request.formData(), zod(companySchema));
 		console.log('form => ', form);
 
 		if (!form.valid) {
 			return fail(400, { form });
 		}
+
+		// await db.insert(companyTable).values({
+		// 	id: crypto.randomUUID(),
+		// 	title: form.data.title,
+		// 	description: form.data.description,
+		// 	workspaceId: form.data.workspaceId,
+		// 	author: event.locals.user?.id as string,
+		// 	logo: form.data.logo instanceof File ? await fileProcessor(form.data.logo, 'logo') : ''
+		// });
+		// return withFiles({ form });
 		return { form };
 	},
 	updateCompany: async (event) => {

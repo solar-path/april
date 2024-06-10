@@ -2,7 +2,7 @@
 	import DisplayFormErrors from '$lib/components/DisplayFormErrors.svelte';
 	import { hideDrawer } from '$lib/components/Drawer/drawer.utlities';
 	import SelectWithSearchTreeOne from '$lib/components/SelectWithSearch/SelectWithSearchTreeOne.svelte';
-	import { Button, Input, Label, Textarea } from 'flowbite-svelte';
+	import { Button, Hr, Input, Label, Textarea } from 'flowbite-svelte';
 	import SuperDebug, { superForm, type FormResult } from 'sveltekit-superforms';
 	import { formStore } from '$lib/components/form/formStore'; // Import the store
 	import { onDestroy } from 'svelte';
@@ -43,6 +43,8 @@
 		regionList: any[];
 		regionTree: any[];
 		industryList: any[];
+		industryTree: any[];
+		countryList: any[];
 	}
 
 	export let data: CompanyData;
@@ -56,6 +58,7 @@
 					id: data.item.id,
 					title: data.item.title,
 					description: data.item.description,
+					logo: data.item.logo,
 					type: data.item.type,
 					regionId: data.item.regionId,
 					region: data.regionList.find((item) => item.id === data?.item?.regionId)?.title,
@@ -103,6 +106,7 @@
 <form
 	use:enhance
 	novalidate
+	enctype="multipart/form-data"
 	method="POST"
 	action={data.item && data.item !== null
 		? '/dashboard/entity?/updateCompany'
@@ -114,6 +118,10 @@
 	<input type="hidden" name="regionId" bind:value={$form.regionId} />
 	<input type="hidden" name="type" value="company" />
 	<input type="hidden" name="industryId" bind:value={$form.industryId} />
+	<input type="hidden" name="countryId" bind:value={$form.countryId} />
+
+	<Hr />
+	<p class="text-left font-bold">General Information</p>
 
 	<div class="w-full">
 		<Label for="title">Company name</Label>
@@ -131,6 +139,22 @@
 			{...$constraints.description}
 		/>
 		<DisplayFormErrors errors={$errors.description} />
+	</div>
+
+	<div class="w-full">
+		<Label for="logo">Logo</Label>
+		{#if data.item && data.item != null && data.item.logo != null}
+			<img src={data.item.logo} alt="Logo" />
+		{/if}
+		<Input
+			id="logo"
+			type="file"
+			name="logo"
+			accept="image/png, image/jpeg"
+			bind:value={$form.logo}
+			{...$constraints.logo}
+		/>
+		<DisplayFormErrors errors={$errors.logo} />
 	</div>
 
 	<div class="w-full">
@@ -166,10 +190,134 @@
 	</div>
 
 	<div class="w-full">
+		<SelectWithSearchTreeOne
+			label="Industry"
+			list={data.industryList}
+			tree={data.industryTree}
+			form={$form}
+			errors={$errors}
+			constraints={$constraints}
+			modalID="industry"
+			modalState={false}
+			fieldId="industryId"
+			fieldName="industry"
+		/>
+		<DisplayFormErrors errors={$errors.industryId} />
+	</div>
+
+	<!--
+
+	<div class="w-full">
 		<Label for="BIN">Business identication number</Label>
 		<Input id="BIN" type="text" name="BIN" bind:value={$form.BIN} {...$constraints.BIN} />
 		<DisplayFormErrors errors={$errors.BIN} />
 	</div>
+
+	<Hr />
+	<p class="text-left font-bold">Address</p>
+
+	<div class="w-full">
+		<Label for="city">City</Label>
+		<Input
+			id="city"
+			type="text"
+			name="city"
+			bind:value={$form.address.city}
+			{...$constraints.address?.city}
+		/>
+		<DisplayFormErrors errors={$errors.address?.city} />
+	</div>
+
+	<div class="w-full">
+		<Label for="state">State</Label>
+		<Input
+			id="state"
+			type="text"
+			name="state"
+			bind:value={$form.address.state}
+			{...$constraints.address?.state}
+		/>
+		<DisplayFormErrors errors={$errors.address?.state} />
+	</div>
+
+	<div class="w-full">
+		<Label for="city">Address Line</Label>
+		<Input
+			id="addressLine"
+			type="text"
+			name="addressLine"
+			bind:value={$form.address.addressLine}
+			{...$constraints.address?.addressLine}
+		/>
+		<DisplayFormErrors errors={$errors.address?.addressLine} />
+	</div>
+
+	<div class="w-full">
+		<Label for="zipcode">Post code</Label>
+		<Input
+			id="zipcode"
+			type="text"
+			name="zipcode"
+			bind:value={$form.address.zipcode}
+			{...$constraints.address?.zipcode}
+		/>
+		<DisplayFormErrors errors={$errors.address?.zipcode} />
+	</div>
+
+	<div class="w-full">
+		<SelectWithSearchTreeOne
+			label="Country"
+			list={data.countryList}
+			tree={data.countryList}
+			form={$form}
+			errors={$errors}
+			constraints={$constraints}
+			modalID="Country"
+			modalState={false}
+			fieldId="countryId"
+			fieldName="country"
+		/>
+		<DisplayFormErrors errors={$errors.countryId} />
+	</div>
+
+	<Hr />
+	<p class="text-left font-bold">Contact</p>
+
+	<div class="w-full">
+		<Label for="phone">Phone</Label>
+		<Input
+			id="phone"
+			type="text"
+			name="phone"
+			bind:value={$form.contact.phone}
+			{...$constraints.contact?.phone}
+		/>
+		<DisplayFormErrors errors={$errors.contact?.phone} />
+	</div>
+
+	<div class="w-full">
+		<Label for="website">Website</Label>
+		<Input
+			id="website"
+			type="text"
+			name="website"
+			bind:value={$form.contact.website}
+			{...$constraints.contact?.website}
+		/>
+		<DisplayFormErrors errors={$errors.contact?.website} />
+	</div>
+
+	<div class="w-full">
+		<Label for="email">Email</Label>
+		<Input
+			id="email"
+			type="email"
+			name="email"
+			bind:value={$form.contact.email}
+			{...$constraints.contact?.email}
+		/>
+		<DisplayFormErrors errors={$errors.contact?.email} />
+	</div> -->
 
 	<Button type="submit" class="w-full">Add</Button>
 </form>
