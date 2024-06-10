@@ -20,9 +20,9 @@ import { addressTable } from '$lib/database/schema/address';
 import { eq } from 'drizzle-orm';
 import { contactTable } from '$lib/database/schema/contact';
 import { countryTable } from '$lib/database/schema/country';
-import { industryTable } from '$lib/database/schema/industry';
 import { buildTree } from '$lib/components/Tree/TreeView.utilities';
 import { fileProcessor } from '$lib/helpers/fileProcessor';
+import { industryTable } from '$lib/database/schema/industry';
 
 export const load: PageServerLoad = async (event) => {
 	if (!event.locals.user) {
@@ -125,7 +125,7 @@ export const load: PageServerLoad = async (event) => {
 		return { ...workspace, children: workspaceRegions, type: 'workspace' };
 	});
 
-	const industryList = await db
+	const industryData = await db
 		.select({
 			id: industryTable.id,
 			title: industryTable.name,
@@ -134,7 +134,7 @@ export const load: PageServerLoad = async (event) => {
 		})
 		.from(industryTable);
 
-	const industryListWithChildren = industryList.map((industry) => ({
+	const industryListWithChildren = industryData.map((industry) => ({
 		...industry,
 		children: []
 	}));
@@ -151,7 +151,7 @@ export const load: PageServerLoad = async (event) => {
 		departmentForm: await superValidate(zod(departmentSchema)),
 		positionList,
 		positionForm: await superValidate(zod(positionSchema)),
-		industryList: industryListWithChildren,
+		industryList: industryData.filter((industry) => industry.description !== ''),
 		industryTree: buildTree(industryListWithChildren),
 		countryList: await db
 			.select({
@@ -238,28 +238,29 @@ export const actions: Actions = {
 		console.log('update region endpoint achived');
 		const form = await superValidate(await event.request.formData(), zod(regionSchema));
 		if (!form.valid) {
+			console.log('form is not valid => ', form);
 			return fail(400, { form });
-		} else {
-			const record = await db
-				.select()
-				.from(regionTable)
-				.where(eq(regionTable.id, form.data.id as string));
-
-			await db
-				.update(regionTable)
-				.set({
-					title: form.data.title !== record[0].title ? form.data.title : record[0].title,
-					description:
-						form.data.description !== record[0].description
-							? form.data.description
-							: record[0].description,
-					workspaceId:
-						form.data.workspaceId !== record[0].workspaceId
-							? form.data.workspaceId
-							: record[0].workspaceId
-				})
-				.where(eq(regionTable.id, form.data.id as string));
 		}
+		const record = await db
+			.select()
+			.from(regionTable)
+			.where(eq(regionTable.id, form.data.id as string));
+
+		await db
+			.update(regionTable)
+			.set({
+				title: form.data.title !== record[0].title ? form.data.title : record[0].title,
+				description:
+					form.data.description !== record[0].description
+						? form.data.description
+						: record[0].description,
+				workspaceId:
+					form.data.workspaceId !== record[0].workspaceId
+						? form.data.workspaceId
+						: record[0].workspaceId
+			})
+			.where(eq(regionTable.id, form.data.id as string));
+
 		return { form };
 	},
 	deleteRegion: async (event) => {

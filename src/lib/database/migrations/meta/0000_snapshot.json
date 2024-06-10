@@ -1,5 +1,5 @@
 {
-  "id": "9232f746-c23c-4f40-8a42-3462b379e3f1",
+  "id": "f725d9e4-854e-4899-a117-5282ed682513",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
@@ -30,7 +30,7 @@
           "name": "state",
           "type": "varchar(100)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "zipcode": {
           "name": "zipcode",
@@ -182,6 +182,74 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
+    "contact": {
+      "name": "contact",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(50)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "phone": {
+          "name": "phone",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "website": {
+          "name": "website",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "author": {
+          "name": "author",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "contact_author_users_id_fk": {
+          "name": "contact_author_users_id_fk",
+          "tableFrom": "contact",
+          "tableTo": "users",
+          "columnsFrom": [
+            "author"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
     "country": {
       "name": "country",
       "schema": "",
@@ -303,6 +371,12 @@
           "primaryKey": false,
           "notNull": true
         },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
         "logo": {
           "name": "logo",
           "type": "varchar(250)",
@@ -341,6 +415,12 @@
         },
         "address": {
           "name": "address",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "contact": {
+          "name": "contact",
           "type": "varchar(50)",
           "primaryKey": false,
           "notNull": false
@@ -420,6 +500,19 @@
           "onDelete": "no action",
           "onUpdate": "no action"
         },
+        "structure_companies_contact_contact_id_fk": {
+          "name": "structure_companies_contact_contact_id_fk",
+          "tableFrom": "structure_companies",
+          "tableTo": "contact",
+          "columnsFrom": [
+            "contact"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
         "structure_companies_author_users_id_fk": {
           "name": "structure_companies_author_users_id_fk",
           "tableFrom": "structure_companies",
@@ -460,6 +553,12 @@
           "type": "varchar(250)",
           "primaryKey": false,
           "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
         },
         "companyId": {
           "name": "companyId",
@@ -535,6 +634,12 @@
           "type": "varchar(250)",
           "primaryKey": false,
           "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
         },
         "departmentId": {
           "name": "departmentId",
@@ -630,6 +735,12 @@
           "primaryKey": false,
           "notNull": true
         },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
         "workspaceId": {
           "name": "workspaceId",
           "type": "varchar(50)",
@@ -704,6 +815,12 @@
           "type": "varchar(250)",
           "primaryKey": false,
           "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
         },
         "author": {
           "name": "author",

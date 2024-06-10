@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS "addresses" (
 	"id" varchar(50) PRIMARY KEY NOT NULL,
 	"countryId" varchar(50) NOT NULL,
 	"city" varchar(100) NOT NULL,
-	"state" varchar(100) NOT NULL,
+	"state" varchar(100),
 	"zipcode" varchar(20) NOT NULL,
 	"addressLine1" varchar(250) NOT NULL,
 	"author" varchar(50) NOT NULL
@@ -55,6 +55,16 @@ CREATE TABLE IF NOT EXISTS "blogs" (
 	"createdAt" timestamp DEFAULT now() NOT NULL,
 	"updatedAt" timestamp DEFAULT now() NOT NULL,
 	"author" varchar(50) NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "contact" (
+	"id" varchar(50) PRIMARY KEY NOT NULL,
+	"email" varchar(256),
+	"phone" varchar(20),
+	"website" varchar(256),
+	"author" varchar(50) NOT NULL,
+	"createdAt" timestamp DEFAULT now() NOT NULL,
+	"updatedAt" timestamp DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "country" (
@@ -78,6 +88,7 @@ CREATE TABLE IF NOT EXISTS "country" (
 CREATE TABLE IF NOT EXISTS "structure_companies" (
 	"id" varchar(50) PRIMARY KEY NOT NULL,
 	"title" varchar(250) NOT NULL,
+	"description" text,
 	"logo" varchar(250),
 	"company_type" "company_type" NOT NULL,
 	"regionId" varchar(50) NOT NULL,
@@ -85,6 +96,7 @@ CREATE TABLE IF NOT EXISTS "structure_companies" (
 	"industryId" varchar(50) NOT NULL,
 	"businessIdentificationNumber" varchar(50),
 	"address" varchar(50),
+	"contact" varchar(50),
 	"author" varchar(50) NOT NULL,
 	"createdAt" timestamp DEFAULT now() NOT NULL,
 	"updatedAt" timestamp DEFAULT now() NOT NULL,
@@ -94,6 +106,7 @@ CREATE TABLE IF NOT EXISTS "structure_companies" (
 CREATE TABLE IF NOT EXISTS "structure_departments" (
 	"id" varchar(50) PRIMARY KEY NOT NULL,
 	"title" varchar(250) NOT NULL,
+	"description" text,
 	"companyId" varchar(50) NOT NULL,
 	"author" varchar(50) NOT NULL,
 	"createdAt" timestamp DEFAULT now() NOT NULL,
@@ -103,6 +116,7 @@ CREATE TABLE IF NOT EXISTS "structure_departments" (
 CREATE TABLE IF NOT EXISTS "structure_positions" (
 	"id" varchar(50) PRIMARY KEY NOT NULL,
 	"title" varchar(250) NOT NULL,
+	"description" text,
 	"departmentId" varchar(50),
 	"companyId" varchar(50) NOT NULL,
 	"author" varchar(50) NOT NULL,
@@ -113,6 +127,7 @@ CREATE TABLE IF NOT EXISTS "structure_positions" (
 CREATE TABLE IF NOT EXISTS "structure_regions" (
 	"id" varchar(50) PRIMARY KEY NOT NULL,
 	"title" varchar(250) NOT NULL,
+	"description" text,
 	"workspaceId" varchar(50),
 	"author" varchar(50) NOT NULL,
 	"createdAt" timestamp DEFAULT now() NOT NULL,
@@ -122,6 +137,7 @@ CREATE TABLE IF NOT EXISTS "structure_regions" (
 CREATE TABLE IF NOT EXISTS "structure_workspaces" (
 	"id" varchar(50) PRIMARY KEY NOT NULL,
 	"title" varchar(250) NOT NULL,
+	"description" text,
 	"author" varchar(50) NOT NULL,
 	"createdAt" timestamp DEFAULT now() NOT NULL,
 	"updatedAt" timestamp DEFAULT now() NOT NULL
@@ -231,6 +247,12 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
+ ALTER TABLE "contact" ADD CONSTRAINT "contact_author_users_id_fk" FOREIGN KEY ("author") REFERENCES "users"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
  ALTER TABLE "structure_companies" ADD CONSTRAINT "structure_companies_regionId_structure_regions_id_fk" FOREIGN KEY ("regionId") REFERENCES "structure_regions"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
@@ -250,6 +272,12 @@ END $$;
 --> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "structure_companies" ADD CONSTRAINT "structure_companies_address_addresses_id_fk" FOREIGN KEY ("address") REFERENCES "addresses"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "structure_companies" ADD CONSTRAINT "structure_companies_contact_contact_id_fk" FOREIGN KEY ("contact") REFERENCES "contact"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;

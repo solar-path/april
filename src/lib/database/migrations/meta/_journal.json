@@ -5,36 +5,8 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1717394619078,
-      "tag": "0000_yielding_gladiator",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1717486957085,
-      "tag": "0001_sleepy_leopardon",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "5",
-      "when": 1717492358447,
-      "tag": "0002_clever_weapon_omega",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "5",
-      "when": 1717496802912,
-      "tag": "0003_organic_guardsmen",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "5",
-      "when": 1717678120024,
-      "tag": "0004_orange_banshee",
+      "when": 1718011539238,
+      "tag": "0000_easy_anthem",
       "breakpoints": true
     }
   ]

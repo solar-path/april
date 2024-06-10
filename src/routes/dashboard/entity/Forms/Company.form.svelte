@@ -66,7 +66,20 @@
 					workspace: data.workspaceList.find((item) => item.id === data?.item?.workspaceId)?.title,
 					industryId: data.item.industryId,
 					industry: data.industryList.find((item) => item.id === data?.item?.industryId)?.title,
-					BIN: data.item.BIN
+					BIN: data.item.BIN,
+					address: {
+						city: data.item.address.city,
+						state: data.item.address.state,
+						country: data.item.address.country,
+						countryId: data.item.address.countryId,
+						zipcode: data.item.address.zipcode,
+						addressLine: data.item.address.addressLine
+					},
+					contact: {
+						phone: data.item.contact.phone,
+						email: data.item.contact.email,
+						website: data.item.contact.website
+					}
 				}
 			: data.companyForm.data,
 		{
@@ -94,6 +107,16 @@
 		if (value.regionId) {
 			$form.regionId = value.regionId.fieldId;
 			$form.region = value.regionId.fieldName;
+		}
+
+		if (value.industryId) {
+			$form.industryId = value.industryId.fieldId;
+			$form.industry = value.industryId.fieldName;
+		}
+
+		if (value.countryId) {
+			$form.address.countryId = value.countryId.fieldId;
+			$form.address.country = value.countryId.fieldName;
 		}
 		// Add more fields as needed
 	});
@@ -205,8 +228,6 @@
 		<DisplayFormErrors errors={$errors.industryId} />
 	</div>
 
-	<!--
-
 	<div class="w-full">
 		<Label for="BIN">Business identication number</Label>
 		<Input id="BIN" type="text" name="BIN" bind:value={$form.BIN} {...$constraints.BIN} />
@@ -216,56 +237,59 @@
 	<Hr />
 	<p class="text-left font-bold">Address</p>
 
-	<div class="w-full">
-		<Label for="city">City</Label>
-		<Input
-			id="city"
-			type="text"
-			name="city"
-			bind:value={$form.address.city}
-			{...$constraints.address?.city}
-		/>
-		<DisplayFormErrors errors={$errors.address?.city} />
+	<div class="flex w-full flex-row">
+		<div class="mr-1 w-1/2">
+			<Label for="city">City</Label>
+			<Input
+				id="city"
+				type="text"
+				name="city"
+				bind:value={$form.address.city}
+				{...$constraints.address?.city}
+			/>
+			<DisplayFormErrors errors={$errors.address?.city} />
+		</div>
+		<div class="ml-1 w-1/2">
+			<Label for="state">State</Label>
+			<Input
+				id="state"
+				type="text"
+				name="state"
+				bind:value={$form.address.state}
+				{...$constraints.address?.state}
+			/>
+			<DisplayFormErrors errors={$errors.address?.state} />
+		</div>
+	</div>
+
+	<div class="flex w-full flex-row">
+		<div class="mr-1 w-1/2">
+			<Label for="city">Address Line</Label>
+			<Input
+				id="addressLine"
+				type="text"
+				name="addressLine"
+				bind:value={$form.address.addressLine}
+				{...$constraints.address?.addressLine}
+			/>
+			<DisplayFormErrors errors={$errors.address?.addressLine} />
+		</div>
+
+		<div class="ml-1 w-1/2">
+			<Label for="zipcode">Post code</Label>
+			<Input
+				id="zipcode"
+				type="text"
+				name="zipcode"
+				bind:value={$form.address.zipcode}
+				{...$constraints.address?.zipcode}
+			/>
+			<DisplayFormErrors errors={$errors.address?.zipcode} />
+		</div>
 	</div>
 
 	<div class="w-full">
-		<Label for="state">State</Label>
-		<Input
-			id="state"
-			type="text"
-			name="state"
-			bind:value={$form.address.state}
-			{...$constraints.address?.state}
-		/>
-		<DisplayFormErrors errors={$errors.address?.state} />
-	</div>
-
-	<div class="w-full">
-		<Label for="city">Address Line</Label>
-		<Input
-			id="addressLine"
-			type="text"
-			name="addressLine"
-			bind:value={$form.address.addressLine}
-			{...$constraints.address?.addressLine}
-		/>
-		<DisplayFormErrors errors={$errors.address?.addressLine} />
-	</div>
-
-	<div class="w-full">
-		<Label for="zipcode">Post code</Label>
-		<Input
-			id="zipcode"
-			type="text"
-			name="zipcode"
-			bind:value={$form.address.zipcode}
-			{...$constraints.address?.zipcode}
-		/>
-		<DisplayFormErrors errors={$errors.address?.zipcode} />
-	</div>
-
-	<div class="w-full">
-		<SelectWithSearchTreeOne
+		<SelectWithSearchTree
 			label="Country"
 			list={data.countryList}
 			tree={data.countryList}
@@ -317,7 +341,7 @@
 			{...$constraints.contact?.email}
 		/>
 		<DisplayFormErrors errors={$errors.contact?.email} />
-	</div> -->
+	</div>
 
 	<Button type="submit" class="w-full">Add</Button>
 </form>

@@ -2,7 +2,9 @@
 	import DisplayFormErrors from '$lib/components/DisplayFormErrors.svelte';
 	import { hideDrawer } from '$lib/components/Drawer/drawer.utlities';
 	import SelectWithSearchTree from '$lib/components/SelectWithSearch/SelectWithSearchTree.svelte';
+	import { formStore } from '$lib/components/form/formStore';
 	import { Button, Input, Label, Textarea } from 'flowbite-svelte';
+	import { onDestroy } from 'svelte';
 	import { superForm, type FormResult } from 'sveltekit-superforms';
 
 	interface ProcessData {
@@ -41,6 +43,17 @@
 			}
 		}
 	);
+
+	const unsubscribe = formStore.subscribe((value) => {
+		if (value.parentId) {
+			$form.parentId = value.parentId.fieldId;
+			$form.parent = value.parentId.fieldName;
+		}
+	});
+
+	onDestroy(() => {
+		unsubscribe();
+	});
 </script>
 
 <form
@@ -70,6 +83,8 @@
 			label="Process Tree"
 			modalID="process"
 			modalState={false}
+			fieldId="parentId"
+			fieldName="parent"
 		/>
 	</div>
 
