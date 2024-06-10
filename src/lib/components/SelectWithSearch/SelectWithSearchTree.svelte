@@ -8,9 +8,7 @@
 		FilterOutline,
 		MinusOutline
 	} from 'flowbite-svelte-icons';
-	import { treeState } from '$lib/components/Tree/TreeView.utilities';
 	import { formStore } from '$lib/components/form/formStore';
-	import { selectedWithSearchItem } from './SelectWithSearch.utilities';
 
 	export let list: any[] = [];
 	export let tree: any[] = [];
@@ -22,6 +20,7 @@
 	export let modalState: boolean = false;
 	export let fieldId: string;
 	export let fieldName: string;
+	let treeState: 'collapsed' | 'expanded' = 'collapsed';
 
 	let expandedItems: Record<string, boolean> = {};
 	let isDropdownOpen = false;
@@ -46,6 +45,7 @@
 		});
 		suggestions = [];
 		isDropdownOpen = false;
+		modalState = false; // Close the modal
 		dispatch('itemSelected', item);
 	};
 
@@ -110,7 +110,7 @@
 	</ul>
 {/if}
 
-<Modal id={modalID} title={label} bind:open={modalState} autoclose={modalState}>
+<Modal id={modalID} title={label} bind:open={modalState} autoclose={false}>
 	<div class="flex flex-col">
 		<div class="flex justify-end">
 			<button
@@ -118,10 +118,10 @@
 				class="text-sm text-red-700 hover:text-red-800"
 				on:click={(event) => {
 					event.stopPropagation();
-					$treeState = $treeState === 'expanded' ? 'collapsed' : 'expanded';
+					treeState = treeState === 'expanded' ? 'collapsed' : 'expanded';
 				}}
 			>
-				{$treeState === 'expanded' ? 'Collapse' : 'Expand'}
+				{treeState === 'expanded' ? 'Collapse' : 'Expand'}
 			</button>
 		</div>
 		<div class="w-full">
@@ -145,7 +145,6 @@
 							type="button"
 							on:click={() => {
 								toggleExpand(item.id);
-								selectedWithSearchItem.set(item);
 							}}
 							class="ml-2 cursor-pointer"
 						>
