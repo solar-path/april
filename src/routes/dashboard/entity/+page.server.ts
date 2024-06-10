@@ -275,22 +275,39 @@ export const actions: Actions = {
 	// COMPANY CRUD
 	createCompany: async (event) => {
 		const form = await superValidate(await event.request.formData(), zod(companySchema));
-		console.log('form => ', form);
 
 		if (!form.valid) {
+			console.log('invalid form => ', form);
 			return fail(400, { form });
 		}
 
-		// await db.insert(companyTable).values({
-		// 	id: crypto.randomUUID(),
-		// 	title: form.data.title,
-		// 	description: form.data.description,
-		// 	workspaceId: form.data.workspaceId,
-		// 	author: event.locals.user?.id as string,
-		// 	logo: form.data.logo instanceof File ? await fileProcessor(form.data.logo, 'logo') : ''
-		// });
-		// return withFiles({ form });
-		return { form };
+		await db.insert(companyTable).values({
+			id: crypto.randomUUID(),
+			title: form.data.title,
+			description: form.data.description,
+			logo: form.data.logo instanceof File ? await fileProcessor(form.data.logo, 'logo') : '',
+			type: form.data.type,
+			regionId: form.data.regionId,
+			workspaceId: form.data.workspaceId,
+			industryId: form.data.industryId,
+			BIN: form.data.BIN,
+			author: event.locals.user?.id as string,
+			address: {
+				id: crypto.randomUUID(),
+				city: form.data.address.city.toLocaleUpperCase(),
+				state: form.data.address.state.toLocaleUpperCase(),
+				zipcode: form.data.address.zipcode.toLocaleUpperCase(),
+				addressLine: form.data.address.addressLine.toLocaleUpperCase(),
+				countryId: form.data.address.countryId
+			},
+			contact: {
+				id: crypto.randomUUID(),
+				email: form.data.contact.email.toLocaleLowerCase(),
+				phone: form.data.contact.phone.toLocaleUpperCase(),
+				website: form.data.contact.website?.toLocaleUpperCase()
+			}
+		});
+		return withFiles({ form });
 	},
 	updateCompany: async (event) => {
 		const form = await superValidate(await event.request.formData(), zod(companySchema));

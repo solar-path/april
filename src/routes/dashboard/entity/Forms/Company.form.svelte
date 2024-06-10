@@ -85,6 +85,9 @@
 		{
 			dataType: 'json',
 
+			// onChange(event) {
+			// 	event.target.value = formatPhoneNumber(event.target.value);
+			// },
 			onResult(event) {
 				const result = event.result as FormResult<any>;
 				if (result.type === 'success') {
@@ -311,10 +314,12 @@
 		<Label for="phone">Phone</Label>
 		<Input
 			id="phone"
-			type="text"
+			type="tel"
 			name="phone"
 			bind:value={$form.contact.phone}
 			{...$constraints.contact?.phone}
+			placeholder="+1 XXX-XXX-XXXX"
+			pattern="^\+1 \d{3}-\d{3}-\d{4}$"
 		/>
 		<DisplayFormErrors errors={$errors.contact?.phone} />
 	</div>
@@ -323,10 +328,12 @@
 		<Label for="website">Website</Label>
 		<Input
 			id="website"
-			type="text"
+			type="url"
 			name="website"
 			bind:value={$form.contact.website}
 			{...$constraints.contact?.website}
+			placeholder="https://example.com"
+			pattern="https://.*"
 		/>
 		<DisplayFormErrors errors={$errors.contact?.website} />
 	</div>

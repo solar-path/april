@@ -19,10 +19,13 @@ const industries = await db
 const countries = await db.select().from(countryTable);
 
 export const companySchema = z.object({
-	id: z.string(),
+	id: z.string().optional(),
 	title: z.string().min(1, { message: 'Required field' }),
 	description: z.string().optional(),
-	logo: z.string().optional(),
+	logo: z
+		.instanceof(File, { message: 'Please upload a file.' })
+		.refine((f) => f.size < 1_000_000, 'Max 1 MB upload size.')
+		.optional(),
 	type: z.enum(['company', 'counterparty']),
 	workspaceId: z.string(),
 	workspace: z
@@ -77,6 +80,7 @@ export const companySchema = z.object({
 	}),
 	contact: z.object({
 		phone: z.string().min(1, { message: 'Required field' }),
+
 		email: z.string().min(1, { message: 'Required field' }),
 		website: z.string().optional()
 	})
