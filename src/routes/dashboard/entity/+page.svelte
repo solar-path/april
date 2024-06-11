@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button, Dropdown, DropdownItem } from 'flowbite-svelte';
+	import { Button, Dropdown, DropdownItem, ListPlaceholder } from 'flowbite-svelte';
 	import { fillDrawer } from '$lib/components/Drawer/drawer.utlities';
 	import WorkspaceCard from './Cards/Workspace.card.svelte';
 	import RegionCard from './Cards/Region.card.svelte';
@@ -100,7 +100,7 @@
 			{#if groupStructureTree}
 				<TreeView form={null} showSelectButton={false} tree={groupStructureTree} option="select" />
 			{:else}
-				<p>No items was created</p>
+				<ListPlaceholder />
 			{/if}
 		</div>
 		<div class="w-2/3">

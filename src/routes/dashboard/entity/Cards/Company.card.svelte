@@ -1,7 +1,7 @@
 <script lang="ts">
 	import DeleteButton from '$lib/components/DeleteButton.svelte';
 	import { fillDrawer } from '$lib/components/Drawer/drawer.utlities';
-	import { A, Button, Heading, Hr, P } from 'flowbite-svelte';
+	import { A, Button, Heading, Hr, ImagePlaceholder, ListPlaceholder, P } from 'flowbite-svelte';
 	import { EditOutline } from 'flowbite-svelte-icons';
 	import Company from '../Forms/Company.form.svelte';
 	import Address from '../../address/Address.form.svelte';
@@ -38,9 +38,11 @@
 <div class="flex flex-row">
 	<div class="w-1/4">
 		<strong class="font-semibold text-gray-900 dark:text-white">Logo: </strong>
-		<P class="mb-3" weight="light" color="text-gray-500 dark:text-gray-400">
+		{#if selectedStructureItem.logo}
 			<img src={selectedStructureItem.logo} alt={selectedStructureItem.title} class="w-96" />
-		</P>
+		{:else}
+			<ImagePlaceholder imgOnly class="mt-2" />
+		{/if}
 	</div>
 	<div class="w-3/4">
 		<strong class="font-semibold text-gray-900 dark:text-white">Title: </strong>
@@ -53,13 +55,13 @@
 				? 'No description'
 				: selectedStructureItem.description}
 		</P>
+
+		<strong class="font-semibold text-gray-900 dark:text-white">BIN: </strong>
+		<P class="mb-3" weight="light" color="text-gray-500 dark:text-gray-400">
+			{selectedStructureItem.BIN}
+		</P>
 	</div>
 </div>
-
-<strong class="font-semibold text-gray-900 dark:text-white">BIN: </strong>
-<P class="mb-3" weight="light" color="text-gray-500 dark:text-gray-400">
-	{selectedStructureItem.BIN}
-</P>
 
 <strong class="font-semibold text-gray-900 dark:text-white">Industry: </strong>
 <P class="mb-3" weight="light" color="text-gray-500 dark:text-gray-400">
@@ -103,7 +105,7 @@
 					<li>Country: {selectedStructureItem.address.countryName}</li>
 				</ul>
 			{:else}
-				No address
+				<ListPlaceholder />
 			{/if}
 		</P>
 	</div>
@@ -150,7 +152,7 @@
 					</li>
 				</ul>
 			{:else}
-				No contact
+				<ListPlaceholder />
 			{/if}
 		</P>
 	</div>
