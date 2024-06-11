@@ -4,6 +4,8 @@
 	import { A, Button, Heading, Hr, P } from 'flowbite-svelte';
 	import { EditOutline } from 'flowbite-svelte-icons';
 	import Company from '../Forms/Company.form.svelte';
+	import Address from '../../address/Address.form.svelte';
+	import Contact from '../../contact/Contact.form.svelte';
 
 	export let selectedStructureItem;
 	export let data;
@@ -69,9 +71,30 @@
 
 <div class="flex flex-row">
 	<div class="w-1/2">
-		<strong class="font-semibold text-gray-900 dark:text-white">Address: </strong>
+		<div class="flex">
+			<div>
+				<strong class="font-semibold text-gray-900 dark:text-white">Address: </strong>
+			</div>
+			<div class="flex flex-row space-x-2">
+				<Button
+					outline={true}
+					class="h-9 w-10 !p-2"
+					size="xs"
+					on:click={() =>
+						fillDrawer('Edit address', Address, { ...data, item: selectedStructureItem })}
+				>
+					<EditOutline class="h-4 w-6" /></Button
+				>
+				<DeleteButton
+					path="/dashboard/address?/deleteAddress"
+					name={'id'}
+					identifier={selectedStructureItem.address.id}
+				/>
+			</div>
+		</div>
+
 		<P class="mb-3" weight="light" color="text-gray-500 dark:text-gray-400">
-			{#if selectedStructureItem.address}
+			{#if selectedStructureItem.address && selectedStructureItem.address.city !== null}
 				<ul class="ml-4">
 					<li>City: {selectedStructureItem.address.city}</li>
 					<li>State: {selectedStructureItem.address.state}</li>
@@ -85,7 +108,28 @@
 		</P>
 	</div>
 	<div class="w-1/2">
-		<strong class="font-semibold text-gray-900 dark:text-white">Contact: </strong>
+		<div class="flex">
+			<div>
+				<strong class="font-semibold text-gray-900 dark:text-white">Contact: </strong>
+			</div>
+			<div class="flex flex-row space-x-2">
+				<Button
+					outline={true}
+					class="h-9 w-10 !p-2"
+					size="xs"
+					on:click={() =>
+						fillDrawer('Edit address', Contact, { ...data, item: selectedStructureItem })}
+				>
+					<EditOutline class="h-4 w-6" /></Button
+				>
+				<DeleteButton
+					path="/dashboard/address?/deleteAddress"
+					name={'id'}
+					identifier={selectedStructureItem.address.id}
+				/>
+			</div>
+		</div>
+
 		<P class="mb-3" weight="light" color="text-gray-500 dark:text-gray-400">
 			{#if selectedStructureItem.contact}
 				<ul class="ml-4">

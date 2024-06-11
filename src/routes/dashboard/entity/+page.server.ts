@@ -13,7 +13,7 @@ import {
 
 import { deleteWorkspaceSchema, workspaceSchema } from './Validation/workspace.schema';
 import { deleteRegionSchema, regionSchema } from './Validation/region.schema';
-import { companySchema } from './Validation/company.schema';
+import { companySchema, deleteCompanySchema } from './Validation/company.schema';
 import { departmentSchema } from './Validation/department.schema';
 import { positionSchema } from './Validation/position.schema';
 import { addressTable } from '$lib/database/schema/address';
@@ -295,30 +295,6 @@ export const actions: Actions = {
 			return fail(400, { form, error: 'Company already exists' });
 		}
 
-		const newAddress = await db
-			.insert(addressTable)
-			.values({
-				id: crypto.randomUUID(),
-				city: form.data.address.city.trim().toLocaleUpperCase(),
-				state: form.data.address.state.trim().toLocaleUpperCase(),
-				zipcode: form.data.address.zipcode.trim().toLocaleUpperCase(),
-				addressLine: form.data.address.addressLine.toLocaleUpperCase(),
-				countryId: form.data.address.countryId,
-				author: event.locals.user?.id as string
-			})
-			.returning({ id: addressTable.id });
-
-		const newContact = await db
-			.insert(contactTable)
-			.values({
-				id: crypto.randomUUID(),
-				email: form.data.contact.email.toLocaleLowerCase(),
-				phone: form.data.contact.phone.toLocaleUpperCase(),
-				website: form.data.contact.website?.toLocaleUpperCase(),
-				author: event.locals.user?.id as string
-			})
-			.returning({ id: contactTable.id });
-
 		await db.insert(companyTable).values({
 			id: crypto.randomUUID(),
 			title: form.data.title.trim(),
@@ -329,9 +305,7 @@ export const actions: Actions = {
 			workspaceId: form.data.workspaceId,
 			industryId: form.data.industryId,
 			BIN: form.data.BIN.trim().toUpperCase(),
-			author: event.locals.user?.id as string,
-			address: newAddress[0].id,
-			contact: newContact[0].id
+			author: event.locals.user?.id as string
 		});
 
 		return withFiles({ form });
@@ -344,10 +318,22 @@ export const actions: Actions = {
 		return { form };
 	},
 	deleteCompany: async (event) => {
-		const form = await superValidate(await event.request.formData(), zod(companySchema));
+		console.log('delete company endpoint reached');
+		const form = await superValidate(await event.request.formData(), zod(deleteCompanySchema));
 		if (!form.valid) {
+			console.log('form is not valid => ', form);
 			return fail(400, { form });
 		}
+		const record = await db
+			.select()
+			.from(companyTable)
+			.where(eq(companyTable.id, form.data.id as string));
+
+		if (record.length === 0) {
+			return fail(400, { form, error: 'Company not found' });
+		}
+
+		await db.delete(companyTable).where(eq(companyTable.id, form.data.id as string));
 		return { form };
 	},
 	// DEPARTMENT CRUD
