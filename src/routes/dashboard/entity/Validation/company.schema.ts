@@ -1,5 +1,4 @@
 import { db } from '$lib/database/db';
-import { countryTable } from '$lib/database/schema/country';
 import { regionTable, workspaceTable } from '$lib/database/schema/entity';
 import { industryTable } from '$lib/database/schema/industry';
 import { ne } from 'drizzle-orm';
@@ -16,15 +15,14 @@ const industries = await db
 	.from(industryTable)
 	.where(ne(industryTable.parentId, ''));
 
-const countries = await db.select().from(countryTable);
-
 export const companySchema = z.object({
 	id: z.string().optional(),
 	title: z.string().min(1, { message: 'Required field' }),
 	description: z.string().optional(),
 	logo: z
 		.instanceof(File, { message: 'Please upload a file.' })
-		.refine((f) => f.size < 1_000_000, 'Max 1 MB upload size.'),
+		.refine((f) => f.size < 1_000_000, 'Max 1 MB upload size.')
+		.optional(),
 	type: z.enum(['company', 'counterparty']),
 	workspaceId: z.string(),
 	workspace: z
@@ -59,29 +57,7 @@ export const companySchema = z.object({
 			},
 			{ message: 'Invalid industry' }
 		),
-	BIN: z.string().min(1, { message: 'Required field' }),
-
-	countryId: z.string(),
-	country: z
-		.string()
-		.min(1, { message: 'Required field' })
-		.refine(
-			(value) => {
-				const validItems = countries.map((unit) => unit.name.toLowerCase());
-				return value ? validItems.includes(value.toLowerCase()) : true;
-			},
-			{ message: 'Invalid country' }
-		),
-	// 	Address
-	city: z.string().min(1, { message: 'Required field' }),
-	state: z.string().min(1, { message: 'Required field' }),
-	zipcode: z.string().min(1, { message: 'Required field' }),
-	addressLine: z.string().min(1, { message: 'Required field' }),
-
-	// 	Contact
-	phone: z.string().min(1, { message: 'Required field' }),
-	email: z.string().min(1, { message: 'Required field' }),
-	website: z.string().optional()
+	BIN: z.string().min(1, { message: 'Required field' })
 });
 
 export const deleteCompanySchema = z.object({

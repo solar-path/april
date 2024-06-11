@@ -12,7 +12,7 @@
 			id?: string;
 			title: string;
 			description: string;
-			logo: string;
+			logo?: string;
 			type: string;
 			region: string;
 			regionId: string;
@@ -21,16 +21,6 @@
 			industry: string;
 			industryId: string;
 			BIN: string;
-			city: string;
-			state: string;
-			country: string;
-			countryId: string;
-			zipcode: string;
-			addressLine: string;
-
-			phone: string;
-			email: string;
-			website: string;
 		};
 		companyForm: {
 			data: any;
@@ -47,7 +37,7 @@
 	export let data: CompanyData;
 	let filteredRegionList: any[] = [];
 
-	console.log('data => ', data);
+	console.log('Company.form.svelte :: data => ', data);
 	const { form, errors, constraints, enhance } = superForm(
 		data.item && data.item !== null
 			? {
@@ -64,18 +54,7 @@
 					workspace: data.workspaceList.find((item) => item.id === data?.item?.workspaceId)?.title,
 					industryId: data.item.industryId,
 					industry: data.industryList.find((item) => item.id === data?.item?.industryId)?.title,
-					BIN: data.item.BIN,
-
-					city: data.item.city,
-					state: data.item.state,
-					country: data.item.country,
-					countryId: data.item.countryId,
-					zipcode: data.item.zipcode,
-					addressLine: data.item.addressLine,
-
-					phone: data.item.phone,
-					email: data.item.email,
-					website: data.item.website
+					BIN: data.item.BIN
 				}
 			: data.companyForm.data,
 		{
@@ -173,7 +152,7 @@
 			type="file"
 			name="logo"
 			accept="image/png, image/jpeg"
-			bind:value={$form.logo}
+			bind:files={$form.logo}
 			{...$constraints.logo}
 		/>
 		<DisplayFormErrors errors={$errors.logo} />
@@ -231,101 +210,6 @@
 		<Label for="BIN">Business identication number</Label>
 		<Input id="BIN" type="text" name="BIN" bind:value={$form.BIN} {...$constraints.BIN} />
 		<DisplayFormErrors errors={$errors.BIN} />
-	</div>
-
-	<Hr />
-	<p class="text-left font-bold">Address</p>
-
-	<div class="flex w-full flex-row">
-		<div class="mr-1 w-1/2">
-			<Label for="city">City</Label>
-			<Input id="city" type="text" name="city" bind:value={$form.city} {...$constraints.city} />
-			<DisplayFormErrors errors={$errors.city} />
-		</div>
-		<div class="ml-1 w-1/2">
-			<Label for="state">State</Label>
-			<Input id="state" type="text" name="state" bind:value={$form.state} {...$constraints.state} />
-			<DisplayFormErrors errors={$errors.state} />
-		</div>
-	</div>
-
-	<div class="flex w-full flex-row">
-		<div class="mr-1 w-1/2">
-			<Label for="city">Address Line</Label>
-			<Input
-				id="addressLine"
-				type="text"
-				name="addressLine"
-				bind:value={$form.addressLine}
-				{...$constraints.addressLine}
-			/>
-			<DisplayFormErrors errors={$errors.addressLine} />
-		</div>
-
-		<div class="ml-1 w-1/2">
-			<Label for="zipcode">Post code</Label>
-			<Input
-				id="zipcode"
-				type="text"
-				name="zipcode"
-				bind:value={$form.zipcode}
-				{...$constraints.zipcode}
-			/>
-			<DisplayFormErrors errors={$errors.zipcode} />
-		</div>
-	</div>
-
-	<div class="w-full">
-		<SelectWithSearchTree
-			label="Country"
-			list={data.countryList}
-			tree={data.countryList}
-			form={$form}
-			errors={$errors}
-			constraints={$constraints}
-			modalID="Country"
-			modalState={false}
-			fieldId="countryId"
-			fieldName="country"
-		/>
-		<DisplayFormErrors errors={$errors.countryId} />
-	</div>
-
-	<Hr />
-	<p class="text-left font-bold">Contact</p>
-
-	<div class="w-full">
-		<Label for="phone">Phone</Label>
-		<Input
-			id="phone"
-			type="tel"
-			name="phone"
-			bind:value={$form.phone}
-			{...$constraints.phone}
-			placeholder="+1 XXX-XXX-XXXX"
-			pattern="^\+1 \d{3}-\d{3}-\d{4}$"
-		/>
-		<DisplayFormErrors errors={$errors.phone} />
-	</div>
-
-	<div class="w-full">
-		<Label for="website">Website</Label>
-		<Input
-			id="website"
-			type="url"
-			name="website"
-			bind:value={$form.website}
-			{...$constraints.website}
-			placeholder="https://example.com"
-			pattern="https://.*"
-		/>
-		<DisplayFormErrors errors={$errors.website} />
-	</div>
-
-	<div class="w-full">
-		<Label for="email">Email</Label>
-		<Input id="email" type="email" name="email" bind:value={$form.email} {...$constraints.email} />
-		<DisplayFormErrors errors={$errors.email} />
 	</div>
 
 	<Button type="submit" class="w-full">Add</Button>

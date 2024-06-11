@@ -33,21 +33,26 @@
 </div>
 <Hr classHr="my-2" />
 
-<strong class="font-semibold text-gray-900 dark:text-white">Title: </strong>
-<P class="mb-3" weight="light" color="text-gray-500 dark:text-gray-400"
-	>{selectedStructureItem.title}</P
->
-<strong class="font-semibold text-gray-900 dark:text-white">Description: </strong>
-<P class="mb-3" weight="light" color="text-gray-500 dark:text-gray-400">
-	{selectedStructureItem.description === null
-		? 'No description'
-		: selectedStructureItem.description}
-</P>
-
-<strong class="font-semibold text-gray-900 dark:text-white">Logo: </strong>
-<P class="mb-3" weight="light" color="text-gray-500 dark:text-gray-400">
-	<img src={selectedStructureItem.logo} alt={selectedStructureItem.title} />
-</P>
+<div class="flex flex-row">
+	<div class="w-1/4">
+		<strong class="font-semibold text-gray-900 dark:text-white">Logo: </strong>
+		<P class="mb-3" weight="light" color="text-gray-500 dark:text-gray-400">
+			<img src={selectedStructureItem.logo} alt={selectedStructureItem.title} class="w-96" />
+		</P>
+	</div>
+	<div class="w-3/4">
+		<strong class="font-semibold text-gray-900 dark:text-white">Title: </strong>
+		<P class="mb-3" weight="light" color="text-gray-500 dark:text-gray-400"
+			>{selectedStructureItem.title}</P
+		>
+		<strong class="font-semibold text-gray-900 dark:text-white">Description: </strong>
+		<P class="mb-3" weight="light" color="text-gray-500 dark:text-gray-400">
+			{selectedStructureItem.description === null
+				? 'No description'
+				: selectedStructureItem.description}
+		</P>
+	</div>
+</div>
 
 <strong class="font-semibold text-gray-900 dark:text-white">BIN: </strong>
 <P class="mb-3" weight="light" color="text-gray-500 dark:text-gray-400">
@@ -62,42 +67,47 @@
 	{selectedStructureItem.industry.description}
 </P>
 
-<strong class="font-semibold text-gray-900 dark:text-white">Address: </strong>
-<P class="mb-3" weight="light" color="text-gray-500 dark:text-gray-400">
-	{#if selectedStructureItem.address}
-		<ul class="ml-4">
-			<li>City: {selectedStructureItem.address.city}</li>
-			<li>State: {selectedStructureItem.address.state}</li>
-			<li>Postcode: {selectedStructureItem.address.zipcode}</li>
-			<li>Address line: {selectedStructureItem.address.addressLine}</li>
-			<li>Country: {selectedStructureItem.address.countryName}</li>
-		</ul>
-	{:else}
-		No address
-	{/if}
-</P>
-
-<strong class="font-semibold text-gray-900 dark:text-white">Contact: </strong>
-<P class="mb-3" weight="light" color="text-gray-500 dark:text-gray-400">
-	{#if selectedStructureItem.contact}
-		<ul class="ml-4">
-			<li>
-				Email: <A href={`mailto:${selectedStructureItem.contact.email}`}
-					>{selectedStructureItem.contact.email}</A
-				>
-			</li>
-			<li>
-				Phone: <A href={`tel:${selectedStructureItem.contact.phone}`}
-					>{selectedStructureItem.contact.phone}</A
-				>
-			</li>
-			<li>
-				Website: <A href={selectedStructureItem.contact.website} target="_blank"
-					>{selectedStructureItem.contact.website}</A
-				>
-			</li>
-		</ul>
-	{:else}
-		No contact
-	{/if}
-</P>
+<div class="flex flex-row">
+	<div class="w-1/2">
+		<strong class="font-semibold text-gray-900 dark:text-white">Address: </strong>
+		<P class="mb-3" weight="light" color="text-gray-500 dark:text-gray-400">
+			{#if selectedStructureItem.address}
+				<ul class="ml-4">
+					<li>City: {selectedStructureItem.address.city}</li>
+					<li>State: {selectedStructureItem.address.state}</li>
+					<li>Postcode: {selectedStructureItem.address.zipcode}</li>
+					<li>Address line: {selectedStructureItem.address.addressLine}</li>
+					<li>Country: {selectedStructureItem.address.countryName}</li>
+				</ul>
+			{:else}
+				No address
+			{/if}
+		</P>
+	</div>
+	<div class="w-1/2">
+		<strong class="font-semibold text-gray-900 dark:text-white">Contact: </strong>
+		<P class="mb-3" weight="light" color="text-gray-500 dark:text-gray-400">
+			{#if selectedStructureItem.contact}
+				<ul class="ml-4">
+					<li>
+						Email: <A href={`mailto:${selectedStructureItem.contact.email}`}
+							>{selectedStructureItem.contact.email}</A
+						>
+					</li>
+					<li>
+						Phone: <A href={`tel:${selectedStructureItem.contact.phone}`}
+							>{selectedStructureItem.contact.phone}</A
+						>
+					</li>
+					<li>
+						Website: <A href={selectedStructureItem.contact.website} target="_blank"
+							>{selectedStructureItem.contact.website}</A
+						>
+					</li>
+				</ul>
+			{:else}
+				No contact
+			{/if}
+		</P>
+	</div>
+</div>

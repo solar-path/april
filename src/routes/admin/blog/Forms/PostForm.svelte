@@ -2,7 +2,7 @@
 	import { hideDrawer } from '$lib/components/Drawer/drawer.utlities';
 	import SuperDebug, { superForm, type FormResult } from 'sveltekit-superforms';
 	import DisplayFormErrors from '$lib/components/DisplayFormErrors.svelte';
-	import { Button, ButtonGroup, Input, Label, Select } from 'flowbite-svelte';
+	import { Button, Input, Label, Select } from 'flowbite-svelte';
 	import { Editor } from '@tadashi/svelte-editor-quill';
 	import SelectWithSearchTree from '$lib/components/SelectWithSearch/SelectWithSearchTree.svelte';
 

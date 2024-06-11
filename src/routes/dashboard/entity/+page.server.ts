@@ -283,7 +283,7 @@ export const actions: Actions = {
 
 		if (!form.valid) {
 			console.log('invalid form => ', form);
-			return fail(400, { form });
+			if (!form.valid) return fail(400, withFiles({ form }));
 		}
 
 		const checkCompany = await db
@@ -295,32 +295,45 @@ export const actions: Actions = {
 			return fail(400, { form, error: 'Company already exists' });
 		}
 
+		const newAddress = await db
+			.insert(addressTable)
+			.values({
+				id: crypto.randomUUID(),
+				city: form.data.address.city.trim().toLocaleUpperCase(),
+				state: form.data.address.state.trim().toLocaleUpperCase(),
+				zipcode: form.data.address.zipcode.trim().toLocaleUpperCase(),
+				addressLine: form.data.address.addressLine.toLocaleUpperCase(),
+				countryId: form.data.address.countryId,
+				author: event.locals.user?.id as string
+			})
+			.returning({ id: addressTable.id });
+
+		const newContact = await db
+			.insert(contactTable)
+			.values({
+				id: crypto.randomUUID(),
+				email: form.data.contact.email.toLocaleLowerCase(),
+				phone: form.data.contact.phone.toLocaleUpperCase(),
+				website: form.data.contact.website?.toLocaleUpperCase(),
+				author: event.locals.user?.id as string
+			})
+			.returning({ id: contactTable.id });
+
 		await db.insert(companyTable).values({
 			id: crypto.randomUUID(),
 			title: form.data.title.trim(),
 			description: form.data.description?.trim(),
 			logo: form.data.logo instanceof File ? await fileProcessor(form.data.logo, 'logo') : '',
-			type: form.data.type as string,
+			type: 'company', // Ensure this is a valid value
 			regionId: form.data.regionId,
 			workspaceId: form.data.workspaceId,
 			industryId: form.data.industryId,
 			BIN: form.data.BIN.trim().toUpperCase(),
 			author: event.locals.user?.id as string,
-			address: {
-				id: crypto.randomUUID(),
-				city: form.data.city.trim().toLocaleUpperCase(),
-				state: form.data.state.trim().toLocaleUpperCase(),
-				zipcode: form.data.zipcode.trim().toLocaleUpperCase(),
-				addressLine: form.data.addressLine.toLocaleUpperCase(),
-				countryId: form.data.countryId
-			},
-			contact: {
-				id: crypto.randomUUID(),
-				email: form.data.email.toLocaleLowerCase(),
-				phone: form.data.phone.toLocaleUpperCase(),
-				website: form.data.website?.toLocaleUpperCase()
-			}
+			address: newAddress[0].id,
+			contact: newContact[0].id
 		});
+
 		return withFiles({ form });
 	},
 	updateCompany: async (event) => {
