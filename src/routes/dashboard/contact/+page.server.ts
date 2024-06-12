@@ -1,7 +1,7 @@
 import type { Actions } from '@sveltejs/kit';
 import { fail, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
-import { contactSchema, deleteContactSchema } from './Contact.schema';
+import { contactSchema, deleteContactSchema } from './contact.schema';
 
 export const actions: Actions = {
 	createContact: async (event) => {
