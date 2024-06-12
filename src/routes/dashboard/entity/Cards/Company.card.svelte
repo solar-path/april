@@ -4,8 +4,9 @@
 	import { A, Button, Heading, Hr, ImagePlaceholder, ListPlaceholder, P } from 'flowbite-svelte';
 	import { EditOutline } from 'flowbite-svelte-icons';
 	import Company from '../Forms/Company.form.svelte';
-	import Address from '../../address/Address.form.svelte';
-	import Contact from '../../contact/Contact.form.svelte';
+	import Address from '../../address/Form/Address.form.svelte';
+	import Contact from '../../contact/Form/Contact.form.svelte';
+
 	export let selectedStructureItem;
 	export let data;
 
