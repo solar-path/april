@@ -6,7 +6,6 @@
 	import Company from '../Forms/Company.form.svelte';
 	import Address from '../../address/Address.form.svelte';
 	import Contact from '../../contact/Contact.form.svelte';
-
 	export let selectedStructureItem;
 	export let data;
 

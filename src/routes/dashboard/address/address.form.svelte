@@ -18,7 +18,7 @@
 			zipcode: string;
 			addressLine: string;
 		};
-		companyForm: {
+		addressForm: {
 			data: any;
 		};
 
@@ -32,7 +32,7 @@
 	const { form, errors, constraints, enhance } = superForm(
 		data.item && data.item !== null
 			? {
-					...data.companyForm.data,
+					...data.addressForm.data,
 					id: data.item.id,
 
 					city: data.item.city,
@@ -42,7 +42,7 @@
 					zipcode: data.item.zipcode,
 					addressLine: data.item.addressLine
 				}
-			: data.companyForm.data,
+			: data.addressForm.data,
 		{
 			dataType: 'json',
 

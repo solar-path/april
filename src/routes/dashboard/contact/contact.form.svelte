@@ -1,11 +1,8 @@
 <script lang="ts">
 	import DisplayFormErrors from '$lib/components/DisplayFormErrors.svelte';
 	import { hideDrawer } from '$lib/components/Drawer/drawer.utlities';
-	import { Button, Hr, Input, Label, Textarea } from 'flowbite-svelte';
+	import { Button, Input, Label } from 'flowbite-svelte';
 	import SuperDebug, { superForm, type FormResult } from 'sveltekit-superforms';
-	import { formStore } from '$lib/components/form/formStore'; // Import the store
-	import { onDestroy } from 'svelte';
-	import SelectWithSearchTree from '$lib/components/SelectWithSearch/SelectWithSearchTree.svelte';
 
 	interface CompanyData {
 		item?: {
@@ -14,7 +11,7 @@
 			email: string;
 			website: string;
 		};
-		companyForm: {
+		contactForm: {
 			data: any;
 		};
 	}
@@ -30,7 +27,7 @@
 					email: data.item.email,
 					website: data.item.website
 				}
-			: data.companyForm.data,
+			: data.contactForm.data,
 		{
 			dataType: 'json',
 
