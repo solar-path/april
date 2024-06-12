@@ -46,15 +46,23 @@
 			<Button class="w-full" href="/auth/register">Select plan</Button>
 		</Card>
 
-		<!-- <Card class="flex-grow" size="sm" padding="xl">
-			<h5 class="mb-4 text-center text-xl font-medium text-gray-500 dark:text-gray-400">
-				Support us
-			</h5>
-			<P class="text-center text-gray-500">
-				Aneko is a non-profit project. If you want to support us, you can donate to our Github
-				Sponsor.
-			</P>
-			<Button class="w-full">Donate</Button>
-		</Card> -->
+		<Card class="flex flex-grow flex-col justify-between" size="sm" padding="xl">
+			<div>
+				<h5 class="mb-4 text-center text-xl font-medium text-gray-500 dark:text-gray-400">
+					Support us
+				</h5>
+				<P class="text-center text-gray-500">
+					Aneko.io is free during its Beta phase. Consider supporting us with a donation.
+				</P>
+				<img src="/images/qrcode.png" alt="Donate" class="size-40 w-full" />
+			</div>
+			<Button
+				class="mt-4 w-full"
+				href="https://www.paypal.com/ncp/payment/4D6JXPDHNPD5Q"
+				target="_blank"
+			>
+				Donate
+			</Button>
+		</Card>
 	</div>
 </div>
