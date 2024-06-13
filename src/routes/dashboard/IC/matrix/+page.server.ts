@@ -5,8 +5,8 @@ import type { Actions, PageServerLoad } from './$types';
 import { zod } from 'sveltekit-superforms/adapters';
 import { deleteMatrixSchema, matrixSchema } from './matrix.schema';
 import { buildTree } from '$lib/components/Tree/TreeView.utilities';
-import { entityTable } from '$lib/database/schema/entity';
 import { eq } from 'drizzle-orm';
+import { companyTable, departmentTable, positionTable } from '$lib/database/schema/entity';
 
 export const load: PageServerLoad = async () => {
 	const processList = await db
@@ -14,24 +14,32 @@ export const load: PageServerLoad = async () => {
 		.from(processTable)
 		.then((rows) => rows.map((row) => ({ ...row, children: [] }))); // Add an empty children array to each object
 
-	const units = await db
+	const companyList = await db
 		.select({
-			id: entityTable.id,
-			title: entityTable.title,
-			parentId: entityTable.parentId,
-			type: entityTable.type
+			id: companyTable.id,
+			title: companyTable.title
 		})
-		.from(entityTable)
-		.then((rows) => rows.map((row) => ({ ...row, children: [] }))); // Add an empty children array to each object
+		.from(companyTable);
 
-	const entityList = units.filter((item) => item.type === 'company');
-	const positionList = units.filter((item) => item.type === 'position');
+	const departmentList = await db
+		.select({
+			id: departmentTable.id,
+			title: departmentTable.title
+		})
+		.from(departmentTable);
+
+	const positionList = await db
+		.select({
+			id: positionTable.id,
+			title: positionTable.title
+		})
+		.from(positionTable);
 
 	const matrixList = await db
 		.select({
 			id: matrixTable.id,
 			entityId: matrixTable.entityId,
-			entityTitle: entityTable.title,
+			entityTitle: companyTable.title,
 			processId: matrixTable.processId,
 			processTitle: processTable.title,
 			riskId: matrixTable.riskId,
@@ -43,23 +51,22 @@ export const load: PageServerLoad = async () => {
 			type: matrixTable.type,
 			execution: matrixTable.execution,
 			controlOwner: matrixTable.controlOwner,
-			controlOwnerTitle: entityTable.title,
+			controlOwnerTitle: positionTable.title,
 			author: matrixTable.author,
 			createdAt: matrixTable.createdAt,
 			updatedAt: matrixTable.updatedAt
 		})
 		.from(matrixTable)
-		.leftJoin(entityTable.as('entity'), eq(matrixTable.entityId, entityTable.id))
+		.leftJoin(companyTable, eq(matrixTable.entityId, companyTable.id))
 		.leftJoin(processTable, eq(matrixTable.processId, processTable.id))
 		.leftJoin(riskTable, eq(matrixTable.riskId, riskTable.id))
 		.leftJoin(controlTable, eq(matrixTable.controlId, controlTable.id))
-		.leftJoin(entityTable.as('controlOwner'), eq(matrixTable.controlOwner, entityTable.id));
+		.leftJoin(positionTable, eq(matrixTable.controlOwner, positionTable.id));
 
 	return {
-		entityList,
-		entityTree: buildTree(entityList),
+		companyList,
+		departmentList,
 		positionList,
-		positionTree: buildTree(positionList),
 		processList,
 		processTree: buildTree(processList),
 		controlList: await db.select().from(controlTable),
