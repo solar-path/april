@@ -6,7 +6,7 @@
 	import { formStore } from '$lib/components/form/formStore';
 	import { Button, Input, Label, Textarea } from 'flowbite-svelte';
 	import { onDestroy } from 'svelte';
-	import { superForm, type FormResult } from 'sveltekit-superforms';
+	import SuperDebug, { superForm, type FormResult } from 'sveltekit-superforms';
 
 	interface RegionData {
 		item?: {
@@ -110,3 +110,5 @@
 
 	<Button type="submit" class="w-full">Add</Button>
 </form>
+
+<SuperDebug data={$form} />

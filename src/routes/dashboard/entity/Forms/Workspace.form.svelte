@@ -2,7 +2,7 @@
 	import DisplayFormErrors from '$lib/components/DisplayFormErrors.svelte';
 	import { hideDrawer } from '$lib/components/Drawer/drawer.utlities';
 	import { Button, Input, Label, Textarea } from 'flowbite-svelte';
-	import { superForm, type FormResult } from 'sveltekit-superforms';
+	import SuperDebug, { superForm, type FormResult } from 'sveltekit-superforms';
 
 	interface WorkspaceData {
 		item?: {
@@ -68,3 +68,5 @@
 	</div>
 	<Button type="submit" class="w-full">Add</Button>
 </form>
+
+<SuperDebug data={$form} />

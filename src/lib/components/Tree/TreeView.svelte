@@ -7,6 +7,8 @@
 	export let option: 'select' | 'route' = 'route';
 	export let route: string = '';
 	export let form: any;
+	export let fieldId: string = '';
+	export let fieldName: string = '';
 	$: activeUrl = $page.url.pathname;
 </script>
 
@@ -14,7 +16,7 @@
 	<SidebarWrapper class="bg-white">
 		<SidebarGroup>
 			{#each tree as item}
-				<TreeItem {item} {option} {route} {form} />
+				<TreeItem {item} {option} {route} {form} {fieldId} {fieldName} />
 			{/each}
 		</SidebarGroup>
 	</SidebarWrapper>

@@ -1,14 +1,11 @@
 <script lang="ts">
-	import { Button, Input, Label, Li, List, Modal } from 'flowbite-svelte';
+	import { Input, Label, Modal } from 'flowbite-svelte';
 	import DisplayFormErrors from '$lib/components/DisplayFormErrors.svelte';
-	import { createEventDispatcher } from 'svelte';
-	import {
-		ChevronDownOutline,
-		ChevronRightOutline,
-		FilterOutline,
-		MinusOutline
-	} from 'flowbite-svelte-icons';
+	import { createEventDispatcher, onMount } from 'svelte';
+	import { FilterOutline } from 'flowbite-svelte-icons';
 	import { formStore } from '$lib/components/form/formStore';
+	import TreeView from '../Tree/TreeView.svelte';
+	import { selectedItem } from '../Tree/TreeView.utilities';
 
 	export let list: any[] = [];
 	export let tree: any[] = [];
@@ -20,9 +17,7 @@
 	export let modalState: boolean = false;
 	export let fieldId: string;
 	export let fieldName: string;
-	let treeState: 'collapsed' | 'expanded' = 'collapsed';
 
-	let expandedItems: Record<string, boolean> = {};
 	let isDropdownOpen = false;
 	let suggestions: any[] = [];
 	let selectedIndex = -1;
@@ -45,7 +40,7 @@
 		});
 		suggestions = [];
 		isDropdownOpen = false;
-		modalState = false; // Close the modal
+		modalState = true; // Close the modal
 		dispatch('itemSelected', item);
 	};
 
@@ -63,9 +58,11 @@
 		}
 	};
 
-	const toggleExpand = (id: any) => {
-		expandedItems = { ...expandedItems, [id]: !expandedItems[id] };
-	};
+	onMount(() => {
+		selectedItem.set(null);
+	});
+
+	$: console.log('SelectWithSearchTree :: selectedItem => ', $selectedItem);
 </script>
 
 <input type="hidden" name={fieldId} bind:value={form[fieldId]} />
@@ -110,64 +107,6 @@
 	</ul>
 {/if}
 
-<Modal id={modalID} title={label} bind:open={modalState} autoclose={false}>
-	<div class="flex flex-col">
-		<div class="flex justify-end">
-			<button
-				type="button"
-				class="text-sm text-red-700 hover:text-red-800"
-				on:click={(event) => {
-					event.stopPropagation();
-					treeState = treeState === 'expanded' ? 'collapsed' : 'expanded';
-				}}
-			>
-				{treeState === 'expanded' ? 'Collapse' : 'Expand'}
-			</button>
-		</div>
-		<div class="w-full">
-			<List tag="ul" class="space-y-1 text-gray-500" list="none">
-				{#each tree as item}
-					<Li class="group flex flex-row items-center">
-						{#if item.children && item.children.length > 0}
-							{#if expandedItems[item.id]}
-								<ChevronDownOutline on:click={() => toggleExpand(item.id)} class="cursor-pointer" />
-							{:else}
-								<ChevronRightOutline
-									on:click={() => toggleExpand(item.id)}
-									class="cursor-pointer"
-								/>
-							{/if}
-						{:else}
-							<MinusOutline class="cursor-pointer" />
-						{/if}
-
-						<button
-							type="button"
-							on:click={() => {
-								toggleExpand(item.id);
-							}}
-							class="ml-2 cursor-pointer"
-						>
-							{item.title}
-						</button>
-
-						<div class="ml-auto opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-							<Button
-								type="button"
-								color="alternative"
-								size="xs"
-								on:click={() => selectParent(item)}>Select</Button
-							>
-						</div>
-					</Li>
-
-					{#if item.children && expandedItems[item.id]}
-						<List tag="ul" class="ml-4 space-y-1 text-gray-500" list="none">
-							<Li><svelte:self tree={item.children} {form} /></Li>
-						</List>
-					{/if}
-				{/each}
-			</List>
-		</div>
-	</div>
+<Modal id={modalID} title={label} bind:open={modalState}>
+	<TreeView {tree} {form} option="select" {fieldId} {fieldName} />
 </Modal>
