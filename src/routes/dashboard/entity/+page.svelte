@@ -26,6 +26,7 @@
 	export let data: any;
 
 	$: groupStructureTree = data.groupStructureTree as GroupStructureData[];
+	$: console.log('Entity - page.svelte :: itemSelected =>', $selectedItem);
 
 	const reports = [
 		// Group
@@ -98,7 +99,7 @@
 	<div class="flex flex-row">
 		<div class="w-1/3">
 			{#if groupStructureTree}
-				<TreeView form={null} tree={groupStructureTree} option="select" />
+				<TreeView form={null} tree={groupStructureTree} option="select" route="" />
 			{:else}
 				<ListPlaceholder />
 			{/if}

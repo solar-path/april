@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { SidebarDropdownWrapper, SidebarItem } from 'flowbite-svelte';
+	import { Button, SidebarDropdownWrapper, SidebarItem } from 'flowbite-svelte';
 	import { createEventDispatcher } from 'svelte';
 	import { selectedItem } from '$lib/components/Tree/TreeView.utilities';
 	import TreeItem from './TreeItem.svelte'; // Correct import statement for TreeItem
@@ -12,9 +12,10 @@
 	const dispatch = createEventDispatcher();
 
 	const selectParent = (item: any) => {
-		form.parent = item.title;
-		form.parentId = item.id;
-		form.code = item.code;
+		if (form) {
+			form.parent = item.title;
+			form.parentId = item.id;
+		}
 		selectedItem.set(item);
 		dispatch('itemSelected', item);
 	};
@@ -38,15 +39,16 @@
 
 {#if option === 'select'}
 	{#if item.children && item.children.length > 0}
-		<button on:click={() => selectParent(item)} class="w-full">
-			<SidebarDropdownWrapper label={item.title}>
-				{#each item.children as child}
-					<div class="ml-2">
-						<TreeItem item={child} {option} {route} {form} />
-					</div>
-				{/each}
-			</SidebarDropdownWrapper>
-		</button>
+		<SidebarDropdownWrapper>
+			<svelte:fragment slot="icon">
+				<button on:click={() => selectParent(item)} class="w-full text-left">{item.title}</button>
+			</svelte:fragment>
+			{#each item.children as child}
+				<div class="ml-2">
+					<TreeItem item={child} option="select" route="" {form} />
+				</div>
+			{/each}
+		</SidebarDropdownWrapper>
 	{:else}
 		<SidebarItem label={item.title} on:click={() => selectParent(item)} />
 	{/if}
