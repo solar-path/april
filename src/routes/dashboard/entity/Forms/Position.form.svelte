@@ -6,7 +6,7 @@
 
 	interface PositionData {
 		item?: {
-			id: string;
+			id?: string;
 			title: string;
 			departmentId: string;
 			department: string;
@@ -16,6 +16,8 @@
 		positionForm: {
 			data: any;
 		};
+		departmentList: any[];
+		companyList: any[];
 	}
 
 	export let data: PositionData;

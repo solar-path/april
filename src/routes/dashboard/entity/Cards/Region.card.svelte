@@ -10,7 +10,7 @@
 
 <div class="flex">
 	<div>
-		<Heading tag="h4">Unit details:</Heading>
+		<Heading tag="h4">Unit details (Region):</Heading>
 	</div>
 	<div class="ml-auto flex flex-row justify-end space-x-2">
 		<Button
