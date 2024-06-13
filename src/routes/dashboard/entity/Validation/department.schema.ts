@@ -5,9 +5,11 @@ import { z } from 'zod';
 const companies = await db.select().from(companyTable);
 
 export const departmentSchema = z.object({
-	id: z.string(),
+	id: z.string().optional(),
 	title: z.string().min(1, { message: 'Required field' }),
-	companyId: z
+	description: z.string().optional(),
+	companyId: z.string(),
+	company: z
 		.string()
 		.min(1, { message: 'Required field' })
 		.refine(
@@ -15,7 +17,7 @@ export const departmentSchema = z.object({
 				const validItems = companies.map((unit) => unit.title.toLowerCase());
 				return value ? validItems.includes(value.toLowerCase()) : true;
 			},
-			{ message: 'Invalid workspace' }
+			{ message: 'Invalid company' }
 		)
 });
 

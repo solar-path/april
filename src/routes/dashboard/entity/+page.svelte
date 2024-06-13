@@ -26,7 +26,6 @@
 	export let data: any;
 
 	$: groupStructureTree = data.groupStructureTree as GroupStructureData[];
-	$: console.log('Entity - page.svelte :: itemSelected =>', $selectedItem);
 
 	const reports = [
 		// Group

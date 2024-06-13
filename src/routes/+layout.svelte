@@ -20,8 +20,6 @@
 		FooterLinkGroup,
 		FooterLink
 	} from 'flowbite-svelte';
-	import Login from './auth/login/+page.svelte';
-	import Register from './auth/register/+page.svelte';
 	import Contact from '$lib/forms/contact/Contact.svelte';
 	import { drawerContent, fillDrawer, hideDrawer } from '$lib/components/Drawer/drawer.utlities';
 
@@ -46,7 +44,9 @@
 			<NavLi href="/pricing">Pricing</NavLi>
 			<NavLi href="/learn">Learn & Support</NavLi>
 			{#if data.currentUser}
-				<NavLi href="/admin">Admin</NavLi>
+				{#if data.currentUser.email === 'itgroup.luck@gmail.com'}
+					<NavLi href="/admin">Admin</NavLi>
+				{/if}
 				<NavLi href="/dashboard">Dashboard</NavLi>
 				<Avatar id="avatar-menu" />
 				<Dropdown placement="bottom" triggeredBy="#avatar-menu">

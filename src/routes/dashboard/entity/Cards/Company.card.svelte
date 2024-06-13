@@ -9,8 +9,6 @@
 
 	export let selectedStructureItem;
 	export let data;
-
-	console.log('Company => ', selectedStructureItem);
 </script>
 
 <div class="flex">

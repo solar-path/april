@@ -14,7 +14,7 @@ import {
 import { deleteWorkspaceSchema, workspaceSchema } from './Validation/workspace.schema';
 import { deleteRegionSchema, regionSchema } from './Validation/region.schema';
 import { companySchema, deleteCompanySchema } from './Validation/company.schema';
-import { departmentSchema } from './Validation/department.schema';
+import { deleteDepartmentSchema, departmentSchema } from './Validation/department.schema';
 import { positionSchema } from './Validation/position.schema';
 import { addressTable } from '$lib/database/schema/address';
 import { eq } from 'drizzle-orm';
@@ -311,8 +311,10 @@ export const actions: Actions = {
 		return withFiles({ form });
 	},
 	updateCompany: async (event) => {
+		console.log('update company endpoint reached');
 		const form = await superValidate(await event.request.formData(), zod(companySchema));
 		if (!form.valid) {
+			console.log('form is not valid => ', form);
 			return fail(400, { form });
 		}
 		return { form };
@@ -340,20 +342,34 @@ export const actions: Actions = {
 	createDepartment: async (event) => {
 		const form = await superValidate(await event.request.formData(), zod(departmentSchema));
 		if (!form.valid) {
+			console.log('form is not valid => ', form);
 			return fail(400, { form });
 		}
+
+		await db.insert(departmentTable).values({
+			id: crypto.randomUUID(),
+			title: form.data.title,
+			description: form.data.description,
+			companyId: form.data.companyId,
+			author: event.locals.user?.id as string
+		});
+
 		return { form };
 	},
 	updateDepartment: async (event) => {
+		console.log('update department endpoint reached');
 		const form = await superValidate(await event.request.formData(), zod(departmentSchema));
 		if (!form.valid) {
+			console.log('form is not valid => ', form);
 			return fail(400, { form });
 		}
 		return { form };
 	},
 	deleteDepartment: async (event) => {
-		const form = await superValidate(await event.request.formData(), zod(departmentSchema));
+		console.log('delete department endpoint reached');
+		const form = await superValidate(await event.request.formData(), zod(deleteDepartmentSchema));
 		if (!form.valid) {
+			console.log('form is not valid => ', form);
 			return fail(400, { form });
 		}
 
