@@ -10,7 +10,7 @@
 		PlusOutline
 	} from 'flowbite-svelte-icons';
 	import Process from '../processes/Process.form.svelte';
-	import { selectedItem, treeState } from '$lib/components/Tree/TreeView.utilities';
+	import { selectedItem } from '$lib/components/Tree/TreeView.utilities';
 	import { generatePdfProcessReport } from '../processes/ProcessReport.pdf';
 	import { generateXlsProcessReport } from '../processes/ProcessReport.xls';
 	import DeleteButton from '$lib/components/DeleteButton.svelte';
@@ -56,20 +56,7 @@
 	</div>
 	<div class="flex flex-row">
 		<div class="w-1/3">
-			<div class="flex flex-col">
-				<div class="flex justify-end">
-					<button
-						type="button"
-						class="text-sm text-red-700 hover:text-red-800"
-						on:click={() => ($treeState = $treeState === 'expanded' ? 'collapsed' : 'expanded')}
-					>
-						{$treeState === 'expanded' ? 'Collapse' : 'Expand'}
-					</button>
-				</div>
-				<div class="w-full">
-					<TreeView form={null} showSelectButton={false} tree={data.processTree} option="select" />
-				</div>
-			</div>
+			<TreeView form={null} tree={data.processTree} option="select" />
 		</div>
 		<div class="ml-8 w-2/3">
 			{#if $selectedItem}

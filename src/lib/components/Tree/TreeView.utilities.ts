@@ -40,9 +40,3 @@ export const buildTree = (dataList: Item[]) => {
  * @returns selected in tree item (by click).
  */
 export const selectedItem = writable<Item | null>(null);
-
-/*
- * use at client
- * @returns The tree of items.
- */
-export const treeState = writable('collapsed');

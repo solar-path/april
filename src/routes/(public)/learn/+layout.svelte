@@ -4,7 +4,7 @@
 
 	export let data: LayoutData;
 	const tree = data.postTree;
-	// console.log('/public/learn/layout.svelte :: data.postTree => ', data.postTree);
+	$: console.log('/public/learn/layout.svelte :: data => ', data);
 </script>
 
 <div class="flex flex-row space-x-4">
@@ -15,7 +15,7 @@
 			Learn & Support
 		</h2>
 		<div class="m-4">
-			<TreeView {tree} option="route" showSelectButton={false} form={null} />
+			<TreeView {tree} option="route" form={null} route="/learn" />
 		</div>
 	</div>
 	<div class="ml-2 w-3/4"><slot /></div>
