@@ -98,7 +98,7 @@
 	<div class="flex flex-row">
 		<div class="w-1/3">
 			{#if groupStructureTree}
-				<TreeView form={null} showSelectButton={false} tree={groupStructureTree} option="select" />
+				<TreeView form={null} tree={groupStructureTree} option="select" />
 			{:else}
 				<ListPlaceholder />
 			{/if}

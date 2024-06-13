@@ -22,13 +22,15 @@
 
 {#if option === 'route' && route !== ''}
 	{#if item.children && item.children.length > 0}
-		<SidebarDropdownWrapper label={item.title} href={`${route}/${item.id}`}>
-			{#each item.children as child}
-				<div class="ml-2">
-					<TreeItem item={child} {option} {route} {form} />
-				</div>
-			{/each}
-		</SidebarDropdownWrapper>
+		<a href={`${route}/${item.id}`}>
+			<SidebarDropdownWrapper label={item.title}>
+				{#each item.children as child}
+					<div class="ml-2">
+						<TreeItem item={child} {option} {route} {form} />
+					</div>
+				{/each}
+			</SidebarDropdownWrapper>
+		</a>
 	{:else}
 		<SidebarItem label={item.title} href={`${route}/${item.id}`} />
 	{/if}
@@ -36,13 +38,15 @@
 
 {#if option === 'select'}
 	{#if item.children && item.children.length > 0}
-		<SidebarDropdownWrapper label={item.title} on:click={() => selectParent(item)}>
-			{#each item.children as child}
-				<div class="ml-2">
-					<TreeItem item={child} {option} {route} {form} />
-				</div>
-			{/each}
-		</SidebarDropdownWrapper>
+		<button on:click={() => selectParent(item)} class="w-full">
+			<SidebarDropdownWrapper label={item.title}>
+				{#each item.children as child}
+					<div class="ml-2">
+						<TreeItem item={child} {option} {route} {form} />
+					</div>
+				{/each}
+			</SidebarDropdownWrapper>
+		</button>
 	{:else}
 		<SidebarItem label={item.title} on:click={() => selectParent(item)} />
 	{/if}
