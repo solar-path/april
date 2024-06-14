@@ -1,7 +1,7 @@
 import { db } from '$lib/database/db';
 import { controlTable, processTable, riskTable } from '$lib/database/schema/rcm';
 import { z } from 'zod';
-import { companyTable, positionTable } from '$lib/database/schema/entity';
+import { companyTable } from '$lib/database/schema/entity';
 
 const processes = await db
 	.select({
@@ -31,12 +31,12 @@ const companies = await db
 	})
 	.from(companyTable);
 
-const positions = await db
-	.select({
-		id: positionTable.id,
-		title: positionTable.title
-	})
-	.from(positionTable);
+// const positions = await db
+// 	.select({
+// 		id: positionTable.id,
+// 		title: positionTable.title
+// 	})
+// 	.from(positionTable);
 
 export const matrixSchema = z.object({
 	id: z.string().optional(),
@@ -87,16 +87,14 @@ export const matrixSchema = z.object({
 			{ message: 'Invalid company' }
 		),
 	controlOwner: z.string().optional(),
-	controlOwnerId: z
-		.string()
-		.min(1, { message: 'Field is required' })
-		.refine(
-			(value) => {
-				const validItems = positions.map((position) => position.title.toLowerCase());
-				return value ? validItems.includes(value.toLowerCase()) : true;
-			},
-			{ message: 'Invalid position' }
-		),
+	controlOwnerId: z.string().min(1, { message: 'Field is required' }),
+	// .refine(
+	// 	(value) => {
+	// 		const validItems = positions.map((position) => position.title.toLowerCase());
+	// 		return value ? validItems.includes(value.toLowerCase()) : true;
+	// 	},
+	// 	{ message: 'Invalid position' }
+	// ),
 	description: z.string().min(1, { message: 'Field is required' }),
 	frequency: z.enum(['On-demand', 'Daily', 'Weekly', 'Monthly', 'Quarterly', 'Annually']),
 	type: z.enum(['Preventive', 'Detective', 'SoD']),

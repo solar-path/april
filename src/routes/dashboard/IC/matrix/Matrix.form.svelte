@@ -40,6 +40,11 @@
 
 	export let data: MatrixData;
 
+	// Ensure positionList is not empty
+	if (!data.positionList || data.positionList.length === 0) {
+		throw new Error('Invalid position: positionList is empty or not defined');
+	}
+
 	const { form, errors, constraints, enhance } = superForm(
 		data.item && data.item !== null
 			? {
@@ -118,8 +123,6 @@
 			$form.controlOwner = value.controlOwnerId.fieldName;
 		}
 	});
-
-	$: filteredPositionList = data.positionList.filter((item) => item.companyId === $form.companyId);
 
 	onDestroy(() => {
 		unsubscribe();
@@ -236,7 +239,20 @@
 	</div>
 
 	<div class="w-full">
-		<SelectWithSearchTree
+		<SelectWithSearchTable
+			label="Company"
+			list={data.companyList}
+			form={$form}
+			fieldName="company"
+			fieldId="companyId"
+			errors={$errors}
+			constraints={$constraints}
+			modalID="company"
+			tableLabel="Company List"
+			tableDescription="Browse a list of companies that are involved in the process."
+			modalState={false}
+		/>
+		<!-- <SelectWithSearchTree
 			label="Company"
 			list={data.companyList}
 			tree={data.companyList}
@@ -247,14 +263,28 @@
 			modalState={false}
 			fieldName="company"
 			fieldId="companyId"
-		/>
+		/>-->
 		<DisplayFormErrors errors={$errors.companyId} />
 	</div>
+
 	<div class="w-full">
-		<SelectWithSearchTree
+		<SelectWithSearchTable
+			label="Control Owner"
+			list={data.positionList}
+			form={$form}
+			fieldName="controlOwner"
+			fieldId="controlOwnerId"
+			errors={$errors}
+			constraints={$constraints}
+			modalID="controlOwner"
+			tableLabel="Control Owner List"
+			tableDescription="Browse a list of control owners that are involved in the process."
+			modalState={false}
+		/>
+		<!-- <SelectWithSearchTree
 			label="Control owner"
-			list={filteredPositionList}
-			tree={filteredPositionList}
+			list={data.positionList}
+			tree={data.positionList}
 			form={$form}
 			errors={$errors}
 			constraints={$constraints}
@@ -262,7 +292,7 @@
 			modalState={false}
 			fieldName="controlOwner"
 			fieldId="controlOwnerId"
-		/>
+		/> -->
 		<DisplayFormErrors errors={$errors.controlOwnerId} />
 	</div>
 
