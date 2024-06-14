@@ -469,45 +469,4 @@ export const actions: Actions = {
 		await db.delete(positionTable).where(eq(positionTable.id, form.data.id as string));
 		return { form };
 	}
-	// 	createUnit: async (event) => {
-	// 		const form = await superValidate(await event.request.formData(), zod(entitySchema));
-	// 		// Convenient validation check:
-	// 		if (!form.valid) {
-	// 			return fail(400, { form });
-	// 		}
-	// 		// await db.insert(entityTable).values({
-	// 		// 	id: crypto.randomUUID(),
-	// 		// 	title: form.data.title,
-	// 		// 	parentId: form.data.parentId,
-	// 		// 	author: event.locals.user?.id
-	// 		// });
-	// 		return { form };
-	// 	},
-	// 	updateUnit: async (event) => {
-	// 		const form = await superValidate(await event.request.formData(), zod(entitySchema));
-	// 		// const form = await superValidate(await request.formData(), zod(entitySchema));
-	// 		// Convenient validation check:
-	// 		if (!form.valid) {
-	// 			return fail(400, { form });
-	// 		}
-	// 		// await db
-	// 		// 	.update(entityTable)
-	// 		// 	.set({
-	// 		// 		title: form.data.title,
-	// 		// 		parentId: form.data.parentId,
-	// 		// 		type: form.data.type
-	// 		// 	})
-	// 		// 	.where(eq(entityTable.id, form.data.id));
-	// 		return { form };
-	// 	},
-	// 	deleteUnit: async (event) => {
-	// 		console.log('/dashboard/structure/+page.server.ts :: deleteUnit method reached');
-	// 		const form = await superValidate(await event.request.formData(), zod(entityDeleteSchema));
-	// 		console.log('/dashboard/structure/+page.server.ts :: form => ', form);
-	// 		if (!form.valid) {
-	// 			return fail(400, { form });
-	// 		}
-	// 		// await db.delete(entityTable).where(eq(entityTable.id, form.data.id));
-	// 		return { form };
-	// 	}
 };
