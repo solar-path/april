@@ -1,6 +1,6 @@
 <script lang="ts">
 	import DisplayFormErrors from '$lib/components/DisplayFormErrors.svelte';
-	import { Card, Button, Input, Label } from 'flowbite-svelte';
+	import { Card, Button, Input, Label, Heading } from 'flowbite-svelte';
 	import { EnvelopeSolid } from 'flowbite-svelte-icons';
 	import { superForm } from 'sveltekit-superforms/client';
 	export let data;
@@ -8,8 +8,9 @@
 </script>
 
 <div class="flex items-center justify-center">
-	<Card size="lg">
-		<h3 class="text-xl font-medium text-gray-900 dark:text-white">Forgot password?</h3>
+	<Card class="space-y-6">
+		<Heading tag="h3" id="drawer-label" class="mb-2">Forgot password?</Heading>
+
 		<form
 			use:enhance
 			novalidate

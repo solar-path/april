@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { superForm } from 'sveltekit-superforms/client';
-	import { A, Button, Card, Input, Label } from 'flowbite-svelte';
+	import { A, Button, Card, Heading, Input, Label } from 'flowbite-svelte';
 	import DisplayFormErrors from '$lib/components/DisplayFormErrors.svelte';
 	import { EyeOutline, EyeSlashOutline, EnvelopeSolid, LockSolid } from 'flowbite-svelte-icons';
 
@@ -23,8 +23,8 @@
 </script>
 
 <div class="flex items-center justify-center">
-	<Card size="lg">
-		<h3 class="text-xl font-medium text-gray-900 dark:text-white">Sign in to our platform</h3>
+	<Card class="space-y-6">
+		<Heading tag="h3" id="drawer-label" class="mb-2">Sign in to our platform</Heading>
 
 		<form
 			use:enhance

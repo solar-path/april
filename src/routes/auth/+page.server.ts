@@ -8,8 +8,7 @@ import { db } from '$lib/database/db';
 import { userTable } from '$lib/database/schema/users';
 import { eq } from 'drizzle-orm/mysql-core/expressions';
 import { loginSchema } from './login/login.schema';
-import { registerSchema } from './register/register.schema';
-import { sendPasswordResetEmail, sendVerificationEmail } from '$lib/email/mail.server';
+import { sendPasswordResetEmail } from '$lib/email/mail.server';
 import { forgotPasswordSchema } from './forgot/forgot.schema';
 
 export const actions: Actions = {
@@ -57,45 +56,7 @@ export const actions: Actions = {
 
 		redirect(302, '/dashboard');
 	},
-	register: async ({ cookies, request }) => {
-		// Check if form submitted is valid
-		const form = await superValidate(await request.formData(), zod(registerSchema));
 
-		// validate form
-		if (!form.valid) {
-			return fail(400, { form });
-		}
-
-		// Check if user exists
-		const existingUser = await db
-			.select()
-			.from(userTable)
-			.where(eq(userTable.email, form.data.email));
-
-		// If user exists, return error
-		if (existingUser[0]) {
-			return setError(form, 'email', 'User already registered');
-		}
-
-		// Create token
-		const token = crypto.randomUUID();
-
-		// Insert new user
-		const newUser = await db.insert(userTable).values({
-			id: crypto.randomUUID(),
-			email: form.data.email.toLowerCase(),
-			password: await new Argon2id().hash(form.data.password),
-			token: token
-		});
-
-		// If user is created, send verification email
-		if (newUser[0]) {
-			await sendVerificationEmail(form.data.email.toLowerCase(), token);
-			redirect(302, '/login');
-		} else {
-			return setError(form, 'email', 'Something gone wrong');
-		}
-	},
 	logout: async (event) => {
 		// Check if user is logged in
 		if (!event.locals.session) {
