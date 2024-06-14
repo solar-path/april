@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Sidebar, SidebarGroup, SidebarWrapper } from 'flowbite-svelte';
+	import { P, Sidebar, SidebarGroup, SidebarWrapper } from 'flowbite-svelte';
 	import TreeItem from './TreeItem.svelte';
 	import { page } from '$app/stores';
 
@@ -15,9 +15,13 @@
 <Sidebar class="w-full" {activeUrl}>
 	<SidebarWrapper class="bg-white">
 		<SidebarGroup>
-			{#each tree as item}
-				<TreeItem {item} {option} {route} {form} {fieldId} {fieldName} />
-			{/each}
+			{#if tree.length > 0}
+				{#each tree as item}
+					<TreeItem {item} {option} {route} {form} {fieldId} {fieldName} />
+				{/each}
+			{:else}
+				<P class="text-center text-gray-500">No data found. Please create items first</P>
+			{/if}
 		</SidebarGroup>
 	</SidebarWrapper>
 </Sidebar>

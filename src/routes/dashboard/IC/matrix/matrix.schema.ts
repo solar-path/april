@@ -1,8 +1,7 @@
 import { db } from '$lib/database/db';
-import { entityTable } from '$lib/database/schema/entity';
 import { controlTable, processTable, riskTable } from '$lib/database/schema/rcm';
-import { eq } from 'drizzle-orm';
 import { z } from 'zod';
+import { companyTable, positionTable } from '$lib/database/schema/entity';
 
 const processes = await db
 	.select({
@@ -25,13 +24,19 @@ const risks = await db
 	})
 	.from(riskTable);
 
-const entities = await db
+const companies = await db
 	.select({
-		id: entityTable.id,
-		title: entityTable.title
+		id: companyTable.id,
+		title: companyTable.title
 	})
-	.from(entityTable)
-	.where(eq(entityTable.type, 'company'));
+	.from(companyTable);
+
+const positions = await db
+	.select({
+		id: positionTable.id,
+		title: positionTable.title
+	})
+	.from(positionTable);
 
 export const matrixSchema = z.object({
 	id: z.string().optional(),
@@ -70,23 +75,32 @@ export const matrixSchema = z.object({
 			},
 			{ message: 'Invalid process' }
 		),
-	entityId: z.string().optional(),
-	entity: z
+	companyId: z.string().optional(),
+	company: z
 		.string()
 		.min(1, { message: 'Field is required' })
 		.refine(
 			(value) => {
-				const validItems = entities.map((entity) => entity.title.toLowerCase());
+				const validItems = companies.map((company) => company.title.toLowerCase());
 				return value ? validItems.includes(value.toLowerCase()) : true;
 			},
-			{ message: 'Invalid process' }
+			{ message: 'Invalid company' }
+		),
+	controlOwner: z.string().optional(),
+	controlOwnerId: z
+		.string()
+		.min(1, { message: 'Field is required' })
+		.refine(
+			(value) => {
+				const validItems = positions.map((position) => position.title.toLowerCase());
+				return value ? validItems.includes(value.toLowerCase()) : true;
+			},
+			{ message: 'Invalid position' }
 		),
 	description: z.string().min(1, { message: 'Field is required' }),
 	frequency: z.enum(['On-demand', 'Daily', 'Weekly', 'Monthly', 'Quarterly', 'Annually']),
 	type: z.enum(['Preventive', 'Detective', 'SoD']),
-	execution: z.enum(['Manual', 'IT-Dependend', 'Automated']),
-	controlOwner: z.string(),
-	controlOwnerId: z.string()
+	execution: z.enum(['Manual', 'IT-Dependend', 'Automated'])
 });
 
 export const deleteMatrixSchema = z.object({

@@ -6,6 +6,8 @@
 	import { Button, Label, Select, Textarea } from 'flowbite-svelte';
 	import { superForm, type FormResult } from 'sveltekit-superforms';
 	import SuperDebug from 'sveltekit-superforms';
+	import { onDestroy } from 'svelte';
+	import { formStore } from '$lib/components/form/formStore';
 
 	interface MatrixData {
 		item?: {
@@ -20,8 +22,8 @@
 			frequency: string;
 			type: string;
 			execution: string;
-			entityId: string;
-			entity: string;
+			companyId: string;
+			company: string;
 			controlOwnerId: string;
 			controlOwner: string;
 		};
@@ -31,11 +33,9 @@
 		processList: any[];
 		riskList: any[];
 		controlList: any[];
-		entityList: any[];
+		companyList: any[];
 		processTree: any[];
-		entityTree: any[];
 		positionList: any[];
-		positionTree: any[];
 	}
 
 	export let data: MatrixData;
@@ -55,8 +55,8 @@
 					frequency: data.item.frequency,
 					type: data.item.type,
 					execution: data.item.execution,
-					entityId: data.item.entityId,
-					entity: data.entityList.find((item) => item.id === data?.item?.entityId),
+					companyId: data.item.companyId,
+					company: data.companyList.find((item) => item.id === data?.item?.companyId),
 					controlOwnerId: data.item.controlOwnerId,
 					controlOwner: data.positionList.find((item) => item.id === data?.item?.controlOwnerId)
 				}
@@ -91,6 +91,39 @@
 		{ value: 'IT-Dependend', name: 'IT-Dependend' },
 		{ value: 'Automated', name: 'Automated' }
 	];
+
+	const unsubscribe = formStore.subscribe((value) => {
+		if (value.processId) {
+			$form.processId = value.processId.fieldId;
+			$form.process = value.processId.fieldName;
+		}
+
+		if (value.riskId) {
+			$form.riskId = value.riskId.fieldId;
+			$form.risk = value.riskId.fieldName;
+		}
+
+		if (value.controlId) {
+			$form.controlId = value.controlId.fieldId;
+			$form.control = value.controlId.fieldName;
+		}
+
+		if (value.companyId) {
+			$form.companyId = value.companyId.fieldId;
+			$form.company = value.companyId.fieldName;
+		}
+
+		if (value.controlOwnerId) {
+			$form.controlOwnerId = value.controlOwnerId.fieldId;
+			$form.controlOwner = value.controlOwnerId.fieldName;
+		}
+	});
+
+	$: filteredPositionList = data.positionList.filter((item) => item.companyId === $form.companyId);
+
+	onDestroy(() => {
+		unsubscribe();
+	});
 </script>
 
 <form
@@ -106,7 +139,7 @@
 	<input type="hidden" name="processId" bind:value={$form.processId} />
 	<input type="hidden" name="riskId" bind:value={$form.riskId} />
 	<input type="hidden" name="controlId" bind:value={$form.controlId} />
-	<input type="hidden" name="entityId" bind:value={$form.entityId} />
+	<input type="hidden" name="companyId" bind:value={$form.companyId} />
 	<input type="hidden" name="controlOwnerId" bind:value={$form.controlOwnerId} />
 
 	<div class="w-full">
@@ -204,24 +237,24 @@
 
 	<div class="w-full">
 		<SelectWithSearchTree
-			label="Entity"
-			list={data.entityList}
-			tree={data.entityTree}
+			label="Company"
+			list={data.companyList}
+			tree={data.companyList}
 			form={$form}
 			errors={$errors}
 			constraints={$constraints}
-			modalID="entity"
+			modalID="company"
 			modalState={false}
-			fieldName="entity"
-			fieldId="entityId"
+			fieldName="company"
+			fieldId="companyId"
 		/>
-		<DisplayFormErrors errors={$errors.entity} />
+		<DisplayFormErrors errors={$errors.companyId} />
 	</div>
 	<div class="w-full">
 		<SelectWithSearchTree
 			label="Control owner"
-			list={data.positionList}
-			tree={data.positionTree}
+			list={filteredPositionList}
+			tree={filteredPositionList}
 			form={$form}
 			errors={$errors}
 			constraints={$constraints}

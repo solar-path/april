@@ -31,9 +31,12 @@ export const load: PageServerLoad = async () => {
 	const positionList = await db
 		.select({
 			id: positionTable.id,
-			title: positionTable.title
+			title: positionTable.title,
+			departmentId: positionTable.departmentId,
+			departmentTitle: departmentTable.title
 		})
-		.from(positionTable);
+		.from(positionTable)
+		.leftJoin(departmentTable, eq(positionTable.departmentId, departmentTable.id));
 
 	const matrixList = await db
 		.select({
@@ -78,39 +81,50 @@ export const load: PageServerLoad = async () => {
 
 export const actions: Actions = {
 	createMatrix: async (event) => {
+		console.log('createMatrix endpoint was achieved');
 		const form = await superValidate(await event.request.formData(), zod(matrixSchema));
 
 		if (!form.valid) {
+			console.log('form is not valid');
 			return fail(400, { form });
 		}
-		await db.insert(matrixTable).values({
-			id: crypto.randomUUID(),
-			entityId: form.data.entityId,
-			processId: form.data.processId,
-			riskId: form.data.riskId,
-			controlId: form.data.controlId,
-			description: form.data.description,
-			frequency: form.data.frequency,
-			type: form.data.type,
-			execution: form.data.execution,
-			controlOwner: form.data.controlOwnerId,
-			author: event.locals.user?.id
-		});
+		console.log('form is valid', form);
+		// await db.insert(matrixTable).values({
+		// 	id: crypto.randomUUID(),
+		// 	companyId: form.data.companyId,
+		// 	processId: form.data.processId,
+		// 	riskId: form.data.riskId,
+		// 	controlId: form.data.controlId,
+		// 	description: form.data.description,
+		// 	frequency: form.data.frequency,
+		// 	type: form.data.type,
+		// 	execution: form.data.execution,
+		// 	controlOwner: form.data.controlOwnerId,
+		// 	author: event.locals.user?.id
+		// });
 
 		return { form };
 	},
 	updateMatrix: async (event) => {
+		console.log('updateMatrix endpoint was achieved');
 		const form = await superValidate(await event.request.formData(), zod(matrixSchema));
 		if (!form.valid) {
+			console.log('form is not valid');
 			return fail(400, { form });
 		}
 		console.log('/dashboard/+page.server.ts :: updateMatrix :: form => ', form);
+
+		return { form };
 	},
 	deleteMatrix: async (event) => {
+		console.log('deleteMatrix endpoint was achieved');
 		const form = await superValidate(await event.request.formData(), zod(deleteMatrixSchema));
 		if (!form.valid) {
+			console.log('form is not valid', form);
 			return fail(400, { form });
 		}
 		console.log('/dashboard/+page.server.ts :: deleteMatrix :: form => ', form);
+
+		return { form };
 	}
 };
