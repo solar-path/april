@@ -27,7 +27,7 @@
 	<Card class="space-y-6">
 		<Heading tag="h3" id="drawer-label" class="mb-2">Join our platform</Heading>
 
-		<form use:enhance novalidate method="POST" action="register" class="flex flex-col space-y-2">
+		<form use:enhance novalidate method="POST" class="flex flex-col space-y-2">
 			<div>
 				<Label for="email">Email</Label>
 				<Input
