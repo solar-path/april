@@ -5,13 +5,17 @@
 	import { superForm, type FormResult } from 'sveltekit-superforms';
 	import TrackInquiry from './TrackInquiry.svelte';
 	export let data: any;
+	console.log('contactForm :: Data => ', data);
 
-	const { form, errors, constraints, enhance } = superForm(data.contactUsForm.data, {
-		onResult(event) {
-			const result = event.result as FormResult<any>;
-			result.type === 'success' ? ($hideDrawer = !$hideDrawer) : ($hideDrawer = false);
+	const { form, errors, constraints, enhance } = superForm(
+		data === null ? {} : data.contactUsForm.data,
+		{
+			onResult(event) {
+				const result = event.result as FormResult<any>;
+				result.type === 'success' ? ($hideDrawer = !$hideDrawer) : ($hideDrawer = false);
+			}
 		}
-	});
+	);
 </script>
 
 <form

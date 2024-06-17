@@ -1,5 +1,7 @@
 <script>
+	import { fillDrawer } from '$lib/components/Drawer/drawer.utlities';
 	import { P, Li, List, Heading, A } from 'flowbite-svelte';
+	import Contact from '$lib/forms/contact/Contact.svelte';
 </script>
 
 <div class="space-y-2 text-justify">
@@ -71,7 +73,9 @@
 		old, please do not attempt to register for the Services or send any personal information about
 		yourself to us. If we learn we have collected personal information from a child under 18 years
 		old, we will delete that information as quickly as possible. If you believe that a child under
-		18 years old may have provided us personal information, please contact us at info@Aneko.com.
+		18 years old may have provided us personal information, please <A
+			on:click={() => fillDrawer('Contact Us', Contact, null)}>Contact us</A
+		>
 	</P>
 
 	<Heading tag="h2" customSize="text-lg font-semibold" class="mb-2 text-lg font-semibold">
@@ -345,13 +349,14 @@
 		your information to maintain such accuracy and completeness or correct any information that
 		becomes false or misleading. You agree to notify us immediately of any unauthorized access to or
 		use of your username or password or any other breach of security by contacting the Company at
-		info@Aneko.com. You should use particular caution when accessing your account from a public or
-		shared computer so that others are not able to view or record your password or other personal
-		information. You agree that you will not open an account for someone else or log in to someone
-		else’s account and act on their behalf unless you are authorized by the Company. You agree that
-		you will act on your own behalf, unless appropriately authorized to act on behalf of another
-		person, and will not pretend to be any identify other than your own. You agree that the person
-		using your account has authority to make payments using your payment method on file.
+		<A on:click={() => fillDrawer('Contact Us', Contact, null)}>Contact us</A>. You should use
+		particular caution when accessing your account from a public or shared computer so that others
+		are not able to view or record your password or other personal information. You agree that you
+		will not open an account for someone else or log in to someone else’s account and act on their
+		behalf unless you are authorized by the Company. You agree that you will act on your own behalf,
+		unless appropriately authorized to act on behalf of another person, and will not pretend to be
+		any identify other than your own. You agree that the person using your account has authority to
+		make payments using your payment method on file.
 	</P>
 
 	<P weight="light" color="text-gray-500" class="text-justify">
@@ -507,10 +512,12 @@
 
 	<P weight="light" color="text-gray-500">We currently maintain social media accounts at:</P>
 	<List tag="ul" class="space-y-1">
-		<Li class="text-gray-500">Twitter: @Aneko</Li>
-		<Li class="text-gray-500">LinkedIn: https://www.linkedin.com/company/Aneko</Li>
-		<Li class="text-gray-500">Facebook: https://www.facebook.com/Aneko</Li>
-		<Li class="text-gray-500">Instagram: https://www.instagram.com/Aneko</Li>
+		<!-- <Li class="text-gray-500">X: @Aneko</Li> -->
+		<Li class="text-gray-500"
+			><A href="https://www.linkedin.com/company/104223135" target="_blank">LinkedIn</A></Li
+		>
+		<!-- <Li class="text-gray-500">Facebook: https://www.facebook.com/Aneko</Li> -->
+		<!-- <Li class="text-gray-500">Instagram: https://www.instagram.com/Aneko</Li> -->
 	</List>
 	<P weight="light" color="text-gray-500" class="text-justify">
 		If we provide social media features with the above sites and/or applications with certain
@@ -827,7 +834,7 @@
 			owner’s behalf.
 		</Li>
 	</List>
-	<P weight="light" color="text-gray-500" class="text-justify">
+	<!-- <P weight="light" color="text-gray-500" class="text-justify">
 		Please note that pursuant to 17 U.S.C. § 512(f), any misrepresentation of material fact in a
 		written notification automatically subjects the complaining party to liability for any damages,
 		costs, and attorneys’ fees incurred by us in connection with the written notification and
@@ -835,7 +842,7 @@
 	</P>
 
 	<P weight="light" color="text-gray-500">Designated copyright agent for the Company:</P>
-	<address>Aneko Copyright Agent 2772 Pear Orchard Rd Granbury, TX 76048 info@Aneko.com</address>
+	<address>Aneko Copyright Agent 2772 Pear Orchard Rd Granbury, TX 76048 info@Aneko.com</address> -->
 
 	<Heading tag="h2" customSize="text-lg font-semibold" class="mb-2 text-lg font-semibold">
 		Feedback to the Company
@@ -1097,10 +1104,14 @@
 	</Heading>
 	<P weight="light" color="text-gray-500">This website is operated by Aneko.</P>
 	<P weight="light" color="text-gray-500"
-		>All notices of copyright infringement claims should be sent to: info@Aneko.com.</P
+		>All notices of copyright infringement claims should be sent to: <A
+			on:click={() => fillDrawer('Contact Us', Contact, null)}>Contact us</A
+		>.</P
 	>
 	<P weight="light" color="text-gray-500" class="text-justify">
 		All other feedback, comments, requests for technical support, and other communications relating
-		to the Website should be directed to: info@Aneko.com
+		to the Website should be directed to: <A
+			on:click={() => fillDrawer('Contact Us', Contact, null)}>Contact us</A
+		>
 	</P>
 </div>

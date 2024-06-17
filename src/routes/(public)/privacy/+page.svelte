@@ -88,7 +88,7 @@
 		guardian and think that your child under the age of eighteen (18) has given us information
 		<!-- svelte-ignore missing-declaration -->
 		(beyond the Required Information) without our obtaining Parental Consent, please
-		<A on:click={() => fillDrawer('Contact Us', Contact, data)}>Contact Us</A>.
+		<A on:click={() => fillDrawer('Contact Us', Contact, null)}>Contact Us</A>.
 	</P>
 
 	<Heading tag="h2" customSize="text-lg font-semibold" class="mb-2 text-lg font-semibold">
