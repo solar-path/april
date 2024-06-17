@@ -48,14 +48,16 @@
 
 	<P weight="light" color="text-gray-500" class="text-justify">
 		This policy does not apply to information collected by:
+	</P>
+	<P weight="light" color="text-gray-500" class="text-justify">
 		<List>
 			<Li>Us offline or through any other means,</Li>
 			<Li>including on any other website operated by Company or any third party;</Li>
 			<Li>or Any third party,</Li>
 			<Li
-				>including through any application or content (including advertising) that may link to or be</Li
-			>
-			accessible from or on the Website.
+				>including through any application or content (including advertising) that may link to or be
+				accessible from or on the Website.
+			</Li>
 		</List>
 	</P>
 
@@ -96,7 +98,9 @@
 	<P weight="light" color="text-gray-500" class="text-justify">
 		We collect several types of information from and about users of our Website, including
 		information:
+	</P>
 
+	<P weight="light" color="text-gray-500" class="text-justify">
 		<List>
 			<Li>
 				By which you may be personally identified, such as name, address, e-mail address, industry,
@@ -108,25 +112,21 @@
 			<Li>That is about you but individually does not identify you; and/or</Li>
 			<Li
 				>About your Internet connection, the equipment you use to access our Website, and usage
-				details. We collect this information: Directly from you when you provide it to us.
-				Automatically as you navigate through the site. Information collected automatically may
-				include usage details, IP addresses, and information collected through cookies and web
-				beacons. From third parties, for example, our business partners.
+				details.
 			</Li>
 		</List>
-
-		<P weight="light" color="text-gray-500" class="text-justify">
-			We collect this information:
-			<List>
-				<Li>Directly from you when you provide it to us.</Li>
-				<Li>
-					Automatically as you navigate through the site. Information collected automatically may
-					include usage details, IP addresses, and information collected through cookies and web
-					beacons.</Li
-				>
-				<Li>From third parties, for example, our business partners.</Li>
-			</List>
-		</P>
+	</P>
+	<P weight="light" color="text-gray-500" class="text-justify">We collect this information:</P>
+	<P weight="light" color="text-gray-500" class="text-justify">
+		<List>
+			<Li>Directly from you when you provide it to us.</Li>
+			<Li>
+				Automatically as you navigate through the site. Information collected automatically may
+				include usage details, IP addresses, and information collected through cookies and web
+				beacons.</Li
+			>
+			<Li>From third parties, for example, our business partners.</Li>
+		</List>
 	</P>
 
 	<Heading tag="h2" customSize="text-lg font-semibold" class="mb-2 text-lg font-semibold">
@@ -135,7 +135,8 @@
 
 	<P weight="light" color="text-gray-500" class="text-justify">
 		The information we collect on or through our Website may include:
-
+	</P>
+	<P weight="light" color="text-gray-500" class="text-justify">
 		<List>
 			<Li>
 				Information that you provide by filling in forms on our Website. This includes information
@@ -156,7 +157,8 @@
 			</Li>
 			<Li>Your search queries on the Website.</Li>
 		</List>
-
+	</P>
+	<P weight="light" color="text-gray-500" class="text-justify">
 		You also may provide information to be published or displayed (hereinafter, “posted”) on public
 		areas of the Website or transmitted to other users of the Website or third parties
 		(collectively, “User Contributions”). Your User Contributions are posted on and transmitted to
@@ -175,7 +177,8 @@
 		As you navigate through and interact with our Website, we may use automatic data collection
 		technologies to collect certain information about your equipment, browsing actions, and
 		patterns, including:
-
+	</P>
+	<P weight="light" color="text-gray-500" class="text-justify">
 		<List>
 			<Li
 				>Details of your visits to our Website, including communication data and the resources that
@@ -195,6 +198,8 @@
 		The information we collect automatically is only statistical data and does not include personal
 		information. It helps us to improve our Website and to deliver a better and more personalized
 		service, including by enabling us to:
+	</P>
+	<P weight="light" color="text-gray-500" class="text-justify">
 		<List>
 			<Li>Estimate our audience size and usage patterns.</Li>
 			<Li
@@ -208,6 +213,8 @@
 
 	<P weight="light" color="text-gray-500" class="text-justify">
 		The technologies we use for this automatic data collection may include:
+	</P>
+	<P weight="light" color="text-gray-500" class="text-justify">
 		<List>
 			<Li
 				>Cookies (or browser cookies). A cookie is a small file placed on the hard drive of your
@@ -265,7 +272,8 @@
 	<P weight="light" color="text-gray-500" class="text-justify">
 		We use information that we collect about you or that you provide to us, including any personal
 		information:
-
+	</P>
+	<P weight="light" color="text-gray-500" class="text-justify">
 		<List>
 			<Li>To present our Website and its contents to you.</Li>
 			<Li>To provide you with information, products, or services that you request from us.</Li>
@@ -313,7 +321,8 @@
 	<P weight="light" color="text-gray-500" class="text-justify">
 		We may disclose personal information that we collect, or you provide as described in this
 		privacy policy:
-
+	</P>
+	<P weight="light" color="text-gray-500" class="text-justify">
 		<List>
 			<Li>To our subsidiaries and affiliates.</Li>
 			<Li
@@ -346,7 +355,8 @@
 
 	<P weight="light" color="text-gray-500" class="text-justify">
 		We may also disclose your personal information:
-
+	</P>
+	<P weight="light" color="text-gray-500" class="text-justify">
 		<List>
 			<Li
 				>To comply with any court order, law, or legal process, including to respond to any
