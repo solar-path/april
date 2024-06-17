@@ -85,6 +85,7 @@
 					<button on:click={() => fillDrawer('Contact Us', Contact, data)}> Contact Us </button>
 				</FooterLink>
 				<FooterLink href="/terms">Terms & conditions</FooterLink>
+				<FooterLink href="/privacy">Privacy Policy</FooterLink>
 			</FooterLinkGroup>
 		</div>
 	</Footer>
