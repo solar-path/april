@@ -9,5 +9,8 @@ export const userTable = pgTable('users', {
 	token: varchar('token', { length: 50 }),
 	activated: boolean('verified').default(false),
 	createdAt: timestamp('createdAt').notNull().defaultNow(),
-	updatedAt: timestamp('updatedAt').notNull().defaultNow()
+	updatedAt: timestamp('updatedAt').notNull().defaultNow(),
+	// personal information
+	name: varchar('name', { length: 40 }),
+	surname: varchar('surname', { length: 40 })
 });

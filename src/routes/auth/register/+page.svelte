@@ -10,12 +10,16 @@
 		email: string;
 		password: string;
 		terms: boolean;
+		name: string;
+		surname: string;
 	};
 
 	type FormErrors = {
 		email?: string[]; // Array of strings for email errors
 		password?: string[]; // Array of strings for password errors
 		terms?: string[]; // Array of strings for terms errors
+		name?: string[]; // Array of strings for name errors
+		surname?: string[]; // Array of strings for surname errors
 	};
 	const { form, errors, constraints, enhance } = superForm<RegisterFormData, FormErrors>(
 		data.registerForm.data
@@ -41,6 +45,25 @@
 				</Input>
 				<DisplayFormErrors errors={$errors.email} />
 			</div>
+			<div>
+				<Label for="name">First name</Label>
+				<Input id="name" type="text" name="name" bind:value={$form.name} {...$constraints.name} />
+
+				<DisplayFormErrors errors={$errors.name} />
+			</div>
+
+			<div>
+				<Label for="surname">Last name</Label>
+				<Input
+					id="surname"
+					type="text"
+					name="surname"
+					bind:value={$form.surname}
+					{...$constraints.surname}
+				/>
+				<DisplayFormErrors errors={$errors.surname} />
+			</div>
+
 			<div>
 				<Label for="password">Password</Label>
 				<Input

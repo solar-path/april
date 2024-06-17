@@ -11,5 +11,7 @@ export const registerSchema = z.object({
 		}),
 	terms: z.boolean().refine((val) => val === true, {
 		message: 'You must accept the terms and conditions'
-	})
+	}),
+	name: z.string().min(1, { message: 'Field cannot be blank' }),
+	surname: z.string().min(1, { message: 'Field cannot be blank' })
 });

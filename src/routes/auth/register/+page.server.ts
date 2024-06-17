@@ -42,7 +42,9 @@ export const actions: Actions = {
 					id: crypto.randomUUID(),
 					email: form.data.email.toLowerCase(),
 					password: await new Argon2id().hash(form.data.password),
-					token: token
+					token: token,
+					name: form.data.name.trim() as string,
+					surname: form.data.surname.trim() as string
 				})
 				.returning({ id: userTable.id });
 
