@@ -7,6 +7,9 @@
 		SidebarWrapper
 	} from 'flowbite-svelte';
 
+	import { page } from '$app/stores';
+	import PathFinder from '$lib/components/Breadcrumb/PathFinder.svelte';
+
 	const modules = [
 		{
 			label: 'Tasks',
@@ -44,6 +47,8 @@
 		}
 	];
 </script>
+
+<PathFinder path={$page.url} />
 
 <div class="flex flex-row">
 	<div class="w-1/5">

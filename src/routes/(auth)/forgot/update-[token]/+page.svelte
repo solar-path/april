@@ -7,7 +7,6 @@
 
 	export let data: PageData;
 	let passwordUpdated = false;
-	let hiddenBackdropFalse = false;
 	// console.log("register.form.svelte :: data => ", data)
 	const { form, errors, constraints, enhance } = superForm(data.changePasswordForm.data, {
 		onResult(event) {
