@@ -101,7 +101,7 @@
 
 		<div class="mt-4">
 			<p>
-				Have an account? <A href="/auth/login">Sign in</A>
+				Have an account? <A href="/login">Sign in</A>
 			</p>
 		</div>
 	</Card>

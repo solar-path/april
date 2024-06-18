@@ -1,18 +1,28 @@
 import nodemailer, { type Transporter } from 'nodemailer';
 
-const EMAIL_SERVICE = process.env.EMAIL_SERVICE;
-const EMAIL_USER = process.env.EMAIL_USER;
-const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD;
-const APP_NAME = process.env.APP_NAME;
-const BASE_URL = process.env.BASE_URL;
+// const EMAIL_SERVICE = process.env.EMAIL_SERVICE;
+const EMAIL_USER = 'notify@aneko.io'; //= process.env.EMAIL_USER;
+const EMAIL_PASSWORD = 'aQi*K)V!_$44*sk'; //= process.env.EMAIL_PASSWORD;
+const APP_NAME = 'Aneko';
+const BASE_URL = 'http://localhost:5173';
 
 export const sendEmail = async (email: string, subject: string, html: string) => {
 	const transporter = nodemailer.createTransport({
-		service: EMAIL_SERVICE,
+		host: 'mail.privateemail.com',
+		port: 587, // Use 465 for SSL
+		secure: false, // true for 465, false for other ports
+
 		auth: {
 			user: EMAIL_USER,
 			pass: EMAIL_PASSWORD
+		},
+		// Force IPv4
+		tls: {
+			rejectUnauthorized: false
 		}
+		// Optional: specify the host and port if needed
+		// host: 'smtp.example.com',
+		// port: 587,
 	});
 
 	return new Promise((resolve, reject) => {
@@ -32,7 +42,7 @@ export const sendEmail = async (email: string, subject: string, html: string) =>
 						error: err
 					});
 				} else {
-					console.log('Email sent successfully!');
+					console.log('Email sent successfully!', info);
 					resolve({
 						statusCode: 200,
 						message: 'Email sent successfully.'

@@ -26,35 +26,30 @@ export const actions: Actions = {
 		const existingUser = await db
 			.select()
 			.from(userTable)
-			.where(eq(userTable.email, form.data.email))
+			.where(eq(userTable.email, form.data.email.trim().toLowerCase()))
 			.limit(1);
 
 		if (existingUser.length > 0) {
 			return setError(form, 'email', 'User already registered');
 		}
 
-		try {
-			const token = crypto.randomUUID();
+		const token = crypto.randomUUID();
 
-			const newUser = await db
-				.insert(userTable)
-				.values({
-					id: crypto.randomUUID(),
-					email: form.data.email.toLowerCase(),
-					password: await new Argon2id().hash(form.data.password),
-					token: token,
-					name: form.data.name.trim() as string,
-					surname: form.data.surname.trim() as string
-				})
-				.returning({ id: userTable.id });
+		const newUser = await db
+			.insert(userTable)
+			.values({
+				id: crypto.randomUUID(),
+				email: form.data.email.trim().toLowerCase(),
+				password: await new Argon2id().hash(form.data.password),
+				token: token,
+				name: form.data.name.trim() as string,
+				surname: form.data.surname.trim() as string
+			})
+			.returning({ id: userTable.id });
 
-			if (newUser[0].id) {
-				await sendVerificationEmail(form.data.email.toLowerCase(), token);
-				return redirect(302, '/login');
-			}
-		} catch (error) {
-			console.error(error);
-			return setError(form, 'email', 'Something went wrong');
+		if (newUser[0].id) {
+			await sendVerificationEmail(form.data.email.trim().toLowerCase(), token);
+			return redirect(302, '/auth/login');
 		}
 
 		return { form };

@@ -61,9 +61,9 @@
 					</form>
 				</Dropdown>
 			{:else}
-				<NavLi href="/auth/register">Join us</NavLi>
+				<NavLi href="/register">Join us</NavLi>
 
-				<NavLi href="/auth/login">
+				<NavLi href="/login">
 					<span class="rounded-lg bg-red-700 pb-2 pl-4 pr-4 pt-2 text-white hover:bg-red-900"
 						>Sign in</span
 					>

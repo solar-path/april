@@ -79,11 +79,11 @@
 			<ul>
 				<li>
 					Don’t have an account?
-					<A href="/auth/register">Join now</A>
+					<A href="/register">Join now</A>
 				</li>
 				<li>
 					Forgot password?
-					<A href="/auth/forgot">Remind</A>
+					<A href="/forgot">Remind</A>
 				</li>
 			</ul>
 		</div>
