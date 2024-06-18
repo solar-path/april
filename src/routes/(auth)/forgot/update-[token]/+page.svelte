@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { superForm, type FormResult } from 'sveltekit-superforms';
 	import type { ActionData, PageData } from './$types.js';
-	import { A, Button, Card, Input, Label } from 'flowbite-svelte';
+	import { A, Button, Card, Heading, Hr, Input, Label } from 'flowbite-svelte';
 	import DisplayFormErrors from '$lib/components/DisplayFormErrors.svelte';
+	import { EyeOutline, EyeSlashOutline, LockSolid } from 'flowbite-svelte-icons';
 
 	export let data: PageData;
 	let passwordUpdated = false;
@@ -14,12 +15,15 @@
 			passwordUpdated = result.data?.passwordUpdated;
 		}
 	});
+
+	let showPassword = false;
+	let showRepeatPassword = false;
 </script>
 
-<div class="flex h-screen items-center justify-center">
-	<Card class="space-y-2">
-		<p class="text-3xl font-medium">Update password</p>
-		<p>Change password to access the solution</p>
+<div class="flex flex-col items-center justify-center">
+	<Card class="flex flex-col space-y-6" size="lg" padding="xl">
+		<Heading tag="h2" class="text-center">Enter new password</Heading>
+		<Hr />
 
 		{#if passwordUpdated === false}
 			<form class="space-y-2" use:enhance novalidate method="POST">
@@ -27,12 +31,25 @@
 					<Label for="password">Password</Label>
 					<Input
 						id="password"
-						type="password"
+						type={showPassword ? 'text' : 'password'}
 						name="password"
 						bind:value={$form.password}
 						{...$constraints.password}
-					/>
-
+					>
+						<LockSolid slot="left" class="h-6 w-6" />
+						<button
+							slot="right"
+							on:click={() => (showPassword = !showPassword)}
+							class="pointer-events-auto"
+							type="button"
+						>
+							{#if showPassword}
+								<EyeOutline class="h-6 w-6" />
+							{:else}
+								<EyeSlashOutline class="h-6 w-6" />
+							{/if}
+						</button>
+					</Input>
 					<DisplayFormErrors errors={$errors.password} />
 				</div>
 
@@ -40,11 +57,25 @@
 					<Label for="confirmPassword">Confirm password</Label>
 					<Input
 						id="confirmPassword"
-						type="password"
+						type={showRepeatPassword ? 'text' : 'password'}
 						name="confirmPassword"
 						bind:value={$form.confirmPassword}
 						{...$constraints.confirmPassword}
-					/>
+					>
+						<LockSolid slot="left" class="h-6 w-6" />
+						<button
+							slot="right"
+							on:click={() => (showRepeatPassword = !showRepeatPassword)}
+							class="pointer-events-auto"
+							type="button"
+						>
+							{#if showRepeatPassword}
+								<EyeOutline class="h-6 w-6" />
+							{:else}
+								<EyeSlashOutline class="h-6 w-6" />
+							{/if}
+						</button>
+					</Input>
 					<DisplayFormErrors errors={$errors.confirmPassword} />
 				</div>
 				<Button type="submit">Update password</Button>

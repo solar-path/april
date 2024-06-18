@@ -13,7 +13,7 @@ export const load = async () => {
 	};
 };
 export const actions: Actions = {
-	forgotPassword: async ({ request }) => {
+	default: async ({ request }) => {
 		const form = await superValidate(await request.formData(), zod(forgotPasswordSchema));
 		// console.log('/forgot/+page.server.ts :: form => ', form);
 
@@ -41,5 +41,7 @@ export const actions: Actions = {
 		if (existingUser[0].activated === false) {
 			return setError(form, 'email', 'Account was not verified');
 		}
+
+		return { form };
 	}
 };
