@@ -2,7 +2,7 @@ import { lucia } from '$lib/auth/auth';
 import { fail, redirect, type Actions } from '@sveltejs/kit';
 
 export const actions: Actions = {
-	logout: async (event) => {
+	default: async (event) => {
 		// Check if user is logged in
 		if (!event.locals.session) {
 			return fail(401);

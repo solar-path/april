@@ -49,7 +49,7 @@ export const actions: Actions = {
 
 		if (newUser[0].id) {
 			await sendVerificationEmail(form.data.email.trim().toLowerCase(), token);
-			return redirect(302, '/auth/login');
+			return redirect(302, '/login');
 		}
 
 		return { form };
