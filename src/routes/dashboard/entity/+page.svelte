@@ -24,6 +24,7 @@
 		description: string;
 	}
 	export let data: any;
+	console.log('entity/+page.svelte :: data => ', data);
 
 	$: groupStructureTree = data.groupStructureTree as GroupStructureData[];
 

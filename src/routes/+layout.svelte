@@ -39,8 +39,6 @@
 
 	let fullname = data.currentUser?.name + ' ' + data.currentUser?.surname;
 
-	console.log('+layout.svelte :: data', data);
-
 	inject({ mode: dev ? 'development' : 'production' });
 </script>
 

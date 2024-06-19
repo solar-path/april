@@ -17,7 +17,7 @@ import { companySchema, deleteCompanySchema } from './Validation/company.schema'
 import { deleteDepartmentSchema, departmentSchema } from './Validation/department.schema';
 import { deletePositionSchema, positionSchema } from './Validation/position.schema';
 import { addressTable } from '$lib/database/schema/address';
-import { eq } from 'drizzle-orm';
+import { eq, and } from 'drizzle-orm';
 import { contactTable } from '$lib/database/schema/contact';
 import { countryTable } from '$lib/database/schema/country';
 import { buildTree } from '$lib/components/Tree/TreeView.utilities';
@@ -29,23 +29,29 @@ export const load: PageServerLoad = async (event) => {
 		redirect(302, '/login');
 	}
 
+	console.log('entity/+page.server.ts :: event.locals.user => ', event.locals.user);
+
 	const workspaceList = await db
 		.select({
 			id: workspaceTable.id,
 			title: workspaceTable.title,
-			description: workspaceTable.description
+			description: workspaceTable.description,
+			author: workspaceTable.author
 		})
-		.from(workspaceTable);
+		.from(workspaceTable)
+		.where(eq(workspaceTable.author, event.locals.user.id));
 
 	const regionList = await db
 		.select({
 			id: regionTable.id,
 			title: regionTable.title,
 			workspaceId: regionTable.workspaceId,
-			description: regionTable.description
+			description: regionTable.description,
+			author: regionTable.author
 		})
 		.from(regionTable)
-		.leftJoin(workspaceTable, eq(workspaceTable.id, regionTable.workspaceId));
+		.leftJoin(workspaceTable, eq(workspaceTable.id, regionTable.workspaceId))
+		.where(eq(regionTable.author, event.locals.user.id));
 
 	const companyList = await db
 		.select({
@@ -54,6 +60,7 @@ export const load: PageServerLoad = async (event) => {
 			description: companyTable.description,
 			workspaceId: companyTable.workspaceId,
 			logo: companyTable.logo,
+			author: companyTable.author,
 			industry: {
 				id: companyTable.industryId,
 				title: industryTable.name,
@@ -79,7 +86,7 @@ export const load: PageServerLoad = async (event) => {
 			regionId: companyTable.regionId
 		})
 		.from(companyTable)
-		.where(eq(companyTable.type, 'company'))
+		.where(and(eq(companyTable.type, 'company'), eq(companyTable.author, event.locals.user.id)))
 		.leftJoin(regionTable, eq(regionTable.id, companyTable.regionId))
 		.leftJoin(addressTable, eq(addressTable.id, companyTable.address))
 		.leftJoin(contactTable, eq(contactTable.id, companyTable.contact))
@@ -91,9 +98,11 @@ export const load: PageServerLoad = async (event) => {
 			id: departmentTable.id,
 			description: departmentTable.description,
 			title: departmentTable.title,
-			companyId: departmentTable.companyId
+			companyId: departmentTable.companyId,
+			author: departmentTable.author
 		})
 		.from(departmentTable)
+		.where(eq(departmentTable.author, event.locals.user.id))
 		.leftJoin(companyTable, eq(companyTable.id, departmentTable.companyId));
 
 	const positionList = await db
@@ -102,9 +111,11 @@ export const load: PageServerLoad = async (event) => {
 			description: positionTable.description,
 			title: positionTable.title,
 			departmentId: positionTable.departmentId,
-			companyId: positionTable.companyId
+			companyId: positionTable.companyId,
+			author: positionTable.author
 		})
 		.from(positionTable)
+		.where(eq(positionTable.author, event.locals.user.id))
 		.leftJoin(departmentTable, eq(departmentTable.id, positionTable.departmentId))
 		.leftJoin(companyTable, eq(companyTable.id, positionTable.companyId));
 

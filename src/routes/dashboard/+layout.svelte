@@ -48,8 +48,6 @@
 	];
 </script>
 
-<PathFinder path={$page.url} />
-
 <div class="flex flex-row">
 	<div class="w-1/5">
 		<Sidebar class="w-full">
