@@ -10,7 +10,8 @@ export const load: PageServerLoad = async (event) => {
 	const userList = await db.select().from(userTable);
 
 	return {
-		userList
+		userList,
+		inviteUserForm: await superValidate(zod(inviteUserSchema))
 	};
 };
 
