@@ -13,5 +13,6 @@ export const registerSchema = z.object({
 		message: 'You must accept the terms and conditions'
 	}),
 	name: z.string().min(1, { message: 'Field cannot be blank' }),
-	surname: z.string().min(1, { message: 'Field cannot be blank' })
+	surname: z.string().min(1, { message: 'Field cannot be blank' }),
+	workspace: z.string().min(1, { message: 'Field cannot be blank' })
 });

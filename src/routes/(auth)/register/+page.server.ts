@@ -8,6 +8,7 @@ import { eq } from 'drizzle-orm/mysql-core/expressions';
 import { Argon2id } from 'oslo/password';
 import { sendVerificationEmail } from '$lib/email/mail.server';
 import { redirect } from '@sveltejs/kit';
+import { workspaceTable } from '$lib/database/schema/entity';
 
 export const load = async () => {
 	return {
@@ -49,6 +50,13 @@ export const actions: Actions = {
 
 		if (newUser[0].id) {
 			await sendVerificationEmail(form.data.email.trim().toLowerCase(), token);
+
+			await db.insert(workspaceTable).values({
+				id: crypto.randomUUID(),
+				title: form.data.workspace.trim() as string,
+				author: newUser[0].id
+			});
+
 			return redirect(302, '/login');
 		}
 

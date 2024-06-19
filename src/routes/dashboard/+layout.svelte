@@ -24,6 +24,10 @@
 			href: '/dashboard/entity'
 		},
 		{
+			label: 'Users',
+			href: '/dashboard/users'
+		},
+		{
 			label: 'Internal control',
 			href: '/dashboard/IC',
 			children: [

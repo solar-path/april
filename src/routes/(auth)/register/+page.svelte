@@ -1,8 +1,14 @@
 <script lang="ts">
 	import { superForm } from 'sveltekit-superforms/client';
-	import { Card, Button, Input, Label, Checkbox, A, Heading, Hr } from 'flowbite-svelte';
+	import { Card, Button, Input, Label, Checkbox, A, Heading, Hr, Tooltip } from 'flowbite-svelte';
 	import DisplayFormErrors from '$lib/components/DisplayFormErrors.svelte';
-	import { EnvelopeSolid, EyeOutline, EyeSlashOutline, LockSolid } from 'flowbite-svelte-icons';
+	import {
+		EnvelopeSolid,
+		EyeOutline,
+		EyeSlashOutline,
+		QuestionCircleOutline,
+		LockSolid
+	} from 'flowbite-svelte-icons';
 
 	export let data;
 
@@ -12,6 +18,7 @@
 		terms: boolean;
 		name: string;
 		surname: string;
+		workspace: string;
 	};
 
 	type FormErrors = {
@@ -90,6 +97,28 @@
 				</Input>
 				<DisplayFormErrors errors={$errors.password} />
 			</div>
+
+			<div class="w-full">
+				<Label for="title">Workspace</Label>
+				<Input
+					id="workspace"
+					type="text"
+					name="workspace"
+					bind:value={$form.workspace}
+					{...$constraints.workspace}
+				>
+					<QuestionCircleOutline slot="right" class="h-6 w-6" />
+				</Input>
+				<DisplayFormErrors errors={$errors.workspace} />
+
+				<Tooltip triggeredBy="#workspace" placement="right" type="light" class="w-64 text-sm">
+					<p>
+						The workspace title represents the name of your business environment, which can be
+						modified later.
+					</p>
+				</Tooltip>
+			</div>
+
 			<div>
 				<Checkbox id="terms" name="terms" bind:checked={$form.terms} {...$constraints.terms}>
 					<p>Accept <A href="/terms">Terms and conditions</A></p>

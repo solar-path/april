@@ -29,8 +29,6 @@ export const load: PageServerLoad = async (event) => {
 		redirect(302, '/login');
 	}
 
-	console.log('entity/+page.server.ts :: event.locals.user => ', event.locals.user);
-
 	const workspaceList = await db
 		.select({
 			id: workspaceTable.id,
