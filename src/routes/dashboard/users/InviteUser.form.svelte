@@ -4,17 +4,26 @@
 	import { Button, Input, Label } from 'flowbite-svelte';
 	import { EnvelopeSolid } from 'flowbite-svelte-icons';
 	import { superForm, type FormResult } from 'sveltekit-superforms/client';
-	export let data;
+	export let data: any;
 
-	const { form, errors, constraints, enhance } = superForm(data.inviteUserForm.data, {
-		onResult(event) {
-			const result = event.result as FormResult<any>;
-			result.type === 'success' ? ($hideDrawer = !$hideDrawer) : ($hideDrawer = false);
+	const { form, errors, constraints, enhance } = superForm(
+		data === null ? {} : data.inviteUserForm.data,
+		{
+			onResult(event) {
+				const result = event.result as FormResult<any>;
+				result.type === 'success' ? ($hideDrawer = !$hideDrawer) : ($hideDrawer = false);
+			}
 		}
-	});
+	);
 </script>
 
-<form use:enhance novalidate method="POST" class="flex flex-col space-y-2">
+<form
+	use:enhance
+	novalidate
+	method="POST"
+	class="flex flex-col space-y-2"
+	action="/dashboard/users?/inviteUser"
+>
 	<div class="w-full">
 		<Label for="email">Email</Label>
 		<Input id="email" type="email" name="email" bind:value={$form.email} {...$constraints.email}>

@@ -74,6 +74,19 @@ export const sendVerificationEmail = async (email: string, token: string) => {
 	});
 };
 
+export const sendInviteEmail = async (email: string, token: string, workspaceTitle: string) => {
+	const subject = `Invite to ${APP_NAME}`;
+	const html = `
+		  <p>Dear ${email}!</p>
+		  <br>
+		  <p>You have been invited to workspace: ${workspaceTitle} at ${APP_NAME}!</p>
+		  <p>Click the link to accept the invite: <a href="${BASE_URL}/accept-invite-${token}">Accept</a></p>
+	  `;
+	sendEmail(email, subject, html).catch((error) => {
+		console.error(error.message);
+	});
+};
+
 // Send an email to welcome the new user
 export const sendWelcomeEmail = async (email: string) => {
 	const subject = `Welcome to ${APP_NAME}`;
