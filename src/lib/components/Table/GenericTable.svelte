@@ -117,6 +117,7 @@
 				</span>
 			</TableHeadCell>
 		{/each}
+		<TableHeadCell padding="px-4 py-3">Actions</TableHeadCell>
 	</TableHead>
 	<TableBody>
 		{#if $sortItems.length > 0}
@@ -126,6 +127,8 @@
 						<TableBodyCell tdClass="px-4 py-3">
 							{#if column === 'id'}
 								{item.id.slice(0, 6)}
+							{:else if column === 'createdAt'}
+								{new Date(item.createdAt).toLocaleDateString()}
 							{:else}
 								{item[column]}
 							{/if}
