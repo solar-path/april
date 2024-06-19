@@ -1,0 +1,14 @@
+[
+	{ "title": "Super Admin" },
+	{ "title": "Workspace admin" },
+	{ "title": "Region admin" },
+	{ "title": "Company admin" },
+	{ "title": "Department admin" },
+	{ "title": "Position admin" },
+	{ "title": "Head of internal control" },
+	{ "title": "Internal control manager" },
+	{ "title": "Process owner" },
+	{ "title": "Control owner" },
+	{ "title": "Risk owner" },
+	{ "title": "User" }
+]
