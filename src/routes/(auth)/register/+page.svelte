@@ -47,7 +47,7 @@
 				<DisplayFormErrors errors={$errors.email} />
 			</div>
 			<div>
-				<Label for="name">First name</Label>
+				<Label for="name">Name</Label>
 				<Input id="name" type="text" name="name" bind:value={$form.name} {...$constraints.name} />
 
 				<DisplayFormErrors errors={$errors.name} />
@@ -100,7 +100,7 @@
 			<Button type="submit" class="w-full">Register</Button>
 		</form>
 
-		<div class="mt-4">
+		<div>
 			<p>
 				Have an account? <A href="/login">Sign in</A>
 			</p>

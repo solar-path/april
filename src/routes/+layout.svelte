@@ -37,6 +37,10 @@
 
 	export let data: LayoutData;
 
+	let fullname = data.currentUser?.name + ' ' + data.currentUser?.surname;
+
+	console.log('+layout.svelte :: data', data);
+
 	inject({ mode: dev ? 'development' : 'production' });
 </script>
 
@@ -60,6 +64,7 @@
 				<Avatar id="avatar-menu" />
 				<Dropdown placement="bottom" triggeredBy="#avatar-menu">
 					<DropdownHeader>
+						<span class="block text-sm italic text-gray-900">{fullname} </span>
 						<span class="block truncate text-sm font-medium">{data.currentUser.email}</span>
 					</DropdownHeader>
 
@@ -81,7 +86,7 @@
 		</NavUl>
 	</Navbar>
 
-	<main class="flex-grow p-32">
+	<main class="flex-grow p-16">
 		<slot />
 	</main>
 
@@ -108,7 +113,7 @@
 				<div>
 					<h2 class="mb-6 text-sm font-semibold uppercase text-gray-900 dark:text-white">About</h2>
 					<FooterLinkGroup>
-						<FooterLink liClass="mb-4" href="/about">About company</FooterLink>
+						<FooterLink liClass="mb-4" href="/about">Company</FooterLink>
 					</FooterLinkGroup>
 				</div>
 				<div>
