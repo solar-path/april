@@ -18,6 +18,8 @@ import companyData from './data/companies.json';
 import departmentData from './data/departments.json';
 import positionData from './data/positions.json';
 //
+import roleData from './data/rbac_roles.json';
+import permissionData from './data/rbac_permissions.json';
 import usersData from './data/users.json';
 import blogData from './data/blog.json';
 import countryData from './data/countries.json';
@@ -28,6 +30,7 @@ import processData from './data/process.json';
 import { Argon2id } from 'oslo/password';
 import { client, db } from './db';
 import { addressTable } from './schema/address';
+import { permissionTable, roleTable } from './schema/rbac';
 
 interface User {
 	id: string;
@@ -47,6 +50,8 @@ const positionList: any[] = [];
 const riskList: any[] = [];
 const controlList: any[] = [];
 const processList: any[] = [];
+const roleList: any[] = [];
+const permissionList: any[] = [];
 
 /* Entry point
  *  returns <void>
@@ -69,6 +74,10 @@ const main = async () => {
 		await seedRisk(userList[0]);
 		await seedControl(userList[0]);
 		await seedProcess(userList[0], processData);
+
+		//RBAC
+		await seedRoles(roleData);
+		await seedPermissions(permissionData);
 		console.log('data seeding complete');
 		await client.end();
 	} catch (error) {
@@ -442,6 +451,50 @@ const seedProcess = async (user: User, processData: any[]) => {
 	} else {
 		processList.push(...processes);
 		console.log('processes already seeded');
+	}
+};
+
+const seedRoles = async (roleData: any[]) => {
+	const roles = await db.select().from(roleTable);
+	if (roles.length === 0) {
+		console.log('start seed roles');
+		for (const role of roleData) {
+			const newRole = await db
+				.insert(roleTable)
+				.values({
+					id: crypto.randomUUID(),
+					title: role.title,
+					description: role.description
+				})
+				.returning();
+			roleList.push(newRole[0]);
+		}
+		console.log('roles seed completed');
+	} else {
+		roleList.push(...roles);
+		console.log('roles already seeded');
+	}
+};
+
+const seedPermissions = async (permissionData: any[]) => {
+	const permissions = await db.select().from(permissionTable);
+	if (permissions.length === 0) {
+		console.log('start seed permissions');
+		for (const permission of permissionData) {
+			const newPermission = await db
+				.insert(permissionTable)
+				.values({
+					id: crypto.randomUUID(),
+					title: permission.title,
+					description: permission.description
+				})
+				.returning();
+			permissionList.push(newPermission[0]);
+		}
+		console.log('permissions seed completed');
+	} else {
+		permissionList.push(...permissions);
+		console.log('permissions already seeded');
 	}
 };
 

@@ -24,9 +24,19 @@
 			href: '/dashboard/entity'
 		},
 		{
-			label: 'Users',
-			href: '/dashboard/users'
+			label: 'User management',
+			children: [
+				{
+					label: 'Access control',
+					href: '/dashboard/rbac'
+				},
+				{
+					label: 'Users',
+					href: '/dashboard/users'
+				}
+			]
 		},
+
 		{
 			label: 'Internal control',
 			href: '/dashboard/IC',
