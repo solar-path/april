@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
 	import { onMount } from 'svelte';
 	import ApexCharts from 'apexcharts';
 	import { page } from '$app/stores';
@@ -29,4 +29,5 @@
 	});
 </script>
 
-<div id="riskKPI" class="w-1/2"></div>
+<div id="riskKPI" class="w-1/2"></div> -->
+Internal control Dashboard page

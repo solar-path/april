@@ -1,7 +1,8 @@
-<script>
+<script lang="ts">
 	import {
 		Sidebar,
 		SidebarDropdownItem,
+		SidebarDropdownWrapper,
 		SidebarGroup,
 		SidebarItem,
 		SidebarWrapper
@@ -9,38 +10,59 @@
 
 	import { page } from '$app/stores';
 	import PathFinder from '$lib/components/Breadcrumb/PathFinder.svelte';
+	import {
+		BuildingOutline,
+		ChartPieOutline,
+		InboxOutline,
+		TableColumnOutline,
+		UsersGroupOutline
+	} from 'flowbite-svelte-icons';
 
-	const modules = [
+	interface Lines {
+		label: string;
+		href: string;
+		icon?: any;
+		children?: Lines[];
+	}
+
+	const lines: Lines[] = [
 		{
 			label: 'Tasks',
-			href: '/dashboard/tasks'
+			href: '/dashboard/tasks',
+			icon: InboxOutline
 		},
 		{
 			label: 'Dashboard',
-			href: '/dashboard'
+			href: '/dashboard',
+			icon: ChartPieOutline
 		},
 		{
 			label: 'Business structure',
-			href: '/dashboard/entity'
+			href: '/dashboard/entity',
+			icon: BuildingOutline
 		},
 		{
-			label: 'User management',
+			label: 'Users management',
+			href: '/dashboard/users',
+			icon: UsersGroupOutline,
+
 			children: [
-				{
-					label: 'Access control',
-					href: '/dashboard/rbac'
-				},
 				{
 					label: 'Users',
 					href: '/dashboard/users'
+				},
+				{
+					label: 'Access control',
+					href: '/dashboard/rbac'
 				}
 			]
 		},
-
 		{
 			label: 'Internal control',
-			href: '/dashboard/IC',
+			href: '',
+			icon: TableColumnOutline,
 			children: [
+				{ label: 'Dashboard', href: '/dashboard/IC' },
 				{
 					label: 'Risks',
 					href: '/dashboard/IC/risks'
@@ -60,23 +82,45 @@
 			]
 		}
 	];
+
+	$: activeUrl = $page.url.pathname;
 </script>
 
 <div class="flex flex-row">
 	<div class="w-1/5">
-		<Sidebar class="w-full">
+		<Sidebar class="w-full" {activeUrl}>
 			<SidebarWrapper class="bg-white">
 				<SidebarGroup>
-					{#each modules as module}
-						<SidebarItem
-							class="hover:bg-red-700 hover:text-white"
-							label={module.label}
-							href={module.href}
-						/>
-						{#if module.children}
-							{#each module.children as child}
-								<SidebarDropdownItem label={child.label} href={child.href} />
-							{/each}
+					{#each lines as item}
+						{#if item.children && item.children.length > 0}
+							<SidebarDropdownWrapper label={item.label} class="hover:bg-red-700 hover:text-white">
+								<svelte:fragment slot="icon">
+									<svelte:component
+										this={item.icon}
+										class="h-6 w-6 text-gray-500 transition duration-75 group-hover:text-white"
+									/>
+								</svelte:fragment>
+								{#each item.children as child}
+									<SidebarDropdownItem
+										label={child.label}
+										href={child.href}
+										class="hover:bg-red-700 hover:text-white"
+									/>
+								{/each}
+							</SidebarDropdownWrapper>
+						{:else}
+							<SidebarItem
+								class="hover:bg-red-700 hover:text-white"
+								label={item.label}
+								href={item.href}
+							>
+								<svelte:fragment slot="icon">
+									<svelte:component
+										this={item.icon}
+										class="h-6 w-6 text-gray-500 transition duration-75 group-hover:text-white"
+									/>
+								</svelte:fragment>
+							</SidebarItem>
 						{/if}
 					{/each}
 				</SidebarGroup>
