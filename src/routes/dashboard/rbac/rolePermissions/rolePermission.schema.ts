@@ -5,7 +5,7 @@ import { z } from 'zod';
 const roles = await db.select().from(roleTable);
 const permissions = await db.select().from(permissionTable);
 
-export const rolePermissionSchema = {
+export const rolePermissionSchema = z.object({
 	id: z.string().optional(),
 	roleId: z.string(),
 	role: z
@@ -29,7 +29,7 @@ export const rolePermissionSchema = {
 			},
 			{ message: 'Invalid permission' }
 		)
-};
+});
 
 export const deleteRolePermissionSchema = z.object({
 	id: z.string().min(1, { message: 'Required field' })

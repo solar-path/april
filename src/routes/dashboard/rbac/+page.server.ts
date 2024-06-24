@@ -6,47 +6,24 @@ import {
 	userRoleTable
 } from '$lib/database/schema/rbac';
 import { userTable } from '$lib/database/schema/users';
-import type { Actions } from '@sveltejs/kit';
-import { fail, superValidate } from 'sveltekit-superforms';
+import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
+import { roleSchema } from './roles/role.schema';
+import { permissionSchema } from './permissions/permission.schema';
 
 export const load = async () => {
 	return {
+		// permissions
 		permissionList: await db.select().from(permissionTable),
+		permissionForm: await superValidate(zod(permissionSchema)),
+		// roles
 		roleList: await db.select().from(roleTable),
+		roleForm: await superValidate(zod(roleSchema)),
+		// users
 		userList: await db.select().from(userTable),
+		// user roles
 		userRoleList: await db.select().from(userRoleTable),
+		// role permissions
 		rolePermissionList: await db.select().from(rolePermissionTable)
 	};
-};
-
-export const actions: Actions = {
-	// ROLES
-	createRole: async (event) => {
-		const form = await superValidate(await event.request.formData(), zod());
-		if (!form.valid) {
-			return fail(400, { form });
-		}
-		return { form };
-	},
-	updateRole: async (event) => {
-		const form = await superValidate(await event.request.formData(), zod());
-		if (!form.valid) {
-			return fail(400, { form });
-		}
-		return { form };
-	},
-	deleteRole: async (event) => {
-		const form = await superValidate(await event.request.formData(), zod());
-		if (!form.valid) {
-			return fail(400, { form });
-		}
-		return { form };
-	}
-
-	// PERMISSIONS
-
-	// ROLES - PERMISIONS
-
-	// USER - ROLES
 };

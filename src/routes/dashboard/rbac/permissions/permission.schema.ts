@@ -1,11 +1,11 @@
 import { z } from 'zod';
 
-export const permissionSchema = {
+export const permissionSchema = z.object({
 	id: z.string().optional(),
-	title: z.string().min(1, { message: 'Required field' }),
+	title: z.string(),
 	description: z.string().optional()
-};
+});
 
 export const deletePermissionSchema = z.object({
-	id: z.string().min(1, { message: 'Required field' })
+	id: z.string()
 });
