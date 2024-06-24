@@ -42,8 +42,8 @@
 	enctype="multipart/form-data"
 	method="POST"
 	action={data.item && data.item !== null
-		? '/dashboard/rbac/permissions?/updatePermission'
-		: '/dashboard/rbac/permissions?/createPermission'}
+		? '/dashboard/rbac/roles?/updateRole'
+		: '/dashboard/rbac/roles?/createRole'}
 	class="flex flex-col space-y-2"
 >
 	<input type="hidden" name="id" bind:value={$form.id} />

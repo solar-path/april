@@ -13,7 +13,6 @@
 	import UserRoleCard from './userRoles/userRoles.card.svelte';
 
 	export let data: any;
-	console.log('rbac :: data => ', data);
 </script>
 
 <div>
