@@ -25,6 +25,8 @@ export const actions: Actions = {
 	createRole: async (event) => {
 		const form = await superValidate(await event.request.formData(), zod());
 		if (!form.valid) {
+			console.log('createRole :: form error => ', form);
+
 			return fail(400, { form });
 		}
 		return { form };
@@ -32,6 +34,8 @@ export const actions: Actions = {
 	updateRole: async (event) => {
 		const form = await superValidate(await event.request.formData(), zod());
 		if (!form.valid) {
+			console.log('updateRole :: form error => ', form);
+
 			return fail(400, { form });
 		}
 		return { form };
@@ -39,6 +43,7 @@ export const actions: Actions = {
 	deleteRole: async (event) => {
 		const form = await superValidate(await event.request.formData(), zod());
 		if (!form.valid) {
+			console.log('deleteRole :: form error => ', form);
 			return fail(400, { form });
 		}
 		return { form };

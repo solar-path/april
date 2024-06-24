@@ -22,23 +22,26 @@ export const load = async () => {
 
 export const actions: Actions = {
 	// ROLES
-	createRole: async (event) => {
+	createRolePermission: async (event) => {
 		const form = await superValidate(await event.request.formData(), zod());
 		if (!form.valid) {
+			console.log('createRolePermission :: form error => ', form);
 			return fail(400, { form });
 		}
 		return { form };
 	},
-	updateRole: async (event) => {
+	updateRolePermission: async (event) => {
 		const form = await superValidate(await event.request.formData(), zod());
 		if (!form.valid) {
+			console.log('updateRolePermission :: form error => ', form);
 			return fail(400, { form });
 		}
 		return { form };
 	},
-	deleteRole: async (event) => {
+	deleteRolePermission: async (event) => {
 		const form = await superValidate(await event.request.formData(), zod());
 		if (!form.valid) {
+			console.log('deleteRolePermission :: form error => ', form);
 			return fail(400, { form });
 		}
 		return { form };
