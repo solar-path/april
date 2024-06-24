@@ -15,7 +15,7 @@
 	updateItemLabel="Edit permission"
 	formName={Permission}
 	list={permissionList}
-	deleteURL="/dashboard/IC/risks?/deleteRisk"
+	deleteURL="/dashboard/rbac/permissions?/deletePermission"
 	{data}
 	{reports}
 	columns={['id', 'title', 'description']}
