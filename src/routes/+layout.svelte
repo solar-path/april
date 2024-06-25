@@ -28,6 +28,7 @@
 	import { inject } from '@vercel/analytics';
 	import { dev } from '$app/environment';
 	import {
+		ChevronDownOutline,
 		DiscordSolid,
 		FacebookSolid,
 		GithubSolid,
@@ -58,7 +59,19 @@
 				{#if data.currentUser.email === 'itgroup.luck@gmail.com'}
 					<NavLi href="/admin">Admin</NavLi>
 				{/if}
-				<NavLi href="/dashboard">Dashboard</NavLi>
+
+				{#if data.workspaceList.length > 0}
+					<NavLi class="cursor-pointer text-primary-800">
+						Select workspace<ChevronDownOutline class="ms-2 inline h-6 w-6 text-primary-800" />
+					</NavLi>
+					<Dropdown class="z-20 w-44">
+						{#each data.workspaceList as workspace}
+							<DropdownItem href={`/${workspace.slug}`}>{workspace.title}</DropdownItem>
+						{/each}
+					</Dropdown>
+				{:else}
+					<NavLi href={`/${data.workspaceList[0].slug}`}>{data.workspaceList[0].title}</NavLi>
+				{/if}
 				<Avatar id="avatar-menu" />
 				<Dropdown placement="bottom" triggeredBy="#avatar-menu">
 					<DropdownHeader>
@@ -87,20 +100,6 @@
 	<main class="flex-grow p-16">
 		<slot />
 	</main>
-
-	<!-- <Footer footerType="logo">
-		<div class="sm:flex sm:items-center sm:justify-between">
-			<FooterCopyright href="/" by="Aneko" />
-
-			<FooterLinkGroup ulClass="flex flex-wrap items-center mb-6 text-sm text-gray-500 sm:mb-0">
-				<FooterLink>
-					<button on:click={() => fillDrawer('Contact Us', Contact, data)}> Contact Us </button>
-				</FooterLink>
-				<FooterLink href="/terms">Terms & conditions</FooterLink>
-				<FooterLink href="/privacy">Privacy Policy</FooterLink>
-			</FooterLinkGroup>
-		</div>
-	</Footer> -->
 
 	<Footer footerType="socialmedia">
 		<div class="md:flex md:justify-between">
