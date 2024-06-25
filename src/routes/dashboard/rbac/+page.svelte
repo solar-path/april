@@ -4,14 +4,15 @@
 		UserCircleSolid,
 		GridSolid,
 		AdjustmentsVerticalSolid,
-		ClipboardSolid
+		CodePullRequestSolid,
+		CodeMergeSolid
 	} from 'flowbite-svelte-icons';
 
 	import RoleCard from './roles/role.card.svelte';
 	import PermissionCard from './permissions/permission.card.svelte';
 	import RolePermissionCard from './rolePermissions/rolePermission.card.svelte';
 	import UserRoleCard from './userRoles/userRoles.card.svelte';
-
+	import SodCard from './sod/sod.card.svelte';
 	export let data: any;
 </script>
 
@@ -19,7 +20,7 @@
 	<Heading tag="h2">Access control</Heading>
 </div>
 
-<Tabs tabStyle="underline">
+<Tabs tabStyle="underline" class="bg-white">
 	<TabItem open>
 		<div slot="title" class="flex items-center gap-2">
 			<UserCircleSolid size="md" />
@@ -36,16 +37,23 @@
 	</TabItem>
 	<TabItem>
 		<div slot="title" class="flex items-center gap-2">
-			<AdjustmentsVerticalSolid size="md" />
-			Role Permissions
+			<CodePullRequestSolid size="md" />
+			Role Permissions mapping
 		</div>
 		<RolePermissionCard {data} />
 	</TabItem>
 	<TabItem>
 		<div slot="title" class="flex items-center gap-2">
-			<ClipboardSolid size="md" />
-			User roles
+			<CodeMergeSolid size="md" />
+			User roles mapping
 		</div>
 		<UserRoleCard {data} />
+	</TabItem>
+	<TabItem>
+		<div slot="title" class="flex items-center gap-2">
+			<AdjustmentsVerticalSolid size="md" />
+			SoD
+		</div>
+		<SodCard {data} />
 	</TabItem>
 </Tabs>

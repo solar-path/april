@@ -19,5 +19,5 @@
 	deleteURL="/dashboard/rbac/rolePermissions?/deleteRolePermission"
 	{data}
 	{reports}
-	columns={['id', 'roleId', 'permissionId']}
+	columns={['id', 'role', 'permission']}
 />
