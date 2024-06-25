@@ -1,6 +1,7 @@
 <script lang="ts">
-	import { Button } from 'flowbite-svelte';
+	import { Button, Dropdown, DropdownItem } from 'flowbite-svelte';
 	import type { PageData } from './$types';
+	import { ChevronDownOutline } from 'flowbite-svelte-icons';
 	export let data: PageData;
 </script>
 
@@ -29,7 +30,20 @@
 					increase efficiency, and ultimately, achieve greater success.
 				</p>
 				{#if data.email}
-					<Button href="/dashboard">Get started</Button>
+					{#if data.workspaceList.length > 0}
+						<Button>
+							Select workspace to continue
+							<ChevronDownOutline class="ms-2 h-6 w-6 text-white" />
+						</Button>
+
+						<Dropdown>
+							{#each data.workspaceList as workspace}
+								<DropdownItem href={`/${workspace.slug}`}>{workspace.title}</DropdownItem>
+							{/each}
+						</Dropdown>
+					{:else}
+						<Button href={`/${data.workspaceList[0].slug}`}>Get started</Button>
+					{/if}
 				{:else}
 					<Button href="/login">Sign in</Button>
 				{/if}
