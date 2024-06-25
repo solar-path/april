@@ -7,6 +7,7 @@ import { eq } from 'drizzle-orm';
 import { Argon2id } from 'oslo/password';
 import { lucia } from '$lib/auth/auth';
 import { db } from '$lib/database/db';
+import { workspaceTable } from '$lib/database/schema/entity';
 
 export const load = async () => {
 	return {
@@ -25,10 +26,18 @@ export const actions: Actions = {
 
 		// Check if user exists
 		const existingUser = await db
-			.select()
+			.select({
+				id: userTable.id,
+				email: userTable.email,
+				password: userTable.password,
+				activated: userTable.activated,
+				workspace: workspaceTable.slug
+			})
 			.from(userTable)
-			.where(eq(userTable.email, form.data.email));
+			.where(eq(userTable.email, form.data.email))
+			.leftJoin(workspaceTable, eq(workspaceTable.author, userTable.id));
 
+		console.log('login/+page.server.ts :: existingUser => ', existingUser);
 		// If user does not exist, return error
 		if (!existingUser[0]) {
 			return setError(form, 'email', 'User not registered');
@@ -57,6 +66,7 @@ export const actions: Actions = {
 			...sessionCookie.attributes
 		});
 
-		redirect(302, '/dashboard');
+		// redirect(302, '/dashboard');
+		redirect(302, `/${existingUser[0].workspace}`);
 	}
 };

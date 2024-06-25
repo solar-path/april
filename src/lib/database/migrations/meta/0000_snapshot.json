@@ -1,5 +1,5 @@
 {
-  "id": "f725d9e4-854e-4899-a117-5282ed682513",
+  "id": "352a25e4-5b95-4820-ad58-be78b3f820fd",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
@@ -816,6 +816,12 @@
           "primaryKey": false,
           "notNull": true
         },
+        "slug": {
+          "name": "slug",
+          "type": "varchar(250)",
+          "primaryKey": false,
+          "notNull": true
+        },
         "description": {
           "name": "description",
           "type": "text",
@@ -860,7 +866,15 @@
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {
+        "structure_workspaces_slug_unique": {
+          "name": "structure_workspaces_slug_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "slug"
+          ]
+        }
+      }
     },
     "industry": {
       "name": "industry",
@@ -980,6 +994,313 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
+    "rbac_permission": {
+      "name": "rbac_permission",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(50)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "title": {
+          "name": "title",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "rbac_permission_title_unique": {
+          "name": "rbac_permission_title_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "title"
+          ]
+        }
+      }
+    },
+    "rbac_role_permission": {
+      "name": "rbac_role_permission",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(50)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "roleId": {
+          "name": "roleId",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "permissionId": {
+          "name": "permissionId",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "rbac_role_permission_roleId_rbac_role_id_fk": {
+          "name": "rbac_role_permission_roleId_rbac_role_id_fk",
+          "tableFrom": "rbac_role_permission",
+          "tableTo": "rbac_role",
+          "columnsFrom": [
+            "roleId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "rbac_role_permission_permissionId_rbac_permission_id_fk": {
+          "name": "rbac_role_permission_permissionId_rbac_permission_id_fk",
+          "tableFrom": "rbac_role_permission",
+          "tableTo": "rbac_permission",
+          "columnsFrom": [
+            "permissionId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "rbac_role": {
+      "name": "rbac_role",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(50)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "title": {
+          "name": "title",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "rbac_role_title_unique": {
+          "name": "rbac_role_title_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "title"
+          ]
+        }
+      }
+    },
+    "rbac_user_permission": {
+      "name": "rbac_user_permission",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(50)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "userId": {
+          "name": "userId",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "permissionId": {
+          "name": "permissionId",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "rbac_user_permission_userId_users_id_fk": {
+          "name": "rbac_user_permission_userId_users_id_fk",
+          "tableFrom": "rbac_user_permission",
+          "tableTo": "users",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "rbac_user_permission_permissionId_rbac_permission_id_fk": {
+          "name": "rbac_user_permission_permissionId_rbac_permission_id_fk",
+          "tableFrom": "rbac_user_permission",
+          "tableTo": "rbac_permission",
+          "columnsFrom": [
+            "permissionId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "rbac_user_role": {
+      "name": "rbac_user_role",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(50)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "userId": {
+          "name": "userId",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "roleId": {
+          "name": "roleId",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "rbac_user_role_userId_users_id_fk": {
+          "name": "rbac_user_role_userId_users_id_fk",
+          "tableFrom": "rbac_user_role",
+          "tableTo": "users",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "rbac_user_role_roleId_rbac_role_id_fk": {
+          "name": "rbac_user_role_roleId_rbac_role_id_fk",
+          "tableFrom": "rbac_user_role",
+          "tableTo": "rbac_role",
+          "columnsFrom": [
+            "roleId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
     "rcm_control": {
       "name": "rcm_control",
       "schema": "",
@@ -1052,8 +1373,8 @@
           "primaryKey": true,
           "notNull": true
         },
-        "entityId": {
-          "name": "entityId",
+        "companyId": {
+          "name": "companyId",
           "type": "varchar(50)",
           "primaryKey": false,
           "notNull": false
@@ -1100,8 +1421,8 @@
           "primaryKey": false,
           "notNull": true
         },
-        "controlOwner": {
-          "name": "controlOwner",
+        "controlOwnerId": {
+          "name": "controlOwnerId",
           "type": "varchar(50)",
           "primaryKey": false,
           "notNull": false
@@ -1129,12 +1450,12 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "rcm_Matrix_entityId_structure_companies_id_fk": {
-          "name": "rcm_Matrix_entityId_structure_companies_id_fk",
+        "rcm_Matrix_companyId_structure_companies_id_fk": {
+          "name": "rcm_Matrix_companyId_structure_companies_id_fk",
           "tableFrom": "rcm_Matrix",
           "tableTo": "structure_companies",
           "columnsFrom": [
-            "entityId"
+            "companyId"
           ],
           "columnsTo": [
             "id"
@@ -1181,12 +1502,12 @@
           "onDelete": "no action",
           "onUpdate": "no action"
         },
-        "rcm_Matrix_controlOwner_structure_positions_id_fk": {
-          "name": "rcm_Matrix_controlOwner_structure_positions_id_fk",
+        "rcm_Matrix_controlOwnerId_structure_positions_id_fk": {
+          "name": "rcm_Matrix_controlOwnerId_structure_positions_id_fk",
           "tableFrom": "rcm_Matrix",
           "tableTo": "structure_positions",
           "columnsFrom": [
-            "controlOwner"
+            "controlOwnerId"
           ],
           "columnsTo": [
             "id"
@@ -1438,6 +1759,18 @@
           "primaryKey": false,
           "notNull": true,
           "default": "now()"
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(40)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "surname": {
+          "name": "surname",
+          "type": "varchar(40)",
+          "primaryKey": false,
+          "notNull": false
         }
       },
       "indexes": {},

@@ -5,43 +5,8 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1718011539238,
-      "tag": "0000_easy_anthem",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1718357791794,
-      "tag": "0001_aromatic_firebird",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "5",
-      "when": 1718359385068,
-      "tag": "0002_worthless_viper",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "5",
-      "when": 1718630256599,
-      "tag": "0003_fantastic_loners",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "5",
-      "when": 1718800341440,
-      "tag": "0004_panoramic_bloodstorm",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "5",
-      "when": 1718860015402,
-      "tag": "0005_rainy_cassandra_nova",
+      "when": 1719308929744,
+      "tag": "0000_lonely_exodus",
       "breakpoints": true
     }
   ]

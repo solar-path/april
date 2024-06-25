@@ -9,6 +9,7 @@ import { Argon2id } from 'oslo/password';
 import { sendVerificationEmail } from '$lib/email/mail.server';
 import { redirect } from '@sveltejs/kit';
 import { workspaceTable } from '$lib/database/schema/entity';
+import { slugify } from '$lib/helpers/slugify';
 
 export const load = async () => {
 	return {
@@ -54,6 +55,7 @@ export const actions: Actions = {
 			await db.insert(workspaceTable).values({
 				id: crypto.randomUUID(),
 				title: form.data.workspace.trim() as string,
+				slug: await slugify(form.data.workspace.trim() as string),
 				author: newUser[0].id
 			});
 

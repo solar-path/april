@@ -137,10 +137,12 @@ CREATE TABLE IF NOT EXISTS "structure_regions" (
 CREATE TABLE IF NOT EXISTS "structure_workspaces" (
 	"id" varchar(50) PRIMARY KEY NOT NULL,
 	"title" varchar(250) NOT NULL,
+	"slug" varchar(250) NOT NULL,
 	"description" text,
 	"author" varchar(50) NOT NULL,
 	"createdAt" timestamp DEFAULT now() NOT NULL,
-	"updatedAt" timestamp DEFAULT now() NOT NULL
+	"updatedAt" timestamp DEFAULT now() NOT NULL,
+	CONSTRAINT "structure_workspaces_slug_unique" UNIQUE("slug")
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "industry" (
@@ -162,6 +164,48 @@ CREATE TABLE IF NOT EXISTS "inquiries" (
 	"updatedAt" timestamp DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "rbac_permission" (
+	"id" varchar(50) PRIMARY KEY NOT NULL,
+	"title" varchar(50) NOT NULL,
+	"description" text,
+	"createdAt" timestamp DEFAULT now() NOT NULL,
+	"updatedAt" timestamp DEFAULT now() NOT NULL,
+	CONSTRAINT "rbac_permission_title_unique" UNIQUE("title")
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "rbac_role_permission" (
+	"id" varchar(50) PRIMARY KEY NOT NULL,
+	"roleId" varchar(50),
+	"permissionId" varchar(50),
+	"createdAt" timestamp DEFAULT now() NOT NULL,
+	"updatedAt" timestamp DEFAULT now() NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "rbac_role" (
+	"id" varchar(50) PRIMARY KEY NOT NULL,
+	"title" varchar(50) NOT NULL,
+	"description" text,
+	"createdAt" timestamp DEFAULT now() NOT NULL,
+	"updatedAt" timestamp DEFAULT now() NOT NULL,
+	CONSTRAINT "rbac_role_title_unique" UNIQUE("title")
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "rbac_user_permission" (
+	"id" varchar(50) PRIMARY KEY NOT NULL,
+	"userId" varchar(50),
+	"permissionId" varchar(50),
+	"createdAt" timestamp DEFAULT now() NOT NULL,
+	"updatedAt" timestamp DEFAULT now() NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "rbac_user_role" (
+	"id" varchar(50) PRIMARY KEY NOT NULL,
+	"userId" varchar(50),
+	"roleId" varchar(50),
+	"createdAt" timestamp DEFAULT now() NOT NULL,
+	"updatedAt" timestamp DEFAULT now() NOT NULL
+);
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "rcm_control" (
 	"id" varchar(50) PRIMARY KEY NOT NULL,
 	"title" varchar(200),
@@ -173,7 +217,7 @@ CREATE TABLE IF NOT EXISTS "rcm_control" (
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "rcm_Matrix" (
 	"id" varchar(50) PRIMARY KEY NOT NULL,
-	"entityId" varchar(50),
+	"companyId" varchar(50),
 	"processId" varchar(50),
 	"riskId" varchar(50),
 	"controlId" varchar(50),
@@ -181,7 +225,7 @@ CREATE TABLE IF NOT EXISTS "rcm_Matrix" (
 	"frequency_type" "frequency_type" NOT NULL,
 	"control_type" "control_type" NOT NULL,
 	"execution_type" "execution_type" NOT NULL,
-	"controlOwner" varchar(50),
+	"controlOwnerId" varchar(50),
 	"author" varchar(50) NOT NULL,
 	"createdAt" timestamp DEFAULT now() NOT NULL,
 	"updatedAt" timestamp DEFAULT now() NOT NULL
@@ -219,6 +263,8 @@ CREATE TABLE IF NOT EXISTS "users" (
 	"verified" boolean DEFAULT false,
 	"createdAt" timestamp DEFAULT now() NOT NULL,
 	"updatedAt" timestamp DEFAULT now() NOT NULL,
+	"name" varchar(40),
+	"surname" varchar(40),
 	CONSTRAINT "users_email_unique" UNIQUE("email")
 );
 --> statement-breakpoint
@@ -343,13 +389,49 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
+ ALTER TABLE "rbac_role_permission" ADD CONSTRAINT "rbac_role_permission_roleId_rbac_role_id_fk" FOREIGN KEY ("roleId") REFERENCES "rbac_role"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "rbac_role_permission" ADD CONSTRAINT "rbac_role_permission_permissionId_rbac_permission_id_fk" FOREIGN KEY ("permissionId") REFERENCES "rbac_permission"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "rbac_user_permission" ADD CONSTRAINT "rbac_user_permission_userId_users_id_fk" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "rbac_user_permission" ADD CONSTRAINT "rbac_user_permission_permissionId_rbac_permission_id_fk" FOREIGN KEY ("permissionId") REFERENCES "rbac_permission"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "rbac_user_role" ADD CONSTRAINT "rbac_user_role_userId_users_id_fk" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "rbac_user_role" ADD CONSTRAINT "rbac_user_role_roleId_rbac_role_id_fk" FOREIGN KEY ("roleId") REFERENCES "rbac_role"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
  ALTER TABLE "rcm_control" ADD CONSTRAINT "rcm_control_author_users_id_fk" FOREIGN KEY ("author") REFERENCES "users"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "rcm_Matrix" ADD CONSTRAINT "rcm_Matrix_entityId_structure_companies_id_fk" FOREIGN KEY ("entityId") REFERENCES "structure_companies"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "rcm_Matrix" ADD CONSTRAINT "rcm_Matrix_companyId_structure_companies_id_fk" FOREIGN KEY ("companyId") REFERENCES "structure_companies"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -373,7 +455,7 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "rcm_Matrix" ADD CONSTRAINT "rcm_Matrix_controlOwner_structure_positions_id_fk" FOREIGN KEY ("controlOwner") REFERENCES "structure_positions"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "rcm_Matrix" ADD CONSTRAINT "rcm_Matrix_controlOwnerId_structure_positions_id_fk" FOREIGN KEY ("controlOwnerId") REFERENCES "structure_positions"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;

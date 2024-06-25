@@ -9,6 +9,7 @@ export const workspaceTable = pgTable('structure_workspaces', {
 		length: 50
 	}).primaryKey(),
 	title: varchar('title', { length: 250 }).notNull(),
+	slug: varchar('slug', { length: 250 }).notNull().unique(),
 	description: text('description'),
 	author: varchar('author', { length: 50 })
 		.notNull()
