@@ -35,15 +35,18 @@
 		FacebookSolid,
 		GithubSolid,
 		LinkedinSolid,
+		PlusOutline,
 		SearchOutline,
 		TwitterSolid
 	} from 'flowbite-svelte-icons';
+	import Workspace from './dashboard/entity/Forms/Workspace.form.svelte';
 
 	export let data: LayoutData;
 
 	let fullname = data.currentUser?.name + ' ' + data.currentUser?.surname;
 
 	inject({ mode: dev ? 'development' : 'production' });
+	console.log('+layout.svelte :: data => ', data);
 </script>
 
 <div class="flex min-h-screen flex-col justify-between">
@@ -60,7 +63,6 @@
 					><SearchOutline slot="left" class="h-4 w-4" />
 				</Input>
 				<Avatar id="avatar-menu" />
-				<NavHamburger class1="w-full md:flex md:w-auto md:order-1" />
 
 				<Dropdown placement="bottom" triggeredBy="#avatar-menu">
 					<DropdownHeader>
@@ -79,6 +81,7 @@
 				</Dropdown>
 			</div>
 		{/if}
+		<NavHamburger />
 		<NavUl>
 			<NavLi href="/pricing">Pricing</NavLi>
 			<NavLi href="/learn">Learn & Support</NavLi>
@@ -89,15 +92,28 @@
 
 				{#if data.workspaceList.length > 0}
 					<NavLi class="cursor-pointer text-primary-800">
-						Select workspace<ChevronDownOutline class="ms-2 inline h-6 w-6 text-primary-800" />
+						Workspace: {data.currentWorkspace}<ChevronDownOutline
+							class="ms-2 inline h-6 w-6 text-primary-800"
+						/>
 					</NavLi>
 					<Dropdown class="z-20 w-44">
-						{#each data.workspaceList as workspace}
+						{#each data.workspaceList.filter((workspace) => workspace.slug !== data.currentWorkspace) as workspace}
 							<DropdownItem href={`/${workspace.slug}`}>{workspace.title}</DropdownItem>
 						{/each}
+						<DropdownItem
+							on:click={() => fillDrawer('Create new workspace', Workspace, data)}
+							class="flex w-full items-center gap-2"
+						>
+							<PlusOutline class="h-4 w-4" /> <span>New workspace</span>
+						</DropdownItem>
 					</Dropdown>
 				{:else}
-					<NavLi href={`/${data.workspaceList[0].slug}`}>{data.workspaceList[0].title}</NavLi>
+					<NavLi
+						on:click={() => fillDrawer('Create new workspace', Workspace, data)}
+						class="flex w-full items-center gap-2"
+					>
+						<PlusOutline class="h-4 w-4" /> <span>New workspace</span>
+					</NavLi>
 				{/if}
 			{:else}
 				<NavLi href="/register">Join us</NavLi>

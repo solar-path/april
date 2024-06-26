@@ -1,4 +1,3 @@
-import { getWorkspaceList } from '$lib/helpers/getWorkspace.js';
 import { redirect } from '@sveltejs/kit';
 
 export const load = async (event) => {
@@ -6,8 +5,4 @@ export const load = async (event) => {
 	if (!event.locals.user) {
 		redirect(302, '/login');
 	}
-	return {
-		currentWorkspace: event.params.slug,
-		workspaceList: await getWorkspaceList(event.locals.user.id)
-	};
 };

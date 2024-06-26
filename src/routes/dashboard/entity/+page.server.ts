@@ -23,6 +23,7 @@ import { countryTable } from '$lib/database/schema/country';
 import { buildTree } from '$lib/components/Tree/TreeView.utilities';
 import { fileProcessor } from '$lib/helpers/fileProcessor';
 import { industryTable } from '$lib/database/schema/industry';
+import { slugify } from '$lib/helpers/slugify';
 
 export const load: PageServerLoad = async (event) => {
 	if (!event.locals.user) {
@@ -34,6 +35,7 @@ export const load: PageServerLoad = async (event) => {
 			id: workspaceTable.id,
 			title: workspaceTable.title,
 			description: workspaceTable.description,
+			slug: workspaceTable.slug,
 			author: workspaceTable.author
 		})
 		.from(workspaceTable)
@@ -190,6 +192,7 @@ export const actions: Actions = {
 			id: crypto.randomUUID(),
 			title: form.data.title,
 			description: form.data.description,
+			slug: await slugify(form.data.title),
 			author: event.locals.user?.id as string
 		});
 

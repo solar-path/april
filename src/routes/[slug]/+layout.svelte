@@ -1,8 +1,5 @@
 <script lang="ts">
 	import {
-		Button,
-		Dropdown,
-		DropdownItem,
 		Sidebar,
 		SidebarDropdownItem,
 		SidebarDropdownWrapper,
@@ -15,14 +12,13 @@
 	import {
 		BuildingOutline,
 		ChartPieOutline,
-		ChevronDownOutline,
 		InboxOutline,
-		PlusOutline,
 		TableColumnOutline,
 		UsersGroupOutline
 	} from 'flowbite-svelte-icons';
 
 	export let data;
+	$: console.log('[slug]/+layout.svelte :: data => ', data);
 
 	interface Lines {
 		label: string;
@@ -34,7 +30,7 @@
 	const lines: Lines[] = [
 		{
 			label: 'Tasks',
-			href: `/${data.currentWorkspace}/tasks`,
+			href: `/dashboard/tasks`,
 			icon: InboxOutline
 		},
 		{
@@ -91,14 +87,14 @@
 
 	$: activeUrl = $page.url.pathname;
 
-	$: currentWorkspace = data.currentWorkspace;
+	// $: currentWorkspace = data.currentWorkspace;
 </script>
 
 <div class="flex flex-row">
 	<div class="w-1/5">
 		<Sidebar class="w-full" {activeUrl}>
 			<SidebarWrapper class="space-y-4 bg-white">
-				<SidebarGroup>
+				<!-- <SidebarGroup>
 					<Button class="w-full" outline
 						>Workspace: {currentWorkspace}<ChevronDownOutline
 							class="ms-2 h-6 w-6 text-white dark:text-white"
@@ -124,7 +120,7 @@
 							<PlusOutline class="h-4 w-4" /> Create new workspace
 						</DropdownItem>
 					</Dropdown>
-				</SidebarGroup>
+				</SidebarGroup> -->
 
 				<SidebarGroup>
 					{#each lines as item}
