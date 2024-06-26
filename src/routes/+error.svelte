@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { Button, Card } from 'flowbite-svelte';
-	console.log('+error :: page => ', page);
 </script>
 
 <div class="flex h-screen items-center justify-center">

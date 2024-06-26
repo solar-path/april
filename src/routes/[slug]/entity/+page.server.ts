@@ -42,7 +42,12 @@ export const load: PageServerLoad = async (event) => {
 			author: workspaceTable.author
 		})
 		.from(workspaceTable)
-		.where(eq(workspaceTable.author, event.locals.user.id));
+		.where(
+			and(
+				eq(workspaceTable.author, event.locals.user.id),
+				eq(workspaceTable.slug, event.params.slug)
+			)
+		);
 
 	const regionList = await db
 		.select({

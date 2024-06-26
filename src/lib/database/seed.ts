@@ -31,6 +31,7 @@ import { Argon2id } from 'oslo/password';
 import { client, db } from './db';
 import { addressTable } from './schema/address';
 import { permissionTable, roleTable } from './schema/rbac';
+import { slugify } from '$lib/helpers/slugify';
 
 interface User {
 	id: string;
@@ -101,7 +102,9 @@ const seedUsers = async () => {
 					password: await new Argon2id().hash(user.password),
 					id: crypto.randomUUID(),
 					token: crypto.randomUUID(),
-					activated: user.activated
+					activated: user.activated,
+					name: user.name,
+					surname: user.surname
 				})
 				.returning({ id: userTable.id, email: userTable.email });
 			userList.push(newUser[0]);
@@ -233,7 +236,9 @@ const seedWorkspace = async (user: User, workspaceData: any[]) => {
 				.values({
 					id: crypto.randomUUID(),
 					title: workspace.title,
-					author: user.id
+					author: user.id,
+					slug: await slugify(workspace.title),
+					description: workspace.description
 				})
 				.returning();
 			workspaceList.push(newWorkspace[0]);

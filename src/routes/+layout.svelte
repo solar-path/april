@@ -31,7 +31,6 @@
 	let fullname = data.currentUser?.name + ' ' + data.currentUser?.surname;
 
 	inject({ mode: dev ? 'development' : 'production' });
-	console.log('+layout.svelte :: data => ', data);
 </script>
 
 <div class="flex min-h-screen flex-col justify-between">

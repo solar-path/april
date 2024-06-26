@@ -104,6 +104,10 @@
 		</div>
 		<div class="w-2/3">
 			{#if $selectedItem}
+				{#if $selectedItem.type === 'workspace'}
+					<WorkspaceCard selectedStructureItem={$selectedItem} {data} />
+				{/if}
+
 				{#if $selectedItem.type === 'region'}
 					<RegionCard selectedStructureItem={$selectedItem} {data} />
 				{/if}

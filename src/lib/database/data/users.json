@@ -1,13 +1,9 @@
 [
-    {
-        "email": "itgroup.luck@gmail.com",
-        "password": "M1r@nd@32",
-        "activated" : true
-    },
-    {
-        "email": "assanali.tungat@genesisda.com",
-        "password": "M1r@nd@32",
-        "activated" : true
-    }
+	{
+		"email": "itgroup.luck@gmail.com",
+		"password": "M1r@nd@32",
+		"activated": true,
+		"name": "Ali",
+		"surname": "T"
+	}
 ]
-

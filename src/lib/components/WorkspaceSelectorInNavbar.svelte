@@ -14,13 +14,13 @@
 			Select Workspace
 			<ChevronDownOutline class="ms-2 inline h-6 w-6 text-primary-800" />
 		</NavLi>
-		<Dropdown class="z-20 w-44">
+		<Dropdown class="z-20 w-auto">
 			{#each data.workspaceList as workspace}
-				<DropdownItem href={`/${workspace.slug}`}>{workspace.title}</DropdownItem>
+				<DropdownItem href={`/${workspace.slug}`} class="w-auto">{workspace.title}</DropdownItem>
 			{/each}
 			<DropdownItem
 				on:click={() => fillDrawer('Create new workspace', Workspace, data)}
-				class="flex w-full items-center gap-2"
+				class="flex w-auto items-center gap-2"
 			>
 				<PlusOutline class="h-4 w-4" /> <span>New workspace</span>
 			</DropdownItem>
@@ -40,11 +40,11 @@
 	</NavLi>
 	<Dropdown class="z-20 w-44">
 		{#each data.workspaceList.filter((workspace) => workspace.slug !== $page.params.slug) as workspace}
-			<DropdownItem href={`/${workspace.slug}`}>{workspace.title}</DropdownItem>
+			<DropdownItem href={`/${workspace.slug}`} class="w-auto">{workspace.title}</DropdownItem>
 		{/each}
 		<DropdownItem
 			on:click={() => fillDrawer('Create new workspace', Workspace, data)}
-			class="flex w-full items-center gap-2"
+			class="flex w-auto items-center gap-2"
 		>
 			<PlusOutline class="h-4 w-4" /> <span>New workspace</span>
 		</DropdownItem>

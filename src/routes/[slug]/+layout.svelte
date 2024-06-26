@@ -11,14 +11,12 @@
 	import { page } from '$app/stores';
 	import {
 		BuildingOutline,
-		ChartPieOutline,
 		InboxOutline,
 		TableColumnOutline,
 		UsersGroupOutline
 	} from 'flowbite-svelte-icons';
 
 	export let data;
-	$: console.log('[slug]/+layout.svelte :: data => ', data);
 
 	interface Lines {
 		label: string;
