@@ -20,7 +20,9 @@
 		FooterLinkGroup,
 		FooterLink,
 		FooterBrand,
-		FooterIcon
+		FooterIcon,
+		DropdownDivider,
+		Input
 	} from 'flowbite-svelte';
 	import Contact from '$lib/forms/contact/Contact.svelte';
 	import { drawerContent, fillDrawer, hideDrawer } from '$lib/components/Drawer/drawer.utlities';
@@ -33,6 +35,7 @@
 		FacebookSolid,
 		GithubSolid,
 		LinkedinSolid,
+		SearchOutline,
 		TwitterSolid
 	} from 'flowbite-svelte-icons';
 
@@ -47,12 +50,36 @@
 	<Navbar>
 		<NavBrand href="/">
 			<img src="/images/logo.png" class="me-3 h-6 sm:h-9" alt="Flowbite Logo" />
-			<span class="self-center whitespace-nowrap text-xl font-semibold dark:text-white"
-				>Achieving Excellence</span
-			>
+			<span class="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+				Achieving Excellence
+			</span>
 		</NavBrand>
-		<NavHamburger />
-		<NavUl class="items-center">
+		{#if data.currentUser}
+			<div class="flex items-center space-x-4 md:order-2">
+				<Input type="text" placeholder="Search" class="w-full md:w-64" size="md"
+					><SearchOutline slot="left" class="h-4 w-4" />
+				</Input>
+				<Avatar id="avatar-menu" />
+				<NavHamburger class1="w-full md:flex md:w-auto md:order-1" />
+
+				<Dropdown placement="bottom" triggeredBy="#avatar-menu">
+					<DropdownHeader>
+						<span class="block text-sm italic text-gray-900">{fullname} </span>
+						<span class="block truncate text-sm font-medium">{data.currentUser.email}</span>
+					</DropdownHeader>
+
+					<DropdownItem href="/dashboard">Profile</DropdownItem>
+					<DropdownItem href="/dashboard">Billing</DropdownItem>
+					<DropdownDivider />
+					<form method="POST" use:enhance action="/logout">
+						<DropdownItem>
+							<button type="submit">Sign out</button>
+						</DropdownItem>
+					</form>
+				</Dropdown>
+			</div>
+		{/if}
+		<NavUl>
 			<NavLi href="/pricing">Pricing</NavLi>
 			<NavLi href="/learn">Learn & Support</NavLi>
 			{#if data.currentUser}
@@ -72,19 +99,6 @@
 				{:else}
 					<NavLi href={`/${data.workspaceList[0].slug}`}>{data.workspaceList[0].title}</NavLi>
 				{/if}
-				<Avatar id="avatar-menu" />
-				<Dropdown placement="bottom" triggeredBy="#avatar-menu">
-					<DropdownHeader>
-						<span class="block text-sm italic text-gray-900">{fullname} </span>
-						<span class="block truncate text-sm font-medium">{data.currentUser.email}</span>
-					</DropdownHeader>
-
-					<form method="POST" use:enhance action="/logout">
-						<DropdownItem>
-							<button type="submit">Sign out</button>
-						</DropdownItem>
-					</form>
-				</Dropdown>
 			{:else}
 				<NavLi href="/register">Join us</NavLi>
 
