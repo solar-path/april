@@ -2,6 +2,10 @@
 	import { Button, Dropdown, DropdownItem } from 'flowbite-svelte';
 	import type { PageData } from './$types';
 	import { ChevronDownOutline } from 'flowbite-svelte-icons';
+	import { fillDrawer } from '$lib/components/Drawer/drawer.utlities';
+	import Workspace from './dashboard/entity/Forms/Workspace.form.svelte';
+	import { page } from '$app/stores';
+
 	export let data: PageData;
 </script>
 
@@ -29,8 +33,12 @@
 					more. With this solution, businesses might streamline their operations, reduce costs,
 					increase efficiency, and ultimately, achieve greater success.
 				</p>
-				{#if data.email}
-					{#if data.workspaceList.length > 0}
+				{#if $page.data.currentUser}
+					{#if data.workspaceList?.length === 0 || data.workspaceList === undefined}
+						<Button on:click={() => fillDrawer('Create new workspace', Workspace, data)}>
+							Create new workspace
+						</Button>
+					{:else if data.workspaceList.length > 0}
 						<Button>
 							Select workspace to continue
 							<ChevronDownOutline class="ms-2 h-6 w-6 text-white" />

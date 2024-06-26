@@ -15,31 +15,16 @@
 		NavLi,
 		NavUl,
 		Navbar,
-		Footer,
-		FooterCopyright,
-		FooterLinkGroup,
-		FooterLink,
-		FooterBrand,
-		FooterIcon,
 		DropdownDivider,
 		Input
 	} from 'flowbite-svelte';
-	import Contact from '$lib/forms/contact/Contact.svelte';
-	import { drawerContent, fillDrawer, hideDrawer } from '$lib/components/Drawer/drawer.utlities';
+	import { drawerContent, hideDrawer } from '$lib/components/Drawer/drawer.utlities';
 
 	import { inject } from '@vercel/analytics';
 	import { dev } from '$app/environment';
-	import {
-		ChevronDownOutline,
-		DiscordSolid,
-		FacebookSolid,
-		GithubSolid,
-		LinkedinSolid,
-		PlusOutline,
-		SearchOutline,
-		TwitterSolid
-	} from 'flowbite-svelte-icons';
-	import Workspace from './dashboard/entity/Forms/Workspace.form.svelte';
+	import { SearchOutline } from 'flowbite-svelte-icons';
+	import AnekoFooter from '$lib/components/AnekoFooter.svelte';
+	import WorkspaceSelectorInNavbar from '$lib/components/WorkspaceSelectorInNavbar.svelte';
 
 	export let data: LayoutData;
 
@@ -90,31 +75,7 @@
 					<NavLi href="/admin">Admin</NavLi>
 				{/if}
 
-				{#if data.workspaceList.length > 0}
-					<NavLi class="cursor-pointer text-primary-800">
-						Workspace: {data.currentWorkspace}<ChevronDownOutline
-							class="ms-2 inline h-6 w-6 text-primary-800"
-						/>
-					</NavLi>
-					<Dropdown class="z-20 w-44">
-						{#each data.workspaceList.filter((workspace) => workspace.slug !== data.currentWorkspace) as workspace}
-							<DropdownItem href={`/${workspace.slug}`}>{workspace.title}</DropdownItem>
-						{/each}
-						<DropdownItem
-							on:click={() => fillDrawer('Create new workspace', Workspace, data)}
-							class="flex w-full items-center gap-2"
-						>
-							<PlusOutline class="h-4 w-4" /> <span>New workspace</span>
-						</DropdownItem>
-					</Dropdown>
-				{:else}
-					<NavLi
-						on:click={() => fillDrawer('Create new workspace', Workspace, data)}
-						class="flex w-full items-center gap-2"
-					>
-						<PlusOutline class="h-4 w-4" /> <span>New workspace</span>
-					</NavLi>
-				{/if}
+				<WorkspaceSelectorInNavbar {data} />
 			{:else}
 				<NavLi href="/register">Join us</NavLi>
 
@@ -131,49 +92,7 @@
 		<slot />
 	</main>
 
-	<Footer footerType="socialmedia">
-		<div class="md:flex md:justify-between">
-			<div class="mb-6 md:mb-0">
-				<FooterBrand href="/about" src="/images/icon.png" alt="Aneko logo" name="Aneko, LTD" />
-			</div>
-			<div class="grid grid-cols-2 gap-8 sm:grid-cols-3 sm:gap-6">
-				<div>
-					<h2 class="mb-6 text-sm font-semibold uppercase text-gray-900 dark:text-white">About</h2>
-					<FooterLinkGroup>
-						<FooterLink liClass="mb-4" href="/about">Company</FooterLink>
-					</FooterLinkGroup>
-				</div>
-				<div>
-					<h2 class="mb-6 text-sm font-semibold uppercase text-gray-900 dark:text-white">
-						Follow us
-					</h2>
-					<FooterLinkGroup>
-						<FooterLink>
-							<button on:click={() => fillDrawer('Contact Us', Contact, data)}> Contact Us </button>
-						</FooterLink>
-					</FooterLinkGroup>
-				</div>
-				<div>
-					<h2 class="mb-6 text-sm font-semibold uppercase text-gray-900 dark:text-white">Legal</h2>
-					<FooterLinkGroup>
-						<FooterLink liClass="mb-4" href="/privacy">Privacy Policy</FooterLink>
-						<FooterLink liClass="mb-4" href="/terms">Terms & Conditions</FooterLink>
-					</FooterLinkGroup>
-				</div>
-			</div>
-		</div>
-		<hr class="my-6 border-gray-200 dark:border-gray-700 sm:mx-auto lg:my-8" />
-		<div class="sm:flex sm:items-center sm:justify-between">
-			<FooterCopyright href="/" by="Aneko" />
-			<div class="mt-4 flex space-x-6 sm:mt-0 sm:justify-center rtl:space-x-reverse">
-				<FooterIcon href="https://www.linkedin.com/company/104223135/" target="_blank">
-					<LinkedinSolid
-						class="h-5 w-5 text-gray-500 hover:text-gray-900 dark:text-gray-500 dark:hover:text-white"
-					/>
-				</FooterIcon>
-			</div>
-		</div>
-	</Footer>
+	<AnekoFooter {data} />
 </div>
 
 <Drawer

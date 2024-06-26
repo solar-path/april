@@ -11,7 +11,6 @@ export const load = async (event) => {
 		contactUsForm: await superValidate(zod(contactUsSchema)),
 		trackInquiryForm: await superValidate(zod(findInquiryByIDSchema)),
 		workspaceList: currentUser ? await getWorkspaceList(currentUser.id) : [],
-		workspaceForm: await superValidate(zod(workspaceSchema)),
-		currentWorkspace: event.params.slug
+		workspaceForm: await superValidate(zod(workspaceSchema))
 	};
 };

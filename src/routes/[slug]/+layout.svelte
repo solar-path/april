@@ -30,32 +30,32 @@
 	const lines: Lines[] = [
 		{
 			label: 'Tasks',
-			href: `/dashboard/tasks`,
+			href: `/${$page.params.slug}/tasks`,
 			icon: InboxOutline
 		},
 		{
 			label: 'Dashboard',
-			href: '/dashboard',
+			href: `/${$page.params.slug}/dashboard`,
 			icon: ChartPieOutline
 		},
 		{
 			label: 'Business structure',
-			href: '/dashboard/entity',
+			href: `/${$page.params.slug}/entity`,
 			icon: BuildingOutline
 		},
 		{
 			label: 'Users management',
-			href: '/dashboard/users',
+			href: `/${$page.params.slug}/users`,
 			icon: UsersGroupOutline,
 
 			children: [
 				{
 					label: 'Users',
-					href: '/dashboard/users'
+					href: `/${$page.params.slug}/users`
 				},
 				{
 					label: 'Access control',
-					href: '/dashboard/rbac'
+					href: `/${$page.params.slug}/rbac`
 				}
 			]
 		},
@@ -64,22 +64,22 @@
 			href: '',
 			icon: TableColumnOutline,
 			children: [
-				{ label: 'Dashboard', href: '/dashboard/IC' },
+				{ label: 'Dashboard', href: `/${$page.params.slug}/IC` },
 				{
 					label: 'Risks',
-					href: '/dashboard/IC/risks'
+					href: `/${$page.params.slug}/IC/risks`
 				},
 				{
 					label: 'Controls',
-					href: '/dashboard/IC/controls'
+					href: `/${$page.params.slug}/IC/controls`
 				},
 				{
 					label: 'Processes',
-					href: '/dashboard/IC/processes'
+					href: `/${$page.params.slug}/IC/processes`
 				},
 				{
 					label: 'RCM',
-					href: '/dashboard/IC/matrix'
+					href: `/${$page.params.slug}/IC/matrix`
 				}
 			]
 		}
