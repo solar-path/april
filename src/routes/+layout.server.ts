@@ -2,7 +2,7 @@ import { contactUsSchema, findInquiryByIDSchema } from '$lib/forms/contact/conta
 import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { getWorkspaceList } from '$lib/helpers/getWorkspace';
-import { workspaceSchema } from './dashboard/entity/Validation/workspace.schema.js';
+import { workspaceSchema } from '$lib/components/Workspace/workspace.schema';
 
 export const load = async (event) => {
 	const currentUser = event.locals.user;

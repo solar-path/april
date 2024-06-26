@@ -3,9 +3,8 @@
 	import type { PageData } from './$types';
 	import { ChevronDownOutline } from 'flowbite-svelte-icons';
 	import { fillDrawer } from '$lib/components/Drawer/drawer.utlities';
-	import Workspace from './dashboard/entity/Forms/Workspace.form.svelte';
 	import { page } from '$app/stores';
-
+	import Workspace from '$lib/components/Workspace/Workspace.form.svelte';
 	export let data: PageData;
 </script>
 

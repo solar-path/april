@@ -11,7 +11,10 @@ import {
 	workspaceTable
 } from '$lib/database/schema/entity';
 
-import { deleteWorkspaceSchema, workspaceSchema } from './Validation/workspace.schema';
+import {
+	deleteWorkspaceSchema,
+	workspaceSchema
+} from '../../../lib/components/Workspace/workspace.schema';
 import { deleteRegionSchema, regionSchema } from './Validation/region.schema';
 import { companySchema, deleteCompanySchema } from './Validation/company.schema';
 import { deleteDepartmentSchema, departmentSchema } from './Validation/department.schema';

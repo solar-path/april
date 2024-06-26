@@ -3,7 +3,7 @@
 	import { fillDrawer } from '$lib/components/Drawer/drawer.utlities';
 	import { Button, Heading, Hr, P } from 'flowbite-svelte';
 	import { EditOutline } from 'flowbite-svelte-icons';
-	import Workspace from '../Forms/Workspace.form.svelte';
+	import Workspace from '../../../../lib/components/Workspace/Workspace.form.svelte';
 	import SuperDebug from 'sveltekit-superforms';
 	export let selectedStructureItem;
 	export let data;

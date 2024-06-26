@@ -7,7 +7,6 @@
 	import DepartmentCard from './Cards/Department.card.svelte';
 	import PositionCard from './Cards/Position.card.svelte';
 
-	import Workspace from './Forms/Workspace.form.svelte';
 	import Region from './Forms/Region.form.svelte';
 	import Company from './Forms/Company.form.svelte';
 	import Department from './Forms/Department.form.svelte';
@@ -39,7 +38,6 @@
 	];
 
 	const formList = [
-		{ title: 'Workspace', form: Workspace },
 		{ title: 'Region', form: Region },
 		{ title: 'Company', form: Company },
 		{ title: 'Department', form: Department },
@@ -106,10 +104,6 @@
 		</div>
 		<div class="w-2/3">
 			{#if $selectedItem}
-				{#if $selectedItem.type === 'workspace'}
-					<WorkspaceCard selectedStructureItem={$selectedItem} {data} />
-				{/if}
-
 				{#if $selectedItem.type === 'region'}
 					<RegionCard selectedStructureItem={$selectedItem} {data} />
 				{/if}

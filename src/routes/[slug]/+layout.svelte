@@ -33,11 +33,7 @@
 			href: `/${$page.params.slug}/tasks`,
 			icon: InboxOutline
 		},
-		{
-			label: 'Dashboard',
-			href: `/${$page.params.slug}/dashboard`,
-			icon: ChartPieOutline
-		},
+
 		{
 			label: 'Business structure',
 			href: `/${$page.params.slug}/entity`,

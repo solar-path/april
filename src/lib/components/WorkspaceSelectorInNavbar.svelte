@@ -3,7 +3,8 @@
 	import { Dropdown, DropdownItem, NavLi } from 'flowbite-svelte';
 	import { ChevronDownOutline, PlusOutline } from 'flowbite-svelte-icons';
 	import { fillDrawer } from './Drawer/drawer.utlities';
-	import Workspace from '../../routes/dashboard/entity/Forms/Workspace.form.svelte';
+	import Workspace from './Workspace/Workspace.form.svelte';
+
 	export let data;
 </script>
 
