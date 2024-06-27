@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import DisplayFormErrors from '$lib/components/DisplayFormErrors.svelte';
 	import { hideDrawer } from '$lib/components/Drawer/drawer.utlities';
 
@@ -25,7 +26,7 @@
 
 	export let data: RegionData;
 
-	console.log(' region.form.svelte :: data.item => ', data.item);
+	// console.log(' region.form.svelte :: data.item => ', data.item);
 
 	const { form, errors, constraints, enhance } = superForm(
 		data.item && data.item !== null
@@ -37,7 +38,12 @@
 					workspaceId: data.item.workspaceId,
 					workspace: data.workspaceList.find((item) => item.id === data?.item?.workspaceId)?.title
 				}
-			: data.regionForm.data,
+			: // : data.regionForm.data,
+				{
+					...data.regionForm.data,
+					workspaceId: data.workspaceList.find((item) => item.slug === $page.params.slug)?.id,
+					workspace: data.workspaceList.find((item) => item.slug === $page.params.slug)?.title
+				},
 		{
 			dataType: 'json', // Add this line to handle nested data structures
 			onResult(event) {

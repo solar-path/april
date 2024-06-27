@@ -102,6 +102,8 @@
 	onDestroy(() => {
 		unsubscribe();
 	});
+	import { page } from '$app/stores';
+	$: console.log('Company.form.svelte :: workspace slug => ', $page.params.slug);
 </script>
 
 <form
