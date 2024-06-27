@@ -239,7 +239,8 @@ export const actions: Actions = {
 			return fail(400, { error: 'Workspace ID is undefined' });
 		}
 		await db.delete(workspaceTable).where(eq(workspaceTable.id, form.data.id));
-		return { form };
+		// return { form };
+		redirect(302, '/');
 	},
 	// REGION CRUD
 	createRegion: async (event) => {

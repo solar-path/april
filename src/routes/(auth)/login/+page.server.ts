@@ -66,7 +66,6 @@ export const actions: Actions = {
 			...sessionCookie.attributes
 		});
 
-		// redirect(302, '/dashboard');
 		redirect(302, `/${existingUser[0].workspace}`);
 	}
 };
