@@ -58,7 +58,7 @@
 						>
 					</DropdownHeader>
 
-					<DropdownItem href="/dashboard">Profile</DropdownItem>
+					<DropdownItem href="/profile">Profile</DropdownItem>
 					<DropdownItem href="/dashboard">Billing</DropdownItem>
 					<DropdownDivider />
 					<form method="POST" use:enhance action="/logout">

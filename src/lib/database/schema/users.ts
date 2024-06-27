@@ -1,4 +1,4 @@
-import { boolean, pgTable, text, timestamp, varchar } from 'drizzle-orm/pg-core';
+import { boolean, date, pgTable, text, timestamp, varchar } from 'drizzle-orm/pg-core';
 
 export const userTable = pgTable('users', {
 	id: varchar('id', {
@@ -12,5 +12,18 @@ export const userTable = pgTable('users', {
 	updatedAt: timestamp('updatedAt').notNull().defaultNow(),
 	// personal information
 	name: varchar('name', { length: 40 }),
-	surname: varchar('surname', { length: 40 })
+	surname: varchar('surname', { length: 40 }),
+	gender: varchar('gender', { length: 40 }),
+	dob: date('dob'),
+	avatar: varchar('avatar', { length: 255 }),
+	// contact and address
+	phone: varchar('phone', {
+		length: 20
+	}),
+
+	country: varchar('country', { length: 100 }),
+	city: varchar('city', { length: 100 }),
+	state: varchar('state', { length: 100 }),
+	zipcode: varchar('zipcode', { length: 20 }),
+	addressLine: varchar('addressLine1', { length: 250 })
 });
