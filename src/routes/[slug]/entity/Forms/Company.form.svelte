@@ -56,13 +56,13 @@
 					industry: data.industryList.find((item) => item.id === data?.item?.industryId)?.title,
 					BIN: data.item.BIN
 				}
-			: data.companyForm.data,
+			: {
+					...data.companyForm.data,
+					workspaceId: data.workspaceList.find((item) => item.slug === $page.params.slug)?.id,
+					workspace: data.workspaceList.find((item) => item.slug === $page.params.slug)?.title
+				},
 		{
 			dataType: 'json',
-
-			// onChange(event) {
-			// 	event.target.value = formatPhoneNumber(event.target.value);
-			// },
 			onResult(event) {
 				const result = event.result as FormResult<any>;
 				if (result.type === 'success') {

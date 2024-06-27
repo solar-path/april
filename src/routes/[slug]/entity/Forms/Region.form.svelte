@@ -26,8 +26,6 @@
 
 	export let data: RegionData;
 
-	// console.log(' region.form.svelte :: data.item => ', data.item);
-
 	const { form, errors, constraints, enhance } = superForm(
 		data.item && data.item !== null
 			? {
@@ -38,8 +36,7 @@
 					workspaceId: data.item.workspaceId,
 					workspace: data.workspaceList.find((item) => item.id === data?.item?.workspaceId)?.title
 				}
-			: // : data.regionForm.data,
-				{
+			: {
 					...data.regionForm.data,
 					workspaceId: data.workspaceList.find((item) => item.slug === $page.params.slug)?.id,
 					workspace: data.workspaceList.find((item) => item.slug === $page.params.slug)?.title
