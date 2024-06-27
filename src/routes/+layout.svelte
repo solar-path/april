@@ -16,7 +16,8 @@
 		NavUl,
 		Navbar,
 		DropdownDivider,
-		Input
+		Input,
+		A
 	} from 'flowbite-svelte';
 	import { drawerContent, hideDrawer } from '$lib/components/Drawer/drawer.utlities';
 
@@ -24,11 +25,10 @@
 	import { dev } from '$app/environment';
 	import { SearchOutline } from 'flowbite-svelte-icons';
 	import AnekoFooter from '$lib/components/AnekoFooter.svelte';
-	import WorkspaceSelectorInNavbar from '$lib/components/WorkspaceSelectorInNavbar.svelte';
 
 	export let data: LayoutData;
 
-	let fullname = data.currentUser?.name + ' ' + data.currentUser?.surname;
+	$: fullname = data.currentUser?.name + ' ' + data.currentUser?.surname;
 
 	inject({ mode: dev ? 'development' : 'production' });
 </script>
@@ -51,7 +51,11 @@
 				<Dropdown placement="bottom" triggeredBy="#avatar-menu">
 					<DropdownHeader>
 						<span class="block text-sm italic text-gray-900">{fullname} </span>
-						<span class="block truncate text-sm font-medium">{data.currentUser.email}</span>
+						<A
+							href="mailto:{data.currentUser.email}"
+							target="_blank"
+							class="block truncate text-sm ">{data.currentUser.email}</A
+						>
 					</DropdownHeader>
 
 					<DropdownItem href="/dashboard">Profile</DropdownItem>
@@ -73,8 +77,6 @@
 				{#if data.currentUser.email === 'itgroup.luck@gmail.com'}
 					<NavLi href="/admin">Admin</NavLi>
 				{/if}
-
-				<WorkspaceSelectorInNavbar {data} />
 			{:else}
 				<NavLi href="/register">Join us</NavLi>
 

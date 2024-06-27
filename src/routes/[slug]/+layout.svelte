@@ -1,5 +1,8 @@
 <script lang="ts">
 	import {
+		Button,
+		Dropdown,
+		DropdownItem,
 		Sidebar,
 		SidebarDropdownItem,
 		SidebarDropdownWrapper,
@@ -11,21 +14,20 @@
 	import { page } from '$app/stores';
 	import {
 		BuildingOutline,
+		ChevronDownOutline,
 		InboxOutline,
+		PlusOutline,
 		TableColumnOutline,
 		UsersGroupOutline
 	} from 'flowbite-svelte-icons';
+	import type { LayoutData } from './$types';
+	import { fillDrawer } from '$lib/components/Drawer/drawer.utlities';
+	import Workspace from '$lib/components/Workspace/Workspace.form.svelte';
 
-	export let data;
+	export let data: LayoutData;
+	$: activeUrl = $page.url.pathname;
 
-	interface Lines {
-		label: string;
-		href: string;
-		icon?: any;
-		children?: Lines[];
-	}
-
-	const lines: Lines[] = [
+	$: lines = [
 		{
 			label: 'Tasks',
 			href: `/${$page.params.slug}/tasks`,
@@ -41,7 +43,6 @@
 			label: 'Users management',
 			href: `/${$page.params.slug}/users`,
 			icon: UsersGroupOutline,
-
 			children: [
 				{
 					label: 'Users',
@@ -78,43 +79,37 @@
 			]
 		}
 	];
-
-	$: activeUrl = $page.url.pathname;
-
-	// $: currentWorkspace = data.currentWorkspace;
 </script>
 
 <div class="flex flex-row">
 	<div class="w-1/5">
 		<Sidebar class="w-full" {activeUrl}>
 			<SidebarWrapper class="space-y-4 bg-white">
-				<!-- <SidebarGroup>
-					<Button class="w-full" outline
-						>Workspace: {currentWorkspace}<ChevronDownOutline
-							class="ms-2 h-6 w-6 text-white dark:text-white"
-						/></Button
-					>
+				<SidebarGroup>
+					<Button class="w-full" outline>
+						Workspace: {data.workspaceList.find((workspace) => workspace.slug === $page.params.slug)
+							?.title}
+						<ChevronDownOutline class="ms-2 h-6 w-6 text-white dark:text-white" />
+					</Button>
 					<Dropdown class="w-full">
-						{#each data.workspaceList as workspace}
-							{#if workspace.title !== currentWorkspace}
-								<DropdownItem
-									href={`/${workspace.slug}`}
-									class="flex w-full items-center justify-start gap-2 hover:bg-primary-700 hover:text-white"
-								>
-									{workspace.title}
-								</DropdownItem>
-							{/if}
+						{#each data.workspaceList.filter((workspace) => workspace.slug !== $page.params.slug) as workspace}
+							<DropdownItem
+								href={`/${workspace.slug}`}
+								class="flex items-center justify-start gap-2 hover:bg-primary-700 hover:text-white"
+							>
+								{workspace.title}
+							</DropdownItem>
 						{/each}
 						<DropdownItem
-							on:click={() => {
-								console.log('create new workspace');
-							}}
-							class="flex w-full items-center justify-start gap-2 hover:bg-primary-700 hover:text-white"
+							slot="footer"
+							on:click={() => fillDrawer('Create new workspace', Workspace, data)}
+							class="flex items-center justify-start gap-2 hover:bg-primary-700 hover:text-white"
 						>
-							<PlusOutline class="h-4 w-4" /> Create new workspace
+							<PlusOutline class="h-4 w-4" />
+							Create new workspace
 						</DropdownItem>
 					</Dropdown>
-				</SidebarGroup> -->
+				</SidebarGroup>
 
 				<SidebarGroup>
 					{#each lines as item}

@@ -10,4 +10,8 @@ export const load = async (event) => {
 	if (!workspaceList.some((workspace) => workspace.slug === event.params.slug)) {
 		throw error(404, 'Page not found');
 	}
+
+	return {
+		workspaceList
+	};
 };
