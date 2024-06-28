@@ -25,5 +25,6 @@ export const userTable = pgTable('users', {
 	city: varchar('city', { length: 100 }),
 	state: varchar('state', { length: 100 }),
 	zipcode: varchar('zipcode', { length: 20 }),
-	addressLine: varchar('addressLine1', { length: 250 })
+	addressLine: varchar('addressLine', { length: 250 }),
+	idNumber: varchar('idNumber', { length: 20 }).unique()
 });
