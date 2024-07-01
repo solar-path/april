@@ -1,6 +1,6 @@
 <script lang="ts">
 	import DisplayFormErrors from '$lib/components/DisplayFormErrors.svelte';
-	import { Button, Input, Label, Select } from 'flowbite-svelte';
+	import { Avatar, Button, Input, Label, Select } from 'flowbite-svelte';
 	import SuperDebug, { superForm, type FormResult } from 'sveltekit-superforms';
 	import { hideDrawer } from '$lib/components/Drawer/drawer.utlities';
 
@@ -75,7 +75,7 @@
 	<div class="w-full">
 		<Label for="avatar">Avatar</Label>
 		{#if data.user && data.user != null && data.user.avatar != null}
-			<img src={data.user.avatar} alt="Avatar of the user" />
+			<Avatar src={data.user.avatar} size="xl" class="mx-auto" />
 		{/if}
 		<Input
 			id="avatar"

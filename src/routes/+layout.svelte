@@ -46,7 +46,7 @@
 				<Input type="text" placeholder="Search" class="w-full md:w-64" size="md"
 					><SearchOutline slot="left" class="h-4 w-4" />
 				</Input>
-				<Avatar id="avatar-menu" />
+				<Avatar id="avatar-menu" src={data.currentUser.avatar} />
 
 				<Dropdown placement="bottom" triggeredBy="#avatar-menu">
 					<DropdownHeader>
