@@ -82,7 +82,7 @@
 			id="avatar"
 			type="file"
 			name="avatar"
-			accept="image/png, image/jpeg, image/jpg"
+			accept=".jpg, .jpeg, .png"
 			bind:value={$form.avatar}
 			{...$constraints.avatar}
 		/>

@@ -15,7 +15,7 @@ export const userTable = pgTable('users', {
 	surname: varchar('surname', { length: 40 }),
 	gender: varchar('gender', { length: 40 }),
 	dob: date('dob'),
-	avatar: varchar('avatar', { length: 255 }),
+	avatar: text('avatar'),
 	// contact and address
 	phone: varchar('phone', {
 		length: 20

@@ -1,4 +1,4 @@
-import { fail, superValidate, withFiles } from 'sveltekit-superforms';
+import { fail, superValidate, withFiles, message } from 'sveltekit-superforms';
 import { profileSchema } from './profile.schema';
 import { zod } from 'sveltekit-superforms/adapters';
 import { redirect } from '@sveltejs/kit';
@@ -41,7 +41,7 @@ export const actions = {
 		const form = await superValidate(await event.request.formData(), zod(profileSchema));
 
 		if (!form.valid) {
-			console.log('profile/+page.server.ts :: form error => ', form);
+			console.log('profile/+page.server.ts :: form is not valid => ', form);
 			return fail(400, withFiles({ form }));
 		}
 
@@ -74,6 +74,7 @@ export const actions = {
 				idNumber: user[0].idNumber === form.data.idNumber ? user[0].idNumber : form.data.idNumber
 			})
 			.where(eq(userTable.id, event.locals.user!.id));
-		return withFiles({ form });
+
+		return message(form, 'Profile updated successfully!');
 	}
 };
