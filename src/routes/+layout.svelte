@@ -74,9 +74,9 @@
 			<NavLi href="/pricing">Pricing</NavLi>
 			<NavLi href="/learn">Learn & Support</NavLi>
 			{#if data.currentUser}
-				{#if data.currentUser.email === 'itgroup.luck@gmail.com'}
+				<!-- {#if data.currentUser.email === 'itgroup.luck@gmail.com'}
 					<NavLi href="/admin">Admin</NavLi>
-				{/if}
+				{/if} -->
 			{:else}
 				<NavLi href="/register">Join us</NavLi>
 

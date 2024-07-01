@@ -7,7 +7,7 @@ export const profileSchema = z.object({
 	dob: z.string().optional(),
 	avatar: z
 		.instanceof(File, { message: 'Please upload a valid file.' })
-		.refine((f) => f.size < 100_000, 'Max 100 kB upload size.'),
+		.refine((f) => f.size < 500_000, 'Max 500 kB upload size.'),
 	phone: z.string().optional(),
 	addressLine: z.string().optional(),
 	zipcode: z.string().optional(),

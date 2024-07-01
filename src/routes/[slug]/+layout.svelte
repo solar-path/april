@@ -28,17 +28,17 @@
 	$: activeUrl = $page.url.pathname;
 
 	$: lines = [
-		{
-			label: 'Tasks',
-			href: `/${$page.params.slug}/tasks`,
-			icon: InboxOutline
-		},
+		// {
+		// 	label: 'Tasks',
+		// 	href: `/${$page.params.slug}/tasks`,
+		// 	icon: InboxOutline
+		// },
 
-		{
-			label: 'Business structure',
-			href: `/${$page.params.slug}/entity`,
-			icon: BuildingOutline
-		},
+		// {
+		// 	label: 'Business structure',
+		// 	href: `/${$page.params.slug}/entity`,
+		// 	icon: BuildingOutline
+		// },
 		{
 			label: 'Users management',
 			href: `/${$page.params.slug}/users`,
@@ -47,37 +47,37 @@
 				{
 					label: 'Users',
 					href: `/${$page.params.slug}/users`
-				},
-				{
-					label: 'Access control',
-					href: `/${$page.params.slug}/rbac`
 				}
-			]
-		},
-		{
-			label: 'Internal control',
-			href: '',
-			icon: TableColumnOutline,
-			children: [
-				{ label: 'Dashboard', href: `/${$page.params.slug}/IC` },
-				{
-					label: 'Risks',
-					href: `/${$page.params.slug}/IC/risks`
-				},
-				{
-					label: 'Controls',
-					href: `/${$page.params.slug}/IC/controls`
-				},
-				{
-					label: 'Processes',
-					href: `/${$page.params.slug}/IC/processes`
-				},
-				{
-					label: 'RCM',
-					href: `/${$page.params.slug}/IC/matrix`
-				}
+				// {
+				// 	label: 'Access control',
+				// 	href: `/${$page.params.slug}/rbac`
+				// }
 			]
 		}
+		// {
+		// 	label: 'Internal control',
+		// 	href: '',
+		// 	icon: TableColumnOutline,
+		// 	children: [
+		// 		{ label: 'Dashboard', href: `/${$page.params.slug}/IC` },
+		// 		{
+		// 			label: 'Risks',
+		// 			href: `/${$page.params.slug}/IC/risks`
+		// 		},
+		// 		{
+		// 			label: 'Controls',
+		// 			href: `/${$page.params.slug}/IC/controls`
+		// 		},
+		// 		{
+		// 			label: 'Processes',
+		// 			href: `/${$page.params.slug}/IC/processes`
+		// 		},
+		// 		{
+		// 			label: 'RCM',
+		// 			href: `/${$page.params.slug}/IC/matrix`
+		// 		}
+		// 	]
+		// }
 	];
 </script>
 

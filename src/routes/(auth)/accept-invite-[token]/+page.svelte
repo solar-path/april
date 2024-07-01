@@ -3,7 +3,6 @@
 	import { Card, Button, Input, Label, Checkbox, A, Heading, Hr, P } from 'flowbite-svelte';
 	import DisplayFormErrors from '$lib/components/DisplayFormErrors.svelte';
 	import { EnvelopeSolid, EyeOutline, EyeSlashOutline, LockSolid } from 'flowbite-svelte-icons';
-	import SuperDebug from 'sveltekit-superforms';
 
 	type InviteRegisterData = {
 		item?: {
@@ -120,5 +119,3 @@
 		{/if}
 	</Card>
 </div>
-
-<SuperDebug data={$form} />
