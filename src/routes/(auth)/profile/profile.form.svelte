@@ -1,7 +1,7 @@
 <script lang="ts">
 	import DisplayFormErrors from '$lib/components/DisplayFormErrors.svelte';
 	import { Button, Input, Label, Select } from 'flowbite-svelte';
-	import SuperDebug, { dateProxy, superForm, type FormResult } from 'sveltekit-superforms';
+	import SuperDebug, { superForm, type FormResult } from 'sveltekit-superforms';
 	import { hideDrawer } from '$lib/components/Drawer/drawer.utlities';
 
 	interface ProfileData {
@@ -11,7 +11,7 @@
 			surname: string;
 			gender: string;
 			dob: Date;
-			avatar: any;
+			avatar: string;
 			phone: string;
 			addressLine: string;
 			zipcode: string;
@@ -36,7 +36,7 @@
 			surname: data.user?.surname,
 			gender: data.user?.gender,
 			dob: data.user?.dob,
-			avatar: '',
+			avatar: data.user?.avatar,
 			phone: data.user?.phone,
 			addressLine: data.user?.addressLine,
 			zipcode: data.user?.zipcode,
@@ -46,8 +46,7 @@
 			idNumber: data.user?.idNumber
 		},
 		{
-			dataType: 'json',
-
+			// dataType: 'json',
 			onResult(event) {
 				const result = event.result as FormResult<any>;
 				if (result.type === 'success') {
@@ -82,7 +81,7 @@
 			id="avatar"
 			type="file"
 			name="avatar"
-			accept=".jpg, .jpeg, .png"
+			accept="image/png, image/jpeg, image/jpg"
 			bind:value={$form.avatar}
 			{...$constraints.avatar}
 		/>

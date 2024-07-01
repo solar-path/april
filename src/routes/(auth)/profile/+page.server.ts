@@ -39,7 +39,6 @@ export const load = async (event) => {
 export const actions = {
 	default: async (event) => {
 		const form = await superValidate(await event.request.formData(), zod(profileSchema));
-
 		if (!form.valid) {
 			console.log('profile/+page.server.ts :: form is not valid => ', form);
 			return fail(400, withFiles({ form }));
