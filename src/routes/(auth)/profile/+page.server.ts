@@ -59,9 +59,7 @@ export const actions = {
 				gender: user[0].gender === form.data.gender ? user[0].gender : form.data.gender,
 				dob: user[0].dob === form.data.dob ? user[0].dob : form.data.dob,
 				avatar:
-					form.data.avatar instanceof File
-						? await fileProcessor(form.data.avatar, 'avatar')
-						: user[0].avatar,
+					form.data.avatar instanceof File ? await fileProcessor(form.data.avatar, 'avatar') : '',
 				phone: user[0].phone === form.data.phone ? user[0].phone : form.data.phone,
 				country: user[0].country === form.data.country ? user[0].country : form.data.country,
 				state: user[0].state === form.data.state ? user[0].state : form.data.state,

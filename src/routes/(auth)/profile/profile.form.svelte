@@ -36,7 +36,7 @@
 			surname: data.user?.surname,
 			gender: data.user?.gender,
 			dob: data.user?.dob,
-			avatar: data.user?.avatar,
+			avatar: '',
 			phone: data.user?.phone,
 			addressLine: data.user?.addressLine,
 			zipcode: data.user?.zipcode,

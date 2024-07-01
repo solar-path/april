@@ -29,7 +29,9 @@
 		<Hr />
 		<P class="flex items-center text-white"
 			><MapPinAltOutline class="mr-2" />
-			{user.addressLine}, {user.city}, {user.state}, {user.zipcode}, {user.country}</P
+			{user.addressLine === null ? '' : user.addressLine}, {user.city === null ? '' : user.city},
+			{user.state === null ? '' : user.state}, {user.zipcode === null ? '' : user.zipcode},
+			{user.country === null ? '' : user.country}</P
 		>
 		<P class="flex items-center text-white"><EnvelopeOutline class="mr-2" /> {user.email}</P>
 		<P class="flex items-center text-white"><PhoneOutline class="mr-2" /> {user.phone}</P>
