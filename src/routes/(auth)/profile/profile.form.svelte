@@ -11,7 +11,7 @@
 			surname: string;
 			gender: string;
 			dob: Date;
-			avatar: string;
+			avatar: any;
 			phone: string;
 			addressLine: string;
 			zipcode: string;
@@ -26,8 +26,6 @@
 	}
 	export let data: ProfileData;
 
-	console.log('profile.form.svelte :: data => ', data);
-
 	const { form, errors, constraints, enhance } = superForm(
 		{
 			...data.profileForm.data,
@@ -36,7 +34,7 @@
 			surname: data.user?.surname,
 			gender: data.user?.gender,
 			dob: data.user?.dob,
-			avatar: data.user?.avatar,
+			avatar: null,
 			phone: data.user?.phone,
 			addressLine: data.user?.addressLine,
 			zipcode: data.user?.zipcode,
@@ -46,7 +44,6 @@
 			idNumber: data.user?.idNumber
 		},
 		{
-			// dataType: 'json',
 			onResult(event) {
 				const result = event.result as FormResult<any>;
 				if (result.type === 'success') {
