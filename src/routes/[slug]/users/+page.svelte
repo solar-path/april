@@ -26,5 +26,5 @@
 	deleteURL="/dashboard/users?/deleteUser"
 	{data}
 	{reports}
-	columns={['fullname', 'avatar', 'email', 'activated', 'createdAt']}
+	columns={['fullname', 'avatar', 'email', 'phone', 'activated', 'createdAt']}
 />

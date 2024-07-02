@@ -22,6 +22,7 @@ export const load: PageServerLoad = async (event) => {
 			email: userTable.email,
 			fullname: sql`${userTable.name} || ' ' || ${userTable.surname}`,
 			activated: userTable.activated,
+			phone: userTable.phone,
 			avatar: userTable.avatar,
 			workspaceId: workspaceUserTable.workspaceId,
 			workspaceTitle: workspaceTable.title,

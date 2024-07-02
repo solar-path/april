@@ -129,6 +129,8 @@
 						<TableBodyCell tdClass="px-4 py-3">
 							{#if column === 'id'}
 								{item.id.slice(0, 6)}
+							{:else if column === 'phone'}
+								<A href={`tel:${item.phone}`}>{item.phone}</A>
 							{:else if column === 'email'}
 								<A href={`mailto:${item.email}`}>{item.email}</A>
 							{:else if column === 'avatar'}
