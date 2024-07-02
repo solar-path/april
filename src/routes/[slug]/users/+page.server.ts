@@ -1,5 +1,5 @@
 import { db } from '$lib/database/db';
-import { userTable } from '$lib/database/schema/users';
+import { userTable, workspaceUserTable } from '$lib/database/schema/users';
 import type { Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { fail, setError, superValidate } from 'sveltekit-superforms';
@@ -9,12 +9,31 @@ import { Argon2id } from 'oslo/password';
 import { sendInviteEmail } from '$lib/email/mail.server';
 import { workspaceTable } from '$lib/database/schema/entity';
 import { eq } from 'drizzle-orm';
+import { getWorkspaceBySlug } from '$lib/helpers/getWorkspace';
+import { sql } from 'drizzle-orm';
 
-export const load: PageServerLoad = async () => {
-	const userList = await db.select().from(userTable);
+export const load: PageServerLoad = async (event) => {
+	const currentWorkspace = await getWorkspaceBySlug(event.params.slug);
+
+	const userWorkspaceList = await db
+		.select({
+			id: workspaceUserTable.id,
+			userId: workspaceUserTable.userId,
+			email: userTable.email,
+			fullname: sql`${userTable.name} || ' ' || ${userTable.surname}`,
+			activated: userTable.activated,
+			avatar: userTable.avatar,
+			workspaceId: workspaceUserTable.workspaceId,
+			workspaceTitle: workspaceTable.title,
+			createdAt: workspaceUserTable.createdAt
+		})
+		.from(workspaceUserTable)
+		.innerJoin(userTable, eq(workspaceUserTable.userId, userTable.id))
+		.innerJoin(workspaceTable, eq(workspaceUserTable.workspaceId, workspaceTable.id))
+		.where(eq(workspaceUserTable.workspaceId, currentWorkspace));
 
 	return {
-		userList,
+		userWorkspaceList,
 		inviteUserForm: await superValidate(zod(inviteUserSchema))
 	};
 };

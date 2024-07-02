@@ -9,7 +9,9 @@
 		Button,
 		Dropdown,
 		Input,
-		DropdownItem
+		DropdownItem,
+		Avatar,
+		A
 	} from 'flowbite-svelte';
 	import {
 		ArrowDownOutline,
@@ -127,6 +129,10 @@
 						<TableBodyCell tdClass="px-4 py-3">
 							{#if column === 'id'}
 								{item.id.slice(0, 6)}
+							{:else if column === 'email'}
+								<A href={`mailto:${item.email}`}>{item.email}</A>
+							{:else if column === 'avatar'}
+								<Avatar src={item.avatar} alt="avatar" />
 							{:else if column === 'createdAt'}
 								{new Date(item.createdAt).toLocaleDateString()}
 							{:else}

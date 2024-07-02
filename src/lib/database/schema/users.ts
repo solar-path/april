@@ -34,8 +34,12 @@ export const workspaceUserTable = pgTable('workspace_user', {
 	id: varchar('id', {
 		length: 50
 	}).primaryKey(),
-	userId: varchar('userId', { length: 50 }).references(() => userTable.id),
-	workspaceId: varchar('workspaceId', { length: 50 }).references(() => workspaceTable.id),
+	userId: varchar('userId', { length: 50 })
+		.references(() => userTable.id)
+		.notNull(),
+	workspaceId: varchar('workspaceId', { length: 50 })
+		.references(() => workspaceTable.id)
+		.notNull(),
 	createdAt: timestamp('createdAt').notNull().defaultNow(),
 	updatedAt: timestamp('updatedAt').notNull().defaultNow()
 });

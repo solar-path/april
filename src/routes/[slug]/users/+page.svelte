@@ -6,7 +6,8 @@
 
 	export let data: any;
 
-	$: userList = data.userList || [];
+	$: userWorkspaceList = data.userWorkspaceList || [];
+	$: console.log(userWorkspaceList);
 
 	const reports = [
 		{ report: generatePdfUserReport, title: 'User report', type: 'PDF' },
@@ -21,9 +22,9 @@
 	createItemLabel="Invite user"
 	updateItemLabel="Edit user"
 	formName={InviteUser}
-	list={userList}
+	list={userWorkspaceList}
 	deleteURL="/dashboard/users?/deleteUser"
 	{data}
 	{reports}
-	columns={['id', 'email', 'name', 'surname', 'createdAt']}
+	columns={['fullname', 'avatar', 'email', 'activated', 'createdAt']}
 />
