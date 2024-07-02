@@ -50,6 +50,13 @@
       "when": 1719813772703,
       "tag": "0006_old_iceman",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1719916240249,
+      "tag": "0007_wise_cyclops",
+      "breakpoints": true
     }
   ]
 }

@@ -1,4 +1,5 @@
 import { boolean, date, pgTable, text, timestamp, varchar } from 'drizzle-orm/pg-core';
+import { workspaceTable } from './entity';
 
 export const userTable = pgTable('users', {
 	id: varchar('id', {
@@ -27,4 +28,14 @@ export const userTable = pgTable('users', {
 	zipcode: varchar('zipcode', { length: 20 }),
 	addressLine: varchar('addressLine', { length: 250 }),
 	idNumber: varchar('idNumber', { length: 20 }).unique()
+});
+
+export const workspaceUserTable = pgTable('workspace_user', {
+	id: varchar('id', {
+		length: 50
+	}).primaryKey(),
+	userId: varchar('userId', { length: 50 }).references(() => userTable.id),
+	workspaceId: varchar('workspaceId', { length: 50 }).references(() => workspaceTable.id),
+	createdAt: timestamp('createdAt').notNull().defaultNow(),
+	updatedAt: timestamp('updatedAt').notNull().defaultNow()
 });
