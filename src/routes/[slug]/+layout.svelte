@@ -1,5 +1,6 @@
 <script lang="ts">
 	import {
+		Avatar,
 		Button,
 		Dropdown,
 		DropdownItem,
@@ -86,18 +87,35 @@
 		<Sidebar class="w-full" {activeUrl}>
 			<SidebarWrapper class="space-y-4 bg-white">
 				<SidebarGroup>
-					<Button class="w-full" outline>
-						Workspace: {data.workspaceList.find((workspace) => workspace.slug === $page.params.slug)
-							?.title}
-						<ChevronDownOutline class="ms-2 h-6 w-6 text-white dark:text-white" />
+					<Button class="flex w-full" outline>
+						<div class="flex items-center justify-center gap-2">
+							<p class="text-primary">Workspace:</p>
+							{#if data.workspaceList.find((workspace) => workspace.slug === $page.params.slug)?.logo}
+								<Avatar
+									src={`/images/logo/${
+										data.workspaceList.find((workspace) => workspace.slug === $page.params.slug)
+											?.logo
+									}`}
+									size="sm"
+									class="mx-auto"
+								/>
+							{/if}
+							{data.workspaceList.find((workspace) => workspace.slug === $page.params.slug)?.title}
+							<ChevronDownOutline class="ms-2 h-6 w-6 text-white dark:text-white" />
+						</div>
 					</Button>
 					<Dropdown class="w-full">
 						{#each data.workspaceList.filter((workspace) => workspace.slug !== $page.params.slug) as workspace}
 							<DropdownItem
 								href={`/${workspace.slug}`}
-								class="flex items-center justify-start gap-2 hover:bg-primary-700 hover:text-white"
+								class="w-full hover:bg-primary-700 hover:text-white"
 							>
-								{workspace.title}
+								<div class="justify-left flex flex-row items-center gap-2">
+									{#if workspace.logo}
+										<Avatar src={`/images/logo/${workspace.logo}`} size="sm" />
+									{/if}
+									{workspace.title}
+								</div>
 							</DropdownItem>
 						{/each}
 						<DropdownItem

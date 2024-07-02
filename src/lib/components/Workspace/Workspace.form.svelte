@@ -1,7 +1,7 @@
 <script lang="ts">
 	import DisplayFormErrors from '$lib/components/DisplayFormErrors.svelte';
 	import { hideDrawer } from '$lib/components/Drawer/drawer.utlities';
-	import { Button, Input, Label, Textarea } from 'flowbite-svelte';
+	import { Button, Input, Label, Textarea, Avatar } from 'flowbite-svelte';
 	import SuperDebug, { superForm, type FormResult } from 'sveltekit-superforms';
 
 	interface WorkspaceData {
@@ -9,6 +9,7 @@
 			id?: string;
 			title?: string;
 			description?: string;
+			logo: null | string;
 		};
 		workspaceForm: {
 			data: any;
@@ -24,7 +25,8 @@
 					...data.workspaceForm.data,
 					id: data.item.id,
 					title: data.item.title,
-					description: data.item.description
+					description: data.item.description,
+					logo: null
 				}
 			: data.workspaceForm.data,
 		{
@@ -48,6 +50,22 @@
 	class="flex flex-col space-y-2"
 >
 	<input type="hidden" name="id" bind:value={$form.id} />
+
+	<div class="w-full">
+		<Label for="logo">Logo</Label>
+		{#if data.item && data.item != null && data.item.logo != null}
+			<Avatar src={data.item.logo} size="xl" class="mx-auto" />
+		{/if}
+		<Input
+			id="logo"
+			type="file"
+			name="logo"
+			accept="image/png, image/jpeg, image/jpg"
+			bind:value={$form.logo}
+			{...$constraints.logo}
+		/>
+		<DisplayFormErrors errors={$errors.logo} />
+	</div>
 
 	<div class="w-full">
 		<Label for="title">Workspace</Label>
