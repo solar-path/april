@@ -13,6 +13,16 @@
 		{ report: generatePdfUserReport, title: 'User report', type: 'PDF' },
 		{ report: generateXlsUserReport, title: 'User report', type: 'XLS' }
 	];
+
+	const columns = [
+		{ label: 'ID', key: 'id', type: 'id' },
+		{ label: 'Fullname', key: 'fullname', type: 'string' },
+		{ label: 'Avatar', key: 'avatar', type: 'avatar' },
+		{ label: 'Email', key: 'email', type: 'email' },
+		{ label: 'Phone', key: 'phone', type: 'phone' },
+		{ label: 'Activated', key: 'activated', type: 'boolean' },
+		{ label: 'Joined', key: 'createdAt', type: 'date' }
+	];
 </script>
 
 <GenericTable
@@ -26,5 +36,5 @@
 	deleteURL="/dashboard/users?/deleteUser"
 	{data}
 	{reports}
-	columns={['fullname', 'avatar', 'email', 'phone', 'activated', 'createdAt']}
+	{columns}
 />

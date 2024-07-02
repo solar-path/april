@@ -48,7 +48,7 @@
 	export let deleteURL: string = '';
 	export let reports: any[] = [];
 	export let showToolBar: boolean = false;
-	export let columns: string[] = [];
+	export let columns: { label: string; key: string; type: string }[] = [];
 	let searchTerm = '';
 	export let data = {};
 	$sortItems = list.slice();
@@ -106,10 +106,10 @@
 <Table hoverable={true}>
 	<TableHead>
 		{#each columns as column}
-			<TableHeadCell padding="px-4 py-3" on:click={() => sortTable(column)} scope="col">
+			<TableHeadCell padding="px-4 py-3" on:click={() => sortTable(column.key)} scope="col">
 				<span class="flex flex-row">
-					{column[0].toUpperCase() + column.slice(1)}
-					{#if $sortKey === column}
+					{column.label}
+					{#if $sortKey === column.key}
 						{#if $sortDirection === 1}
 							<ArrowUpOutline />
 						{:else}
@@ -127,18 +127,20 @@
 				<TableBodyRow class="group relative">
 					{#each columns as column}
 						<TableBodyCell tdClass="px-4 py-3">
-							{#if column === 'id'}
-								{item.id.slice(0, 6)}
-							{:else if column === 'phone'}
-								<A href={`tel:${item.phone}`}>{item.phone}</A>
-							{:else if column === 'email'}
-								<A href={`mailto:${item.email}`}>{item.email}</A>
-							{:else if column === 'avatar'}
-								<Avatar src={item.avatar} alt="avatar" />
-							{:else if column === 'createdAt'}
-								{new Date(item.createdAt).toLocaleDateString()}
+							{#if column.type === 'id'}
+								{item[column.key].slice(0, 6)}
+							{:else if column.type === 'phone'}
+								<A href={`tel:${item[column.key]}`}>{item[column.key]}</A>
+							{:else if column.type === 'email'}
+								<A href={`mailto:${item[column.key]}`}>{item[column.key]}</A>
+							{:else if column.type === 'avatar'}
+								<Avatar src={item[column.key]} alt="avatar" />
+							{:else if column.type === 'date'}
+								{new Date(item[column.key]).toLocaleDateString()}
+							{:else if column.type === 'boolean'}
+								{item[column.key] ? 'Yes' : 'No'}
 							{:else}
-								{item[column]}
+								{item[column.key]}
 							{/if}
 						</TableBodyCell>
 					{/each}
