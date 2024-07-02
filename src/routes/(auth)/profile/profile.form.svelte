@@ -11,7 +11,7 @@
 			surname: string;
 			gender: string;
 			dob: Date;
-			avatar: any;
+			avatar: null | string;
 			phone: string;
 			addressLine: string;
 			zipcode: string;

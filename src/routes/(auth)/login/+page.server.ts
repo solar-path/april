@@ -37,7 +37,6 @@ export const actions: Actions = {
 			.where(eq(userTable.email, form.data.email))
 			.leftJoin(workspaceTable, eq(workspaceTable.author, userTable.id));
 
-		console.log('login/+page.server.ts :: existingUser => ', existingUser);
 		// If user does not exist, return error
 		if (!existingUser[0]) {
 			return setError(form, 'email', 'User not registered');
