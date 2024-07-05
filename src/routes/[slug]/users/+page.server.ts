@@ -1,12 +1,14 @@
 import { db } from '$lib/database/db';
 import { userTable, workspaceUserTable } from '$lib/database/schema/users';
-import type { Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { fail, setError, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { inviteUserSchema } from './users.schema';
 import { Argon2id } from 'oslo/password';
-import { sendInviteEmail } from '$lib/email/mail.server';
+import {
+	sendInviteEmailToExistingNewUser,
+	sendInviteEmailToNotExistingNewUser
+} from '$lib/email/mail.server';
 import { workspaceTable } from '$lib/database/schema/entity';
 import { eq } from 'drizzle-orm';
 import { getWorkspaceBySlug } from '$lib/helpers/getWorkspace';
@@ -14,6 +16,7 @@ import { sql } from 'drizzle-orm';
 
 export const load: PageServerLoad = async (event) => {
 	const currentWorkspace = await getWorkspaceBySlug(event.params.slug);
+	console.log('/[slug]/users :: load :: currentWorkspace :: ', currentWorkspace);
 
 	const userWorkspaceList = await db
 		.select({
@@ -31,7 +34,7 @@ export const load: PageServerLoad = async (event) => {
 		.from(workspaceUserTable)
 		.innerJoin(userTable, eq(workspaceUserTable.userId, userTable.id))
 		.innerJoin(workspaceTable, eq(workspaceUserTable.workspaceId, workspaceTable.id))
-		.where(eq(workspaceUserTable.workspaceId, currentWorkspace));
+		.where(eq(workspaceUserTable.workspaceId, currentWorkspace!.id));
 
 	return {
 		userWorkspaceList,
@@ -39,7 +42,7 @@ export const load: PageServerLoad = async (event) => {
 	};
 };
 
-export const actions: Actions = {
+export const actions = {
 	inviteUser: async (event) => {
 		const form = await superValidate(await event.request.formData(), zod(inviteUserSchema));
 
@@ -48,41 +51,64 @@ export const actions: Actions = {
 			return fail(400, { form });
 		}
 
-		const user = await db
-			.select()
+		const doesUserExist = await db
+			.select({ id: userTable.id, token: userTable.token })
 			.from(userTable)
-			.where(eq(userTable.email, form.data.email.trim().toLowerCase()));
+			.where(eq(userTable.email, form.data.email.trim().toLowerCase()))
+			.limit(1);
 
-		if (user.length > 0) {
-			return setError(form, 'email', 'User already registered');
+		const currentWorkspace = await getWorkspaceBySlug(event.params.slug);
+
+		const userAlreadyInWorkspace = await db
+			.select()
+			.from(workspaceUserTable)
+			.where(eq(workspaceUserTable.userId, doesUserExist[0].id));
+
+		// user already in workspace
+		if (userAlreadyInWorkspace.length > 0) {
+			return setError(form, 'email', 'User already in workspace');
 		}
 
-		const token = crypto.randomUUID();
-
-		const newUser = await db
-			.insert(userTable)
-			.values({
+		// user exists and shall be only invited to workspace
+		if (doesUserExist.length > 0 && currentWorkspace !== undefined && currentWorkspace !== null) {
+			//associate user with workspace
+			await db.insert(workspaceUserTable).values({
 				id: crypto.randomUUID(),
-				email: form.data.email.trim().toLowerCase(),
-				password: await new Argon2id().hash(token),
-				token: token
-			})
-			.returning({ id: userTable.id });
+				userId: doesUserExist[0].id,
+				workspaceId: currentWorkspace.id
+			});
 
-		console.log('/dashboard/users :: newUser => ', newUser);
-
-		const workspace = await db
-			.select({
-				id: workspaceTable.id,
-				title: workspaceTable.title
-			})
-			.from(workspaceTable)
-			.where(eq(workspaceTable.author, event.locals.user?.id || ''));
-
-		if (newUser[0].id && workspace.length > 0) {
-			await sendInviteEmail(form.data.email.trim().toLowerCase(), token, workspace[0].title);
+			// send email notification
+			await sendInviteEmailToExistingNewUser(
+				form.data.email.trim().toLowerCase(),
+				currentWorkspace!.title
+			);
 		}
 
+		// user does not exists and shall be invited to workspace
+		if (doesUserExist.length === 0) {
+			const token = crypto.randomUUID();
+			const newUser = await db
+				.insert(userTable)
+				.values({
+					id: crypto.randomUUID(),
+					email: form.data.email.trim().toLowerCase(),
+					password: await new Argon2id().hash(token),
+					token: token
+				})
+				.returning({ id: userTable.id });
+
+			await db.insert(workspaceUserTable).values({
+				id: crypto.randomUUID(),
+				userId: newUser[0].id,
+				workspaceId: currentWorkspace!.id
+			});
+			await sendInviteEmailToNotExistingNewUser(
+				form.data.email.trim().toLowerCase(),
+				token,
+				currentWorkspace!.title
+			);
+		}
 		return { form };
 	}
 };

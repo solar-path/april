@@ -44,6 +44,7 @@
 	use:enhance
 	novalidate
 	method="POST"
+	enctype="multipart/form-data"
 	action={data.item && data.item !== null
 		? '/dashboard/entity?/updateWorkspace'
 		: '/dashboard/entity?/createWorkspace'}

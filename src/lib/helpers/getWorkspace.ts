@@ -6,12 +6,16 @@ export const getWorkspaceList = async (userReference: string) => {
 	return await db.select().from(workspaceTable).where(eq(workspaceTable.author, userReference));
 };
 
-export const getWorkspaceBySlug = async (slug: string) => {
-	const workspace = await db
-		.select({ id: workspaceTable.id })
-		.from(workspaceTable)
-		.where(eq(workspaceTable.slug, slug))
-		.limit(1);
+export const getWorkspaceBySlug = async (slug: string | undefined) => {
+	if (slug === undefined) {
+		return null;
+	} else {
+		const workspace = await db
+			.select({ id: workspaceTable.id, title: workspaceTable.title })
+			.from(workspaceTable)
+			.where(eq(workspaceTable.slug, slug))
+			.limit(1);
 
-	return workspace[0].id;
+		return workspace[0];
+	}
 };

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import DisplayFormErrors from '$lib/components/DisplayFormErrors.svelte';
 	import { hideDrawer } from '$lib/components/Drawer/drawer.utlities';
 	import { Button, Input, Label } from 'flowbite-svelte';
@@ -22,7 +23,7 @@
 	novalidate
 	method="POST"
 	class="flex flex-col space-y-2"
-	action="/dashboard/users?/inviteUser"
+	action="/{$page.params.slug}/users?/inviteUser"
 >
 	<div class="w-full">
 		<Label for="email">Email</Label>

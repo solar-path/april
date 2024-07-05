@@ -74,7 +74,24 @@ export const sendVerificationEmail = async (email: string, token: string) => {
 	});
 };
 
-export const sendInviteEmail = async (email: string, token: string, workspaceTitle: string) => {
+export const sendInviteEmailToExistingNewUser = async (email: string, workspaceTitle: string) => {
+	const subject = `Invite to ${APP_NAME}`;
+	const html = `
+		  <p>Dear ${email}!</p>
+		  <br>
+		  <p>You have been invited to workspace: ${workspaceTitle} at <a href="${BASE_URL}">${APP_NAME}</a>!</p>
+		  <p>Please select a new workspace manually </p>
+	  `;
+	sendEmail(email, subject, html).catch((error) => {
+		console.error(error.message);
+	});
+};
+
+export const sendInviteEmailToNotExistingNewUser = async (
+	email: string,
+	token: string,
+	workspaceTitle: string
+) => {
 	const subject = `Invite to ${APP_NAME}`;
 	const html = `
 		  <p>Dear ${email}!</p>
