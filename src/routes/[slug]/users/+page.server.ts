@@ -3,7 +3,7 @@ import { userTable, workspaceUserTable } from '$lib/database/schema/users';
 import type { PageServerLoad } from './$types';
 import { fail, setError, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
-import { inviteUserSchema } from './users.schema';
+import { inviteUserSchema, removeUserFromWorkspace } from './users.schema';
 import { Argon2id } from 'oslo/password';
 import {
 	sendInviteEmailToExistingNewUser,
@@ -16,7 +16,6 @@ import { sql } from 'drizzle-orm';
 
 export const load: PageServerLoad = async (event) => {
 	const currentWorkspace = await getWorkspaceBySlug(event.params.slug);
-	console.log('/[slug]/users :: load :: currentWorkspace :: ', currentWorkspace);
 
 	const userWorkspaceList = await db
 		.select({
@@ -109,6 +108,18 @@ export const actions = {
 				currentWorkspace!.title
 			);
 		}
+		return { form };
+	},
+	removeUserFromWorkspace: async (event) => {
+		const form = await superValidate(await event.request.formData(), zod(removeUserFromWorkspace));
+
+		if (!form.valid) {
+			console.log('removeUserFromWorkspace :: invalid form => ', form.data);
+			return fail(400, { form });
+		}
+
+		await db.delete(workspaceUserTable).where(eq(workspaceUserTable.id, form.data.id));
+
 		return { form };
 	}
 };

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import GenericTable from '$lib/components/Table/GenericTable.svelte';
 	import InviteUser from './InviteUser.form.svelte';
 	import { generatePdfUserReport } from './reports/generatePdfUserReport';
@@ -33,7 +34,7 @@
 	updateItemLabel="Edit user"
 	formName={InviteUser}
 	list={userWorkspaceList}
-	deleteURL="/dashboard/users?/deleteUser"
+	deleteURL="/{$page.params.slug}/users?/removeUserFromWorkspace"
 	{data}
 	{reports}
 	{columns}
