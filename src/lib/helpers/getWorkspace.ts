@@ -11,7 +11,8 @@ export const getWorkspaceBySlug = async (slug: string | undefined) => {
 		return null;
 	} else {
 		const workspace = await db
-			.select({ id: workspaceTable.id, title: workspaceTable.title })
+			// .select({ id: workspaceTable.id, title: workspaceTable.title })
+			.select()
 			.from(workspaceTable)
 			.where(eq(workspaceTable.slug, slug))
 			.limit(1);

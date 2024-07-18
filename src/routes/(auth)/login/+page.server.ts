@@ -2,7 +2,7 @@ import { redirect, type Actions } from '@sveltejs/kit';
 import { loginSchema } from './login.schema';
 import { fail, setError, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
-import { userTable } from '$lib/database/schema/users';
+import { userTable, workspaceUserTable } from '$lib/database/schema/users';
 import { eq } from 'drizzle-orm';
 import { Argon2id } from 'oslo/password';
 import { lucia } from '$lib/auth/auth';
@@ -37,8 +37,10 @@ export const actions: Actions = {
 			.where(eq(userTable.email, form.data.email))
 			.leftJoin(workspaceTable, eq(workspaceTable.author, userTable.id));
 
+		console.log('login :: existingUser => ', existingUser);
+
 		// If user does not exist, return error
-		if (!existingUser[0]) {
+		if (!existingUser[0] || existingUser.length === 0) {
 			return setError(form, 'email', 'User not registered');
 		}
 
@@ -55,6 +57,18 @@ export const actions: Actions = {
 			return setError(form, 'email', 'Invalid credentials');
 		}
 
+		// Check if user is in workspace
+		const userWorkspace = await db
+			.select({
+				workspaceId: workspaceUserTable.workspaceId,
+				slug: workspaceTable.slug
+			})
+			.from(workspaceUserTable)
+			.leftJoin(workspaceTable, eq(workspaceTable.id, workspaceUserTable.workspaceId))
+			.where(eq(workspaceUserTable.userId, existingUser[0].id));
+
+		console.log('login :: userWorkspaceList => ', userWorkspace);
+
 		// Create session
 		const session = await lucia.createSession(existingUser[0].id, {});
 
@@ -64,7 +78,8 @@ export const actions: Actions = {
 			path: '.',
 			...sessionCookie.attributes
 		});
+		// redirect to workspace
 
-		redirect(302, `/${existingUser[0].workspace}`);
+		redirect(302, `/${userWorkspace[0].slug}`);
 	}
 };
