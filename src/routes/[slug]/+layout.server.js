@@ -1,7 +1,7 @@
 import { error, redirect } from '@sveltejs/kit';
 import { getWorkspaceBySlug, getWorkspaceList } from '$lib/helpers/getWorkspace';
 
-export const load = async (event: any) => {
+export const load = async (event) => {
 	if (!event.locals.user) {
 		redirect(302, '/login');
 	}
