@@ -1,4 +1,4 @@
-import { redirect, type Actions } from '@sveltejs/kit';
+import { redirect } from '@sveltejs/kit';
 import { loginSchema } from './login.schema';
 import { fail, setError, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
@@ -15,7 +15,7 @@ export const load = async () => {
 	};
 };
 
-export const actions: Actions = {
+export const actions = {
 	default: async ({ cookies, request }) => {
 		const form = await superValidate(await request.formData(), zod(loginSchema));
 

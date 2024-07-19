@@ -4,7 +4,7 @@ import { eq } from 'drizzle-orm';
 import { fail, superValidate } from 'sveltekit-superforms';
 import { inviteRegisterSchema } from './inviteRegister.schema.js';
 import { zod } from 'sveltekit-superforms/adapters';
-import { redirect, type Actions } from '@sveltejs/kit';
+import { redirect } from '@sveltejs/kit';
 import { Argon2id } from 'oslo/password';
 
 export const load = async ({ params }) => {
@@ -33,7 +33,7 @@ export const load = async ({ params }) => {
 	};
 };
 
-export const actions: Actions = {
+export const actions = {
 	default: async (event) => {
 		const form = await superValidate(await event.request.formData(), zod(inviteRegisterSchema));
 

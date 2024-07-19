@@ -1,23 +1,21 @@
-<script lang="ts">
+<script>
 	import { superForm } from 'sveltekit-superforms/client';
 	import { A, Button, Card, Heading, Hr, Input, Label } from 'flowbite-svelte';
 	import DisplayFormErrors from '$lib/components/DisplayFormErrors.svelte';
 	import { EyeOutline, EyeSlashOutline, EnvelopeSolid, LockSolid } from 'flowbite-svelte-icons';
 
-	export let data: any;
+	export let data;
 
-	type LoginFormData = {
-		email: string;
-		password: string;
-	};
+	// type LoginFormData = {
+	// 	email: string;
+	// 	password: string;
+	// };
 
-	type FormErrors = {
-		email?: string[]; // Array of strings for email errors
-		password?: string[]; // Array of string`s for password errors
-	};
-	const { form, errors, constraints, enhance } = superForm<LoginFormData, FormErrors>(
-		data.loginForm.data
-	);
+	// type FormErrors = {
+	// 	email?: string[]; // Array of strings for email errors
+	// 	password?: string[]; // Array of string`s for password errors
+	// };
+	const { form, errors, constraints, enhance } = superForm(data.loginForm.data);
 
 	let show = false;
 </script>

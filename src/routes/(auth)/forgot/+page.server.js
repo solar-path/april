@@ -1,7 +1,6 @@
 import { fail, setError, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { forgotPasswordSchema } from './forgot.schema';
-import type { Actions } from '@sveltejs/kit';
 import { userTable } from '$lib/database/schema/users';
 import { sendPasswordResetEmail } from '$lib/email/mail.server';
 import { db } from '$lib/database/db';
@@ -12,7 +11,7 @@ export const load = async () => {
 		forgotPasswordForm: await superValidate(zod(forgotPasswordSchema))
 	};
 };
-export const actions: Actions = {
+export const actions = {
 	default: async ({ request }) => {
 		const form = await superValidate(await request.formData(), zod(forgotPasswordSchema));
 		// console.log('/forgot/+page.server.ts :: form => ', form);

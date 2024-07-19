@@ -1,7 +1,7 @@
 import { lucia } from '$lib/auth/auth';
-import { fail, redirect, type Actions } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 
-export const actions: Actions = {
+export const actions = {
 	default: async (event) => {
 		// Check if user is logged in
 		if (!event.locals.session) {

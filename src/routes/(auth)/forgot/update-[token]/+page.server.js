@@ -1,5 +1,4 @@
 import { setError, superValidate } from 'sveltekit-superforms';
-import type { Actions } from './$types.js';
 import { zod } from 'sveltekit-superforms/adapters';
 import { changePasswordSchema } from './changePassword.schema.js';
 import { fail, redirect } from '@sveltejs/kit';
@@ -9,12 +8,12 @@ import { userTable } from '$lib/database/schema/users';
 import { eq } from 'drizzle-orm/mysql-core/expressions';
 
 
-export const load = async ({}) => {
+export const load = async () => {
 	const changePasswordForm = await superValidate(zod(changePasswordSchema));
 	return { changePasswordForm };
 };
 
-export const actions: Actions = {
+export const actions = {
 	default: async ({ params, request }) => {
 		const token = params.token as string;
 		console.log('forgot/update-[token]/+page.server.ts :: token => ', token);

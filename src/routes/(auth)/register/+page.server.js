@@ -1,7 +1,6 @@
 import { registerSchema } from './register.schema';
 import { fail, setError, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
-import type { Actions } from './$types';
 import { db } from '$lib/database/db';
 import { userTable, workspaceUserTable } from '$lib/database/schema/users';
 import { eq } from 'drizzle-orm/mysql-core/expressions';
@@ -17,7 +16,7 @@ export const load = async () => {
 	};
 };
 
-export const actions: Actions = {
+export const actions = {
 	default: async (event) => {
 		// Get the form data
 		const form = await superValidate(await event.request.formData(), zod(registerSchema));
