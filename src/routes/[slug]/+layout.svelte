@@ -29,17 +29,17 @@
 	$: activeUrl = $page.url.pathname;
 
 	$: lines = [
-		// {
-		// 	label: 'Tasks',
-		// 	href: `/${$page.params.slug}/tasks`,
-		// 	icon: InboxOutline
-		// },
+		{
+			label: 'Tasks',
+			href: `/${$page.params.slug}/tasks`,
+			icon: InboxOutline
+		},
 
-		// {
-		// 	label: 'Business structure',
-		// 	href: `/${$page.params.slug}/entity`,
-		// 	icon: BuildingOutline
-		// },
+		{
+			label: 'Business structure',
+			href: `/${$page.params.slug}/entity`,
+			icon: BuildingOutline
+		},
 		{
 			label: 'Users management',
 			href: `/${$page.params.slug}/users`,
@@ -166,7 +166,7 @@
 			</SidebarWrapper>
 		</Sidebar>
 	</div>
-	<div class="w-4/5">
+	<div class="mt-4 w-4/5">
 		<slot />
 	</div>
 </div>
