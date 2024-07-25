@@ -1,4 +1,5 @@
 import { db } from '../db';
+import { workspaceTable } from '../schema/entity';
 import { processTable } from '../schema/rcm';
 import { userTable } from '../schema/users';
 
@@ -134,6 +135,7 @@ export const seedProcess = async () => {
 	const processList = [];
 	const processes = await db.select().from(processTable);
 	const user = await db.select({ id: userTable.id }).from(userTable).limit(1);
+	const workspace = await db.select({ id: workspaceTable.id }).from(workspaceTable).limit(1);
 
 	if (processes.length === 0) {
 		console.log('start seed processes');
@@ -145,6 +147,7 @@ export const seedProcess = async () => {
 					title: process.title,
 					description: process.description,
 					author: user[0].id,
+					workspaceId: workspace[0].id,
 					parentId:
 						process.parent === null ? null : processList.find((p) => p.title === process.parent)?.id // This will be null for top-level posts
 				})

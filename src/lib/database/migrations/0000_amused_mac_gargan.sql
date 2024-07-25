@@ -139,6 +139,7 @@ CREATE TABLE IF NOT EXISTS "structure_workspaces" (
 	"title" varchar(250) NOT NULL,
 	"slug" varchar(250) NOT NULL,
 	"description" text,
+	"logo" varchar(250),
 	"author" varchar(50) NOT NULL,
 	"createdAt" timestamp DEFAULT now() NOT NULL,
 	"updatedAt" timestamp DEFAULT now() NOT NULL,
@@ -208,6 +209,7 @@ CREATE TABLE IF NOT EXISTS "rbac_user_role" (
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "rcm_control" (
 	"id" varchar(50) PRIMARY KEY NOT NULL,
+	"workspaceId" varchar(50),
 	"title" varchar(200),
 	"description" text NOT NULL,
 	"author" varchar(50) NOT NULL,
@@ -217,6 +219,7 @@ CREATE TABLE IF NOT EXISTS "rcm_control" (
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "rcm_Matrix" (
 	"id" varchar(50) PRIMARY KEY NOT NULL,
+	"workspaceId" varchar(50),
 	"companyId" varchar(50),
 	"processId" varchar(50),
 	"riskId" varchar(50),
@@ -233,6 +236,7 @@ CREATE TABLE IF NOT EXISTS "rcm_Matrix" (
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "rcm_process" (
 	"id" varchar(50) PRIMARY KEY NOT NULL,
+	"workspaceId" varchar(50),
 	"title" varchar(200),
 	"description" text,
 	"author" varchar(50) NOT NULL,
@@ -243,6 +247,7 @@ CREATE TABLE IF NOT EXISTS "rcm_process" (
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "rcm_risk" (
 	"id" varchar(50) PRIMARY KEY NOT NULL,
+	"workspaceId" varchar(50),
 	"title" varchar(200),
 	"author" varchar(50) NOT NULL,
 	"createdAt" timestamp DEFAULT now() NOT NULL,
@@ -265,7 +270,26 @@ CREATE TABLE IF NOT EXISTS "users" (
 	"updatedAt" timestamp DEFAULT now() NOT NULL,
 	"name" varchar(40),
 	"surname" varchar(40),
-	CONSTRAINT "users_email_unique" UNIQUE("email")
+	"gender" varchar(40),
+	"dob" date,
+	"avatar" text,
+	"phone" varchar(20),
+	"country" varchar(100),
+	"city" varchar(100),
+	"state" varchar(100),
+	"zipcode" varchar(20),
+	"addressLine" varchar(250),
+	"idNumber" varchar(20),
+	CONSTRAINT "users_email_unique" UNIQUE("email"),
+	CONSTRAINT "users_idNumber_unique" UNIQUE("idNumber")
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "workspace_user" (
+	"id" varchar(50) PRIMARY KEY NOT NULL,
+	"userId" varchar(50) NOT NULL,
+	"workspaceId" varchar(50) NOT NULL,
+	"createdAt" timestamp DEFAULT now() NOT NULL,
+	"updatedAt" timestamp DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
 DO $$ BEGIN
@@ -425,7 +449,19 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
+ ALTER TABLE "rcm_control" ADD CONSTRAINT "rcm_control_workspaceId_structure_workspaces_id_fk" FOREIGN KEY ("workspaceId") REFERENCES "structure_workspaces"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
  ALTER TABLE "rcm_control" ADD CONSTRAINT "rcm_control_author_users_id_fk" FOREIGN KEY ("author") REFERENCES "users"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "rcm_Matrix" ADD CONSTRAINT "rcm_Matrix_workspaceId_structure_workspaces_id_fk" FOREIGN KEY ("workspaceId") REFERENCES "structure_workspaces"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -467,6 +503,12 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
+ ALTER TABLE "rcm_process" ADD CONSTRAINT "rcm_process_workspaceId_structure_workspaces_id_fk" FOREIGN KEY ("workspaceId") REFERENCES "structure_workspaces"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
  ALTER TABLE "rcm_process" ADD CONSTRAINT "rcm_process_author_users_id_fk" FOREIGN KEY ("author") REFERENCES "users"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
@@ -479,6 +521,12 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
+ ALTER TABLE "rcm_risk" ADD CONSTRAINT "rcm_risk_workspaceId_structure_workspaces_id_fk" FOREIGN KEY ("workspaceId") REFERENCES "structure_workspaces"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
  ALTER TABLE "rcm_risk" ADD CONSTRAINT "rcm_risk_author_users_id_fk" FOREIGN KEY ("author") REFERENCES "users"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
@@ -486,6 +534,18 @@ END $$;
 --> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "session" ADD CONSTRAINT "session_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "workspace_user" ADD CONSTRAINT "workspace_user_userId_users_id_fk" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "workspace_user" ADD CONSTRAINT "workspace_user_workspaceId_structure_workspaces_id_fk" FOREIGN KEY ("workspaceId") REFERENCES "structure_workspaces"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;

@@ -25,7 +25,7 @@ export const seedCompany = async () => {
 
 	const workspaceList = await db.select().from(workspaceTable).limit(1);
 	const regionList = await db.select().from(regionTable).limit(1);
-	const industryList = await db.select().from(industryTable).limit(1);
+	const industryList = await db.select().from(industryTable);
 	const addressList = await db.select().from(addressTable).limit(1);
 	const user = await db.select().from(userTable).limit(1);
 

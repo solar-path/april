@@ -1,4 +1,5 @@
 import { db } from '../db';
+import { workspaceTable } from '../schema/entity';
 import { controlTable } from '../schema/rcm';
 import { userTable } from '../schema/users';
 
@@ -95,6 +96,7 @@ export const seedControl = async () => {
 	const controls = await db.select().from(controlTable);
 	const user = await db.select({ id: userTable.id }).from(userTable).limit(1);
 	const controlList = [];
+	const workspace = await db.select({ id: workspaceTable.id }).from(workspaceTable).limit(1);
 
 	if (controls.length === 0) {
 		console.log('start seed controls');
@@ -105,6 +107,7 @@ export const seedControl = async () => {
 					id: crypto.randomUUID(),
 					title: control.title,
 					description: control.description,
+					workspaceId: workspace[0].id,
 					author: user[0].id
 				})
 				.returning();

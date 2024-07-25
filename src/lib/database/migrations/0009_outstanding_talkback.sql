@@ -1,1 +1,0 @@
-ALTER TABLE "structure_workspaces" ADD COLUMN "logo" varchar(250);

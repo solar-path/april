@@ -1,12 +1,12 @@
 import { pgTable, timestamp, varchar, text, pgEnum } from 'drizzle-orm/pg-core';
 import { userTable } from './users';
-import { companyTable, positionTable } from './entity';
+import { companyTable, positionTable, workspaceTable } from './entity';
 
 export const riskTable = pgTable('rcm_risk', {
 	id: varchar('id', {
 		length: 50
 	}).primaryKey(),
-
+	workspaceId: varchar('workspaceId', { length: 50 }).references(() => workspaceTable.id),
 	title: varchar('title', {
 		length: 200
 	}),
@@ -21,6 +21,7 @@ export const controlTable = pgTable('rcm_control', {
 	id: varchar('id', {
 		length: 50
 	}).primaryKey(),
+	workspaceId: varchar('workspaceId', { length: 50 }).references(() => workspaceTable.id),
 
 	title: varchar('title', {
 		length: 200
@@ -33,11 +34,11 @@ export const controlTable = pgTable('rcm_control', {
 	updatedAt: timestamp('updatedAt').notNull().defaultNow()
 });
 
-export const processTable: any = pgTable('rcm_process', {
+export const processTable = pgTable('rcm_process', {
 	id: varchar('id', {
 		length: 50
 	}).primaryKey(),
-
+	workspaceId: varchar('workspaceId', { length: 50 }).references(() => workspaceTable.id),
 	title: varchar('title', {
 		length: 200
 	}),
@@ -67,6 +68,7 @@ export const matrixTable = pgTable('rcm_Matrix', {
 	id: varchar('id', {
 		length: 50
 	}).primaryKey(),
+	workspaceId: varchar('workspaceId', { length: 50 }).references(() => workspaceTable.id),
 	companyId: varchar('companyId', { length: 50 }).references(() => companyTable.id),
 	processId: varchar('processId', { length: 50 }).references(() => processTable.id),
 	riskId: varchar('riskId', { length: 50 }).references(() => riskTable.id),

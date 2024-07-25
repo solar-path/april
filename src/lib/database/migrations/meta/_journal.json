@@ -5,71 +5,8 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1719404188552,
-      "tag": "0000_aromatic_chameleon",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1719486059251,
-      "tag": "0001_aromatic_princess_powerful",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "5",
-      "when": 1719486302050,
-      "tag": "0002_fair_shape",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "5",
-      "when": 1719488641956,
-      "tag": "0003_open_gideon",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "5",
-      "when": 1719490632107,
-      "tag": "0004_complete_molecule_man",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "5",
-      "when": 1719491325687,
-      "tag": "0005_violet_the_leader",
-      "breakpoints": true
-    },
-    {
-      "idx": 6,
-      "version": "5",
-      "when": 1719813772703,
-      "tag": "0006_old_iceman",
-      "breakpoints": true
-    },
-    {
-      "idx": 7,
-      "version": "5",
-      "when": 1719916240249,
-      "tag": "0007_wise_cyclops",
-      "breakpoints": true
-    },
-    {
-      "idx": 8,
-      "version": "5",
-      "when": 1719921044208,
-      "tag": "0008_chilly_alex_power",
-      "breakpoints": true
-    },
-    {
-      "idx": 9,
-      "version": "5",
-      "when": 1719924571555,
-      "tag": "0009_outstanding_talkback",
+      "when": 1721914827733,
+      "tag": "0000_amused_mac_gargan",
       "breakpoints": true
     }
   ]

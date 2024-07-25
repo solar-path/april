@@ -1,4 +1,7 @@
-[
+import { db } from '../db';
+import { roleTable } from '../schema/rbac';
+
+const roleData = [
 	{
 		title: 'Super Admin',
 		description: 'Super admin has full access to all resources and features'
@@ -51,8 +54,9 @@
 	}
 ];
 
-export const seedRoles = async (roleData: any[]) => {
+export const seedRoles = async () => {
 	const roles = await db.select().from(roleTable);
+	const roleList = [];
 	if (roles.length === 0) {
 		console.log('start seed roles');
 		for (const role of roleData) {

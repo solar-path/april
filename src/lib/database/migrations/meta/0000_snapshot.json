@@ -1,5 +1,5 @@
 {
-  "id": "b3d2eda7-5b5d-49f3-91e1-18aee5931bba",
+  "id": "0a2ce1bb-6044-4fda-8238-2714d21f8316",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
@@ -828,6 +828,12 @@
           "primaryKey": false,
           "notNull": false
         },
+        "logo": {
+          "name": "logo",
+          "type": "varchar(250)",
+          "primaryKey": false,
+          "notNull": false
+        },
         "author": {
           "name": "author",
           "type": "varchar(50)",
@@ -1311,6 +1317,12 @@
           "primaryKey": true,
           "notNull": true
         },
+        "workspaceId": {
+          "name": "workspaceId",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
         "title": {
           "name": "title",
           "type": "varchar(200)",
@@ -1346,6 +1358,19 @@
       },
       "indexes": {},
       "foreignKeys": {
+        "rcm_control_workspaceId_structure_workspaces_id_fk": {
+          "name": "rcm_control_workspaceId_structure_workspaces_id_fk",
+          "tableFrom": "rcm_control",
+          "tableTo": "structure_workspaces",
+          "columnsFrom": [
+            "workspaceId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
         "rcm_control_author_users_id_fk": {
           "name": "rcm_control_author_users_id_fk",
           "tableFrom": "rcm_control",
@@ -1372,6 +1397,12 @@
           "type": "varchar(50)",
           "primaryKey": true,
           "notNull": true
+        },
+        "workspaceId": {
+          "name": "workspaceId",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
         },
         "companyId": {
           "name": "companyId",
@@ -1450,6 +1481,19 @@
       },
       "indexes": {},
       "foreignKeys": {
+        "rcm_Matrix_workspaceId_structure_workspaces_id_fk": {
+          "name": "rcm_Matrix_workspaceId_structure_workspaces_id_fk",
+          "tableFrom": "rcm_Matrix",
+          "tableTo": "structure_workspaces",
+          "columnsFrom": [
+            "workspaceId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
         "rcm_Matrix_companyId_structure_companies_id_fk": {
           "name": "rcm_Matrix_companyId_structure_companies_id_fk",
           "tableFrom": "rcm_Matrix",
@@ -1542,6 +1586,12 @@
           "primaryKey": true,
           "notNull": true
         },
+        "workspaceId": {
+          "name": "workspaceId",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
         "title": {
           "name": "title",
           "type": "varchar(200)",
@@ -1583,6 +1633,19 @@
       },
       "indexes": {},
       "foreignKeys": {
+        "rcm_process_workspaceId_structure_workspaces_id_fk": {
+          "name": "rcm_process_workspaceId_structure_workspaces_id_fk",
+          "tableFrom": "rcm_process",
+          "tableTo": "structure_workspaces",
+          "columnsFrom": [
+            "workspaceId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
         "rcm_process_author_users_id_fk": {
           "name": "rcm_process_author_users_id_fk",
           "tableFrom": "rcm_process",
@@ -1623,6 +1686,12 @@
           "primaryKey": true,
           "notNull": true
         },
+        "workspaceId": {
+          "name": "workspaceId",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
         "title": {
           "name": "title",
           "type": "varchar(200)",
@@ -1652,6 +1721,19 @@
       },
       "indexes": {},
       "foreignKeys": {
+        "rcm_risk_workspaceId_structure_workspaces_id_fk": {
+          "name": "rcm_risk_workspaceId_structure_workspaces_id_fk",
+          "tableFrom": "rcm_risk",
+          "tableTo": "structure_workspaces",
+          "columnsFrom": [
+            "workspaceId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
         "rcm_risk_author_users_id_fk": {
           "name": "rcm_risk_author_users_id_fk",
           "tableFrom": "rcm_risk",
@@ -1771,6 +1853,66 @@
           "type": "varchar(40)",
           "primaryKey": false,
           "notNull": false
+        },
+        "gender": {
+          "name": "gender",
+          "type": "varchar(40)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "dob": {
+          "name": "dob",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "avatar": {
+          "name": "avatar",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "phone": {
+          "name": "phone",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "country": {
+          "name": "country",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "city": {
+          "name": "city",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "state": {
+          "name": "state",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "zipcode": {
+          "name": "zipcode",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "addressLine": {
+          "name": "addressLine",
+          "type": "varchar(250)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "idNumber": {
+          "name": "idNumber",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
         }
       },
       "indexes": {},
@@ -1783,8 +1925,84 @@
           "columns": [
             "email"
           ]
+        },
+        "users_idNumber_unique": {
+          "name": "users_idNumber_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "idNumber"
+          ]
         }
       }
+    },
+    "workspace_user": {
+      "name": "workspace_user",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(50)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "userId": {
+          "name": "userId",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "workspaceId": {
+          "name": "workspaceId",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "workspace_user_userId_users_id_fk": {
+          "name": "workspace_user_userId_users_id_fk",
+          "tableFrom": "workspace_user",
+          "tableTo": "users",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "workspace_user_workspaceId_structure_workspaces_id_fk": {
+          "name": "workspace_user_workspaceId_structure_workspaces_id_fk",
+          "tableFrom": "workspace_user",
+          "tableTo": "structure_workspaces",
+          "columnsFrom": [
+            "workspaceId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
     }
   },
   "enums": {

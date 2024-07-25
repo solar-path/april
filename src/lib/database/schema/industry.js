@@ -1,6 +1,6 @@
 import { pgTable, text, timestamp, varchar } from 'drizzle-orm/pg-core';
 
-export const industryTable: any = pgTable('industry', {
+export const industryTable = pgTable('industry', {
 	id: varchar('code', { length: 50 }).notNull().unique().primaryKey(),
 	name: varchar('name', { length: 100 }).notNull(),
 	description: text('description'),

@@ -1,4 +1,4 @@
-import { client, db } from './db';
+import { client } from './db';
 
 import { seedUsers } from './data/users';
 import { seedBlog } from './data/blog';
@@ -13,6 +13,8 @@ import { seedPosition } from './data/positions';
 import { seedRisk } from './data/rcm_risks';
 import { seedControl } from './data/rcm_controls';
 import { seedProcess } from './data/rcm_process';
+import { seedRoles } from './data/rbac_roles';
+import { seedPermissions } from './data/rbac_permissions';
 
 const main = async () => {
 	console.log('start seeding data');
@@ -34,34 +36,12 @@ const main = async () => {
 		await seedProcess();
 
 		//RBAC
-		// await seedRoles(roleData);
-		// await seedPermissions(permissionData);
+		await seedRoles();
+		await seedPermissions();
 		console.log('data seeding complete');
 		await client.end();
 	} catch (error) {
 		console.log('data seeding failed :: error =>', error);
-	}
-};
-
-const seedPermissions = async (permissionData: any[]) => {
-	const permissions = await db.select().from(permissionTable);
-	if (permissions.length === 0) {
-		console.log('start seed permissions');
-		for (const permission of permissionData) {
-			const newPermission = await db
-				.insert(permissionTable)
-				.values({
-					id: crypto.randomUUID(),
-					title: permission.title,
-					description: permission.description
-				})
-				.returning();
-			permissionList.push(newPermission[0]);
-		}
-		console.log('permissions seed completed');
-	} else {
-		permissionList.push(...permissions);
-		console.log('permissions already seeded');
 	}
 };
 
