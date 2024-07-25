@@ -1,12 +1,12 @@
-import { fail, superValidate } from "sveltekit-superforms";
-import { zod } from "sveltekit-superforms/adapters";
-import { deleteRegionSchema, regionSchema } from "./region.schema";
-import { db } from "$lib/database/db";
-import { regionTable } from "$lib/database/schema/entity";
-import { eq } from "drizzle-orm";
+import { fail, superValidate } from 'sveltekit-superforms';
+import { zod } from 'sveltekit-superforms/adapters';
+import { deleteRegionSchema, regionSchema } from './region.schema';
+import { db } from '$lib/database/db';
+import { regionTable } from '$lib/database/schema/entity';
+import { eq } from 'drizzle-orm';
 
 export const actions = {
-    // REGION CRUD
+	// REGION CRUD
 	createRegion: async (event) => {
 		const form = await superValidate(await event.request.formData(), zod(regionSchema));
 
@@ -18,9 +18,9 @@ export const actions = {
 		await db.insert(regionTable).values({
 			id: crypto.randomUUID(),
 			title: form.data.title,
-			description: form.data.description,
-			workspaceId: form.data.workspaceId,
-			author: event.locals.user?.id as string
+			description: form.data.description ?? '',
+			workspaceId: form.data.workspaceId ?? '',
+			author: event.locals.user?.id ?? ''
 		});
 
 		return { form };
@@ -32,10 +32,7 @@ export const actions = {
 			console.log('form is not valid => ', form);
 			return fail(400, { form });
 		}
-		const record = await db
-			.select()
-			.from(regionTable)
-			.where(eq(regionTable.id, form.data.id as string));
+		const record = await db.select().from(regionTable).where(eq(regionTable.id, form.data.id));
 
 		await db
 			.update(regionTable)
@@ -50,7 +47,7 @@ export const actions = {
 						? form.data.workspaceId
 						: record[0].workspaceId
 			})
-			.where(eq(regionTable.id, form.data.id as string));
+			.where(eq(regionTable.id, form.data.id));
 
 		return { form };
 	},
@@ -59,7 +56,7 @@ export const actions = {
 		if (!form.valid) {
 			return fail(400, { form });
 		}
-		await db.delete(regionTable).where(eq(regionTable.id, form.data.id as string));
+		await db.delete(regionTable).where(eq(regionTable.id, form.data.id));
 		return { form };
-	},
-}
+	}
+};

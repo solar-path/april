@@ -69,8 +69,8 @@
 	novalidate
 	method="POST"
 	action={data.item && data.item !== null
-		? '/dashboard/entity?/updateRegion'
-		: '/dashboard/entity?/createRegion'}
+		? `/${$page.params.slug}/entity/region?/updateRegion`
+		: `/${$page.params.slug}/entity/region?/createRegion`}
 	class="flex flex-col space-y-2"
 >
 	<input type="hidden" name="id" bind:value={$form.id} />

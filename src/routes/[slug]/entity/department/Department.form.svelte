@@ -6,6 +6,7 @@
 	import { Button, Input, Label, Textarea } from 'flowbite-svelte';
 	import { onDestroy } from 'svelte';
 	import SuperDebug, { superForm, type FormResult } from 'sveltekit-superforms';
+	import { page } from '$app/stores';
 
 	interface CompanyData {
 		item?: {
@@ -61,8 +62,8 @@
 	novalidate
 	method="POST"
 	action={data.item && data.item !== null
-		? '/dashboard/entity?/updateDepartment'
-		: '/dashboard/entity?/createDepartment'}
+		? `/${$page.params.slug}/entity/department?/updateDepartment`
+		: `/${$page.params.slug}/entity/department?/createDepartment`}
 	class="flex flex-col space-y-2"
 >
 	<input type="hidden" name="id" bind:value={$form.id} />

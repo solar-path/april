@@ -4,6 +4,7 @@
 	import { EditOutline } from 'flowbite-svelte-icons';
 	import Region from './Region.form.svelte';
 	import DeleteButton from '$lib/components/DeleteButton.svelte';
+	import { page } from '$app/stores';
 	export let selectedStructureItem;
 	export let data;
 </script>
@@ -22,7 +23,7 @@
 			<EditOutline class="h-4 w-6" /></Button
 		>
 		<DeleteButton
-			path="/dashboard/entity?/deleteRegion"
+			path="/{$page.params.slug}/entity/region?/deleteRegion"
 			name={'id'}
 			identifier={selectedStructureItem.id}
 		/>
