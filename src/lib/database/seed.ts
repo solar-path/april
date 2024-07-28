@@ -1,4 +1,4 @@
-import { client } from './db';
+// import { client } from './db';
 
 import { seedUsers } from './data/users';
 import { seedBlog } from './data/blog';
@@ -39,7 +39,7 @@ const main = async () => {
 		await seedRoles();
 		await seedPermissions();
 		console.log('data seeding complete');
-		await client.end();
+		// await client.end();
 	} catch (error) {
 		console.log('data seeding failed :: error =>', error);
 	}

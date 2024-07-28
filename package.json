@@ -14,7 +14,7 @@
 		"db:drop": "npx vite-node ./src/lib/database/drop.js",
 		"db:generate": "pnpm drizzle-kit generate:pg --schema ./src/lib/database/schema --out=./src/lib/database/migrations",
 		"db:migrate": "npx vite-node ./src/lib/database/migrate.js",
-		"db:seed": "npx vite-node ./src/lib/database/seed.js",
+		"db:seed": "npx vite-node ./src/lib/database/seed.ts",
 		"db:studio": "drizzle-kit studio",
 		"docs": "jsdoc -d docs -r ./src"
 	},
