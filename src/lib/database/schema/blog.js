@@ -5,7 +5,7 @@ import { userTable } from './users';
 export const postStatusEnum = pgEnum('post_status', ['draft', 'published', 'archieved']);
 export const readerForEnum = pgEnum('reader_for', ['guest', 'user', 'admin']);
 
-export const blogTable: any = pgTable('blogs', {
+export const blogTable = pgTable('blogs', {
 	id: varchar('id', {
 		length: 50
 	}).primaryKey(),
