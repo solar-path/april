@@ -2,10 +2,10 @@ import { db } from '$lib/database/db';
 import { userTable } from '$lib/database/schema/users';
 import { eq } from 'drizzle-orm';
 import { fail, superValidate } from 'sveltekit-superforms';
-import { inviteRegisterSchema } from './inviteRegister.schema.js';
 import { zod } from 'sveltekit-superforms/adapters';
 import { redirect } from '@sveltejs/kit';
 import { Argon2id } from 'oslo/password';
+import { inviteRegisterSchema } from './inviteRegister.schema';
 
 export const load = async ({ params }) => {
 	const account = await db.select().from(userTable).where(eq(userTable.token, params.token));
