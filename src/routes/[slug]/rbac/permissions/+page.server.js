@@ -1,4 +1,3 @@
-import type { Actions } from '@sveltejs/kit';
 import { fail, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { deletePermissionSchema, permissionSchema } from './permission.schema';
@@ -6,7 +5,7 @@ import { permissionTable } from '$lib/database/schema/rbac';
 import { db } from '$lib/database/db';
 import { eq } from 'drizzle-orm';
 
-export const actions: Actions = {
+export const actions = {
 	// ROLES
 	createPermission: async (event) => {
 		console.log('createPermission endpoint was achieved');

@@ -1,10 +1,16 @@
-<script lang="ts">
+<script>
 	import GenericTable from '$lib/components/Table/GenericTable.svelte';
 	import Permission from './permission.form.svelte';
-	export let data: any;
+	export let data;
 	$: permissionList = data.permissionList || [];
 
-	const reports: any[] = [];
+	const reports = [];
+
+	const columns = [
+		{ label: 'ID', key: 'id', type: 'string' },
+		{ label: 'Title', key: 'title', type: 'string' },
+		{ label: 'Description', key: 'description', type: 'string' }
+	];
 </script>
 
 <GenericTable
@@ -18,5 +24,5 @@
 	deleteURL="/dashboard/rbac/permissions?/deletePermission"
 	{data}
 	{reports}
-	columns={['id', 'title', 'description']}
+	{columns}
 />

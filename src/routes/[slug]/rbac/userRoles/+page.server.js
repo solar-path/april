@@ -1,9 +1,8 @@
-import type { Actions } from '@sveltejs/kit';
 import { fail, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { deleteUserRoleSchema, userRoleSchema } from './userRole.schema';
 
-export const actions: Actions = {
+export const actions = {
 	createUserRole: async (event) => {
 		console.log('createUserRole endpoint was achieved');
 		const form = await superValidate(await event.request.formData(), zod(userRoleSchema));

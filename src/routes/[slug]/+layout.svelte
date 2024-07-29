@@ -48,11 +48,11 @@
 				{
 					label: 'Users',
 					href: `/${$page.params.slug}/users`
+				},
+				{
+					label: 'Access control',
+					href: `/${$page.params.slug}/rbac`
 				}
-				// {
-				// 	label: 'Access control',
-				// 	href: `/${$page.params.slug}/rbac`
-				// }
 			]
 		}
 		// {

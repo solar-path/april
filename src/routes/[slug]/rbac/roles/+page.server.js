@@ -1,4 +1,3 @@
-import type { Actions } from '@sveltejs/kit';
 import { fail, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { deleteRoleSchema, roleSchema } from './role.schema';
@@ -6,7 +5,7 @@ import { roleTable } from '$lib/database/schema/rbac';
 import { db } from '$lib/database/db';
 import { eq } from 'drizzle-orm';
 
-export const actions: Actions = {
+export const actions = {
 	// ROLES
 	createRole: async (event) => {
 		console.log('createRole endpoint was achieved');
