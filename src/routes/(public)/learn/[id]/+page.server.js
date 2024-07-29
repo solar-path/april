@@ -1,11 +1,10 @@
 import { error } from '@sveltejs/kit';
-import type { PageServerLoad } from './$types';
 import { blogTable } from '$lib/database/schema/blog';
 import { eq } from 'drizzle-orm/mysql-core/expressions';
 import { db } from '$lib/database/db';
 import { userTable } from '$lib/database/schema/users';
 
-export const load: PageServerLoad = async ({ params }) => {
+export const load = async ({ params }) => {
 	try {
 		const post = await db
 			.select({

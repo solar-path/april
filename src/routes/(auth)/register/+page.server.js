@@ -47,8 +47,8 @@ export const actions = {
 				email: form.data.email.trim().toLowerCase(),
 				password: await new Argon2id().hash(form.data.password),
 				token: token,
-				name: form.data.name.trim() as string,
-				surname: form.data.surname.trim() as string
+				name: form.data.name.trim(),
+				surname: form.data.surname.trim()
 			})
 			.returning({ id: userTable.id });
 
@@ -60,8 +60,8 @@ export const actions = {
 				.insert(workspaceTable)
 				.values({
 					id: crypto.randomUUID(),
-					title: form.data.workspace.trim() as string,
-					slug: await slugify(form.data.workspace.trim() as string),
+					title: form.data.workspace.trim(),
+					slug: await slugify(form.data.workspace.trim()),
 					author: newUser[0].id
 				})
 				.returning({ id: workspaceTable.id });

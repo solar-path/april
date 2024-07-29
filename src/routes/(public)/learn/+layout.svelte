@@ -1,8 +1,7 @@
-<script lang="ts">
+<script>
 	import TreeView from '$lib/components/Tree/TreeView.svelte';
-	import type { LayoutData } from './$types';
 
-	export let data: LayoutData;
+	export let data;
 	const tree = data.postTree;
 	$: console.log('/public/learn/layout.svelte :: data => ', data);
 </script>
