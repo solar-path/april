@@ -1,8 +1,9 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import DisplayFormErrors from '$lib/components/DisplayFormErrors.svelte';
 	import { hideDrawer } from '$lib/components/Drawer/drawer.utlities';
 	import { Button, Input, Label, Textarea, Avatar } from 'flowbite-svelte';
-	import SuperDebug, { superForm, type FormResult } from 'sveltekit-superforms';
+	import { superForm, type FormResult } from 'sveltekit-superforms';
 
 	interface WorkspaceData {
 		item?: {
@@ -46,8 +47,8 @@
 	method="POST"
 	enctype="multipart/form-data"
 	action={data.item && data.item !== null
-		? '/dashboard/entity?/updateWorkspace'
-		: '/dashboard/entity?/createWorkspace'}
+		? `/${$page.params.slug}/entity/workspace?/updateWorkspace`
+		: `/${$page.params.slug}/entity/workspace?/createWorkspace`}
 	class="flex flex-col space-y-2"
 >
 	<input type="hidden" name="id" bind:value={$form.id} />
@@ -87,5 +88,3 @@
 	</div>
 	<Button type="submit" class="w-full">Add</Button>
 </form>
-
-<SuperDebug data={$form} />

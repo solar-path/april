@@ -1,10 +1,10 @@
-<script lang="ts">
+<script>
 	import DeleteButton from '$lib/components/DeleteButton.svelte';
 	import { fillDrawer } from '$lib/components/Drawer/drawer.utlities';
 	import { Button, Heading, Hr, P } from 'flowbite-svelte';
 	import { EditOutline } from 'flowbite-svelte-icons';
 	import Workspace from './Workspace.form.svelte';
-	import SuperDebug from 'sveltekit-superforms';
+	import { page } from '$app/stores';
 	export let selectedStructureItem;
 	export let data;
 </script>
@@ -23,11 +23,11 @@
 		>
 			<EditOutline class="h-4 w-6" /></Button
 		>
-		<DeleteButton
-			path="/dashboard/entity?/deleteWorkspace"
+		<!-- <DeleteButton
+			path={`/${$page.params.slug}/entity/workspace?/deleteWorkspace`}
 			name={'id'}
 			identifier={selectedStructureItem.id}
-		/>
+		/> -->
 	</div>
 </div>
 <Hr classHr="my-2" />

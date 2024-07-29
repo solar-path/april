@@ -1,5 +1,5 @@
 import { redirect } from '@sveltejs/kit';
-import { fail, superValidate, withFiles } from 'sveltekit-superforms';
+import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { db } from '$lib/database/db';
 import {
@@ -10,19 +10,17 @@ import {
 	workspaceTable
 } from '$lib/database/schema/entity';
 
-import { deleteWorkspaceSchema, workspaceSchema } from '$lib/components/Workspace/workspace.schema';
-import { deleteRegionSchema, regionSchema } from '../../routes/[slug]/entity/region/region.schema';
-import { companySchema, deleteCompanySchema } from '../../routes/[slug]/entity/company/company.schema';
-import { deleteDepartmentSchema, departmentSchema } from '../../routes/[slug]/entity/department/department.schema';
-import { deletePositionSchema, positionSchema } from '../../routes/[slug]/entity/position/position.schema';
+import { workspaceSchema } from '$lib/components/Workspace/workspace.schema';
+import { regionSchema } from '../../routes/[slug]/entity/region/region.schema';
+import { companySchema } from '../../routes/[slug]/entity/company/company.schema';
+import { departmentSchema } from '../../routes/[slug]/entity/department/department.schema';
+import { positionSchema } from '../../routes/[slug]/entity/position/position.schema';
 import { addressTable } from '$lib/database/schema/address';
 import { eq, and } from 'drizzle-orm';
 import { contactTable } from '$lib/database/schema/contact';
 import { countryTable } from '$lib/database/schema/country';
 import { buildTree } from '$lib/components/Tree/TreeView.utilities';
-import { fileProcessor } from '$lib/helpers/fileProcessor';
 import { industryTable } from '$lib/database/schema/industry';
-import { slugify } from '$lib/helpers/slugify';
 
 export const load = async (event) => {
 	if (!event.locals.user) {
@@ -180,67 +178,4 @@ export const load = async (event) => {
 			})
 			.from(countryTable)
 	};
-};
-
-export const actions = {
-	// WORKSPACE CRUD
-	createWorkspace: async (event) => {
-		const form = await superValidate(await event.request.formData(), zod(workspaceSchema));
-
-		const userID = event.locals.user?.id;
-		if (!form.valid) {
-			console.log('/entity/+page.server.ts :: create workspace form is not valid => ', form);
-			return fail(400, { form });
-		}
-
-		await db.insert(workspaceTable).values({
-			id: crypto.randomUUID(),
-			title: form.data.title,
-			description: form.data.description,
-			slug: await slugify(form.data.title),
-			author: userID
-		});
-
-		return { form };
-	},
-	updateWorkspace: async (event) => {
-		const form = await superValidate(await event.request.formData(), zod(workspaceSchema));
-
-		if (!form.valid) {
-			return fail(400, { form });
-		} else {
-			const record = await db
-				.select()
-				.from(workspaceTable)
-				.where(eq(workspaceTable.id, form.data.id as string));
-
-			await db
-				.update(workspaceTable)
-				.set({
-					title: form.data.title !== record[0].title ? form.data.title : record[0].title,
-					description:
-						form.data.description !== record[0].description
-							? form.data.description
-							: record[0].description
-				})
-				.where(eq(workspaceTable.id, form.data.id as string));
-			return { form };
-		}
-	},
-	deleteWorkspace: async (event) => {
-		const form = await superValidate(await event.request.formData(), zod(deleteWorkspaceSchema));
-		if (!form.valid) {
-			return fail(400, { form });
-		}
-		if (form.data.id === undefined) {
-			return fail(400, { error: 'Workspace ID is undefined' });
-		}
-		await db.delete(workspaceTable).where(eq(workspaceTable.id, form.data.id));
-		// return { form };
-		redirect(302, `/`);
-	},
-	
-	
-	
-	
 };

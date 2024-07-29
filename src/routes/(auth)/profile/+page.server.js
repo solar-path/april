@@ -38,6 +38,10 @@ export const load = async (event) => {
 
 export const actions = {
 	default: async (event) => {
+		if (!event.locals.user) {
+			redirect(302, '/login');
+		}
+
 		const form = await superValidate(await event.request.formData(), zod(profileSchema));
 		if (!form.valid) {
 			console.log('profile/+page.server.ts :: form is not valid => ', form);
@@ -47,7 +51,7 @@ export const actions = {
 		const user = await db
 			.select()
 			.from(userTable)
-			.where(eq(userTable.id, event.locals.user!.id))
+			.where(eq(userTable.id, event.locals.user.id))
 			.limit(1);
 
 		await db
@@ -72,7 +76,7 @@ export const actions = {
 				city: user[0].city === form.data.city ? user[0].city : form.data.city,
 				idNumber: user[0].idNumber === form.data.idNumber ? user[0].idNumber : form.data.idNumber
 			})
-			.where(eq(userTable.id, event.locals.user!.id));
+			.where(eq(userTable.id, event.locals.user.id));
 
 		return message(form, 'Profile updated successfully!');
 	}
