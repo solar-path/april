@@ -15,6 +15,7 @@ import { seedControl } from './data/rcm_controls';
 import { seedProcess } from './data/rcm_process';
 import { seedRoles } from './data/rbac_roles';
 import { seedPermissions } from './data/rbac_permissions';
+import { seedWorkspaceUser } from './data/user_workspace';
 
 const main = async () => {
 	console.log('start seeding data');
@@ -23,7 +24,7 @@ const main = async () => {
 		await seedBlog();
 		await seedCountry();
 		await seedIndustry();
-		// // group structure
+		// group structure
 		await seedWorkspace();
 		await seedRegion();
 		await seedAddress();
@@ -34,6 +35,8 @@ const main = async () => {
 		await seedRisk();
 		await seedControl();
 		await seedProcess();
+		// User - workspace association
+		await seedWorkspaceUser();
 
 		//RBAC
 		await seedRoles();
