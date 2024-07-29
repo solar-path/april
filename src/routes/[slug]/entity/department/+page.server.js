@@ -1,12 +1,12 @@
-import { fail, superValidate } from "sveltekit-superforms";
-import { zod } from "sveltekit-superforms/adapters";
-import { deleteDepartmentSchema, departmentSchema } from "./department.schema";
-import { departmentTable } from "$lib/database/schema/entity";
-import { db } from "$lib/database/db";
-import { eq } from "drizzle-orm";
+import { fail, superValidate } from 'sveltekit-superforms';
+import { zod } from 'sveltekit-superforms/adapters';
+import { deleteDepartmentSchema, departmentSchema } from './department.schema';
+import { departmentTable } from '$lib/database/schema/entity';
+import { db } from '$lib/database/db';
+import { eq } from 'drizzle-orm';
 
 export const actions = {
-    // DEPARTMENT CRUD
+	// DEPARTMENT CRUD
 	createDepartment: async (event) => {
 		const form = await superValidate(await event.request.formData(), zod(departmentSchema));
 		if (!form.valid) {
@@ -16,10 +16,10 @@ export const actions = {
 
 		await db.insert(departmentTable).values({
 			id: crypto.randomUUID(),
-			title: form.data.title,
-			description: form.data.description,
-			companyId: form.data.companyId,
-			author: event.locals.user?.id as string
+			title: form.data.title?.trim() ?? '',
+			description: form.data.description?.trim() ?? '',
+			companyId: form.data.companyId ?? '',
+			author: event.locals.user?.id ?? ''
 		});
 
 		return { form };
@@ -35,7 +35,7 @@ export const actions = {
 		const record = await db
 			.select()
 			.from(departmentTable)
-			.where(eq(departmentTable.id, form.data.id as string));
+			.where(eq(departmentTable.id, form.data.id ?? ''));
 
 		if (record.length === 0) {
 			return fail(400, { form, error: 'Department not found' });
@@ -52,7 +52,7 @@ export const actions = {
 				companyId:
 					record[0].companyId !== form.data.companyId ? form.data.companyId : record[0].companyId
 			})
-			.where(eq(departmentTable.id, form.data.id as string));
+			.where(eq(departmentTable.id, form.data.id ?? ''));
 
 		return { form };
 	},
@@ -64,8 +64,8 @@ export const actions = {
 			return fail(400, { form });
 		}
 
-		await db.delete(departmentTable).where(eq(departmentTable.id, form.data.id as string));
+		await db.delete(departmentTable).where(eq(departmentTable.id, form.data.id));
 
 		return { form };
-	},
-}
+	}
+};
