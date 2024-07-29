@@ -35,7 +35,7 @@ updatePosition: async (event) => {
     const record = await db
         .select()
         .from(positionTable)
-        .where(eq(positionTable.id, form.data.id as string));
+        .where(eq(positionTable.id, form.data.id ?? ''));
 
     await db
         .update(positionTable)
@@ -52,7 +52,7 @@ updatePosition: async (event) => {
             companyId:
                 record[0].companyId !== form.data.companyId ? form.data.companyId : record[0].companyId
         })
-        .where(eq(positionTable.id, form.data.id as string));
+        .where(eq(positionTable.id, form.data.id ?? ''));
     return { form };
 },
 deletePosition: async (event) => {
@@ -66,13 +66,13 @@ deletePosition: async (event) => {
     const record = await db
         .select()
         .from(positionTable)
-        .where(eq(positionTable.id, form.data.id as string));
+        .where(eq(positionTable.id, form.data.id ));
 
     if (record.length === 0) {
         return fail(400, { form, error: 'Position not found' });
     }
 
-    await db.delete(positionTable).where(eq(positionTable.id, form.data.id as string));
+    await db.delete(positionTable).where(eq(positionTable.id, form.data.id ));
     return { form };
 }
 }
