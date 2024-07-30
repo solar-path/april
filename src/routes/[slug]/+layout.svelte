@@ -54,31 +54,31 @@
 					href: `/${$page.params.slug}/rbac`
 				}
 			]
+		},
+		{
+			label: 'Internal control',
+			href: '',
+			icon: TableColumnOutline,
+			children: [
+				{ label: 'Dashboard', href: `/${$page.params.slug}/IC` },
+				{
+					label: 'Risks',
+					href: `/${$page.params.slug}/IC/risks`
+				},
+				{
+					label: 'Controls',
+					href: `/${$page.params.slug}/IC/controls`
+				},
+				{
+					label: 'Processes',
+					href: `/${$page.params.slug}/IC/processes`
+				},
+				{
+					label: 'RCM',
+					href: `/${$page.params.slug}/IC/matrix`
+				}
+			]
 		}
-		// {
-		// 	label: 'Internal control',
-		// 	href: '',
-		// 	icon: TableColumnOutline,
-		// 	children: [
-		// 		{ label: 'Dashboard', href: `/${$page.params.slug}/IC` },
-		// 		{
-		// 			label: 'Risks',
-		// 			href: `/${$page.params.slug}/IC/risks`
-		// 		},
-		// 		{
-		// 			label: 'Controls',
-		// 			href: `/${$page.params.slug}/IC/controls`
-		// 		},
-		// 		{
-		// 			label: 'Processes',
-		// 			href: `/${$page.params.slug}/IC/processes`
-		// 		},
-		// 		{
-		// 			label: 'RCM',
-		// 			href: `/${$page.params.slug}/IC/matrix`
-		// 		}
-		// 	]
-		// }
 	];
 </script>
 

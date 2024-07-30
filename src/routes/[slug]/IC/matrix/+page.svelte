@@ -12,6 +12,17 @@
 		{ report: generatePdfMatrixReport, label: 'Matrix Report', type: 'PDF' },
 		{ report: generateXlsMatrixReport, label: 'Matrix Report', type: 'XLS' }
 	];
+
+	const columns = [
+		{ label: 'Company', key: 'company', type: 'text' },
+		{ label: 'Process', key: 'process', type: 'text' },
+		{ label: 'Risk', key: 'risk', type: 'text' },
+		{ label: 'Control', key: 'control', type: 'text' },
+		{ label: 'Frequency', key: 'frequency', type: 'text' },
+		{ label: 'Type', key: 'type', type: 'text' },
+		{ label: 'Execution', key: 'execution', type: 'text' },
+		{ label: 'Control Owner', key: 'controlOwner', type: 'text' }
+	];
 </script>
 
 <GenericTable
@@ -25,14 +36,5 @@
 	deleteURL="/dashboard/IC/matrix?/deleteMatrix"
 	{data}
 	{reports}
-	columns={[
-		'company',
-		'process',
-		'risk',
-		'control',
-		'frequency',
-		'type',
-		'execution',
-		'controlOwner'
-	]}
+	{columns}
 />

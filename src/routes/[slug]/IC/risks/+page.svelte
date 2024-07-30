@@ -12,6 +12,11 @@
 		{ report: generatePdfRiskReport, title: 'Risk Report', type: 'PDF' },
 		{ report: generateXlsRiskReport, title: 'Risk Report', type: 'XLS' }
 	];
+
+	const columns = [
+		{ label: 'ID', key: 'id', type: 'text' },
+		{ label: 'Title', key: 'title', type: 'text' }
+	];
 </script>
 
 <GenericTable
@@ -26,5 +31,5 @@
 	deleteURL="/dashboard/IC/risks?/deleteRisk"
 	{data}
 	{reports}
-	columns={['id', 'title']}
+	{columns}
 />

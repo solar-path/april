@@ -19,6 +19,12 @@
 			type: 'XLS'
 		}
 	];
+
+	const columns = [
+		{ label: 'ID', key: 'id', type: 'text' },
+		{ label: 'Title', key: 'title', type: 'text' },
+		{ label: 'Description', key: 'description', type: 'text' }
+	];
 </script>
 
 <GenericTable
@@ -32,5 +38,5 @@
 	deleteURL="/dashboard/IC/controls?/deleteControl"
 	{data}
 	{reports}
-	columns={['id', 'title', 'description']}
+	{columns}
 />

@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 	import { Tabs, TabItem, Heading } from 'flowbite-svelte';
 	import {
 		UserCircleSolid,
@@ -13,7 +13,7 @@
 	import RolePermissionCard from './rolePermissions/rolePermission.card.svelte';
 	import UserRoleCard from './userRoles/userRoles.card.svelte';
 	import SodCard from './sod/sod.card.svelte';
-	export let data: any;
+	export let data;
 </script>
 
 <div>
