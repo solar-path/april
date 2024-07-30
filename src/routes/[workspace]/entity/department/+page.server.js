@@ -4,23 +4,28 @@ import { deleteDepartmentSchema, departmentSchema } from './department.schema';
 import { departmentTable } from '$lib/database/schema/entity';
 import { db } from '$lib/database/db';
 import { eq } from 'drizzle-orm';
+import { getWorkspaceBySlug } from '$lib/helpers/getWorkspace';
 
 export const actions = {
 	// DEPARTMENT CRUD
 	createDepartment: async (event) => {
+		const currentWorkspace = await getWorkspaceBySlug(event.params.workspace);
 		const form = await superValidate(await event.request.formData(), zod(departmentSchema));
 		if (!form.valid) {
 			console.log('form is not valid => ', form);
 			return fail(400, { form });
 		}
 
-		await db.insert(departmentTable).values({
-			id: crypto.randomUUID(),
-			title: form.data.title?.trim() ?? '',
-			description: form.data.description?.trim() ?? '',
-			companyId: form.data.companyId ?? '',
-			author: event.locals.user?.id ?? ''
-		});
+		if (currentWorkspace && event.locals.user) {
+			await db.insert(departmentTable).values({
+				id: crypto.randomUUID(),
+				title: form.data.title?.trim() ?? '',
+				description: form.data.description?.trim() ?? '',
+				companyId: form.data.companyId ?? '',
+				author: event.locals.user?.id,
+				workspaceId: currentWorkspace.id
+			});
+		}
 
 		return { form };
 	},

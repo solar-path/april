@@ -8,7 +8,7 @@ import { eq } from 'drizzle-orm';
 import { getWorkspaceBySlug } from '$lib/helpers/getWorkspace';
 
 export const load = async (event) => {
-	const currentWorkspace = await getWorkspaceBySlug(event.params.slug);
+	const currentWorkspace = await getWorkspaceBySlug(event.params.workspace);
 
 	return {
 		// RISK

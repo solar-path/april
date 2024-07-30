@@ -75,8 +75,8 @@
 	novalidate
 	method="POST"
 	action={data.item && data.item !== null
-		? `/${$page.params.slug}/entity/position?/updatePosition`
-		: `/${$page.params.slug}/entity/position?/createPosition`}
+		? `/${$page.params.workspace}/entity/position?/updatePosition`
+		: `/${$page.params.workspace}/entity/position?/createPosition`}
 	class="flex flex-col space-y-2"
 >
 	<input type="hidden" name="id" bind:value={$form.id} />

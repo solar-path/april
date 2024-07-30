@@ -27,7 +27,7 @@ export const seedWorkspace = async () => {
 					id: crypto.randomUUID(),
 					title: workspace.title,
 					author: user[0].id,
-					slug: await slugify(workspace.title),
+					workspace: await slugify(workspace.title),
 					description: workspace.description
 				})
 				.returning();

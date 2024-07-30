@@ -38,8 +38,10 @@
 				}
 			: {
 					...data.regionForm.data,
-					workspaceId: data.workspaceList.find((item) => item.slug === $page.params.slug)?.id,
-					workspace: data.workspaceList.find((item) => item.slug === $page.params.slug)?.title
+					workspaceId: data.workspaceList.find((item) => item.workspace === $page.params.workspace)
+						?.id,
+					workspace: data.workspaceList.find((item) => item.workspace === $page.params.workspace)
+						?.title
 				},
 		{
 			dataType: 'json', // Add this line to handle nested data structures
@@ -69,8 +71,8 @@
 	novalidate
 	method="POST"
 	action={data.item && data.item !== null
-		? `/${$page.params.slug}/entity/region?/updateRegion`
-		: `/${$page.params.slug}/entity/region?/createRegion`}
+		? `/${$page.params.workspace}/entity/region?/updateRegion`
+		: `/${$page.params.workspace}/entity/region?/createRegion`}
 	class="flex flex-col space-y-2"
 >
 	<input type="hidden" name="id" bind:value={$form.id} />

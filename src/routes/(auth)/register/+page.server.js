@@ -61,7 +61,7 @@ export const actions = {
 				.values({
 					id: crypto.randomUUID(),
 					title: form.data.workspace.trim(),
-					slug: await slugify(form.data.workspace.trim()),
+					workspace: await slugify(form.data.workspace.trim()),
 					author: newUser[0].id
 				})
 				.returning({ id: workspaceTable.id });

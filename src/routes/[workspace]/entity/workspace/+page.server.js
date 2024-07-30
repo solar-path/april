@@ -29,7 +29,7 @@ export const actions = {
 				title: form.data.title.trim(),
 				logo: form.data.logo instanceof File ? await fileProcessor(form.data.logo, 'logo') : '',
 				description: form.data.description ? form.data.description.trim() : '',
-				slug: await slugify(form.data.title.trim()),
+				workspace: await slugify(form.data.title.trim()),
 				author: event.locals.user?.id
 			})
 			.returning();

@@ -31,14 +31,14 @@ export const load = async (event) => {
 			id: workspaceTable.id,
 			title: workspaceTable.title,
 			description: workspaceTable.description,
-			slug: workspaceTable.slug,
+			workspace: workspaceTable.workspace,
 			author: workspaceTable.author
 		})
 		.from(workspaceTable)
 		.where(
 			and(
 				eq(workspaceTable.author, event.locals.user.id),
-				eq(workspaceTable.slug, event.params.slug)
+				eq(workspaceTable.workspace, event.params.workspace)
 			)
 		);
 

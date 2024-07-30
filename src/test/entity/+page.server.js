@@ -11,10 +11,10 @@ import {
 } from '$lib/database/schema/entity';
 
 import { workspaceSchema } from '$lib/components/Workspace/workspace.schema';
-import { regionSchema } from '../../routes/[slug]/entity/region/region.schema';
-import { companySchema } from '../../routes/[slug]/entity/company/company.schema';
-import { departmentSchema } from '../../routes/[slug]/entity/department/department.schema';
-import { positionSchema } from '../../routes/[slug]/entity/position/position.schema';
+import { regionSchema } from '../../routes/[workspace]/entity/region/region.schema';
+import { companySchema } from '../../routes/[workspace]/entity/company/company.schema';
+import { departmentSchema } from '../../routes/[workspace]/entity/department/department.schema';
+import { positionSchema } from '../../routes/[workspace]/entity/position/position.schema';
 import { addressTable } from '$lib/database/schema/address';
 import { eq, and } from 'drizzle-orm';
 import { contactTable } from '$lib/database/schema/contact';

@@ -44,11 +44,11 @@
 
 						<Dropdown>
 							{#each data.workspaceList as workspace}
-								<DropdownItem href={`/${workspace.slug}`}>{workspace.title}</DropdownItem>
+								<DropdownItem href={`/${workspace.workspace}`}>{workspace.title}</DropdownItem>
 							{/each}
 						</Dropdown>
 					{:else}
-						<Button href={`/${data.workspaceList[0].slug}`}>Get started</Button>
+						<Button href={`/${data.workspaceList[0].workspace}`}>Get started</Button>
 					{/if}
 				{:else}
 					<Button href="/login">Sign in</Button>

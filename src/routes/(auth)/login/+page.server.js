@@ -54,7 +54,7 @@ export const actions = {
 				email: userTable.email,
 				password: userTable.password,
 				activated: userTable.activated,
-				workspace: workspaceTable.slug
+				workspace: workspaceTable.workspace
 			})
 			.from(userTable)
 			.where(eq(userTable.email, form.data.email))
@@ -78,7 +78,7 @@ export const actions = {
 		const userWorkspace = await db
 			.select({
 				workspaceId: workspaceUserTable.workspaceId,
-				slug: workspaceTable.slug
+				workspace: workspaceTable.workspace
 			})
 			.from(workspaceUserTable)
 			.leftJoin(workspaceTable, eq(workspaceTable.id, workspaceUserTable.workspaceId))
@@ -92,6 +92,6 @@ export const actions = {
 			...sessionCookie.attributes
 		});
 
-		redirect(302, `/${userWorkspace[0].slug}`);
+		redirect(302, `/${userWorkspace[0].workspace}`);
 	}
 };

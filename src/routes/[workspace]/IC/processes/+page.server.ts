@@ -10,7 +10,7 @@ import { processDeleteSchema, processSchema } from './process.schema';
 import { getWorkspaceBySlug } from '$lib/helpers/getWorkspace';
 
 export const load: PageServerLoad = async (event) => {
-	const currentWorkspace = await getWorkspaceBySlug(event.params.slug);
+	const currentWorkspace = await getWorkspaceBySlug(event.params.workspace);
 
 	const processList = currentWorkspace
 		? await db.select().from(processTable).where(eq(processTable.workspaceId, currentWorkspace.id))

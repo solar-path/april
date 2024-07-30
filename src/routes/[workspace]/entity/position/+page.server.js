@@ -4,25 +4,32 @@ import { deletePositionSchema, positionSchema } from './position.schema';
 import { db } from '$lib/database/db';
 import { positionTable } from '$lib/database/schema/entity';
 import { eq } from 'drizzle-orm';
+import { getWorkspaceBySlug } from '$lib/helpers/getWorkspace';
 
 // POSITION CRUD
 export const actions = {
 	createPosition: async (event) => {
 		console.log('create position endpoint reached');
+
+		const currentWorkspace = await getWorkspaceBySlug(event.params.workspace);
 		const form = await superValidate(await event.request.formData(), zod(positionSchema));
 		if (!form.valid) {
 			console.log('form is not valid => ', form);
 			return fail(400, { form });
 		}
 
-		await db.insert(positionTable).values({
-			id: crypto.randomUUID(),
-			title: form.data.title,
-			description: form.data.description,
-			departmentId: form.data.departmentId,
-			companyId: form.data.companyId,
-			author: event.locals.user?.id ?? ''
-		});
+		if (currentWorkspace && event.locals.user) {
+			await db.insert(positionTable).values({
+				id: crypto.randomUUID(),
+				title: form.data.title,
+				description: form.data.description,
+				departmentId: form.data.departmentId,
+				companyId: form.data.companyId,
+				author: event.locals.user?.id,
+				workspaceId: currentWorkspace.id
+			});
+		}
+
 		return { form };
 	},
 	updatePosition: async (event) => {

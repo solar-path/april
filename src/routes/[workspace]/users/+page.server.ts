@@ -15,7 +15,7 @@ import { getWorkspaceBySlug } from '$lib/helpers/getWorkspace';
 import { sql } from 'drizzle-orm';
 
 export const load: PageServerLoad = async (event) => {
-	const currentWorkspace = await getWorkspaceBySlug(event.params.slug);
+	const currentWorkspace = await getWorkspaceBySlug(event.params.workspace);
 
 	const userWorkspaceList = await db
 		.select({

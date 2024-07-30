@@ -9,7 +9,7 @@ import { companyTable, departmentTable, positionTable } from '$lib/database/sche
 import { getWorkspaceBySlug } from '$lib/helpers/getWorkspace';
 
 export const load = async (event) => {
-	const currentWorkspace = await getWorkspaceBySlug(event.params.slug);
+	const currentWorkspace = await getWorkspaceBySlug(event.params.workspace);
 
 	const processList = currentWorkspace
 		? await db
@@ -98,7 +98,7 @@ export const load = async (event) => {
 
 export const actions = {
 	createMatrix: async (event) => {
-		const currentWorkspace = await getWorkspaceBySlug(event.params.slug);
+		const currentWorkspace = await getWorkspaceBySlug(event.params.workspace);
 
 		console.log('createMatrix endpoint was achieved');
 		const form = await superValidate(await event.request.formData(), zod(matrixSchema));

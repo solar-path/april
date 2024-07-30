@@ -31,27 +31,27 @@
 	$: lines = [
 		{
 			label: 'Tasks',
-			href: `/${$page.params.slug}/tasks`,
+			href: `/${$page.params.workspace}/tasks`,
 			icon: InboxOutline
 		},
 
 		{
 			label: 'Business structure',
-			href: `/${$page.params.slug}/entity`,
+			href: `/${$page.params.workspace}/entity`,
 			icon: BuildingOutline
 		},
 		{
 			label: 'Users management',
-			href: `/${$page.params.slug}/users`,
+			href: `/${$page.params.workspace}/users`,
 			icon: UsersGroupOutline,
 			children: [
 				{
 					label: 'Users',
-					href: `/${$page.params.slug}/users`
+					href: `/${$page.params.workspace}/users`
 				},
 				{
 					label: 'Access control',
-					href: `/${$page.params.slug}/rbac`
+					href: `/${$page.params.workspace}/rbac`
 				}
 			]
 		},
@@ -60,22 +60,22 @@
 			href: '',
 			icon: TableColumnOutline,
 			children: [
-				{ label: 'Dashboard', href: `/${$page.params.slug}/IC` },
+				{ label: 'Dashboard', href: `/${$page.params.workspace}/IC` },
 				{
 					label: 'Risks',
-					href: `/${$page.params.slug}/IC/risks`
+					href: `/${$page.params.workspace}/IC/risks`
 				},
 				{
 					label: 'Controls',
-					href: `/${$page.params.slug}/IC/controls`
+					href: `/${$page.params.workspace}/IC/controls`
 				},
 				{
 					label: 'Business processes',
-					href: `/${$page.params.slug}/IC/processes`
+					href: `/${$page.params.workspace}/IC/processes`
 				},
 				{
 					label: 'Risk & Control Matrix',
-					href: `/${$page.params.slug}/IC/matrix`
+					href: `/${$page.params.workspace}/IC/matrix`
 				}
 			]
 		}
@@ -90,24 +90,27 @@
 					<Button class="flex w-full" outline>
 						<div class="flex items-center justify-center gap-2">
 							<p class="text-primary">Workspace:</p>
-							{#if data.workspaceList.find((workspace) => workspace.slug === $page.params.slug)?.logo}
+							{#if data.workspaceList.find((workspace) => workspace.workspace === $page.params.workspace)?.logo}
 								<Avatar
 									src={`/images/logo/${
-										data.workspaceList.find((workspace) => workspace.slug === $page.params.slug)
-											?.logo
+										data.workspaceList.find(
+											(workspace) => workspace.workspace === $page.params.workspace
+										)?.logo
 									}`}
 									size="sm"
 									class="mx-auto"
 								/>
 							{/if}
-							{data.workspaceList.find((workspace) => workspace.slug === $page.params.slug)?.title}
+							{data.workspaceList.find(
+								(workspace) => workspace.workspace === $page.params.workspace
+							)?.title}
 							<ChevronDownOutline class="ms-2 h-6 w-6 text-white dark:text-white" />
 						</div>
 					</Button>
 					<Dropdown class="w-full">
-						{#each data.workspaceList.filter((workspace) => workspace.slug !== $page.params.slug) as workspace}
+						{#each data.workspaceList.filter((workspace) => workspace.workspace !== $page.params.workspace) as workspace}
 							<DropdownItem
-								href={`/${workspace.slug}`}
+								href={`/${workspace.workspace}`}
 								class="w-full hover:bg-primary-700 hover:text-white"
 							>
 								<div class="justify-left flex flex-row items-center gap-2">

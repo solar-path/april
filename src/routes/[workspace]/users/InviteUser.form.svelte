@@ -23,7 +23,7 @@
 	novalidate
 	method="POST"
 	class="flex flex-col space-y-2"
-	action="/{$page.params.slug}/users?/inviteUser"
+	action="/{$page.params.workspace}/users?/inviteUser"
 >
 	<div class="w-full">
 		<Label for="email">Email</Label>

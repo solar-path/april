@@ -23,7 +23,7 @@
 			<EditOutline class="h-4 w-6" /></Button
 		>
 		<DeleteButton
-			path="/{$page.params.slug}/entity/region?/deleteRegion"
+			path="/{$page.params.workspace}/entity/region?/deleteRegion"
 			name={'id'}
 			identifier={selectedStructureItem.id}
 		/>
