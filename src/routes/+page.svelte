@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { Button, Dropdown, DropdownItem } from 'flowbite-svelte';
 	import { ChevronDownOutline } from 'flowbite-svelte-icons';
 	import { fillDrawer } from '$lib/components/Drawer/drawer.utlities';

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import Risk from '../risks/Risk.form.svelte';
 	import GenericTable from '$lib/components/Table/GenericTable.svelte';
 	import { generatePdfRiskReport } from './RiskReport.pdf';

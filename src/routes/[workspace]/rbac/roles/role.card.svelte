@@ -1,13 +1,13 @@
-<script>
+<script lang="ts">
 	import GenericTable from '$lib/components/Table/GenericTable.svelte';
 	import Role from './role.form.svelte';
 
 	export let data;
 	$: roleList = data.roleList || [];
 
-	const reports = [];
+	const reports: any[] = [];
 
-	const columns = [
+	const columns: any[] = [
 		{ label: 'ID', key: 'id', type: 'string' },
 		{ label: 'Title', key: 'title', type: 'string' },
 		{ label: 'Description', key: 'description', type: 'string' }

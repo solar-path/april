@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import {
 		Table,
 		TableBody,
@@ -39,28 +39,23 @@
 
 	import DeleteButton from '$lib/components/DeleteButton.svelte';
 
-	/** @type {string} */
-	export let tableLabel = '';
-	/** @type {string} */
-	export let tableDescription = '';
-	/** @type {string} */
-	export let createItemLabel = '';
-	/** @type {string} */
-	export let updateItemLabel = '';
-	/** @type {any[]} */
-	export let list = [];
-	/** @type {any} */
-	export let formName = {};
-	/** @type {string} */
-	export let deleteURL = '';
-	/** @type {any[]} */
-	export let reports = [];
-	/** @type {boolean} */
-	export let showToolBar = false;
-	/** @type {{ label: string; key: string; type: string }[]} */
-	export let columns = [];
+	export let tableLabel: string = '';
+	export let tableDescription: string = '';
+
+	export let createItemLabel: string = '';
+	export let updateItemLabel: string = '';
+	export let list: any[] = [];
+	export let formName: any = {};
+
+	export let deleteURL: string = '';
+	export let reports: any[] = [];
+	export let showToolBar: boolean = false;
+	export let columns: any[] = [];
+
 	let searchTerm = '';
+
 	export let data = {};
+
 	$sortItems = list.slice();
 
 	$: list, sortItems.set(filterAndSearch(list, searchTerm)), sortData($sortItems, $sortDirection);

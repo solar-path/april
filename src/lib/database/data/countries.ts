@@ -1,10 +1,7 @@
 import { db } from '../db';
 import { countryTable } from '../schema/country';
 import countryData from './countries.json';
-/*
- *   Seeds countries into the database
- *   returns countryList
- */
+
 export const seedCountry = async () => {
 	const countryList = [];
 	const countries = await db.select().from(countryTable);

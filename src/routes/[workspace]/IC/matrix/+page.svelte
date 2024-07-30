@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import GenericTable from '$lib/components/Table/GenericTable.svelte';
 	import Matrix from './Matrix.form.svelte';
 	import { generatePdfMatrixReport } from './MatrixReport.pdf';

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { fillDrawer } from '$lib/components/Drawer/drawer.utlities';
 	import { P, Li, List, Heading, A } from 'flowbite-svelte';
 	import Contact from '$lib/forms/contact/Contact.svelte';

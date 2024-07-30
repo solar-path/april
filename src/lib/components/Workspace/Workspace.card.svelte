@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import DeleteButton from '$lib/components/DeleteButton.svelte';
 	import { fillDrawer } from '$lib/components/Drawer/drawer.utlities';
 	import { Button, Heading, Hr, P } from 'flowbite-svelte';

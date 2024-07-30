@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { superForm } from 'sveltekit-superforms/client';
 	import { A, Button, Card, Heading, Hr, Input, Label } from 'flowbite-svelte';
 	import DisplayFormErrors from '$lib/components/DisplayFormErrors.svelte';

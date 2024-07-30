@@ -3,9 +3,9 @@ import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { getWorkspaceBySlug, getWorkspaceList } from '$lib/helpers/getWorkspace';
 import { workspaceSchema } from '$lib/components/Workspace/workspace.schema';
-import { db } from '$lib/database/db.js';
 import { companyTable } from '$lib/database/schema/entity.js';
 import { eq } from 'drizzle-orm';
+import { db } from '$lib/database/db';
 
 export const load = async (event) => {
 	const currentUser = event.locals.user;

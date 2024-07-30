@@ -15,10 +15,6 @@ const companyData = [
 	}
 ];
 
-/*
- *   Seeds org chart into the database
- *   returns <void>
- */
 export const seedCompany = async () => {
 	const companyList = [];
 	const companies = await db.select().from(companyTable);

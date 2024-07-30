@@ -1,5 +1,5 @@
-<script>
-	import { Card, Button, Heading, P, A, Hr } from 'flowbite-svelte';
+<script lang="ts">
+	import { Card, Button, P, A } from 'flowbite-svelte';
 	import { CheckCircleSolid } from 'flowbite-svelte-icons';
 </script>
 

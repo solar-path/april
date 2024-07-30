@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import GenericTable from '$lib/components/Table/GenericTable.svelte';
 	import { generatePdfControlReport } from './ControlReport.pdf';
 	import { generateXlsControlReport } from './controlReport.xls';

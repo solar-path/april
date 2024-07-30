@@ -1,11 +1,11 @@
 import { setError, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
-import { changePasswordSchema } from './changePassword.schema.js';
+import { changePasswordSchema } from './changePassword.schema';
 import { fail, redirect } from '@sveltejs/kit';
 import { Argon2id } from 'oslo/password';
 import { userTable } from '$lib/database/schema/users';
 import { eq } from 'drizzle-orm/mysql-core/expressions';
-import { db } from '$lib/database/db.js';
+import { db } from '$lib/database/db';
 
 export const load = async () => {
 	const changePasswordForm = await superValidate(zod(changePasswordSchema));

@@ -11,9 +11,9 @@
 		"lint": "prettier --check . && eslint .",
 		"format": "prettier --write .",
 		"db:push": "drizzle-kit push:pg",
-		"db:drop": "npx vite-node ./src/lib/database/drop.js",
+		"db:drop": "npx vite-node ./src/lib/database/drop.ts",
 		"db:generate": "pnpm drizzle-kit generate:pg --schema ./src/lib/database/schema --out=./src/lib/database/migrations",
-		"db:migrate": "npx vite-node ./src/lib/database/migrate.js",
+		"db:migrate": "npx vite-node ./src/lib/database/migrate.ts",
 		"db:seed": "npx vite-node ./src/lib/database/seed.ts",
 		"db:studio": "drizzle-kit studio",
 		"docs": "jsdoc -d docs -r ./src"

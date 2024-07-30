@@ -12,10 +12,6 @@ const usersData = [
 	}
 ];
 
-/*
- *   Seeds users into the database
- *   returns <void>
- */
 export const seedUsers = async () => {
 	const user = await db.select().from(userTable);
 	if (user.length === 0) {

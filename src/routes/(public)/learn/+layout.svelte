@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import TreeView from '$lib/components/Tree/TreeView.svelte';
 
 	export let data;

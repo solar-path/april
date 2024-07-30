@@ -1,12 +1,12 @@
-<script>
+<script lang="ts">
 	import GenericTable from '$lib/components/Table/GenericTable.svelte';
 	import Permission from './permission.form.svelte';
 	export let data;
 	$: permissionList = data.permissionList || [];
 
-	const reports = [];
+	const reports: any[] = [];
 
-	const columns = [
+	const columns: any[] = [
 		{ label: 'ID', key: 'id', type: 'string' },
 		{ label: 'Title', key: 'title', type: 'string' },
 		{ label: 'Description', key: 'description', type: 'string' }

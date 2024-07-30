@@ -1,10 +1,7 @@
 import { db } from '../db';
 import { industryTable } from '../schema/industry';
 import industryData from './industries.json';
-/*
- *   Seeds industries into the database
- *   returns <void>
- */
+
 export const seedIndustry = async () => {
 	const industryList = [];
 	const industries = await db.select().from(industryTable);

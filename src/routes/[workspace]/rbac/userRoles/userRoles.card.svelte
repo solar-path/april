@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import TreeView from '$lib/components/Tree/TreeView.svelte';
 	import { Button, ListPlaceholder } from 'flowbite-svelte';
 	import UserRole from './userRole.form.svelte';
@@ -7,7 +7,7 @@
 	export let data;
 	$: userRoleList = data.userRoleList || [];
 
-	const reports = [];
+	const reports: any[] = [];
 </script>
 
 <div class="mb-2 flex flex-row justify-end space-x-2">

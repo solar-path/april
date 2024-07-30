@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	export let data;
 	$: post = data.post;
 	// console.log('/learn/id :: data => ', data.post);
