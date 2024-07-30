@@ -22,25 +22,30 @@ export const actions = {
 			return fail(400, { form });
 		}
 
-		const newWorkspace = await db
-			.insert(workspaceTable)
-			.values({
+		try {
+			const newWorkspace = await db
+				.insert(workspaceTable)
+				.values({
+					id: crypto.randomUUID(),
+					title: form.data.title.trim(),
+					logo: form.data.logo instanceof File ? await fileProcessor(form.data.logo, 'logo') : '',
+					description: form.data.description ? form.data.description.trim() : '',
+					workspace: await slugify(form.data.title.trim()),
+					author: event.locals.user?.id
+				})
+				.returning();
+
+			await db.insert(workspaceUserTable).values({
 				id: crypto.randomUUID(),
-				title: form.data.title.trim(),
-				logo: form.data.logo instanceof File ? await fileProcessor(form.data.logo, 'logo') : '',
-				description: form.data.description ? form.data.description.trim() : '',
-				workspace: await slugify(form.data.title.trim()),
-				author: event.locals.user?.id
-			})
-			.returning();
+				workspaceId: newWorkspace[0].id,
+				userId: event.locals.user?.id
+			});
 
-		await db.insert(workspaceUserTable).values({
-			id: crypto.randomUUID(),
-			workspaceId: newWorkspace[0].id,
-			userId: event.locals.user?.id
-		});
-
-		return { form };
+			return { form };
+		} catch (error) {
+			console.error('Error creating workspace:', error);
+			return fail(500, { error: 'Internal Server Error' });
+		}
 	},
 	updateWorkspace: async (event) => {
 		const form = await superValidate(await event.request.formData(), zod(workspaceSchema));

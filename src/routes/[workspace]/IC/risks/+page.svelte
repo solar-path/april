@@ -13,10 +13,7 @@
 		{ report: generateXlsRiskReport, title: 'Risk Report', type: 'XLS' }
 	];
 
-	const columns = [
-		{ label: 'ID', key: 'id', type: 'text' },
-		{ label: 'Title', key: 'title', type: 'text' }
-	];
+	const columns = [{ label: 'Title', key: 'title', type: 'text' }];
 </script>
 
 <GenericTable

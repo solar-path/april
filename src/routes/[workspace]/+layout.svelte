@@ -1,9 +1,5 @@
-<script lang="ts">
+<script>
 	import {
-		Avatar,
-		Button,
-		Dropdown,
-		DropdownItem,
 		Sidebar,
 		SidebarDropdownItem,
 		SidebarDropdownWrapper,
@@ -15,17 +11,11 @@
 	import { page } from '$app/stores';
 	import {
 		BuildingOutline,
-		ChevronDownOutline,
 		InboxOutline,
-		PlusOutline,
 		TableColumnOutline,
 		UsersGroupOutline
 	} from 'flowbite-svelte-icons';
-	import type { LayoutData } from './$types';
-	import { fillDrawer } from '$lib/components/Drawer/drawer.utlities';
-	import Workspace from '$lib/components/Workspace/Workspace.form.svelte';
 
-	export let data: LayoutData;
 	$: activeUrl = $page.url.pathname;
 
 	$: lines = [
@@ -86,52 +76,6 @@
 	<div class="w-1/5">
 		<Sidebar class="w-full" {activeUrl}>
 			<SidebarWrapper class="space-y-4 bg-white">
-				<SidebarGroup>
-					<Button class="flex w-full" outline>
-						<div class="flex items-center justify-center gap-2">
-							<p class="text-primary">Workspace:</p>
-							{#if data.workspaceList.find((workspace) => workspace.workspace === $page.params.workspace)?.logo}
-								<Avatar
-									src={`/images/logo/${
-										data.workspaceList.find(
-											(workspace) => workspace.workspace === $page.params.workspace
-										)?.logo
-									}`}
-									size="sm"
-									class="mx-auto"
-								/>
-							{/if}
-							{data.workspaceList.find(
-								(workspace) => workspace.workspace === $page.params.workspace
-							)?.title}
-							<ChevronDownOutline class="ms-2 h-6 w-6 text-white dark:text-white" />
-						</div>
-					</Button>
-					<Dropdown class="w-full">
-						{#each data.workspaceList.filter((workspace) => workspace.workspace !== $page.params.workspace) as workspace}
-							<DropdownItem
-								href={`/${workspace.workspace}`}
-								class="w-full hover:bg-primary-700 hover:text-white"
-							>
-								<div class="justify-left flex flex-row items-center gap-2">
-									{#if workspace.logo}
-										<Avatar src={`/images/logo/${workspace.logo}`} size="sm" />
-									{/if}
-									{workspace.title}
-								</div>
-							</DropdownItem>
-						{/each}
-						<DropdownItem
-							slot="footer"
-							on:click={() => fillDrawer('Create new workspace', Workspace, data)}
-							class="flex items-center justify-start gap-2 hover:bg-primary-700 hover:text-white"
-						>
-							<PlusOutline class="h-4 w-4" />
-							Create new workspace
-						</DropdownItem>
-					</Dropdown>
-				</SidebarGroup>
-
 				<SidebarGroup>
 					{#each lines as item}
 						{#if item.children && item.children.length > 0}

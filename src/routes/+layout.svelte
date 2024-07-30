@@ -19,6 +19,11 @@
 		Input,
 		A
 	} from 'flowbite-svelte';
+	import { page } from '$app/stores';
+	import { fillDrawer } from '$lib/components/Drawer/drawer.utlities';
+	import Workspace from '$lib/components/Workspace/Workspace.form.svelte';
+
+	import { PlusOutline } from 'flowbite-svelte-icons';
 	import { drawerContent, hideDrawer } from '$lib/components/Drawer/drawer.utlities';
 
 	import { inject } from '@vercel/analytics';
@@ -27,6 +32,8 @@
 	import AnekoFooter from '$lib/components/AnekoFooter.svelte';
 
 	export let data: LayoutData;
+
+	$: workspaceList = data.workspaceList;
 
 	$: fullname = data.currentUser?.name + ' ' + data.currentUser?.surname;
 
@@ -74,9 +81,59 @@
 			<NavLi href="/pricing">Pricing</NavLi>
 			<NavLi href="/learn">Learn & Support</NavLi>
 			{#if data.currentUser}
-				<!-- {#if data.currentUser.email === 'itgroup.luck@gmail.com'}
-					<NavLi href="/admin">Admin</NavLi>
-				{/if} -->
+				<NavLi>
+					<button
+						id="selectWorkspace"
+						class="flex items-center justify-center gap-2 text-primary-700"
+					>
+						<p>Workspace:</p>
+						{#if workspaceList.find((workspace) => workspace.workspace === $page.params.workspace)?.logo}
+							<Avatar
+								src={`/images/logo/${
+									workspaceList.find((workspace) => workspace.workspace === $page.params.workspace)
+										?.logo
+								}`}
+								size="sm"
+								class="mx-auto"
+							/>
+						{/if}
+						{workspaceList.find((workspace) => workspace.workspace === $page.params.workspace)
+							?.title || 'Select one'}
+					</button>
+
+					<Dropdown class="w-full" triggeredBy="#selectWorkspace">
+						{#each workspaceList.filter((workspace) => workspace.workspace !== $page.params.workspace) as workspace}
+							<DropdownItem
+								href={`/${workspace.workspace}`}
+								class="w-full hover:bg-primary-700 hover:text-white"
+							>
+								<div class="justify-left flex flex-row items-center gap-2">
+									{#if workspace.logo}
+										<Avatar src={`/images/logo/${workspace.logo}`} size="sm" />
+									{/if}
+									{workspace.title}
+								</div>
+							</DropdownItem>
+						{/each}
+						<DropdownItem
+							slot="footer"
+							on:click={() => fillDrawer('Create new workspace', Workspace, data)}
+							class="flex items-center justify-start gap-2 hover:bg-primary-700 hover:text-white"
+						>
+							<PlusOutline class="h-4 w-4" />
+							Create new workspace
+						</DropdownItem>
+					</Dropdown>
+				</NavLi>
+
+				<NavLi>
+					<button
+						id="selectCompany"
+						class="flex items-center justify-center gap-2 text-primary-700"
+					>
+						<p>Company</p>
+					</button>
+				</NavLi>
 			{:else}
 				<NavLi href="/register">Join us</NavLi>
 
