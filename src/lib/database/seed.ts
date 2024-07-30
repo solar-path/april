@@ -9,7 +9,7 @@ import { seedRegion } from './data/entity_region';
 import { seedAddress } from './data/address';
 import { seedCompany } from './data/entity_companies';
 import { seedDepartment } from './data/entity_departments';
-import { seedPosition } from './data/positions';
+import { seedPosition } from './data/entity_positions';
 import { seedRisk } from './data/rcm_risks';
 import { seedControl } from './data/rcm_controls';
 import { seedProcess } from './data/rcm_process';

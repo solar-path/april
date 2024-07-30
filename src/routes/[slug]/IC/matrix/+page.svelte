@@ -1,10 +1,10 @@
-<script lang="ts">
+<script>
 	import GenericTable from '$lib/components/Table/GenericTable.svelte';
 	import Matrix from './Matrix.form.svelte';
 	import { generatePdfMatrixReport } from './MatrixReport.pdf';
 	import { generateXlsMatrixReport } from './matrixReport.xls';
 
-	export let data: any;
+	export let data;
 
 	$: matrixList = data.matrixList || [];
 

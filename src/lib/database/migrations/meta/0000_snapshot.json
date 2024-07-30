@@ -1,5 +1,5 @@
 {
-  "id": "4b390aee-63d6-4bab-971b-bc13cf38518f",
+  "id": "a06cacc6-b4b7-4192-a31c-4829fe5a6f8f",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
@@ -560,6 +560,12 @@
           "primaryKey": false,
           "notNull": false
         },
+        "workspaceId": {
+          "name": "workspaceId",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
         "companyId": {
           "name": "companyId",
           "type": "varchar(50)",
@@ -589,6 +595,19 @@
       },
       "indexes": {},
       "foreignKeys": {
+        "structure_departments_workspaceId_structure_workspaces_id_fk": {
+          "name": "structure_departments_workspaceId_structure_workspaces_id_fk",
+          "tableFrom": "structure_departments",
+          "tableTo": "structure_workspaces",
+          "columnsFrom": [
+            "workspaceId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
         "structure_departments_companyId_structure_companies_id_fk": {
           "name": "structure_departments_companyId_structure_companies_id_fk",
           "tableFrom": "structure_departments",
@@ -647,6 +666,12 @@
           "primaryKey": false,
           "notNull": false
         },
+        "workspaceId": {
+          "name": "workspaceId",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
         "companyId": {
           "name": "companyId",
           "type": "varchar(50)",
@@ -682,6 +707,19 @@
           "tableTo": "structure_departments",
           "columnsFrom": [
             "departmentId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "structure_positions_workspaceId_structure_workspaces_id_fk": {
+          "name": "structure_positions_workspaceId_structure_workspaces_id_fk",
+          "tableFrom": "structure_positions",
+          "tableTo": "structure_workspaces",
+          "columnsFrom": [
+            "workspaceId"
           ],
           "columnsTo": [
             "id"

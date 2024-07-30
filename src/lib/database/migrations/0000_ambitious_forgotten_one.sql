@@ -107,6 +107,7 @@ CREATE TABLE IF NOT EXISTS "structure_departments" (
 	"id" varchar(50) PRIMARY KEY NOT NULL,
 	"title" varchar(250) NOT NULL,
 	"description" text,
+	"workspaceId" varchar(50) NOT NULL,
 	"companyId" varchar(50) NOT NULL,
 	"author" varchar(50) NOT NULL,
 	"createdAt" timestamp DEFAULT now() NOT NULL,
@@ -118,6 +119,7 @@ CREATE TABLE IF NOT EXISTS "structure_positions" (
 	"title" varchar(250) NOT NULL,
 	"description" text,
 	"departmentId" varchar(50),
+	"workspaceId" varchar(50) NOT NULL,
 	"companyId" varchar(50) NOT NULL,
 	"author" varchar(50) NOT NULL,
 	"createdAt" timestamp DEFAULT now() NOT NULL,
@@ -359,6 +361,12 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
+ ALTER TABLE "structure_departments" ADD CONSTRAINT "structure_departments_workspaceId_structure_workspaces_id_fk" FOREIGN KEY ("workspaceId") REFERENCES "structure_workspaces"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
  ALTER TABLE "structure_departments" ADD CONSTRAINT "structure_departments_companyId_structure_companies_id_fk" FOREIGN KEY ("companyId") REFERENCES "structure_companies"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
@@ -372,6 +380,12 @@ END $$;
 --> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "structure_positions" ADD CONSTRAINT "structure_positions_departmentId_structure_departments_id_fk" FOREIGN KEY ("departmentId") REFERENCES "structure_departments"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "structure_positions" ADD CONSTRAINT "structure_positions_workspaceId_structure_workspaces_id_fk" FOREIGN KEY ("workspaceId") REFERENCES "structure_workspaces"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;

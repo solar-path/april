@@ -1,5 +1,5 @@
 import { db } from '../db';
-import { companyTable, departmentTable } from '../schema/entity';
+import { companyTable, departmentTable, workspaceTable } from '../schema/entity';
 import { userTable } from '../schema/users';
 
 const departmentData = [
@@ -14,6 +14,7 @@ const departmentData = [
 export const seedDepartment = async () => {
 	const departmentList = [];
 	const departments = await db.select().from(departmentTable);
+	const workspaceList = await db.select().from(workspaceTable).limit(1);
 	const companyList = await db.select().from(companyTable);
 	const user = await db.select().from(userTable);
 
@@ -26,7 +27,8 @@ export const seedDepartment = async () => {
 					id: crypto.randomUUID(),
 					title: department.title,
 					companyId: companyList[0].id,
-					author: user[0].id
+					author: user[0].id,
+					workspaceId: workspaceList[0].id
 				})
 				.returning();
 			departmentList.push(newDepartment[0]);

@@ -70,7 +70,9 @@ export const departmentTable = pgTable('structure_departments', {
 	}).primaryKey(),
 	title: varchar('title', { length: 250 }).notNull(),
 	description: text('description'),
-
+	workspaceId: varchar('workspaceId', { length: 50 })
+		.notNull()
+		.references(() => workspaceTable.id),
 	companyId: varchar('companyId', { length: 50 })
 		.notNull()
 		.references(() => companyTable.id),
@@ -88,6 +90,9 @@ export const positionTable = pgTable('structure_positions', {
 	title: varchar('title', { length: 250 }).notNull(),
 	description: text('description'),
 	departmentId: varchar('departmentId', { length: 50 }).references(() => departmentTable.id),
+	workspaceId: varchar('workspaceId', { length: 50 })
+		.notNull()
+		.references(() => workspaceTable.id),
 	companyId: varchar('companyId', { length: 50 })
 		.notNull()
 		.references(() => companyTable.id),

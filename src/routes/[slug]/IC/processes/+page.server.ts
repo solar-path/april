@@ -7,9 +7,15 @@ import { buildTree } from '$lib/components/Tree/TreeView.utilities';
 import type { Item } from '$lib/components/Tree/TreeView.utilities';
 import { eq } from 'drizzle-orm';
 import { processDeleteSchema, processSchema } from './process.schema';
+import { getWorkspaceBySlug } from '$lib/helpers/getWorkspace';
 
-export const load: PageServerLoad = async () => {
-	const processList = await db.select().from(processTable);
+export const load: PageServerLoad = async (event) => {
+	const currentWorkspace = await getWorkspaceBySlug(event.params.slug);
+
+	const processList = currentWorkspace
+		? await db.select().from(processTable).where(eq(processTable.workspaceId, currentWorkspace.id))
+		: [];
+
 	return {
 		// PROCESS
 		processList,

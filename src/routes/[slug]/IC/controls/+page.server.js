@@ -1,20 +1,26 @@
 import { db } from '$lib/database/db';
 import { controlTable } from '$lib/database/schema/rcm';
 import { fail, superValidate } from 'sveltekit-superforms';
-import type { Actions, PageServerLoad } from './$types';
 import { zod } from 'sveltekit-superforms/adapters';
 import { controlDeleteSchema, controlSchema } from './control.schema';
 import { eq } from 'drizzle-orm';
+import { getWorkspaceBySlug } from '$lib/helpers/getWorkspace';
 
-export const load: PageServerLoad = async () => {
+export const load = async (event) => {
+	const currentWorkspace = await getWorkspaceBySlug(event.params.slug);
 	return {
 		// CONTROL
-		controlList: await db.select().from(controlTable),
+		controlList: currentWorkspace
+			? await db
+					.select()
+					.from(controlTable)
+					.where(eq(controlTable.workspaceId, currentWorkspace.id))
+			: [],
 		controlForm: await superValidate(zod(controlSchema))
 	};
 };
 
-export const actions: Actions = {
+export const actions = {
 	createControl: async (event) => {
 		const form = await superValidate(await event.request.formData(), zod(controlSchema));
 		if (!form.valid) {
@@ -25,7 +31,7 @@ export const actions: Actions = {
 			id: crypto.randomUUID(),
 			title: form.data.title,
 			description: form.data.description,
-			author: event.locals.user?.id || 'unknown'
+			author: event.locals.user?.id || ''
 		});
 
 		return { form };
@@ -54,7 +60,7 @@ export const actions: Actions = {
 			.set({
 				title: form.data.title,
 				description: form.data.description,
-				author: event.locals.user?.id || 'unknown'
+				author: event.locals.user?.id || ''
 			})
 			.where(eq(controlTable.id, form.data.id));
 

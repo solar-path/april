@@ -1,5 +1,5 @@
 import { db } from '../db';
-import { companyTable, departmentTable, positionTable } from '../schema/entity';
+import { companyTable, departmentTable, positionTable, workspaceTable } from '../schema/entity';
 import { userTable } from '../schema/users';
 
 export const positionData = [
@@ -36,6 +36,7 @@ export const seedPosition = async () => {
 	const departmentList = await db.select().from(departmentTable);
 	const companyList = await db.select().from(companyTable);
 	const user = await db.select().from(userTable);
+	const workspaceList = await db.select().from(workspaceTable).limit(1);
 
 	if (positions.length === 0) {
 		console.log('start seed positions');
@@ -47,7 +48,8 @@ export const seedPosition = async () => {
 					title: position.title,
 					departmentId: departmentList.find((d) => d.title === position.department)?.id,
 					companyId: companyList.find((c) => c.title === position.company)?.id,
-					author: user[0].id
+					author: user[0].id,
+					workspaceId: workspaceList[0].id
 				})
 				.returning();
 			positionList.push(newPosition[0]);

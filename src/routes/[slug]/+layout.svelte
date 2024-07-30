@@ -70,11 +70,11 @@
 					href: `/${$page.params.slug}/IC/controls`
 				},
 				{
-					label: 'Processes',
+					label: 'Business processes',
 					href: `/${$page.params.slug}/IC/processes`
 				},
 				{
-					label: 'RCM',
+					label: 'Risk & Control Matrix',
 					href: `/${$page.params.slug}/IC/matrix`
 				}
 			]
