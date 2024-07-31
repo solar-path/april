@@ -4,8 +4,8 @@
 	import { A, Button, Heading, Hr, ImagePlaceholder, ListPlaceholder, P } from 'flowbite-svelte';
 	import { EditOutline } from 'flowbite-svelte-icons';
 	import Company from './Company.form.svelte';
-	import Address from '../../../../test/entity/address/Form/Address.form.svelte';
-	import Contact from '../../../../test/contact/Form/Contact.form.svelte';
+	// import Address from './Address.form.svelte';
+	// import Contact from './Contact.form.svelte';
 
 	export let selectedStructureItem;
 	export let data;
@@ -75,7 +75,7 @@
 			<div>
 				<strong class="font-semibold text-gray-900 dark:text-white">Address: </strong>
 			</div>
-			<div class="flex flex-row space-x-2">
+			<!-- <div class="flex flex-row space-x-2">
 				<Button
 					outline={true}
 					class="h-9 w-10 !p-2"
@@ -90,7 +90,7 @@
 					name={'id'}
 					identifier={selectedStructureItem.address.id}
 				/>
-			</div>
+			</div> -->
 		</div>
 
 		<P class="mb-3" weight="light" color="text-gray-500 dark:text-gray-400">
@@ -112,7 +112,7 @@
 			<div>
 				<strong class="font-semibold text-gray-900 dark:text-white">Contact: </strong>
 			</div>
-			<div class="flex flex-row space-x-2">
+			<!-- <div class="flex flex-row space-x-2">
 				<Button
 					outline={true}
 					class="h-9 w-10 !p-2"
@@ -127,7 +127,7 @@
 					name={'id'}
 					identifier={selectedStructureItem.address.id}
 				/>
-			</div>
+			</div> -->
 		</div>
 
 		<P class="mb-3" weight="light" color="text-gray-500 dark:text-gray-400">

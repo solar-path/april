@@ -22,7 +22,7 @@
 	import { page } from '$app/stores';
 	import { fillDrawer } from '$lib/components/Drawer/drawer.utlities';
 	import Workspace from '$lib/components/Workspace/Workspace.form.svelte';
-
+	import Company from '$lib/components/Company/Company.form.svelte';
 	import { PlusOutline } from 'flowbite-svelte-icons';
 	import { drawerContent, hideDrawer } from '$lib/components/Drawer/drawer.utlities';
 
@@ -34,6 +34,7 @@
 	export let data: LayoutData;
 
 	$: workspaceList = data.workspaceList;
+	$: companyList = data.companyList;
 
 	$: fullname = data.currentUser?.name + ' ' + data.currentUser?.surname;
 
@@ -86,7 +87,7 @@
 						id="selectWorkspace"
 						class="flex items-center justify-center gap-2 text-primary-700"
 					>
-						<p>Workspace:</p>
+						<span>Workspace:</span>
 						{#if workspaceList.find((workspace) => workspace.workspace === $page.params.workspace)?.logo}
 							<Avatar
 								src={`/images/logo/${
@@ -131,8 +132,18 @@
 						id="selectCompany"
 						class="flex items-center justify-center gap-2 text-primary-700"
 					>
-						<p>Company</p>
+						<span>Company:</span>
+						{companyList.find((company) => company.company === $page.params.company)?.title ||
+							'Select one'}
 					</button>
+
+					<Dropdown class="w-full" triggeredBy="#selectCompany">
+						{#each companyList as company}
+							<DropdownItem href="#">
+								{company.title}
+							</DropdownItem>
+						{/each}
+					</Dropdown>
 				</NavLi>
 			{:else}
 				<NavLi href="/register">Join us</NavLi>

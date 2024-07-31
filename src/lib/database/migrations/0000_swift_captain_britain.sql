@@ -89,6 +89,7 @@ CREATE TABLE IF NOT EXISTS "structure_companies" (
 	"id" varchar(50) PRIMARY KEY NOT NULL,
 	"title" varchar(250) NOT NULL,
 	"description" text,
+	"company" varchar(250) NOT NULL,
 	"logo" varchar(250),
 	"company_type" "company_type" NOT NULL,
 	"regionId" varchar(50) NOT NULL,
@@ -100,6 +101,7 @@ CREATE TABLE IF NOT EXISTS "structure_companies" (
 	"author" varchar(50) NOT NULL,
 	"createdAt" timestamp DEFAULT now() NOT NULL,
 	"updatedAt" timestamp DEFAULT now() NOT NULL,
+	CONSTRAINT "structure_companies_company_unique" UNIQUE("company"),
 	CONSTRAINT "structure_companies_businessIdentificationNumber_unique" UNIQUE("businessIdentificationNumber")
 );
 --> statement-breakpoint
@@ -139,13 +141,13 @@ CREATE TABLE IF NOT EXISTS "structure_regions" (
 CREATE TABLE IF NOT EXISTS "structure_workspaces" (
 	"id" varchar(50) PRIMARY KEY NOT NULL,
 	"title" varchar(250) NOT NULL,
-	"slug" varchar(250) NOT NULL,
+	"workspace" varchar(250) NOT NULL,
 	"description" text,
 	"logo" varchar(250),
 	"author" varchar(50) NOT NULL,
 	"createdAt" timestamp DEFAULT now() NOT NULL,
 	"updatedAt" timestamp DEFAULT now() NOT NULL,
-	CONSTRAINT "structure_workspaces_slug_unique" UNIQUE("slug")
+	CONSTRAINT "structure_workspaces_workspace_unique" UNIQUE("workspace")
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "industry" (

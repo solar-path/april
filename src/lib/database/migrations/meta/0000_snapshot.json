@@ -1,5 +1,5 @@
 {
-  "id": "a06cacc6-b4b7-4192-a31c-4829fe5a6f8f",
+  "id": "ad7f079a-ec7a-459b-b318-7c31ab82cdaf",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
@@ -377,6 +377,12 @@
           "primaryKey": false,
           "notNull": false
         },
+        "company": {
+          "name": "company",
+          "type": "varchar(250)",
+          "primaryKey": false,
+          "notNull": true
+        },
         "logo": {
           "name": "logo",
           "type": "varchar(250)",
@@ -529,6 +535,13 @@
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
+        "structure_companies_company_unique": {
+          "name": "structure_companies_company_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "company"
+          ]
+        },
         "structure_companies_businessIdentificationNumber_unique": {
           "name": "structure_companies_businessIdentificationNumber_unique",
           "nullsNotDistinct": false,
@@ -854,8 +867,8 @@
           "primaryKey": false,
           "notNull": true
         },
-        "slug": {
-          "name": "slug",
+        "workspace": {
+          "name": "workspace",
           "type": "varchar(250)",
           "primaryKey": false,
           "notNull": true
@@ -911,11 +924,11 @@
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
-        "structure_workspaces_slug_unique": {
-          "name": "structure_workspaces_slug_unique",
+        "structure_workspaces_workspace_unique": {
+          "name": "structure_workspaces_workspace_unique",
           "nullsNotDistinct": false,
           "columns": [
-            "slug"
+            "workspace"
           ]
         }
       }

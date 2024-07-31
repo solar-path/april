@@ -42,7 +42,7 @@ export const companyTable = pgTable('structure_companies', {
 	}).primaryKey(),
 	title: varchar('title', { length: 250 }).notNull(),
 	description: text('description'),
-
+	company: varchar('company', { length: 250 }).notNull().unique(),
 	logo: varchar('logo', { length: 250 }),
 	type: companyTypeEnum('company_type').notNull(),
 	regionId: varchar('regionId', { length: 50 })

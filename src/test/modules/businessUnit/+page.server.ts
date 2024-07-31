@@ -14,7 +14,7 @@ import { industryTable } from '$lib/database/schema/industry';
 import { redirect } from '@sveltejs/kit';
 import { and, eq } from 'drizzle-orm';
 import { regionSchema } from './region/region.schema';
-import { companySchema } from './company/company.schema';
+import { companySchema } from '../../../lib/components/Company/company.schema';
 import { departmentSchema } from './department/department.schema';
 import { positionSchema } from './position/position.schema';
 import { buildTree } from '$lib/components/Tree/TreeView.utilities';

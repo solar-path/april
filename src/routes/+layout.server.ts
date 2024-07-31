@@ -6,6 +6,7 @@ import { workspaceSchema } from '$lib/components/Workspace/workspace.schema';
 import { companyTable } from '$lib/database/schema/entity.js';
 import { eq } from 'drizzle-orm';
 import { db } from '$lib/database/db';
+import { companySchema } from '../lib/components/Company/company.schema.js';
 
 export const load = async (event) => {
 	const currentUser = event.locals.user;
@@ -13,20 +14,19 @@ export const load = async (event) => {
 	const workspaceList = currentUser ? await getWorkspaceList(currentUser.id) : [];
 	const currentWorkspace = await getWorkspaceBySlug(event.params.workspace);
 
-	const companyList =
-		currentUser && workspaceList.length > 0 && currentWorkspace
-			? await db
-					.select()
-					.from(companyTable)
-					.where(eq(companyTable.workspaceId, currentWorkspace.id))
-			: [];
-
 	return {
 		currentUser: currentUser ? currentUser : null,
 		contactUsForm: await superValidate(zod(contactUsSchema)),
 		trackInquiryForm: await superValidate(zod(findInquiryByIDSchema)),
 		workspaceList,
-		companyList,
-		workspaceForm: await superValidate(zod(workspaceSchema))
+		companyList:
+			currentUser && workspaceList.length > 0 && currentWorkspace
+				? await db
+						.select()
+						.from(companyTable)
+						.where(eq(companyTable.workspaceId, currentWorkspace.id))
+				: [],
+		workspaceForm: await superValidate(zod(workspaceSchema)),
+		companyForm: await superValidate(zod(companySchema))
 	};
 };

@@ -1,5 +1,8 @@
 import { fail, superValidate, withFiles } from 'sveltekit-superforms';
-import { companySchema, deleteCompanySchema } from './company.schema';
+import {
+	companySchema,
+	deleteCompanySchema
+} from '../../../../lib/components/Company/company.schema';
 import { zod } from 'sveltekit-superforms/adapters';
 import { db } from '$lib/database/db';
 import { companyTable } from '$lib/database/schema/entity';

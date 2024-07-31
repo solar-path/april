@@ -3,7 +3,7 @@
 	import { fillDrawer } from '$lib/components/Drawer/drawer.utlities';
 	import WorkspaceCard from '$lib/components/Workspace/Workspace.card.svelte';
 	import RegionCard from './region/Region.card.svelte';
-	import CompanyCard from './company/Company.card.svelte';
+	import CompanyCard from '../../../lib/components/Company/Company.card.svelte';
 	import DepartmentCard from './department/Department.card.svelte';
 	import PositionCard from './position/Position.card.svelte';
 
