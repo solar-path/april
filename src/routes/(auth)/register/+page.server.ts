@@ -9,12 +9,35 @@ import { sendVerificationEmail } from '$lib/email/mail.server';
 import { redirect } from '@sveltejs/kit';
 import { workspaceTable } from '$lib/database/schema/entity';
 import { slugify } from '$lib/helpers/slugify';
+import { roleTable, userRoleTable } from '$lib/database/schema/rbac';
 
+/**
+ * @author Ali
+ * @description - Load the register page
+ * @returns {Promise<{registerForm: SuperForm<typeof registerSchema>}>}
+ */
 export const load = async () => {
 	return {
 		registerForm: await superValidate(zod(registerSchema))
 	};
 };
+
+/**
+ * @author Ali
+ * @description - Handle the register form
+ * 1. Validate the form
+ * 2. Check if the user already exists
+ * 		true - return error
+ * 		false - continue
+ * 3. Create a new user
+ * 4. Create a new workspace
+ * 5. Associate the user to the workspace
+ * 6. Assign workspace admin role
+ * 7. Send a verification email
+ * 8. Redirect to the login page
+ * @param {Request} event - The request event
+ * @returns {Promise<{form: SuperForm<typeof registerSchema>}>}
+ */
 
 export const actions = {
 	default: async (event) => {
@@ -61,7 +84,11 @@ export const actions = {
 				.values({
 					id: crypto.randomUUID(),
 					title: form.data.workspace.trim(),
-					workspace: await slugify(form.data.workspace.trim()),
+					workspace: await slugify(
+						form.data.workspace.trim(),
+						workspaceTable,
+						workspaceTable.workspace
+					),
 					author: newUser[0].id
 				})
 				.returning({ id: workspaceTable.id });
@@ -71,6 +98,21 @@ export const actions = {
 				id: crypto.randomUUID(),
 				userId: newUser[0].id,
 				workspaceId: newWorkspace[0].id
+			});
+
+			// get the workspace admin role
+			const workspaceAdminRole = await db
+				.select({ id: roleTable.id })
+				.from(roleTable)
+				.where(eq(roleTable.role, 'workspace_admin'))
+				.limit(1);
+
+			// Assign workspace admin role
+			await db.insert(userRoleTable).values({
+				id: crypto.randomUUID(),
+				userId: newUser[0].id,
+				workspaceId: newWorkspace[0].id,
+				roleId: workspaceAdminRole[0].id
 			});
 
 			return redirect(302, '/login');
