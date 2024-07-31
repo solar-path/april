@@ -35,7 +35,11 @@ export const seedCompany = async () => {
 					id: crypto.randomUUID(),
 					title: company.title,
 					logo: '',
-					company: await slugify(company.title.trim().toLowerCase()),
+					company: await slugify(
+						company.title.trim().toLowerCase(),
+						companyTable,
+						companyTable.company
+					),
 					type: 'company',
 					workspaceId: workspaceList[0].id,
 					regionId: regionList[0].id,

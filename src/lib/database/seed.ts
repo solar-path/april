@@ -16,6 +16,7 @@ import { seedProcess } from './data/rcm_process';
 import { seedRoles } from './data/rbac_roles';
 import { seedPermissions } from './data/rbac_permissions';
 import { seedWorkspaceUser } from './data/user_workspace';
+import { seedUserRole } from './data/rbac_userRole';
 
 const main = async () => {
 	console.log('start seeding data');
@@ -41,6 +42,7 @@ const main = async () => {
 		//RBAC
 		await seedRoles();
 		await seedPermissions();
+		await seedUserRole();
 		console.log('data seeding complete');
 		await client.end();
 	} catch (error) {
