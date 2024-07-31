@@ -1,5 +1,5 @@
 {
-  "id": "ad7f079a-ec7a-459b-b318-7c31ab82cdaf",
+  "id": "8eb40e23-d5b2-47a0-a78c-320cfcc04b7e",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
@@ -1067,6 +1067,12 @@
           "primaryKey": false,
           "notNull": true
         },
+        "permission": {
+          "name": "permission",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
         "description": {
           "name": "description",
           "type": "text",
@@ -1086,10 +1092,30 @@
           "primaryKey": false,
           "notNull": true,
           "default": "now()"
+        },
+        "workspaceId": {
+          "name": "workspaceId",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
         }
       },
       "indexes": {},
-      "foreignKeys": {},
+      "foreignKeys": {
+        "rbac_permission_workspaceId_structure_workspaces_id_fk": {
+          "name": "rbac_permission_workspaceId_structure_workspaces_id_fk",
+          "tableFrom": "rbac_permission",
+          "tableTo": "structure_workspaces",
+          "columnsFrom": [
+            "workspaceId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "rbac_permission_title_unique": {
@@ -1136,6 +1162,12 @@
           "primaryKey": false,
           "notNull": true,
           "default": "now()"
+        },
+        "workspaceId": {
+          "name": "workspaceId",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
         }
       },
       "indexes": {},
@@ -1165,6 +1197,19 @@
           ],
           "onDelete": "no action",
           "onUpdate": "no action"
+        },
+        "rbac_role_permission_workspaceId_structure_workspaces_id_fk": {
+          "name": "rbac_role_permission_workspaceId_structure_workspaces_id_fk",
+          "tableFrom": "rbac_role_permission",
+          "tableTo": "structure_workspaces",
+          "columnsFrom": [
+            "workspaceId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -1182,6 +1227,12 @@
         },
         "title": {
           "name": "title",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "role": {
+          "name": "role",
           "type": "varchar(50)",
           "primaryKey": false,
           "notNull": true
@@ -1205,10 +1256,30 @@
           "primaryKey": false,
           "notNull": true,
           "default": "now()"
+        },
+        "workspaceId": {
+          "name": "workspaceId",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
         }
       },
       "indexes": {},
-      "foreignKeys": {},
+      "foreignKeys": {
+        "rbac_role_workspaceId_structure_workspaces_id_fk": {
+          "name": "rbac_role_workspaceId_structure_workspaces_id_fk",
+          "tableFrom": "rbac_role",
+          "tableTo": "structure_workspaces",
+          "columnsFrom": [
+            "workspaceId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "rbac_role_title_unique": {
@@ -1255,6 +1326,12 @@
           "primaryKey": false,
           "notNull": true,
           "default": "now()"
+        },
+        "workspaceId": {
+          "name": "workspaceId",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
         }
       },
       "indexes": {},
@@ -1278,6 +1355,19 @@
           "tableTo": "rbac_permission",
           "columnsFrom": [
             "permissionId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "rbac_user_permission_workspaceId_structure_workspaces_id_fk": {
+          "name": "rbac_user_permission_workspaceId_structure_workspaces_id_fk",
+          "tableFrom": "rbac_user_permission",
+          "tableTo": "structure_workspaces",
+          "columnsFrom": [
+            "workspaceId"
           ],
           "columnsTo": [
             "id"
@@ -1324,6 +1414,12 @@
           "primaryKey": false,
           "notNull": true,
           "default": "now()"
+        },
+        "workspaceId": {
+          "name": "workspaceId",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
         }
       },
       "indexes": {},
@@ -1347,6 +1443,19 @@
           "tableTo": "rbac_role",
           "columnsFrom": [
             "roleId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "rbac_user_role_workspaceId_structure_workspaces_id_fk": {
+          "name": "rbac_user_role_workspaceId_structure_workspaces_id_fk",
+          "tableFrom": "rbac_user_role",
+          "tableTo": "structure_workspaces",
+          "columnsFrom": [
+            "workspaceId"
           ],
           "columnsTo": [
             "id"

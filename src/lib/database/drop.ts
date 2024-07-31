@@ -9,7 +9,7 @@ async function main() {
             declare
                 r record;
             begin
-                for r in (select tablename from pg_tables where schemaname = 'public') loop
+                for r in (select tablename from pg_tables where schemaname = 'public' and tablename not in ('industry', 'country')) loop
                     execute 'drop table if exists ' || quote_ident(r.tablename) || ' cascade';
                 end loop;
             end $$

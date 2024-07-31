@@ -1,8 +1,15 @@
 import { db } from '$lib/database/db';
-import { workspaceTable } from '$lib/database/schema/entity';
 import { eq } from 'drizzle-orm/mysql-core/expressions';
+import { Table, Column } from 'drizzle-orm'; // Adjust import based on actual types
 
-export const slugify = async (base: string): Promise<string> => {
+/**
+ * @description create a slug from a string
+ * @param {string} base - The string to slugify
+ * @param {Table} database - The database to check for uniqueness
+ * @param {Column} field - The field to check for uniqueness
+ * @returns The slugified string
+ */
+export const slugify = async (base: string, database: Table, field: Column): Promise<string> => {
 	const slug = base
 		.toLowerCase()
 		.replace(/[^a-z0-9]+/g, '-')
@@ -12,11 +19,7 @@ export const slugify = async (base: string): Promise<string> => {
 
 	let existing;
 	do {
-		existing = await db
-			.select()
-			.from(workspaceTable)
-			.where(eq(workspaceTable.slug, uniqueSlug))
-			.limit(1);
+		existing = await db.select().from(database).where(eq(field, uniqueSlug)).limit(1);
 
 		if (existing.length === 0) {
 			break;
