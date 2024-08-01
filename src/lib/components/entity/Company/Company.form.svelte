@@ -114,8 +114,8 @@
 	enctype="multipart/form-data"
 	method="POST"
 	action={data.item && data.item !== null
-		? `/${$page.params.workspace}/entity/company?/updateCompany`
-		: `/${$page.params.workspace}/entity/company?/createCompany`}
+		? `/system/company?/updateCompany`
+		: `/system/company?/createCompany`}
 	class="flex flex-col space-y-2"
 >
 	<input type="hidden" name="id" bind:value={$form.id} />
