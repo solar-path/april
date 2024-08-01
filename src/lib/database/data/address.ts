@@ -27,15 +27,20 @@ export const seedAddress = async () => {
 		if (addresses.length === 0) {
 			console.log('start seed addresses');
 			for (const address of addressData) {
+				const country = countryList.find((c) => c.name === address.country);
+				if (!country) {
+					console.warn(`Country not found for address: ${address.city}`);
+					continue;
+				}
+
 				await db.insert(addressTable).values({
 					id: crypto.randomUUID(),
 					city: address.city,
 					state: address.state || null,
 					zipcode: address.zipcode,
-					countryId: countryList.find((c) => c.name === address.country)?.id,
+					countryId: country.id,
 					addressLine: address.addressLine,
 					author: user[0].id
-					// Consider adding: street: address.street,
 				});
 			}
 			console.log('addresses seed completed');
