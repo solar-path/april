@@ -16,6 +16,8 @@ import {
 	workspaceTable
 } from '$lib/database/schema/entity';
 import { industryTable } from '$lib/database/schema/industry';
+import { workspaceUserTable } from '$lib/database/schema/users';
+import { getWorkspaceBySlug } from '$lib/helpers/getWorkspace.js';
 import { redirect } from '@sveltejs/kit';
 import { and, eq } from 'drizzle-orm';
 import { superValidate } from 'sveltekit-superforms';
@@ -25,6 +27,15 @@ export const load = async (event) => {
 	if (!event.locals.user) {
 		redirect(302, '/login');
 	}
+
+	// get the current workspace. if fails then redirect to the home page
+	const currentWorkspace = await getWorkspaceBySlug(event.params.workspace);
+	if (!currentWorkspace) {
+		redirect(302, '/');
+	}
+
+	// get the workspace list via the workspaceUserTable and left join with the workspaceTable,
+	// i.e. currentUser (event.locals.user) might be different from the author of the workspace
 	const workspaceList = await db
 		.select({
 			id: workspaceTable.id,
@@ -33,13 +44,28 @@ export const load = async (event) => {
 			workspace: workspaceTable.workspace,
 			author: workspaceTable.author
 		})
-		.from(workspaceTable)
+		.from(workspaceUserTable)
+		.leftJoin(workspaceTable, eq(workspaceTable.id, workspaceUserTable.workspaceId))
 		.where(
 			and(
-				eq(workspaceTable.author, event.locals.user.id),
-				eq(workspaceTable.workspace, event.params.workspace)
+				eq(workspaceUserTable.userId, event.locals.user.id),
+				eq(workspaceUserTable.workspaceId, currentWorkspace.id)
 			)
 		);
+
+	// get the region list via the workspaceUserTable and left join with the workspaceTable and then the region,
+	// i.e. currentUser (event.locals.user) might be different from the author of the region
+	// const regionList = await db
+	// 	.select({
+	// 		id: regionTable.id,
+	// 		title: regionTable.title,
+	// 		workspaceId: regionTable.workspaceId,
+	// 		description: regionTable.description,
+	// 		author: regionTable.author
+	// 	})
+	// 	.from(regionTable)
+	// 	.leftJoin(workspaceTable, eq(workspaceTable.id, regionTable.workspaceId))
+	// 	.where(eq(regionTable.author, event.locals.user.id));
 
 	const regionList = await db
 		.select({
@@ -49,9 +75,10 @@ export const load = async (event) => {
 			description: regionTable.description,
 			author: regionTable.author
 		})
-		.from(regionTable)
-		.leftJoin(workspaceTable, eq(workspaceTable.id, regionTable.workspaceId))
-		.where(eq(regionTable.author, event.locals.user.id));
+		.from(workspaceUserTable)
+		.leftJoin(workspaceTable, eq(workspaceTable.id, workspaceUserTable.workspaceId))
+		.leftJoin(regionTable, eq(regionTable.workspaceId, workspaceTable.id))
+		.where(eq(workspaceUserTable.userId, event.locals.user.id));
 
 	const companyList = await db
 		.select({

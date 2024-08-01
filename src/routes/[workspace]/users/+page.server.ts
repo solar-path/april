@@ -13,6 +13,7 @@ import { workspaceTable } from '$lib/database/schema/entity';
 import { eq } from 'drizzle-orm';
 import { getWorkspaceBySlug } from '$lib/helpers/getWorkspace';
 import { sql } from 'drizzle-orm';
+import type { Actions } from '@sveltejs/kit';
 
 export const load: PageServerLoad = async (event) => {
 	const currentWorkspace = await getWorkspaceBySlug(event.params.workspace);
@@ -41,7 +42,7 @@ export const load: PageServerLoad = async (event) => {
 	};
 };
 
-export const actions = {
+export const actions: Actions = {
 	inviteUser: async (event) => {
 		const form = await superValidate(await event.request.formData(), zod(inviteUserSchema));
 
@@ -58,19 +59,22 @@ export const actions = {
 
 		const currentWorkspace = await getWorkspaceBySlug(event.params.workspace);
 
-		const userAlreadyInWorkspace = await db
-			.select()
-			.from(workspaceUserTable)
-			.where(eq(workspaceUserTable.userId, doesUserExist[0].id));
-
-		// user already in workspace
-		if (userAlreadyInWorkspace.length > 0) {
-			return setError(form, 'email', 'User already in workspace');
+		if (!currentWorkspace) {
+			return setError(form, 'email', 'Invalid workspace');
 		}
 
-		// user exists and shall be only invited to workspace
-		if (doesUserExist.length > 0 && currentWorkspace !== undefined && currentWorkspace !== null) {
-			//associate user with workspace
+		if (doesUserExist.length > 0) {
+			const userAlreadyInWorkspace = await db
+				.select()
+				.from(workspaceUserTable)
+				.where(eq(workspaceUserTable.userId, doesUserExist[0].id));
+
+			// user already in workspace
+			if (userAlreadyInWorkspace.length > 0) {
+				return setError(form, 'email', 'User already in workspace');
+			}
+
+			// user exists and shall be only invited to workspace
 			await db.insert(workspaceUserTable).values({
 				id: crypto.randomUUID(),
 				userId: doesUserExist[0].id,
@@ -80,12 +84,10 @@ export const actions = {
 			// send email notification
 			await sendInviteEmailToExistingNewUser(
 				form.data.email.trim().toLowerCase(),
-				currentWorkspace!.title
+				currentWorkspace.title
 			);
-		}
-
-		// user does not exists and shall be invited to workspace
-		if (doesUserExist.length === 0) {
+		} else {
+			// user does not exist and shall be invited to workspace
 			const token = crypto.randomUUID();
 			const newUser = await db
 				.insert(userTable)
@@ -100,14 +102,15 @@ export const actions = {
 			await db.insert(workspaceUserTable).values({
 				id: crypto.randomUUID(),
 				userId: newUser[0].id,
-				workspaceId: currentWorkspace!.id
+				workspaceId: currentWorkspace.id
 			});
 			await sendInviteEmailToNotExistingNewUser(
 				form.data.email.trim().toLowerCase(),
 				token,
-				currentWorkspace!.title
+				currentWorkspace.title
 			);
 		}
+
 		return { form };
 	},
 	removeUserFromWorkspace: async (event) => {

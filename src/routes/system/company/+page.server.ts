@@ -9,11 +9,6 @@ import type { Actions } from '@sveltejs/kit';
 import { slugify } from '$lib/helpers/slugify';
 
 export const actions: Actions = {
-	/**
-	 * @description - Create a company
-	 * @param event
-	 * @returns
-	 */
 	createCompany: async (event) => {
 		const form = await superValidate(await event.request.formData(), zod(companySchema));
 
