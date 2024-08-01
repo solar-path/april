@@ -25,7 +25,7 @@
 			<EditOutline class="h-4 w-6" /></Button
 		>
 		<DeleteButton
-			path="/dashboard/entity?/deleteCompany"
+			path="/system/company?/deleteCompany"
 			name={'id'}
 			identifier={selectedStructureItem.id}
 		/>
