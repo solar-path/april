@@ -47,8 +47,8 @@
 	method="POST"
 	enctype="multipart/form-data"
 	action={data.item && data.item !== null
-		? `/${$page.params.workspace}/entity/workspace?/updateWorkspace`
-		: `/${$page.params.workspace}/entity/workspace?/createWorkspace`}
+		? `/system/workspace?/updateWorkspace`
+		: `/system/workspace?/createWorkspace`}
 	class="flex flex-col space-y-2"
 >
 	<input type="hidden" name="id" bind:value={$form.id} />

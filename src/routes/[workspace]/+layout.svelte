@@ -27,7 +27,7 @@
 
 		{
 			label: 'Business structure',
-			href: `/${$page.params.workspace}/entity`,
+			href: `/${$page.params.workspace}/groupStructure`,
 			icon: BuildingOutline
 		},
 		{

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { Avatar, Dropdown, DropdownItem, NavLi } from 'flowbite-svelte';
 	import { PlusOutline } from 'flowbite-svelte-icons';
 	import { fillDrawer } from '$lib/components/Drawer/drawer.utlities';
@@ -7,14 +7,12 @@
 	export let data;
 	export let currentWorkspace;
 	$: workspaceList = data.workspaceList;
-	$: companyList = data.companyList;
 </script>
 
-<!-- Workspace -->
 <NavLi>
 	<button id="selectWorkspace" class="flex items-center justify-center gap-2 text-primary-700">
 		<p>Workspace:</p>
-		{#if workspaceList.find((workspace) => workspace.workspace === currentWorkspace)?.logo}
+		{#if workspaceList.find((workspace: any) => workspace.workspace === currentWorkspace)?.logo}
 			<Avatar
 				src={`/images/logo/${
 					workspaceList.find((workspace) => workspace.workspace === currentWorkspace)?.logo

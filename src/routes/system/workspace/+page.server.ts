@@ -1,4 +1,7 @@
-import { deleteWorkspaceSchema, workspaceSchema } from '$lib/components/Workspace/workspace.schema';
+import {
+	deleteWorkspaceSchema,
+	workspaceSchema
+} from '$lib/components/entity/Workspace/workspace.schema';
 import { db } from '$lib/database/db';
 import { workspaceTable } from '$lib/database/schema/entity';
 import { workspaceUserTable } from '$lib/database/schema/users';
