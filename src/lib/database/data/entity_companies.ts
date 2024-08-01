@@ -1,7 +1,7 @@
 import { slugify } from '$lib/helpers/slugify';
 import { db } from '../db';
 import { addressTable } from '../schema/address';
-import { companyTable, regionTable, workspaceTable } from '../schema/entity';
+import { companyTable, workspaceTable } from '../schema/entity';
 import { industryTable } from '../schema/industry';
 import { userTable } from '../schema/users';
 
@@ -9,7 +9,6 @@ const companyData = [
 	{
 		title: 'Aneko',
 		type: 'company',
-		region: 'Asia',
 		workspace: 'Aneko Management Group',
 		industry: 'Application Software',
 		BIN: '1234567890'
@@ -21,7 +20,6 @@ export const seedCompany = async () => {
 	const companies = await db.select().from(companyTable);
 
 	const workspaceList = await db.select().from(workspaceTable).limit(1);
-	const regionList = await db.select().from(regionTable).limit(1);
 	const industryList = await db.select().from(industryTable);
 	const addressList = await db.select().from(addressTable).limit(1);
 	const user = await db.select().from(userTable).limit(1);
@@ -40,9 +38,7 @@ export const seedCompany = async () => {
 						companyTable,
 						companyTable.company
 					),
-					type: 'company',
 					workspaceId: workspaceList[0].id,
-					regionId: regionList[0].id,
 					industryId: industryList.find((i) => i.name === company.industry)?.id,
 					BIN: company.BIN,
 					address: addressList[0].id,

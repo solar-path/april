@@ -5,7 +5,6 @@ import { seedBlog } from './data/blog';
 import { seedCountry } from './data/countries';
 import { seedIndustry } from './data/industries';
 import { seedWorkspace } from './data/entity_workspace';
-import { seedRegion } from './data/entity_region';
 import { seedAddress } from './data/address';
 import { seedCompany } from './data/entity_companies';
 import { seedDepartment } from './data/entity_departments';
@@ -28,7 +27,6 @@ const main = async () => {
 		await seedIndustry();
 		// group structure
 		await seedWorkspace();
-		await seedRegion();
 		await seedAddress();
 		await seedCompany();
 		await seedDepartment();

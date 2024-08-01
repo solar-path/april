@@ -1,4 +1,4 @@
-import { pgEnum, pgTable, text, timestamp, varchar } from 'drizzle-orm/pg-core';
+import { pgTable, text, timestamp, varchar } from 'drizzle-orm/pg-core';
 import { userTable } from './users';
 import { industryTable } from './industry';
 import { addressTable } from './address';

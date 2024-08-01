@@ -1,7 +1,6 @@
 import { companySchema } from '$lib/components/entity/Company/company.schema';
 import { departmentSchema } from '$lib/components/entity/Department/department.schema';
 import { positionSchema } from '$lib/components/entity/Position/position.schema';
-import { regionSchema } from '$lib/components/entity/Region/region.schema';
 import { workspaceSchema } from '$lib/components/entity/Workspace/workspace.schema';
 import { buildTree } from '$lib/components/Tree/TreeView.utilities';
 import { db } from '$lib/database/db';
@@ -12,7 +11,6 @@ import {
 	companyTable,
 	departmentTable,
 	positionTable,
-	regionTable,
 	workspaceTable
 } from '$lib/database/schema/entity';
 import { industryTable } from '$lib/database/schema/industry';
@@ -53,21 +51,6 @@ export const load = async (event) => {
 			)
 		);
 
-	// get the region list via the workspaceUserTable and left join with the workspaceTable and then the region,
-	// i.e. currentUser (event.locals.user) might be different from the author of the region
-	const regionList = await db
-		.select({
-			id: regionTable.id,
-			title: regionTable.title,
-			workspaceId: regionTable.workspaceId,
-			description: regionTable.description,
-			author: regionTable.author
-		})
-		.from(workspaceUserTable)
-		.leftJoin(workspaceTable, eq(workspaceTable.id, workspaceUserTable.workspaceId))
-		.leftJoin(regionTable, eq(regionTable.workspaceId, workspaceTable.id))
-		.where(eq(workspaceUserTable.userId, event.locals.user.id));
-
 	// get the company list via the workspaceUserTable and left join with the workspaceTable and then the region,
 	// i.e. currentUser (event.locals.user) might be different from the author of the company
 	const companyList = await db
@@ -85,7 +68,6 @@ export const load = async (event) => {
 				description: industryTable.description
 			},
 			BIN: companyTable.BIN,
-			type: companyTable.type,
 			// address: companyTable.address,
 			address: {
 				id: addressTable.id,
@@ -100,16 +82,12 @@ export const load = async (event) => {
 				email: contactTable.email,
 				phone: contactTable.phone,
 				website: contactTable.website
-			},
-			regionId: companyTable.regionId
+			}
 		})
 		.from(workspaceUserTable)
 		.leftJoin(workspaceTable, eq(workspaceTable.id, workspaceUserTable.workspaceId))
 		.leftJoin(companyTable, eq(companyTable.workspaceId, workspaceTable.id))
-		.where(
-			and(eq(workspaceUserTable.userId, event.locals.user.id), eq(companyTable.type, 'company'))
-		)
-		.leftJoin(regionTable, eq(regionTable.id, companyTable.regionId))
+		.where(eq(workspaceUserTable.userId, event.locals.user.id))
 		.leftJoin(addressTable, eq(addressTable.id, companyTable.address))
 		.leftJoin(contactTable, eq(contactTable.id, companyTable.contact))
 		.leftJoin(countryTable, eq(countryTable.id, addressTable.countryId))
@@ -147,25 +125,20 @@ export const load = async (event) => {
 		.where(eq(workspaceUserTable.userId, event.locals.user.id));
 
 	const tree = workspaceList.map((workspace) => {
-		const workspaceRegions = regionList
-			.filter((region) => region.workspaceId === workspace.id)
-			.map((region) => {
-				const regionCompanies = companyList
-					.filter((company) => company.regionId === region.id)
-					.map((company) => {
-						const companyDepartments = departmentList
-							.filter((department) => department.companyId === company.id)
-							.map((department) => {
-								const departmentPositions = positionList
-									.filter((position) => position.departmentId === department.id)
-									.map((position) => ({ ...position, type: 'position' }));
-								return { ...department, children: departmentPositions, type: 'department' };
-							});
-						return { ...company, children: companyDepartments, type: 'company' };
+		const workspaceCompanies = companyList
+			.filter((company) => company.workspaceId === workspace.id)
+			.map((company) => {
+				const companyDepartments = departmentList
+					.filter((department) => department.companyId === company.id)
+					.map((department) => {
+						const departmentPositions = positionList
+							.filter((position) => position.departmentId === department.id)
+							.map((position) => ({ ...position, type: 'position' }));
+						return { ...department, children: departmentPositions, type: 'department' };
 					});
-				return { ...region, children: regionCompanies, type: 'region' };
+				return { ...company, children: companyDepartments, type: 'company' };
 			});
-		return { ...workspace, children: workspaceRegions, type: 'workspace' };
+		return { ...workspace, children: workspaceCompanies, type: 'workspace' };
 	});
 
 	const industryData = await db
@@ -186,8 +159,6 @@ export const load = async (event) => {
 		groupStructureTree: tree,
 		workspaceList,
 		workspaceForm: await superValidate(zod(workspaceSchema)),
-		regionList,
-		regionForm: await superValidate(zod(regionSchema)),
 		companyList,
 		companyForm: await superValidate(zod(companySchema)),
 		departmentList,

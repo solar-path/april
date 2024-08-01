@@ -2,7 +2,7 @@ import { pgTable, varchar } from 'drizzle-orm/pg-core';
 import { countryTable } from './country';
 import { userTable } from './users';
 
-export const addressTable = pgTable('addresses', {
+export const addressTable = pgTable('address', {
 	id: varchar('id', {
 		length: 50
 	}).primaryKey(),

@@ -1,11 +1,11 @@
 {
-  "id": "35bcd4c4-5196-47ac-9651-4d900d116698",
+  "id": "a07993df-4623-46c4-b9a5-7a797008a984",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
   "tables": {
-    "addresses": {
-      "name": "addresses",
+    "address": {
+      "name": "address",
       "schema": "",
       "columns": {
         "id": {
@@ -53,9 +53,9 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "addresses_countryId_country_id_fk": {
-          "name": "addresses_countryId_country_id_fk",
-          "tableFrom": "addresses",
+        "address_countryId_country_id_fk": {
+          "name": "address_countryId_country_id_fk",
+          "tableFrom": "address",
           "tableTo": "country",
           "columnsFrom": [
             "countryId"
@@ -66,9 +66,9 @@
           "onDelete": "no action",
           "onUpdate": "no action"
         },
-        "addresses_author_users_id_fk": {
-          "name": "addresses_author_users_id_fk",
-          "tableFrom": "addresses",
+        "address_author_users_id_fk": {
+          "name": "address_author_users_id_fk",
+          "tableFrom": "address",
           "tableTo": "users",
           "columnsFrom": [
             "author"
@@ -389,18 +389,6 @@
           "primaryKey": false,
           "notNull": false
         },
-        "company_type": {
-          "name": "company_type",
-          "type": "company_type",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "regionId": {
-          "name": "regionId",
-          "type": "varchar(50)",
-          "primaryKey": false,
-          "notNull": true
-        },
         "workspaceId": {
           "name": "workspaceId",
           "type": "varchar(50)",
@@ -454,19 +442,6 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "structure_companies_regionId_structure_regions_id_fk": {
-          "name": "structure_companies_regionId_structure_regions_id_fk",
-          "tableFrom": "structure_companies",
-          "tableTo": "structure_regions",
-          "columnsFrom": [
-            "regionId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        },
         "structure_companies_workspaceId_structure_workspaces_id_fk": {
           "name": "structure_companies_workspaceId_structure_workspaces_id_fk",
           "tableFrom": "structure_companies",
@@ -493,10 +468,10 @@
           "onDelete": "no action",
           "onUpdate": "no action"
         },
-        "structure_companies_address_addresses_id_fk": {
-          "name": "structure_companies_address_addresses_id_fk",
+        "structure_companies_address_address_id_fk": {
+          "name": "structure_companies_address_address_id_fk",
           "tableFrom": "structure_companies",
-          "tableTo": "addresses",
+          "tableTo": "address",
           "columnsFrom": [
             "address"
           ],
@@ -756,87 +731,6 @@
         "structure_positions_author_users_id_fk": {
           "name": "structure_positions_author_users_id_fk",
           "tableFrom": "structure_positions",
-          "tableTo": "users",
-          "columnsFrom": [
-            "author"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
-    },
-    "structure_regions": {
-      "name": "structure_regions",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "varchar(50)",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "title": {
-          "name": "title",
-          "type": "varchar(250)",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "description": {
-          "name": "description",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "workspaceId": {
-          "name": "workspaceId",
-          "type": "varchar(50)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "author": {
-          "name": "author",
-          "type": "varchar(50)",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "createdAt": {
-          "name": "createdAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "updatedAt": {
-          "name": "updatedAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "structure_regions_workspaceId_structure_workspaces_id_fk": {
-          "name": "structure_regions_workspaceId_structure_workspaces_id_fk",
-          "tableFrom": "structure_regions",
-          "tableTo": "structure_workspaces",
-          "columnsFrom": [
-            "workspaceId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        },
-        "structure_regions_author_users_id_fk": {
-          "name": "structure_regions_author_users_id_fk",
-          "tableFrom": "structure_regions",
           "tableTo": "users",
           "columnsFrom": [
             "author"
@@ -2186,13 +2080,6 @@
         "guest": "guest",
         "user": "user",
         "admin": "admin"
-      }
-    },
-    "company_type": {
-      "name": "company_type",
-      "values": {
-        "company": "company",
-        "counterparty": "counterparty"
       }
     },
     "level": {
