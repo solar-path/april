@@ -10,9 +10,6 @@
 	import DepartmentCard from '$lib/components/entity/Department/Department.card.svelte';
 	import Department from '$lib/components/entity/Department/Department.form.svelte';
 
-	import RegionCard from '$lib/components/entity/Region/Region.card.svelte';
-	import Region from '$lib/components/entity/Region/Region.form.svelte';
-
 	import PositionCard from '$lib/components/entity/Position/Position.card.svelte';
 	import Position from '$lib/components/entity/Position/Position.form.svelte';
 
@@ -42,7 +39,6 @@
 	];
 
 	const formList = [
-		{ title: 'Region', form: Region },
 		{ title: 'Company', form: Company },
 		{ title: 'Department', form: Department },
 		{ title: 'Position', form: Position }
@@ -110,10 +106,6 @@
 			{#if $selectedItem}
 				{#if $selectedItem.type === 'workspace'}
 					<WorkspaceCard selectedStructureItem={$selectedItem} {data} />
-				{/if}
-
-				{#if $selectedItem.type === 'region'}
-					<RegionCard selectedStructureItem={$selectedItem} {data} />
 				{/if}
 
 				{#if $selectedItem.type === 'company'}

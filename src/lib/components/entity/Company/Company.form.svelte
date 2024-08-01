@@ -14,8 +14,7 @@
 			description: string;
 			logo?: string;
 			type: string;
-			region: string;
-			regionId: string;
+
 			workspace: string;
 			workspaceId: string;
 			industry: string;
@@ -27,8 +26,7 @@
 		};
 		workspaceList: any[];
 		groupStructureTree: any[];
-		regionList: any[];
-		regionTree: any[];
+
 		industryList: any[];
 		industryTree: any[];
 		countryList: any[];
@@ -48,8 +46,6 @@
 					// logo: data.item.logo,
 					logo: '',
 					type: data.item.type,
-					regionId: data.item.regionId,
-					region: data.regionList.find((item) => item.id === data?.item?.regionId)?.title,
 					workspaceId: data.item.workspaceId,
 					workspace: data.workspaceList.find((item) => item.id === data?.item?.workspaceId)?.title,
 					industryId: data.item.industryId,
@@ -74,19 +70,11 @@
 		}
 	);
 
-	$: filteredRegionList = data.regionList.filter(
-		(region) => region.workspaceId === $form.workspaceId
-	);
-
 	// Subscribe to the store and update the form reactively
 	const unsubscribe = formStore.subscribe((value) => {
 		if (value.workspaceId) {
 			$form.workspaceId = value.workspaceId.fieldId;
 			$form.workspace = value.workspaceId.fieldName;
-		}
-		if (value.regionId) {
-			$form.regionId = value.regionId.fieldId;
-			$form.region = value.regionId.fieldName;
 		}
 
 		if (value.industryId) {
@@ -120,7 +108,6 @@
 >
 	<input type="hidden" name="id" bind:value={$form.id} />
 	<input type="hidden" name="workspaceId" bind:value={$form.workspaceId} />
-	<input type="hidden" name="regionId" bind:value={$form.regionId} />
 	<input type="hidden" name="type" value="company" />
 	<input type="hidden" name="industryId" bind:value={$form.industryId} />
 	<input type="hidden" name="countryId" bind:value={$form.countryId} />
@@ -176,22 +163,6 @@
 			fieldName="workspace"
 		/>
 		<DisplayFormErrors errors={$errors.workspaceId} />
-	</div>
-
-	<div class="w-full">
-		<SelectWithSearchTree
-			label="Region"
-			list={filteredRegionList}
-			tree={filteredRegionList}
-			form={$form}
-			errors={$errors}
-			constraints={$constraints}
-			modalID="Region"
-			modalState={false}
-			fieldId="regionId"
-			fieldName="region"
-		/>
-		<DisplayFormErrors errors={$errors.regionId} />
 	</div>
 
 	<div class="w-full">

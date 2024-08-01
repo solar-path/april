@@ -1,11 +1,10 @@
 import { db } from '$lib/database/db';
-import { regionTable, workspaceTable } from '$lib/database/schema/entity';
+import { workspaceTable } from '$lib/database/schema/entity';
 import { industryTable } from '$lib/database/schema/industry';
 import { ne } from 'drizzle-orm';
 import { z } from 'zod';
 
 const workspaces = await db.select().from(workspaceTable);
-const regions = await db.select().from(regionTable);
 
 const industries = await db
 	.select({
@@ -35,17 +34,7 @@ export const companySchema = z.object({
 			},
 			{ message: 'Invalid workspace' }
 		),
-	regionId: z.string(),
-	region: z
-		.string()
-		.min(1, { message: 'Required field' })
-		.refine(
-			(value) => {
-				const validItems = regions.map((unit) => unit.title.toLowerCase());
-				return value ? validItems.includes(value.toLowerCase()) : true;
-			},
-			{ message: 'Invalid region' }
-		),
+
 	industryId: z.string(),
 	industry: z
 		.string()
