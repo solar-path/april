@@ -2,7 +2,7 @@ import { contactUsSchema, findInquiryByIDSchema } from '$lib/forms/contact/conta
 import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { getWorkspaceBySlug, getWorkspaceList } from '$lib/helpers/getWorkspace';
-import { workspaceSchema } from '$lib/components/Workspace/workspace.schema';
+import { workspaceSchema } from '$lib/components/entity/Workspace/workspace.schema';
 import { companyTable } from '$lib/database/schema/entity.js';
 import { eq } from 'drizzle-orm';
 import { db } from '$lib/database/db';
