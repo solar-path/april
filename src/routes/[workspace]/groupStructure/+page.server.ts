@@ -55,18 +55,6 @@ export const load = async (event) => {
 
 	// get the region list via the workspaceUserTable and left join with the workspaceTable and then the region,
 	// i.e. currentUser (event.locals.user) might be different from the author of the region
-	// const regionList = await db
-	// 	.select({
-	// 		id: regionTable.id,
-	// 		title: regionTable.title,
-	// 		workspaceId: regionTable.workspaceId,
-	// 		description: regionTable.description,
-	// 		author: regionTable.author
-	// 	})
-	// 	.from(regionTable)
-	// 	.leftJoin(workspaceTable, eq(workspaceTable.id, regionTable.workspaceId))
-	// 	.where(eq(regionTable.author, event.locals.user.id));
-
 	const regionList = await db
 		.select({
 			id: regionTable.id,
@@ -80,6 +68,8 @@ export const load = async (event) => {
 		.leftJoin(regionTable, eq(regionTable.workspaceId, workspaceTable.id))
 		.where(eq(workspaceUserTable.userId, event.locals.user.id));
 
+	// get the company list via the workspaceUserTable and left join with the workspaceTable and then the region,
+	// i.e. currentUser (event.locals.user) might be different from the author of the company
 	const companyList = await db
 		.select({
 			id: companyTable.id,
@@ -113,14 +103,20 @@ export const load = async (event) => {
 			},
 			regionId: companyTable.regionId
 		})
-		.from(companyTable)
-		.where(and(eq(companyTable.type, 'company'), eq(companyTable.author, event.locals.user.id)))
+		.from(workspaceUserTable)
+		.leftJoin(workspaceTable, eq(workspaceTable.id, workspaceUserTable.workspaceId))
+		.leftJoin(companyTable, eq(companyTable.workspaceId, workspaceTable.id))
+		.where(
+			and(eq(workspaceUserTable.userId, event.locals.user.id), eq(companyTable.type, 'company'))
+		)
 		.leftJoin(regionTable, eq(regionTable.id, companyTable.regionId))
 		.leftJoin(addressTable, eq(addressTable.id, companyTable.address))
 		.leftJoin(contactTable, eq(contactTable.id, companyTable.contact))
 		.leftJoin(countryTable, eq(countryTable.id, addressTable.countryId))
 		.leftJoin(industryTable, eq(industryTable.id, companyTable.industryId));
 
+	// get the department list via the departmentTable and left join with the companyTable,
+	// i.e. currentUser (event.locals.user) might be different from the author of the department
 	const departmentList = await db
 		.select({
 			id: departmentTable.id,
@@ -129,10 +125,13 @@ export const load = async (event) => {
 			companyId: departmentTable.companyId,
 			author: departmentTable.author
 		})
-		.from(departmentTable)
-		.where(eq(departmentTable.author, event.locals.user.id))
-		.leftJoin(companyTable, eq(companyTable.id, departmentTable.companyId));
+		.from(workspaceUserTable)
+		.leftJoin(workspaceTable, eq(workspaceTable.id, workspaceUserTable.workspaceId))
+		.leftJoin(departmentTable, eq(departmentTable.workspaceId, workspaceTable.id))
+		.where(eq(workspaceUserTable.userId, event.locals.user.id));
 
+	// get the position list via the positionTable and left join with the departmentTable and the companyTable,
+	// i.e. currentUser (event.locals.user) might be different from the author of the position
 	const positionList = await db
 		.select({
 			id: positionTable.id,
@@ -142,10 +141,10 @@ export const load = async (event) => {
 			companyId: positionTable.companyId,
 			author: positionTable.author
 		})
-		.from(positionTable)
-		.where(eq(positionTable.author, event.locals.user.id))
-		.leftJoin(departmentTable, eq(departmentTable.id, positionTable.departmentId))
-		.leftJoin(companyTable, eq(companyTable.id, positionTable.companyId));
+		.from(workspaceUserTable)
+		.leftJoin(workspaceTable, eq(workspaceTable.id, workspaceUserTable.workspaceId))
+		.leftJoin(positionTable, eq(positionTable.workspaceId, workspaceTable.id))
+		.where(eq(workspaceUserTable.userId, event.locals.user.id));
 
 	const tree = workspaceList.map((workspace) => {
 		const workspaceRegions = regionList
