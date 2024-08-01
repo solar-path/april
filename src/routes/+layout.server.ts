@@ -6,7 +6,7 @@ import { workspaceSchema } from '$lib/components/Workspace/workspace.schema';
 import { companyTable } from '$lib/database/schema/entity.js';
 import { eq } from 'drizzle-orm';
 import { db } from '$lib/database/db';
-import { companySchema } from '../lib/components/Company/company.schema.js';
+import { companySchema } from '../lib/components/entity/Company/company.schema.js';
 
 export const load = async (event) => {
 	const currentUser = event.locals.user;

@@ -4,12 +4,17 @@ import { workspaceTable } from '$lib/database/schema/entity';
 import { workspaceUserTable } from '$lib/database/schema/users';
 import { fileProcessor } from '$lib/helpers/fileProcessor';
 import { slugify } from '$lib/helpers/slugify';
-import { redirect } from '@sveltejs/kit';
+import { redirect, type Actions } from '@sveltejs/kit';
 import { eq } from 'drizzle-orm';
 import { fail, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 
-export const actions = {
+export const actions: Actions = {
+	/**
+	 * @description - Create a workspace
+	 * @param event
+	 * @returns
+	 */
 	createWorkspace: async (event) => {
 		if (!event.locals.user?.id) {
 			return fail(400, { error: 'User ID is undefined' });
@@ -30,7 +35,11 @@ export const actions = {
 					title: form.data.title.trim(),
 					logo: form.data.logo instanceof File ? await fileProcessor(form.data.logo, 'logo') : '',
 					description: form.data.description ? form.data.description.trim() : '',
-					workspace: await slugify(form.data.title.trim()),
+					workspace: await slugify(
+						form.data.title.trim(),
+						workspaceTable,
+						workspaceTable.workspace
+					),
 					author: event.locals.user?.id
 				})
 				.returning();
@@ -47,6 +56,11 @@ export const actions = {
 			return fail(500, { error: 'Internal Server Error' });
 		}
 	},
+	/**
+	 * @description - Update a workspace
+	 * @param event
+	 * @returns
+	 */
 	updateWorkspace: async (event) => {
 		const form = await superValidate(await event.request.formData(), zod(workspaceSchema));
 
@@ -71,6 +85,11 @@ export const actions = {
 			return { form };
 		}
 	},
+	/**
+	 * @description - Delete a workspace
+	 * @param event
+	 * @returns
+	 */
 	deleteWorkspace: async (event) => {
 		const form = await superValidate(await event.request.formData(), zod(deleteWorkspaceSchema));
 		if (!form.valid) {

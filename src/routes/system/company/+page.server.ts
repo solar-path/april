@@ -1,16 +1,19 @@
 import { fail, superValidate, withFiles } from 'sveltekit-superforms';
-import {
-	companySchema,
-	deleteCompanySchema
-} from '../../../../lib/components/Company/company.schema';
+import { companySchema, deleteCompanySchema } from '$lib/components/entity/Company/company.schema';
 import { zod } from 'sveltekit-superforms/adapters';
 import { db } from '$lib/database/db';
 import { companyTable } from '$lib/database/schema/entity';
 import { eq } from 'drizzle-orm';
 import { fileProcessor } from '$lib/helpers/fileProcessor';
+import type { Actions } from '@sveltejs/kit';
+import { slugify } from '$lib/helpers/slugify';
 
-export const actions = {
-	// COMPANY CRUD
+export const actions: Actions = {
+	/**
+	 * @description - Create a company
+	 * @param event
+	 * @returns
+	 */
 	createCompany: async (event) => {
 		const form = await superValidate(await event.request.formData(), zod(companySchema));
 
@@ -34,6 +37,7 @@ export const actions = {
 			description: form.data.description?.trim() || '',
 			logo: form.data.logo instanceof File ? await fileProcessor(form.data.logo, 'logo') : '',
 			type: 'company',
+			company: await slugify(form.data.title.trim(), companyTable, companyTable.company),
 			regionId: form.data.regionId || '',
 			workspaceId: form.data.workspaceId || '',
 			industryId: form.data.industryId || '',
@@ -43,6 +47,11 @@ export const actions = {
 
 		return withFiles({ form });
 	},
+	/**
+	 * @description - Update a company
+	 * @param event
+	 * @returns
+	 */
 	updateCompany: async (event) => {
 		console.log('update company endpoint reached');
 		const form = await superValidate(await event.request.formData(), zod(companySchema));
@@ -52,6 +61,11 @@ export const actions = {
 		}
 		return { form };
 	},
+	/**
+	 * @description - Delete a company
+	 * @param event
+	 * @returns
+	 */
 	deleteCompany: async (event) => {
 		console.log('delete company endpoint reached');
 		const form = await superValidate(await event.request.formData(), zod(deleteCompanySchema));

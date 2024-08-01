@@ -2,7 +2,7 @@
 	import { Avatar, Dropdown, DropdownItem, NavLi } from 'flowbite-svelte';
 	import { PlusOutline } from 'flowbite-svelte-icons';
 	import { fillDrawer } from '$lib/components/Drawer/drawer.utlities';
-	import Workspace from '$lib/components/Workspace/Workspace.form.svelte';
+	import Workspace from '$lib/components/entity/Workspace/Workspace.form.svelte';
 
 	export let data;
 	export let currentWorkspace;

@@ -1,13 +1,22 @@
 import { fail, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
-import { deleteDepartmentSchema, departmentSchema } from './department.schema';
+import {
+	deleteDepartmentSchema,
+	departmentSchema
+} from '$lib/components/entity/Department/department.schema';
 import { departmentTable } from '$lib/database/schema/entity';
 import { db } from '$lib/database/db';
 import { eq } from 'drizzle-orm';
 import { getWorkspaceBySlug } from '$lib/helpers/getWorkspace';
 
-export const actions = {
-	// DEPARTMENT CRUD
+import type { Actions } from '@sveltejs/kit';
+
+export const actions: Actions = {
+	/**
+	 * @description - Create a department
+	 * @param event
+	 * @returns
+	 */
 	createDepartment: async (event) => {
 		const currentWorkspace = await getWorkspaceBySlug(event.params.workspace);
 		const form = await superValidate(await event.request.formData(), zod(departmentSchema));
@@ -29,6 +38,11 @@ export const actions = {
 
 		return { form };
 	},
+	/**
+	 * @description - Update a department
+	 * @param event
+	 * @returns
+	 */
 	updateDepartment: async (event) => {
 		console.log('update department endpoint reached');
 		const form = await superValidate(await event.request.formData(), zod(departmentSchema));
@@ -61,6 +75,11 @@ export const actions = {
 
 		return { form };
 	},
+	/**
+	 * @description - Delete a department
+	 * @param event
+	 * @returns
+	 */
 	deleteDepartment: async (event) => {
 		console.log('delete department endpoint reached');
 		const form = await superValidate(await event.request.formData(), zod(deleteDepartmentSchema));

@@ -3,7 +3,7 @@
 	import { ChevronDownOutline } from 'flowbite-svelte-icons';
 	import { fillDrawer } from '$lib/components/Drawer/drawer.utlities';
 	import { page } from '$app/stores';
-	import Workspace from '$lib/components/Workspace/Workspace.form.svelte';
+	import Workspace from '$lib/components/entity/Workspace/Workspace.form.svelte';
 	export let data;
 </script>
 

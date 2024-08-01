@@ -1,13 +1,23 @@
 import { fail, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
-import { deletePositionSchema, positionSchema } from './position.schema';
+import {
+	deletePositionSchema,
+	positionSchema
+} from '../../../lib/components/entity/Position/position.schema';
 import { db } from '$lib/database/db';
 import { positionTable } from '$lib/database/schema/entity';
 import { eq } from 'drizzle-orm';
 import { getWorkspaceBySlug } from '$lib/helpers/getWorkspace';
 
 // POSITION CRUD
-export const actions = {
+import type { Actions } from '@sveltejs/kit';
+
+export const actions: Actions = {
+	/**
+	 * @description - Create a position
+	 * @param event
+	 * @returns
+	 */
 	createPosition: async (event) => {
 		console.log('create position endpoint reached');
 
@@ -32,6 +42,11 @@ export const actions = {
 
 		return { form };
 	},
+	/**
+	 * @description - Update a position
+	 * @param event
+	 * @returns
+	 */
 	updatePosition: async (event) => {
 		console.log('update position endpoint reached');
 		const form = await superValidate(await event.request.formData(), zod(positionSchema));
@@ -62,6 +77,11 @@ export const actions = {
 			.where(eq(positionTable.id, form.data.id ?? ''));
 		return { form };
 	},
+	/**
+	 * @description - Delete a position
+	 * @param event
+	 * @returns
+	 */
 	deletePosition: async (event) => {
 		console.log('delete position endpoint reached');
 		const form = await superValidate(await event.request.formData(), zod(deletePositionSchema));

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Button, Dropdown, DropdownItem, ListPlaceholder } from 'flowbite-svelte';
 	import { fillDrawer } from '$lib/components/Drawer/drawer.utlities';
-	import WorkspaceCard from '../../lib/components/Workspace/Workspace.card.svelte';
+	import WorkspaceCard from '../../lib/components/entity/Workspace/Workspace.card.svelte';
 	import RegionCard from '../../routes/[slug]/entity/region/Region.card.svelte';
 	import CompanyCard from '../../routes/[slug]/entity/company/Company.card.svelte';
 	import DepartmentCard from '../../routes/[slug]/entity/department/Department.card.svelte';

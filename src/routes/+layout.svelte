@@ -21,8 +21,8 @@
 	} from 'flowbite-svelte';
 	import { page } from '$app/stores';
 	import { fillDrawer } from '$lib/components/Drawer/drawer.utlities';
-	import Workspace from '$lib/components/Workspace/Workspace.form.svelte';
-	import Company from '$lib/components/Company/Company.form.svelte';
+	import Workspace from '$lib/components/entity/Workspace/Workspace.form.svelte';
+	import Company from '$lib/components/entity/Company/Company.form.svelte';
 	import { PlusOutline } from 'flowbite-svelte-icons';
 	import { drawerContent, hideDrawer } from '$lib/components/Drawer/drawer.utlities';
 

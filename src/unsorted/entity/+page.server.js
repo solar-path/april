@@ -12,7 +12,7 @@ import {
 
 import { workspaceSchema } from '$lib/components/Workspace/workspace.schema';
 import { regionSchema } from '../../routes/[workspace]/businessUnit/region/region.schema';
-import { companySchema } from '../../lib/components/Company/company.schema';
+import { companySchema } from '../../lib/components/entity/Company/company.schema';
 import { departmentSchema } from '../../routes/[workspace]/businessUnit/department/department.schema';
 import { positionSchema } from '../../routes/[workspace]/businessUnit/position/position.schema';
 import { addressTable } from '$lib/database/schema/address';

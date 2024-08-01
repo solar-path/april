@@ -1,16 +1,16 @@
 <script lang="ts">
 	import { Button, Dropdown, DropdownItem, ListPlaceholder } from 'flowbite-svelte';
 	import { fillDrawer } from '$lib/components/Drawer/drawer.utlities';
-	import WorkspaceCard from '$lib/components/Workspace/Workspace.card.svelte';
-	import RegionCard from './region/Region.card.svelte';
-	import CompanyCard from '../../../lib/components/Company/Company.card.svelte';
-	import DepartmentCard from './department/Department.card.svelte';
-	import PositionCard from './position/Position.card.svelte';
+	import WorkspaceCard from '$lib/components/entity/Workspace/Workspace.card.svelte';
+	import RegionCard from '../../../lib/components/entity/Region/Region.card.svelte';
+	import CompanyCard from '$lib/components/entity/Company/Company.card.svelte';
+	import DepartmentCard from '$lib/components/entity/Department/Department.card.svelte';
+	import PositionCard from '../../../lib/components/entity/Position/Position.card.svelte';
 
-	import Region from './region/Region.form.svelte';
-	import Company from './company/Company.form.svelte';
-	import Department from './department/Department.form.svelte';
-	import Position from './position/Position.form.svelte';
+	import Region from '../../../lib/components/entity/Region/Region.form.svelte';
+	import Company from '$lib/components/entity/Company/Company.form.svelte';
+	import Department from '$lib/components/entity/Department/Department.form.svelte';
+	import Position from '../../../routes/system/position/Position.form.svelte';
 
 	import { ChevronDownOutline, FileChartBarOutline, FilePdfOutline } from 'flowbite-svelte-icons';
 	import TreeView from '$lib/components/Tree/TreeView.svelte';

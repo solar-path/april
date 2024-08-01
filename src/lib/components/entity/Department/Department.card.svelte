@@ -1,16 +1,16 @@
 <script lang="ts">
 	import DeleteButton from '$lib/components/DeleteButton.svelte';
 	import { fillDrawer } from '$lib/components/Drawer/drawer.utlities';
+	export let selectedStructureItem;
 	import { Button, Heading, Hr, P } from 'flowbite-svelte';
 	import { EditOutline } from 'flowbite-svelte-icons';
-	import Position from './Position.form.svelte';
-	export let selectedStructureItem;
+	import Department from '$lib/components/entity/Department/Department.form.svelte';
 	export let data;
 </script>
 
 <div class="flex">
 	<div>
-		<Heading tag="h4">Unit details (Position):</Heading>
+		<Heading tag="h4">Unit details (Department):</Heading>
 	</div>
 	<div class="ml-auto flex flex-row justify-end space-x-2">
 		<Button
@@ -18,12 +18,12 @@
 			class="h-9 w-10 !p-2"
 			size="xs"
 			on:click={() =>
-				fillDrawer('Edit position', Position, { ...data, item: selectedStructureItem })}
+				fillDrawer('Edit department', Department, { ...data, item: selectedStructureItem })}
 		>
 			<EditOutline class="h-4 w-6" /></Button
 		>
 		<DeleteButton
-			path="/dashboard/entity?/deletePosition"
+			path="/dashboard/entity?/deleteDepartment"
 			name={'id'}
 			identifier={selectedStructureItem.id}
 		/>

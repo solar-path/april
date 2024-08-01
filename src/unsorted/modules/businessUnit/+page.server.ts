@@ -1,4 +1,4 @@
-import { workspaceSchema } from '$lib/components/Workspace/workspace.schema';
+import { workspaceSchema } from '$lib/components/entity/Workspace/workspace.schema';
 import { db } from '$lib/database/db';
 import { addressTable } from '$lib/database/schema/address';
 import { contactTable } from '$lib/database/schema/contact';
@@ -13,10 +13,10 @@ import {
 import { industryTable } from '$lib/database/schema/industry';
 import { redirect } from '@sveltejs/kit';
 import { and, eq } from 'drizzle-orm';
-import { regionSchema } from './region/region.schema';
-import { companySchema } from '../../../lib/components/Company/company.schema';
-import { departmentSchema } from './department/department.schema';
-import { positionSchema } from './position/position.schema';
+import { regionSchema } from '../../../lib/components/entity/Region/region.schema';
+import { companySchema } from '../../../lib/components/entity/Company/company.schema';
+import { departmentSchema } from '../../../lib/components/entity/Department/department.schema';
+import { positionSchema } from '../../../lib/components/entity/Position/position.schema';
 import { buildTree } from '$lib/components/Tree/TreeView.utilities';
 import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
