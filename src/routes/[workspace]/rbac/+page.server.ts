@@ -5,7 +5,7 @@ import {
 	roleTable,
 	userRoleTable
 } from '$lib/database/schema/rbac';
-import { userTable } from '$lib/database/schema/users';
+import { userTable, workspaceUserTable } from '$lib/database/schema/users';
 import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { roleSchema } from './roles/role.schema';
@@ -13,20 +13,42 @@ import { permissionSchema } from './permissions/permission.schema';
 import { rolePermissionSchema } from './rolePermissions/rolePermission.schema';
 import { userRoleSchema } from './userRoles/userRole.schema';
 import { eq } from 'drizzle-orm';
+import { getWorkspaceBySlug } from '$lib/helpers/getWorkspace';
 
-export const load = async () => {
+export const load = async (event) => {
+	const currentWorkspace = await getWorkspaceBySlug(event.params.workspace);
+
 	return {
 		// permissions
-		permissionList: await db.select().from(permissionTable),
+		permissionList: currentWorkspace
+			? await db
+					.select()
+					.from(permissionTable)
+					.where(eq(permissionTable.workspaceId, currentWorkspace.id))
+			: [],
+
 		permissionForm: await superValidate(zod(permissionSchema)),
+
 		// roles
-		roleList: await db.select().from(roleTable),
+		roleList: currentWorkspace
+			? await db.select().from(roleTable).where(eq(roleTable.workspaceId, currentWorkspace.id))
+			: [],
 		roleForm: await superValidate(zod(roleSchema)),
 		// users
-		userList: await db.select().from(userTable),
+		userList: currentWorkspace
+			? await db
+					.select()
+					.from(workspaceUserTable)
+					.where(eq(workspaceUserTable.workspaceId, currentWorkspace.id))
+			: [],
 
 		// user roles
-		userRoleList: await db.select().from(userRoleTable),
+		userRoleList: currentWorkspace
+			? await db
+					.select()
+					.from(userRoleTable)
+					.where(eq(userRoleTable.workspaceId, currentWorkspace.id))
+			: [],
 		userRoleForm: await superValidate(zod(userRoleSchema)),
 		// role permissions
 		rolePermissionList: await db

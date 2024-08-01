@@ -56,7 +56,7 @@ export const actions = {
 			.where(eq(userTable.email, form.data.email.trim().toLowerCase()))
 			.limit(1);
 
-		const currentWorkspace = await getWorkspaceBySlug(event.params.slug);
+		const currentWorkspace = await getWorkspaceBySlug(event.params.workspace);
 
 		const userAlreadyInWorkspace = await db
 			.select()

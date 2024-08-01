@@ -1,5 +1,5 @@
 {
-  "id": "8eb40e23-d5b2-47a0-a78c-320cfcc04b7e",
+  "id": "35bcd4c4-5196-47ac-9651-4d900d116698",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
@@ -1149,6 +1149,12 @@
           "primaryKey": false,
           "notNull": false
         },
+        "level": {
+          "name": "level",
+          "type": "level",
+          "primaryKey": false,
+          "notNull": true
+        },
         "createdAt": {
           "name": "createdAt",
           "type": "timestamp",
@@ -2187,6 +2193,15 @@
       "values": {
         "company": "company",
         "counterparty": "counterparty"
+      }
+    },
+    "level": {
+      "name": "level",
+      "values": {
+        "view": "view",
+        "create": "create",
+        "edit": "edit",
+        "full": "full"
       }
     },
     "control_type": {

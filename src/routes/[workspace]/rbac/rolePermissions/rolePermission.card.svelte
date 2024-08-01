@@ -7,7 +7,6 @@
 
 	const reports: any[] = [];
 	const columns: any[] = [
-		{ label: 'ID', key: 'id', type: 'string' },
 		{ label: 'Role', key: 'role', type: 'string' },
 		{ label: 'Permission', key: 'permission', type: 'string' }
 	];

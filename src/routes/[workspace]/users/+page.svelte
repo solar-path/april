@@ -2,8 +2,6 @@
 	import { page } from '$app/stores';
 	import GenericTable from '$lib/components/Table/GenericTable.svelte';
 	import InviteUser from './InviteUser.form.svelte';
-	import { generatePdfUserReport } from './reports/generatePdfUserReport';
-	import { generateXlsUserReport } from './reports/generateXlsUserReport';
 
 	export let data: any;
 
@@ -11,8 +9,8 @@
 	$: console.log(userWorkspaceList);
 
 	const reports = [
-		{ report: generatePdfUserReport, title: 'User report', type: 'PDF' },
-		{ report: generateXlsUserReport, title: 'User report', type: 'XLS' }
+		// { report: generatePdfUserReport, title: 'User report', type: 'PDF' },
+		// { report: generateXlsUserReport, title: 'User report', type: 'XLS' }
 	];
 
 	const columns = [

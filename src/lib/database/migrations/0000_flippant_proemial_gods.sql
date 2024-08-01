@@ -17,6 +17,12 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
+ CREATE TYPE "level" AS ENUM('view', 'create', 'edit', 'full');
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
  CREATE TYPE "control_type" AS ENUM('Preventive', 'Detective', 'SoD');
 EXCEPTION
  WHEN duplicate_object THEN null;
@@ -184,6 +190,7 @@ CREATE TABLE IF NOT EXISTS "rbac_role_permission" (
 	"id" varchar(50) PRIMARY KEY NOT NULL,
 	"roleId" varchar(50),
 	"permissionId" varchar(50),
+	"level" "level" NOT NULL,
 	"createdAt" timestamp DEFAULT now() NOT NULL,
 	"updatedAt" timestamp DEFAULT now() NOT NULL,
 	"workspaceId" varchar(50)

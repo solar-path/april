@@ -19,7 +19,8 @@ export const seedRolePermission = async () => {
 						id: crypto.randomUUID(),
 						roleId: role.id,
 						permissionId: permission.id,
-						workspaceId: workspace.id
+						workspaceId: workspace.id,
+						level: 'full'
 					});
 				}
 			}

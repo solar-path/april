@@ -8,7 +8,6 @@
 	const reports: any[] = [];
 
 	const columns: any[] = [
-		{ label: 'ID', key: 'id', type: 'string' },
 		{ label: 'Title', key: 'title', type: 'string' },
 		{ label: 'Description', key: 'description', type: 'string' }
 	];
